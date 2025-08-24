@@ -55,4 +55,14 @@ export const authService = {
     return await authApi.resetPassword(data);
   },
 
+    /****************  OAUTH ************************************************************/
+  
+    async googleAuth(){
+      return await authApi.googleAuth();
+    },
+
+    async githubAuth(){
+      return await authApi.githubAuth();
+    }
+
 }

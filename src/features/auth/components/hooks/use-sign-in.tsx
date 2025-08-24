@@ -48,5 +48,5 @@ export const useSignIn = (): UseSignInReturn => {
     mutation.mutate(values);
   };
 
-  return { t, form, onSubmit, isPending: mutation.isPending };
+  return { t, form, onSubmit,isError: mutation.isError, isPending: mutation.isPending };
 };

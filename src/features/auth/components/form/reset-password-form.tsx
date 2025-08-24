@@ -2,7 +2,6 @@ import { Card } from "@/components/ui/card";
 import { AuthCardHeader } from "../auth-card-header";
 import { AuthCardContent } from "../auth-card-content";
 import { AuthField } from "../auth-field";
-import { CheckCircleIcon } from "lucide-react";
 import { useResetPassword } from "../hooks/use-reset-password";
 
 export interface ResetPasswordFormProps {
@@ -20,7 +19,6 @@ export const ResetPasswordForm = ({
       <AuthCardHeader title={t("pages.resetPassword.title")}>
         {isError && (
           <div className="text-red-700 mt-4 flex items-center justify-center gap-2">
-            <CheckCircleIcon className="size-4 text-red-600" />
             <p>
               <b>{t("pages.resetPassword.errors.resetFailed")}</b>.
             </p>

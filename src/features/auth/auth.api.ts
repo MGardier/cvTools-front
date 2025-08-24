@@ -55,6 +55,18 @@ export const authApi = {
     return await apiClient.patch(`${ENDPOINT}/resetPassword`, params);
   },
 
+
+  /****************  OAUTH ************************************************************/
+
+  async googleAuth(): Promise<any>{
+    
+     return await apiClient.get(`${ENDPOINT}/google`);
+  },
+
+  async githubAuth(): Promise<any>{
+     window.location.href = `${ENDPOINT}/github`;
+  }
+
 }
 
 

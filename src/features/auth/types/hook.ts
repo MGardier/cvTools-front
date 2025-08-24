@@ -24,7 +24,8 @@ export interface UseSignInReturn {
   onSubmit: SubmitHandler<SignInData>;
   form: UseFormReturn<SignInData>;
   isPending: boolean;
-  t: TFunction<'auth', undefined>;
+  isError: boolean;
+  t:TFunction<'auth', undefined>;
 }
 
 

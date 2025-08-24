@@ -5,7 +5,8 @@ import { AuthSocialMedia } from "../auth-social-media";
 import { AuthField } from "../auth-field";
 import { useSignUp } from "../hooks/use-sign-up";
 import { ROUTES } from "@/data/routes";
-import { CircleX } from "lucide-react";
+
+//TODO: corriger redirection
 
 export const SignUpForm = () => {
   const { t ,error, form, onSubmit, isError, isPending } = useSignUp();
@@ -19,7 +20,6 @@ export const SignUpForm = () => {
         </a>
         {isError && (
           <div className="text-red-600 mt-4 flex items-center justify-center gap-2">
-            <CircleX className="size-4 text-red-600" />
             <p>
               <b>
                 {error?.message 
