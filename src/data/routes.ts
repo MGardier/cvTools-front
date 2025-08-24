@@ -7,6 +7,9 @@ export const ROUTES = {
     signIn: "/sign-in",
     logout: "/logout",
 
+    /* OAUTH */
+    ouathSuccess :"/oauth-success",
+
     /* CONFIRM ACCOUNT */
     confirmAccount :"confirm-account",
 

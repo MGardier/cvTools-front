@@ -15,6 +15,7 @@ import { ConfirmAccountPage } from "./pages/auth/confirm-account-page";
 import { ResetPasswordPage } from "./pages/auth/reset-password-page";
 import { SignInPage } from "./pages/auth/sign-in-page";
 import { LogoutPage } from "./pages/auth/logout-page";
+import { OauthSuccessPage } from './pages/auth/oauth-success-page';
 
 function App() {
   const queryClient = new QueryClient();
@@ -62,6 +63,13 @@ function App() {
               key="logout"
               path={ROUTES.auth.logout}
               element={<LogoutPage />}
+            />
+
+            {/* OAUTH SUCCESS */}
+            <Route
+              key="logout"
+              path={ROUTES.auth.ouathSuccess}
+              element={<OauthSuccessPage />}
             />
           </Routes>
         </BrowserRouter>
