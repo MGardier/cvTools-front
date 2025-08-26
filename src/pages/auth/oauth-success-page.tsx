@@ -15,7 +15,7 @@ export function OauthSuccessPage() {
   if(!accessToken && !refreshToken)
     navigate(ROUTES.auth.signIn)
   authStore.setAccessToken(accessToken!)
-  authStore.setAccessToken(refreshToken!)
+  authStore.setRefreshToken(refreshToken!)
   
   navigate(ROUTES.home)
 
