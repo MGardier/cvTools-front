@@ -2,7 +2,7 @@
 
 import { authApi } from "./auth.api";
 
-import type { ConfirmAccountResponse, LogoutResponse, ResetPasswordParams, ResetPasswordResponse, SendConfirmAccountResponse, SendForgotPasswordResponse, SignInResponse, SignUpResponse } from "./types/api";
+import type { CompleteOauthParams, ConfirmAccountResponse, LogoutResponse, ResetPasswordParams, ResetPasswordResponse, SendConfirmAccountResponse, SendForgotPasswordResponse, SignInResponse, SignUpResponse } from "./types/api";
 import type { ConfirmAccountData, SendConfirmAccountData, SendForgotPasswordData, SignInData, SignUpData } from "./types/form";
 
 
@@ -55,14 +55,12 @@ export const authService = {
     return await authApi.resetPassword(data);
   },
 
-    /****************  OAUTH ************************************************************/
+    /**************** COMPLETE OAUTH ************************************************************/
   
-    async googleAuth(){
-      return await authApi.googleAuth();
+    async completeOauth(data: CompleteOauthParams): Promise<SignInResponse>{
+      return await authApi.completeOauth(data);
     },
 
-    async githubAuth(){
-      return await authApi.githubAuth();
-    }
+
 
 }

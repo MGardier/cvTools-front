@@ -15,7 +15,11 @@ import { ConfirmAccountPage } from "./pages/auth/confirm-account-page";
 import { ResetPasswordPage } from "./pages/auth/reset-password-page";
 import { SignInPage } from "./pages/auth/sign-in-page";
 import { LogoutPage } from "./pages/auth/logout-page";
-import { OauthSuccessPage } from './pages/auth/oauth-success-page';
+import { CompletedOauthPage } from './pages/auth/completed-oauth-page';
+
+//TODO: Idée ajout un how it works pour montrer l'utilisation de la recherche, candidatures et relances
+//TODO: Idée ajout Avoir une recherche qui permettent de regrouper les jobs de plusieurs plateformes
+//TODO : Avoir un tableau pour gérer ses candidatures et relances.
 
 function App() {
   const queryClient = new QueryClient();
@@ -65,11 +69,11 @@ function App() {
               element={<LogoutPage />}
             />
 
-            {/* OAUTH SUCCESS */}
+            {/* COMPLETED OAUTH  */}
             <Route
-              key="logout"
-              path={ROUTES.auth.ouathSuccess}
-              element={<OauthSuccessPage />}
+              key="completedOauth"
+              path={ROUTES.auth.completedOauth}
+              element={<CompletedOauthPage />}
             />
           </Routes>
         </BrowserRouter>

@@ -76,4 +76,8 @@ export interface UseResetPasswordReturn {
   t: TFunction<'auth', undefined>;
 }
 
-
+/**************** COMPLETE OAUTH*********************************************/
+export interface UseCompleteOauthReturn {
+  isPending: boolean;
+  t: TFunction<'auth', undefined>;
+}

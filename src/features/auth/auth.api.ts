@@ -1,6 +1,6 @@
 
 import { apiClient } from '@/api/axios';
-import type { ConfirmAccountParams, ConfirmAccountResponse, LogoutResponse, ResetPasswordParams, ResetPasswordResponse, SendConfirmAccountParams, SendConfirmAccountResponse, SendForgotPasswordParams, SendForgotPasswordResponse, SignInParams, SignInResponse, SignUpParams, SignUpResponse } from './types/api';
+import type { CompleteOauthParams, ConfirmAccountParams, ConfirmAccountResponse, LogoutResponse, ResetPasswordParams, ResetPasswordResponse, SendConfirmAccountParams, SendConfirmAccountResponse, SendForgotPasswordParams, SendForgotPasswordResponse, SignInParams, SignInResponse, SignUpParams, SignUpResponse } from './types/api';
 
 
 
@@ -58,13 +58,9 @@ export const authApi = {
 
   /****************  OAUTH ************************************************************/
 
-  async googleAuth(): Promise<any>{
-    
-     return await apiClient.get(`${ENDPOINT}/google`);
-  },
 
-  async githubAuth(): Promise<any>{
-     window.location.href = `${ENDPOINT}/github`;
+    async completeOauth(params : CompleteOauthParams): Promise<SignInResponse>{
+     return await apiClient.post(`${ENDPOINT}/completeOauth`, params);
   }
 
 }

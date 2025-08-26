@@ -16,7 +16,7 @@ export const ConfirmAccountForm = ({
 
   return (
     <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
-      <AuthCardHeader title="Renvoyer un email de confirmation">
+      <AuthCardHeader title={t("pages.confirmAccount.title")}>
         {isSuccess && (
           <p className="text-green-600 mt-4">
             <b>{t("pages.confirmAccount.success.confirmAccount")}</b>
