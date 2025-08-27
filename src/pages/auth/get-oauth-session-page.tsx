@@ -1,15 +1,16 @@
 import { ROUTES } from "@/data/routes";
 import { AuthLayout } from "@/features/auth/components/auth-layout";
-import { CompletedOauth } from "@/features/auth/components/complete-oauth";
+import { GetOauthSession } from "@/features/auth/components/get-oauth-session";
+
 
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-export function CompletedOauthPage() {
+export function GetOauthSessionPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const oauthId = searchParams.get("oauthId");
+  const sessionId = searchParams.get("sessionId");
   const loginMethod = searchParams.get("loginMethod");
-  if (!oauthId || !loginMethod) {
+  if (!sessionId || !loginMethod) {
     navigate(
       `${ROUTES.auth.signIn}?errorCode=${loginMethod}_COMPLETED_OAUTH_FAILED`
     );
@@ -17,6 +18,6 @@ export function CompletedOauthPage() {
   }
 
   return <AuthLayout>
-    <CompletedOauth {...{loginMethod,oauthId}}/>
+    <GetOauthSession {...{loginMethod,sessionId}}/>
   </AuthLayout>
 }

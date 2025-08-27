@@ -4,13 +4,13 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 import { authService } from "../../auth.service";
-import type { ApiErrors, CompleteOauthParams, SignInResponse } from "../../types/api";
+import type { ApiErrors, SignInResponse } from "../../types/api";
 import { ROUTES } from "@/data/routes";
 import type { UseCompleteOauthReturn,  } from "../../types/hook";
 import { useAuthStore } from "../../auth.store";
 import { useEffect } from "react";
 
-export const useCompleteOauth = (oauthId : string , loginMethod: string): UseCompleteOauthReturn => {
+export const useGetOauthSession = (sessionId : string , loginMethod: string): UseCompleteOauthReturn => {
   const { t } = useTranslation("auth");
   const navigate = useNavigate();
   const authStore = useAuthStore();
@@ -19,9 +19,9 @@ export const useCompleteOauth = (oauthId : string , loginMethod: string): UseCom
   const mutation = useMutation<
     SignInResponse,
     ApiErrors,
-    CompleteOauthParams
+    string
   >({
-    mutationFn:  authService.completeOauth,
+    mutationFn:  authService.getOauthSession,
     onSuccess: (response) => {
       authStore.setAuth({ ...response.data.tokens, user: response.data.user });
       toast.success(t("messages.success.signIn.short"));
@@ -32,11 +32,10 @@ export const useCompleteOauth = (oauthId : string , loginMethod: string): UseCom
       navigate(`${ROUTES.auth.signIn}?errorCode=${loginMethod}_COMPLETED_OAUTH_FAILED`);
     }
     
-    
   });
 
   useEffect(()=> {
-       mutation.mutate({oauthId,loginMethod});
+       mutation.mutate(sessionId);
   },[])
 
  

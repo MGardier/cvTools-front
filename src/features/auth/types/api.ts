@@ -99,12 +99,7 @@ export interface ResetPasswordResponse extends ApiResponse {
 }
 
 
-/************************************************** COMPLETE OAUTH ********************************/
 
-export interface CompleteOauthParams {
-  oauthId: string;
-  loginMethod: string;
-}
 
 
 

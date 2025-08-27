@@ -2,7 +2,7 @@
 
 import { authApi } from "./auth.api";
 
-import type { CompleteOauthParams, ConfirmAccountResponse, LogoutResponse, ResetPasswordParams, ResetPasswordResponse, SendConfirmAccountResponse, SendForgotPasswordResponse, SignInResponse, SignUpResponse } from "./types/api";
+import type { ConfirmAccountResponse, LogoutResponse, ResetPasswordParams, ResetPasswordResponse, SendConfirmAccountResponse, SendForgotPasswordResponse, SignInResponse, SignUpResponse } from "./types/api";
 import type { ConfirmAccountData, SendConfirmAccountData, SendForgotPasswordData, SignInData, SignUpData } from "./types/form";
 
 
@@ -57,8 +57,8 @@ export const authService = {
 
     /**************** COMPLETE OAUTH ************************************************************/
   
-    async completeOauth(data: CompleteOauthParams): Promise<SignInResponse>{
-      return await authApi.completeOauth(data);
+    async getOauthSession(sessionId: string): Promise<SignInResponse>{
+      return await authApi.getOauthSession(sessionId);
     },
 
 

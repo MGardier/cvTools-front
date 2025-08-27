@@ -5,6 +5,7 @@ import axios, { AxiosError, type AxiosInstance } from 'axios';
 
 const NEEDED_REFRESH_ROUTES = [`auth/logout`, `auth/refresh`]
 
+
 const axiosClient = (): AxiosInstance => {
 
   const axiosClient = axios.create({
@@ -38,7 +39,7 @@ const axiosClient = (): AxiosInstance => {
       const originalRequest = error.config
 
       if (error.response?.status === 401
-        && originalRequest?.url !== 'auth/refresh'
+        && !originalRequest?.url?.includes('auth')
         && !(originalRequest as any)?._retry) {
 
         (originalRequest as any)._retry = true;
