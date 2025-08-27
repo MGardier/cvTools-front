@@ -19,7 +19,6 @@ import { useState } from "react";
 
 
 
-
 export const useSendConfirmAccount = (defaultEmail: string | null): UseSendConfirmReturn => {
 
   const [email,setEmail] = useState(defaultEmail);

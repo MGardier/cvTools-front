@@ -1,6 +1,6 @@
 
 import { apiClient } from '@/api/axios';
-import type { ConfirmAccountParams, ConfirmAccountResponse, LogoutResponse, ResetPasswordParams, ResetPasswordResponse, SendConfirmAccountParams, SendConfirmAccountResponse, SendForgotPasswordParams, SendForgotPasswordResponse, SignInParams, SignInResponse, SignUpParams, SignUpResponse } from './types/api';
+import type {  ConfirmAccountParams, ConfirmAccountResponse, LogoutResponse, ResetPasswordParams, ResetPasswordResponse, SendConfirmAccountParams, SendConfirmAccountResponse, SendForgotPasswordParams, SendForgotPasswordResponse, SignInParams, SignInResponse, SignUpParams, SignUpResponse } from './types/api';
 
 
 
@@ -54,6 +54,14 @@ export const authApi = {
   async resetPassword(params: ResetPasswordParams): Promise<ResetPasswordResponse> {
     return await apiClient.patch(`${ENDPOINT}/resetPassword`, params);
   },
+
+
+  /****************  OAUTH ************************************************************/
+
+
+    async getOauthSession(sessionId : string): Promise<SignInResponse>{
+     return await apiClient.get(`${ENDPOINT}/oauthSession/${sessionId}`);
+  }
 
 }
 

@@ -2,7 +2,6 @@ import { Card } from "@/components/ui/card";
 import { AuthCardHeader } from "../auth-card-header";
 import { AuthCardContent } from "../auth-card-content";
 import { AuthField } from "../auth-field";
-import { CheckCircleIcon } from "lucide-react";
 import { useSendForgotPassword } from "../hooks/use-send-forgot-password";
 
 export interface SendResetPasswordFormProps {
@@ -20,7 +19,6 @@ export const SendForgotPasswordForm = ({
       <AuthCardHeader title={t("pages.sendForgotPassword.title")}>
         {isError && (
           <div className="text-red-700 mt-4 flex items-center justify-center gap-2">
-            <CheckCircleIcon className="size-4 text-red-600" />
             <p>
               <b>{t("pages.sendForgotPassword.errors.sendingEmailFailed")}</b>.
             </p>
@@ -28,7 +26,6 @@ export const SendForgotPasswordForm = ({
         )}
         {Boolean(defaultEmail) && (
           <div className="text-green-700 mt-4 flex items-center justify-center gap-2">
-            <CheckCircleIcon className="size-4 text-green-600" />
             <p>
               {t("pages.sendForgotPassword.success.emailSendAt")} <b>{defaultEmail}</b>.
             </p>

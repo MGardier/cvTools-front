@@ -55,4 +55,12 @@ export const authService = {
     return await authApi.resetPassword(data);
   },
 
+    /**************** COMPLETE OAUTH ************************************************************/
+  
+    async getOauthSession(sessionId: string): Promise<SignInResponse>{
+      return await authApi.getOauthSession(sessionId);
+    },
+
+
+
 }

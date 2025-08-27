@@ -1,9 +1,11 @@
 import { ROUTES } from '@/data/routes';
 import { useAuthStore } from '@/features/auth/auth.store';
+import { useCookieStore } from '@/store/cookie.store';
 import axios, { AxiosError, type AxiosInstance } from 'axios';
 
 
 const NEEDED_REFRESH_ROUTES = [`auth/logout`, `auth/refresh`]
+
 
 const axiosClient = (): AxiosInstance => {
 
@@ -20,8 +22,9 @@ const axiosClient = (): AxiosInstance => {
   axiosClient.interceptors.request.use(
     (request) => {
       const authStore = useAuthStore.getState();
-      if (request.url && authStore.refreshToken && NEEDED_REFRESH_ROUTES.includes(request.url))
-        request.headers.Authorization = `Bearer ${authStore.refreshToken}`
+      const cookieStore = useCookieStore.getState();
+      if (request.url && cookieStore.getRefreshToken() && NEEDED_REFRESH_ROUTES.includes(request.url))
+        request.headers.Authorization = `Bearer ${cookieStore.getRefreshToken() }`
       else
         request.headers.Authorization = `Bearer ${authStore.accessToken}`
       return request;
@@ -35,19 +38,22 @@ const axiosClient = (): AxiosInstance => {
     async (error: AxiosError) => {
 
       const authStore = useAuthStore.getState();
+      const cookieStore = useCookieStore.getState();
       const originalRequest = error.config
 
       if (error.response?.status === 401
-        && originalRequest?.url !== 'auth/refresh'
+        && !originalRequest?.url?.includes('auth')
         && !(originalRequest as any)?._retry) {
 
         (originalRequest as any)._retry = true;
 
-        if (authStore.refreshToken && originalRequest) {
+        if (cookieStore.getRefreshToken()  && originalRequest) {
 
           const response = await axiosClient.post(`auth/refresh`)
           if (response.status === 201) {
-            authStore.setAuth({ ...response.data.tokens, user: response.data.user });
+            
+            authStore.setAuth({accessToken :response.data.tokens.accessToken, user: response.data.user });
+            cookieStore.setRefreshToken(response.data.tokens.refreshToken);
             originalRequest.headers.Authorization = `Bearer ${response.data.tokens.refreshToken}`
 
             return axiosClient(originalRequest);

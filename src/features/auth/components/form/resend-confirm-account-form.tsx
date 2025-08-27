@@ -3,7 +3,7 @@ import { AuthCardHeader } from "../auth-card-header";
 import { AuthCardContent } from "../auth-card-content";
 import { AuthField } from "../auth-field";
 import { useSendConfirmAccount } from "../hooks/use-resend-confirm-account";
-import { CheckCircleIcon } from "lucide-react";
+
 
 export interface ReSendConfirmAccountFormProps {
   defaultEmail: string | null;
@@ -23,7 +23,6 @@ export const ReSendConfirmAccountForm = ({
         {/** For user who come from signUp and successfully create her account */}
         {defaultEmail && !isSuccess && !isError && (
           <div className="text-green-700 mt-4 flex items-center justify-center gap-2">
-            <CheckCircleIcon className="size-4 text-green-600" />
             <p>
                 {`${t("pages.confirmAccount.success.emailSendAt")} `}<b>{email}</b>.
             </p>
@@ -32,7 +31,6 @@ export const ReSendConfirmAccountForm = ({
 
         {isError && (
           <div className="text-red-700 mt-4 flex items-center justify-center gap-2">
-            <CheckCircleIcon className="size-4 text-red-600" />
             <p>
               <b>{t("pages.confirmAccount.errors.sendingEmailFailed")}</b>.
             </p>
@@ -41,7 +39,6 @@ export const ReSendConfirmAccountForm = ({
 
         {isSuccess && (
           <div className="text-green-700 mt-4 flex items-center justify-center gap-2">
-            <CheckCircleIcon className="size-4 text-green-600" />
             <p>
               {`${t("pages.confirmAccount.success.emailResendAt")} `}<b>{email}</b>.
             </p>

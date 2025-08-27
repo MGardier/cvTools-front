@@ -24,7 +24,8 @@ export interface UseSignInReturn {
   onSubmit: SubmitHandler<SignInData>;
   form: UseFormReturn<SignInData>;
   isPending: boolean;
-  t: TFunction<'auth', undefined>;
+  isError: boolean;
+  t:TFunction<'auth', undefined>;
 }
 
 
@@ -75,4 +76,8 @@ export interface UseResetPasswordReturn {
   t: TFunction<'auth', undefined>;
 }
 
-
+/**************** COMPLETE OAUTH*********************************************/
+export interface UseCompleteOauthReturn {
+  isPending: boolean;
+  t: TFunction<'auth', undefined>;
+}
