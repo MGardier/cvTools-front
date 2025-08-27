@@ -9,11 +9,13 @@ import { ROUTES } from "@/data/routes";
 import type { UseCompleteOauthReturn,  } from "../../types/hook";
 import { useAuthStore } from "../../auth.store";
 import { useEffect } from "react";
+import { useCookieStore } from "@/store/cookie.store";
 
 export const useGetOauthSession = (sessionId : string , loginMethod: string): UseCompleteOauthReturn => {
   const { t } = useTranslation("auth");
   const navigate = useNavigate();
   const authStore = useAuthStore();
+  const cookieStore = useCookieStore();
 
 
   const mutation = useMutation<
@@ -23,7 +25,8 @@ export const useGetOauthSession = (sessionId : string , loginMethod: string): Us
   >({
     mutationFn:  authService.getOauthSession,
     onSuccess: (response) => {
-      authStore.setAuth({ ...response.data.tokens, user: response.data.user });
+      authStore.setAuth({accessToken :response.data.tokens.accessToken, user: response.data.user });
+      cookieStore.setRefreshToken(response.data.tokens.refreshToken);
       toast.success(t("messages.success.signIn.short"));
       navigate(`${ROUTES.home}`);
     },

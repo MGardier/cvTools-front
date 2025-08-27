@@ -12,16 +12,19 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/data/routes";
 import { useAuthStore } from "../../auth.store";
+import { useCookieStore } from "@/store/cookie.store";
 
 export const useLogout = (): UseLogoutReturn => {
   const { t } = useTranslation("auth");
   const navigate = useNavigate();
   const authStore = useAuthStore();
+  const cookieStore = useCookieStore();
 
   const mutation = useMutation<LogoutResponse, ApiErrors>({
     mutationFn: authService.logout,
     onSuccess: () => {
       authStore.resetAuth();
+      cookieStore.removeRefreshToken();
       toast.success(t("api.success.logout.short"));
       navigate(`/${ROUTES.auth.signIn}`);
     },

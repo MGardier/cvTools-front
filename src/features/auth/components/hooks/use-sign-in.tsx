@@ -13,11 +13,13 @@ import type { ApiErrors, SignInResponse } from "../../types/api";
 import type { UseSignInReturn } from "../../types/hook";
 import { useAuthStore } from "../../auth.store";
 import { ROUTES } from "@/data/routes";
+import { useCookieStore } from "@/store/cookie.store";
 
 export const useSignIn = (): UseSignInReturn => {
   const { t } = useTranslation("auth");
   const navigate = useNavigate();
   const authStore = useAuthStore();
+  const cookieStore = useCookieStore();
 
   const schema = createSignInSchema(t);
   const defaultValues = {
@@ -38,7 +40,11 @@ export const useSignIn = (): UseSignInReturn => {
     mutationFn: authService.signIn,
     onSuccess: (response) => {
       toast.success(t("messages.success.signIn"));
-      authStore.setAuth({ ...response.data.tokens, user: response.data.user });
+      authStore.setAuth({
+        accessToken: response.data.tokens.accessToken,
+        user: response.data.user,
+      });
+      cookieStore.setRefreshToken(response.data.tokens.refreshToken);
       navigate(`${ROUTES.home}`);
     },
     onError: () => toast.error(t("messages.errors.fallback")),
@@ -48,5 +54,11 @@ export const useSignIn = (): UseSignInReturn => {
     mutation.mutate(values);
   };
 
-  return { t, form, onSubmit,isError: mutation.isError, isPending: mutation.isPending };
+  return {
+    t,
+    form,
+    onSubmit,
+    isError: mutation.isError,
+    isPending: mutation.isPending,
+  };
 };
