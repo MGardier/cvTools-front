@@ -16,6 +16,7 @@ import { ResetPasswordPage } from "./pages/auth/reset-password-page";
 import { SignInPage } from "./pages/auth/sign-in-page";
 import { LogoutPage } from "./pages/auth/logout-page";
 import { GetOauthSessionPage } from './pages/auth/get-oauth-session-page';
+import { JobsPage } from "./pages/job/jobs-page";
 
 
 
@@ -76,6 +77,13 @@ function App() {
               key="getOauthSession"
               path={ROUTES.auth.getOauthSession}
               element={<GetOauthSessionPage />}
+            />
+
+            {/* GET OAUTH  SESSION */}
+            <Route
+              key="jobs"
+              path={ROUTES.job.getAll}
+              element={<JobsPage />}
             />
           </Routes>
         </BrowserRouter>
