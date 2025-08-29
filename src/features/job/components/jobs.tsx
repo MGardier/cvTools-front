@@ -1,7 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 import {
- type ColumnDef,
-type   ColumnFiltersState,
+  type ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -10,18 +9,18 @@ type   ColumnFiltersState,
   type SortingState,
   useReactTable,
   type VisibilityState,
-} from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown } from "lucide-react"
+} from "@tanstack/react-table";
+import { ChevronDown, Plus, Search } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -29,144 +28,160 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Checkbox } from "@/components/ui/checkbox"
-import type { Job } from "@/types/entity"
-import { jobColumns } from './job-columns';
+} from "@/components/ui/table";
 
+import type { Job } from "@/types/entity";
+import { jobColumns } from "./job-columns";
 
-
-const data = [{
-   id: 1,
-   enterprise: "entreprise",
-   type: "ENTERPRISE",
-   link: "",
-   jobTitle: "Développeur Fullstack React/ NOdejs",
-   managerName: "Jean eudes ",
-   managerEmail: "JeanEudes@gmail.com",
-   status:  "NEED_TO_CONTACT",
-   priority:   "PERFECT",
-   applicationMethod: "SITE_WEB",
-   origin: "HELLOWORK",
-   interviewCount: 0,
-   archived: false,
-   createdAt: new Date(),
-      appliedAt: new Date(),
-   technologies: [{id: 1, name: "React"},{id: 1, name: "NestJs"},],
-   adress : {
-    id:1,
-    city: "Paris",
-    postalCode : "60280",
-   },
-   user: {
+const data = [
+  {
+    id: 1,
+    enterprise: "entreprise",
+    type: "ENTERPRISE",
+    link: "",
+    jobTitle: "Développeur Fullstack React Nodejs",
+    managerName: "Jean eudes ",
+    managerEmail: "JeanEudes@gmail.com",
+    status: "NEED_TO_CONTACT",
+    priority: "PERFECT",
+    applicationMethod: "SITE_WEB",
+    origin: "HELLOWORK",
+    interviewCount: 0,
+    archived: false,
+    createdAt: new Date(),
+    appliedAt: new Date(),
+    technologies: [
+      { id: 1, name: "React" },
+      { id: 1, name: "NestJs" },
+    ],
+    adress: {
+      id: 1,
+      city: "Paris",
+      postalCode: "60280",
+    },
+    user: {
       id: 55,
       email: "JeanEudes@gmail.com",
-      status:   "ALLOWED",
-      roles:   "USER",
-   }
-},{
-   id: 1,
-   enterprise: "entreprise",
-   type: "ENTERPRISE",
-   link: "",
-   jobTitle: "Développeur Fullstack React/ NOdejs",
-   managerName: "Jean eudes ",
-   managerEmail: "JeanEudes@gmail.com",
-   status:  "NEED_TO_CONTACT",
-   priority:   "PERFECT",
-   applicationMethod: "SITE_WEB",
-   origin: "HELLOWORK",
-   interviewCount: 0,
-   archived: false,
-   createdAt: new Date(),
-      appliedAt: new Date(),
-   technologies: [{id: 1, name: "React"},{id: 1, name: "NestJs"},],
-   adress : {
-    id:1,
-    city: "Paris",
-    postalCode : "60280",
-   },
-   user: {
+      status: "ALLOWED",
+      roles: "USER",
+    },
+  },
+  {
+    id: 1,
+    enterprise: "entreprise",
+    type: "ENTERPRISE",
+    link: "",
+    jobTitle: "Développeur Fullstack React Nodejs",
+    managerName: "Jean eudes ",
+    managerEmail: "JeanEudes@gmail.com",
+    status: "NEED_TO_CONTACT",
+    priority: "PERFECT",
+    applicationMethod: "SITE_WEB",
+    origin: "HELLOWORK",
+    interviewCount: 0,
+    archived: false,
+    createdAt: new Date(),
+    appliedAt: new Date(),
+    technologies: [
+      { id: 1, name: "React" },
+      { id: 1, name: "NestJs" },
+    ],
+    adress: {
+      id: 1,
+      city: "Paris",
+      postalCode: "60280",
+    },
+    user: {
       id: 55,
       email: "JeanEudes@gmail.com",
-      status:   "ALLOWED",
-      roles:   "USER",
-   }
-},{
-   id: 1,
-   enterprise: "entreprise",
-   type: "ENTERPRISE",
-   link: "",
-   jobTitle: "Développeur Fullstack React/ NOdejs",
-   managerName: "Jean eudes ",
-   managerEmail: "JeanEudes@gmail.com",
-   status:  "NEED_TO_CONTACT",
-   priority:   "PERFECT",
-   applicationMethod: "SITE_WEB",
-   origin: "HELLOWORK",
-   interviewCount: 0,
-   archived: false,
-   createdAt: new Date(),
-   appliedAt: new Date(),
-   technologies: [{id: 1, name: "React"},{id: 1, name: "NestJs"},],
-   adress : {
-    id:1,
-    city: "Paris",
-    postalCode : "60280",
-   },
-   user: {
+      status: "ALLOWED",
+      roles: "USER",
+    },
+  },
+  {
+    id: 1,
+    enterprise: "entreprise",
+    type: "ENTERPRISE",
+    link: "",
+    jobTitle: "Développeur Fullstack React Nodejs",
+    managerName: "Jean eudes ",
+    managerEmail: "JeanEudes@gmail.com",
+    status: "NEED_TO_CONTACT",
+    priority: "PERFECT",
+    applicationMethod: "SITE_WEB",
+    origin: "HELLOWORK",
+    interviewCount: 0,
+    archived: false,
+    createdAt: new Date(),
+    appliedAt: new Date(),
+    technologies: [
+      { id: 1, name: "React" },
+      { id: 1, name: "NestJs" },
+    ],
+    adress: {
+      id: 1,
+      city: "Paris",
+      postalCode: "60280",
+    },
+    user: {
       id: 55,
       email: "JeanEudes@gmail.com",
-      status:   "ALLOWED",
-      roles:   "USER",
-   }
-},{
-   id: 1,
-   enterprise: "entreprise",
-   type: "ENTERPRISE",
-   link: "",
-   jobTitle: "Développeur Fullstack React/ NOdejs",
-   managerName: "Jean eudes ",
-   managerEmail: "JeanEudes@gmail.com",
-   status:  "NEED_TO_CONTACT",
-   priority:   "PERFECT",
-   applicationMethod: "SITE_WEB",
-   origin: "HELLOWORK",
-   interviewCount: 0,
-   archived: false,
-   createdAt: new Date(),
-      appliedAt: new Date(),
-   technologies: [{id: 1, name: "React"},{id: 1, name: "NestJs"},],
-   adress : {
-    id:1,
-    city: "Paris",
-    postalCode : "60280",
-   },
-   user: {
+      status: "ALLOWED",
+      roles: "USER",
+    },
+  },
+  {
+    id: 1,
+    enterprise: "entreprise",
+    type: "ENTERPRISE",
+    link: "",
+    jobTitle: "Développeur Fullstack React Nodejs",
+    managerName: "Jean eudes ",
+    managerEmail: "JeanEudes@gmail.com",
+    status: "NEED_TO_CONTACT",
+    priority: "PERFECT",
+    applicationMethod: "SITE_WEB",
+    origin: "HELLOWORK",
+    interviewCount: 0,
+    archived: false,
+    createdAt: new Date(),
+    appliedAt: new Date(),
+    technologies: [
+      { id: 1, name: "React" },
+      { id: 1, name: "NestJs" },
+    ],
+    adress: {
+      id: 1,
+      city: "Paris",
+      postalCode: "60280",
+    },
+    user: {
       id: 55,
       email: "JeanEudes@gmail.com",
-      status:   "ALLOWED",
-      roles:   "USER",
-   }
-}]
-
-
+      status: "ALLOWED",
+      roles: "USER",
+    },
+  },
+];
 
 export function Jobs() {
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  )
+  );
+  const isMobile = window.innerWidth <= 768;
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
+    React.useState<VisibilityState>({
+      enterprise: !isMobile,
+      origin: !isMobile,
+      appliedAt: !isMobile,
+      status: !isMobile,
+    });
+  const [rowSelection, setRowSelection] = React.useState({});
 
-
-
-  
   const table = useReactTable<Job>({
     data,
-    columns : jobColumns,
+    columns: jobColumns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -181,54 +196,67 @@ export function Jobs() {
       columnVisibility,
       rowSelection,
     },
-  })
+  });
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="md:flex lg:flex flex items-center justify-between gap-2 py-4">
         <Input
           placeholder="Filter emails..."
-          value={(table.getColumn("jobTitle")?.getFilterValue() as string) ?? ""}
+          value={
+            (table.getColumn("jobTitle")?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
             table.getColumn("jobTitle")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm "
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                )
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex  gap-2 justify-center items-center">
+          <Button className="flex  gap-2  text-white"  variant="blue">
+            <Plus />
+            Ajouter
+          </Button>
+          {!isMobile && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="ml-auto">
+                  Columns <ChevronDown />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {table
+                  .getAllColumns()
+                  .filter((column) => column.getCanHide())
+                  .map((column) => {
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) =>
+                          column.toggleVisibility(!!value)
+                        }
+                      >
+                        {column.id}
+                      </DropdownMenuCheckboxItem>
+                    );
+                  })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+        </div>
       </div>
       <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader className="bg-gray-50">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}  >
+              <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="h-10 px-4 text-left align-middle font-medium text-gray-700 uppercase text-xs tracking-wide">
+                    <TableHead
+                      key={header.id}
+                      className="h-10 px-4 text-left align-middle font-medium text-gray-700 uppercase text-xs tracking-wide"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -236,7 +264,7 @@ export function Jobs() {
                             header.getContext()
                           )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -279,7 +307,6 @@ export function Jobs() {
         <div className="space-x-2">
           <Button
             variant="outline"
-            size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
@@ -287,7 +314,7 @@ export function Jobs() {
           </Button>
           <Button
             variant="outline"
-            size="sm"
+
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
@@ -296,5 +323,5 @@ export function Jobs() {
         </div>
       </div>
     </div>
-  )
+  );
 }

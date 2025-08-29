@@ -8,20 +8,27 @@ const badgeVariants = cva(
     variants: {
       variant: {
         warning:
-          "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium bg-amber-100 text-amber-800",
+          "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-amber-100 text-amber-800",
         primary:
-          "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium bg-blue-100 text-blue-800",
+          "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-blue-100 text-blue-800",
         violet:
-          "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium bg-purple-100 text-purple-800",
+          "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-purple-100 text-purple-800",
         danger:
-          "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium bg-red-100 text-red-800",
+          "inline-flex items-center rounded-full px-2.5 py-1 font-medium bg-red-100 text-red-800",
 
    
+      },
+      size: {
+        default: "px-2.5 py-1 ",
+        sm: "px-1.25 py-0.5 ",
+
       },
 
     },
     defaultVariants: {
       variant: "primary",
+      size: "default",
+
 
     },
   }
@@ -30,6 +37,7 @@ const badgeVariants = cva(
 function Badge({
   className,
   variant,
+  size,
   asChild = false,
   ...props
 }: React.ComponentProps<"button"> &
@@ -40,7 +48,7 @@ function Badge({
   return (
     <span
       data-slot="button"
-      className={cn(badgeVariants({ variant, className }))}
+      className={cn(badgeVariants({ variant, size,className }))}
       {...props}
     />
   );

@@ -12,8 +12,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { Job } from "@/types/entity";
+import { formatDate, splitTextAtSpaces } from "@/utils/utils";
 import type { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Building2, Calendar, MoreHorizontal } from "lucide-react";
+import {
+  ArrowUpDown,
+  Building2,
+  Calendar,
+  ChevronDown,
+  MoreHorizontal,
+} from "lucide-react";
+
+const isMobile = window.innerWidth <= 768;
 
 export const jobColumns: ColumnDef<Job>[] = [
   {
@@ -30,8 +39,33 @@ export const jobColumns: ColumnDef<Job>[] = [
       );
     },
     cell: ({ row }) => {
-      return (
-        <span className="font-medium text-gray-900">
+      const splitJobTitle = splitTextAtSpaces(row.getValue("jobTitle"), 18);
+
+      return isMobile ? (
+        <div className="flex flex-col justify-start items-start gap-2">
+          {splitJobTitle.map((text) => (
+            <span
+              key={`${text}-${row.getValue("enterprise")}`}
+              className="font-medium text-gray-900 text-sm"
+            >
+              {text}
+            </span>
+          ))}
+        <Badge className="text-xs md:text-sm lg:text-sm" variant={"warning"} >
+          A contacter
+        </Badge>
+          <span className="flex items-center justify-items-center gap-2 text-gray-500 text-xs">
+            <Building2 className="text-gray-400" size={12} />
+            {row.getValue("enterprise")}
+          </span>
+
+          <span className="flex items-center justify-items-center gap-2 text-xs text-gray-600">
+            <Calendar className="text-gray-400" size={12} />
+            {formatDate(new Date(row.getValue("appliedAt")))}
+          </span>
+        </div>
+      ) : (
+        <span className="font-medium text-gray-900 ">
           {row.getValue("jobTitle")}
         </span>
       );
@@ -51,7 +85,12 @@ export const jobColumns: ColumnDef<Job>[] = [
       );
     },
     cell: ({ row }) => {
-      return <span className="flex items-center justify-items-center gap-2 text-gray-600" ><Building2 className="text-gray-400" size={16}/>{row.getValue("enterprise")}</span>;
+      return (
+        <span className="flex items-center justify-items-center gap-2 text-gray-600">
+          <Building2 className="text-gray-400" size={16} />
+          {row.getValue("enterprise")}
+        </span>
+      );
     },
   },
   {
@@ -85,7 +124,11 @@ export const jobColumns: ColumnDef<Job>[] = [
       );
     },
     cell: ({ row }) => {
-      return <Badge variant={"warning"}>{row.getValue("status")}</Badge>;
+      return (
+        <Badge className="text-sm md:text-sm lg:text-sm" variant={"warning"}>
+          A contacter
+        </Badge>
+      );
     },
   },
 
@@ -103,48 +146,37 @@ export const jobColumns: ColumnDef<Job>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue("appliedAt"));
-
       return (
-        <span className="flex items-center justify-items-center gap-2 text-sm text-gray-600"> <Calendar className="text-gray-400" size={16}/>{date.toLocaleDateString('fr-FR', {
-  day: 'numeric',
-  month: 'short',
-  year: 'numeric'
-})}</span>
+        <span className="flex items-center justify-items-center gap-2 text-sm text-gray-600">
+          <Calendar className="text-gray-400" size={16} />
+          {formatDate(new Date(row.getValue("appliedAt")))}
+        </span>
       );
     },
   },
   {
     id: "actions",
-     header: () => {
-      return (
-        <Button
-          variant="ghost"
-        >
-          Actions
-
-        </Button>
-      );
+    header: () => {
+      return <div className="flex items-center justify-center"><Button variant="ghost">Actions</Button></div>;
     },
-    enableHiding: false,
-    cell: () => {
-      return (
-        <DropdownMenu >
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0 ">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>Copy payment ID</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: () => (
+      <div className="flex items-center justify-center">
+      <DropdownMenu> 
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0 ">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem>Copy payment ID</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>View customer</DropdownMenuItem>
+          <DropdownMenuItem>View payment details</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      </div>
+    ),
   },
 ];
