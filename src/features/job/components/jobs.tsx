@@ -33,142 +33,14 @@ import {
 import type { Job } from "@/types/entity";
 import { jobColumns } from "./job-columns";
 
-const data = [
-  {
-    id: 1,
-    enterprise: "entreprise",
-    type: "ENTERPRISE",
-    link: "",
-    jobTitle: "Développeur Fullstack React Nodejs",
-    managerName: "Jean eudes ",
-    managerEmail: "JeanEudes@gmail.com",
-    status: "NEED_TO_CONTACT",
-    priority: "PERFECT",
-    applicationMethod: "SITE_WEB",
-    origin: "HELLOWORK",
-    interviewCount: 0,
-    archived: false,
-    createdAt: new Date(),
-    appliedAt: new Date(),
-    technologies: [
-      { id: 1, name: "React" },
-      { id: 1, name: "NestJs" },
-    ],
-    adress: {
-      id: 1,
-      city: "Paris",
-      postalCode: "60280",
-    },
-    user: {
-      id: 55,
-      email: "JeanEudes@gmail.com",
-      status: "ALLOWED",
-      roles: "USER",
-    },
-  },
-  {
-    id: 1,
-    enterprise: "entreprise",
-    type: "ENTERPRISE",
-    link: "",
-    jobTitle: "Développeur Fullstack React Nodejs",
-    managerName: "Jean eudes ",
-    managerEmail: "JeanEudes@gmail.com",
-    status: "NEED_TO_CONTACT",
-    priority: "PERFECT",
-    applicationMethod: "SITE_WEB",
-    origin: "HELLOWORK",
-    interviewCount: 0,
-    archived: false,
-    createdAt: new Date(),
-    appliedAt: new Date(),
-    technologies: [
-      { id: 1, name: "React" },
-      { id: 1, name: "NestJs" },
-    ],
-    adress: {
-      id: 1,
-      city: "Paris",
-      postalCode: "60280",
-    },
-    user: {
-      id: 55,
-      email: "JeanEudes@gmail.com",
-      status: "ALLOWED",
-      roles: "USER",
-    },
-  },
-  {
-    id: 1,
-    enterprise: "entreprise",
-    type: "ENTERPRISE",
-    link: "",
-    jobTitle: "Développeur Fullstack React Nodejs",
-    managerName: "Jean eudes ",
-    managerEmail: "JeanEudes@gmail.com",
-    status: "NEED_TO_CONTACT",
-    priority: "PERFECT",
-    applicationMethod: "SITE_WEB",
-    origin: "HELLOWORK",
-    interviewCount: 0,
-    archived: false,
-    createdAt: new Date(),
-    appliedAt: new Date(),
-    technologies: [
-      { id: 1, name: "React" },
-      { id: 1, name: "NestJs" },
-    ],
-    adress: {
-      id: 1,
-      city: "Paris",
-      postalCode: "60280",
-    },
-    user: {
-      id: 55,
-      email: "JeanEudes@gmail.com",
-      status: "ALLOWED",
-      roles: "USER",
-    },
-  },
-  {
-    id: 1,
-    enterprise: "entreprise",
-    type: "ENTERPRISE",
-    link: "",
-    jobTitle: "Développeur Fullstack React Nodejs",
-    managerName: "Jean eudes ",
-    managerEmail: "JeanEudes@gmail.com",
-    status: "NEED_TO_CONTACT",
-    priority: "PERFECT",
-    applicationMethod: "SITE_WEB",
-    origin: "HELLOWORK",
-    interviewCount: 0,
-    archived: false,
-    createdAt: new Date(),
-    appliedAt: new Date(),
-    technologies: [
-      { id: 1, name: "React" },
-      { id: 1, name: "NestJs" },
-    ],
-    adress: {
-      id: 1,
-      city: "Paris",
-      postalCode: "60280",
-    },
-    user: {
-      id: 55,
-      email: "JeanEudes@gmail.com",
-      status: "ALLOWED",
-      roles: "USER",
-    },
-  },
-];
 
 export function Jobs() {
+  const data = [];
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
+  //mettre un event listener 
   const isMobile = window.innerWidth <= 768;
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({

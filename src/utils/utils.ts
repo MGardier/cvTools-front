@@ -35,7 +35,7 @@ export const splitTextAtSpaces = (text: string, limit: number): string[] => {
     let indexSplit = text.indexOf(" ", targetPosition);
 
     if (indexSplit === -1) {
-      indexSplit = text.lastIndexOf(" ", targetPosition);
+      indexSplit = text.lastIndexOf(" ");
     }
 
     if (indexSplit === -1 || indexSplit <= prevIndexSplit) {

@@ -15,10 +15,9 @@ import { ConfirmAccountPage } from "./pages/auth/confirm-account-page";
 import { ResetPasswordPage } from "./pages/auth/reset-password-page";
 import { SignInPage } from "./pages/auth/sign-in-page";
 import { LogoutPage } from "./pages/auth/logout-page";
-import { GetOauthSessionPage } from './pages/auth/get-oauth-session-page';
+import { GetOauthSessionPage } from "./pages/auth/get-oauth-session-page";
 import { JobsPage } from "./pages/job/jobs-page";
-
-
+import { PrivateRoutes } from "./pages/private-routes";
 
 //TODO: Idée ajout un how it works pour montrer l'utilisation de la recherche, candidatures et relances
 //TODO: Idée ajout Avoir une recherche qui permettent de regrouper les jobs de plusieurs plateformes
@@ -80,11 +79,13 @@ function App() {
             />
 
             {/* GET OAUTH  SESSION */}
-            <Route
-              key="jobs"
-              path={ROUTES.job.getAll}
-              element={<JobsPage />}
-            />
+            <Route element={<PrivateRoutes />}>
+              <Route
+                key="jobs"
+                path={ROUTES.job.getAll}
+                element={<JobsPage />}
+              />
+            </Route>
           </Routes>
         </BrowserRouter>
       </main>
