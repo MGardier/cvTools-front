@@ -11,27 +11,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus, X } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useCreateJob } from "../hooks/useCreateJob";
 import { FormCardField } from "@/components/form/form-card-field";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
+
+
 import { TechnologiesForm } from "./technologies-form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { TypeEnterprise } from "@/types/entity";
+import { SelectField } from "@/components/form/select-field";
 
 export function DialogCreateJob() {
   const { t, onSubmit, form, error, isPending, isError, technologiesFields } =
@@ -95,37 +83,20 @@ export function DialogCreateJob() {
                   {...{ form }}
                 />
               </div>
+
+                {/** TECHNOLOGIES  */}
               <TechnologiesForm {...{ form, t, technologiesFields }} />
-              <div className="grid gap-3">
-              <FormField
-                control={form.control}
+
+
+              {/** TYPE  */}
+              <SelectField
+                label={t("pages.createJob.form.type.label")}
                 name="type"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <Select 
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select a verified email to display" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {
-                          Object.values(TypeEnterprise).map((value)=><SelectItem value={value}>
-                          {value}
-                        </SelectItem>)
-                        }
-                        
-    
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
+                placeholder={t("pages.createJob.form.type.placeholder")}
+                form={form}
+                objectValues= {Object.values(TypeEnterprise).map((value) => {return {value,label:t(`pages.createJob.form.type.values.${value.toLocaleLowerCase()}`) }})}
               />
-              </div>
+    
             </FormCardContent>
           </Card>
           <DialogFooter>

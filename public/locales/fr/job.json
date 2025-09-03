@@ -4,12 +4,25 @@
       "title" : "Créer une candidature",
       "form" : {
         "enterprise": {
-          "label": "Entreprise",
+          "label": "Nom de l'entreprise",
           "placeholder" : "CvTools Company"
         } ,
         "jobTitle": {
-          "label" : "Titre",
+          "label" : "Titre de la candidature",
           "placeholder" : "Développeur Fullstack"
+        },
+        "technologies" : {
+          "label" :"Technologies",
+          "placeholder" : "React"
+        },
+        "type" :{
+          "label": "Type d'entreprise",
+          "placeholder": "Veuillez choisir un type d'entreprise",
+          "values": {
+            "esn" :"Entreprise de Service Numérique",
+            "start_up" :"Start Up ",
+            "enterprise" :"Entreprise classique"
+          }
         },
         "button": "Créer une candidature"
       }
