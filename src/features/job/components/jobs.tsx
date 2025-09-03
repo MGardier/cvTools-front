@@ -32,15 +32,16 @@ import {
 
 import type { Job } from "@/types/entity";
 import { jobColumns } from "./job-columns";
+import { useJobs } from "../hooks/useJobs";
 
 
 export function Jobs() {
-  const data = [];
+  const {data} = useJobs();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
-  //mettre un event listener 
+  //TODO : mettre un event listener pour ajuster le mobile 
   const isMobile = window.innerWidth <= 768;
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({

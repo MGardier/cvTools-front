@@ -39,36 +39,36 @@ export const jobColumns: ColumnDef<Job>[] = [
       );
     },
     cell: ({ row }) => {
-      const splitJobTitle = splitTextAtSpaces(row.getValue("jobTitle"), 18);
+      // const splitJobTitle = splitTextAtSpaces(row.getValue("jobTitle"), 18);
 
-      return isMobile ? (
-        <div className="flex flex-col justify-start items-start gap-2">
-          {splitJobTitle.map((text) => (
-            <span
-              key={`${text}-${row.getValue("enterprise")}`}
-              className="font-medium text-gray-900 text-sm"
-            >
-              {text}
-            </span>
-          ))}
-        <Badge className="text-xs md:text-sm lg:text-sm" variant={"warning"} >
-          A contacter
-        </Badge>
-          <span className="flex items-center justify-items-center gap-2 text-gray-500 text-xs">
-            <Building2 className="text-gray-400" size={12} />
-            {row.getValue("enterprise")}
-          </span>
+      // return isMobile ? (
+      //   <div className="flex flex-col justify-start items-start gap-2">
+      //     {splitJobTitle.map((text) => (
+      //       <span
+      //         key={`${text}-${row.getValue("enterprise")}`}
+      //         className="font-medium text-gray-900 text-sm"
+      //       >
+      //         {text}
+      //       </span>
+      //     ))}
+      //   <Badge className="text-xs md:text-sm lg:text-sm" variant={"warning"} >
+      //     A contacter
+      //   </Badge>
+      //     <span className="flex items-center justify-items-center gap-2 text-gray-500 text-xs">
+      //       <Building2 className="text-gray-400" size={12} />
+      //       {row.getValue("enterprise")}
+      //     </span>
 
-          <span className="flex items-center justify-items-center gap-2 text-xs text-gray-600">
-            <Calendar className="text-gray-400" size={12} />
-            {formatDate(new Date(row.getValue("appliedAt")))}
-          </span>
-        </div>
-      ) : (
-        <span className="font-medium text-gray-900 ">
-          {row.getValue("jobTitle")}
-        </span>
-      );
+      //     <span className="flex items-center justify-items-center gap-2 text-xs text-gray-600">
+      //       <Calendar className="text-gray-400" size={12} />
+      //       {formatDate(new Date(row.getValue("appliedAt")))}
+      //     </span>
+      //   </div>
+      // ) : (
+      //   <span className="font-medium text-gray-900 ">
+      //     {row.getValue("jobTitle")}
+      //   </span>
+      // );
     },
   },
   {
@@ -85,12 +85,12 @@ export const jobColumns: ColumnDef<Job>[] = [
       );
     },
     cell: ({ row }) => {
-      return (
-        <span className="flex items-center justify-items-center gap-2 text-gray-600">
-          <Building2 className="text-gray-400" size={16} />
-          {row.getValue("enterprise")}
-        </span>
-      );
+      // return (
+      //   <span className="flex items-center justify-items-center gap-2 text-gray-600">
+      //     <Building2 className="text-gray-400" size={16} />
+      //     {row.getValue("enterprise")}
+      //   </span>
+      // );
     },
   },
   {
@@ -107,7 +107,7 @@ export const jobColumns: ColumnDef<Job>[] = [
       );
     },
     cell: () => {
-      return <AppLogo className="text-sm " />;
+      //return <AppLogo className="text-sm " />;
     },
   },
   {
@@ -124,11 +124,11 @@ export const jobColumns: ColumnDef<Job>[] = [
       );
     },
     cell: ({ row }) => {
-      return (
-        <Badge className="text-sm md:text-sm lg:text-sm" variant={"warning"}>
-          A contacter
-        </Badge>
-      );
+      // return (
+      //   <Badge className="text-sm md:text-sm lg:text-sm" variant={"warning"}>
+      //     A contacter
+      //   </Badge>
+      // );
     },
   },
 
@@ -146,12 +146,12 @@ export const jobColumns: ColumnDef<Job>[] = [
       );
     },
     cell: ({ row }) => {
-      return (
-        <span className="flex items-center justify-items-center gap-2 text-sm text-gray-600">
-          <Calendar className="text-gray-400" size={16} />
-          {formatDate(new Date(row.getValue("appliedAt")))}
-        </span>
-      );
+      // return (
+      //   <span className="flex items-center justify-items-center gap-2 text-sm text-gray-600">
+      //     <Calendar className="text-gray-400" size={16} />
+      //     {formatDate(new Date(row.getValue("appliedAt")))}
+      //   </span>
+      // );
     },
   },
   {

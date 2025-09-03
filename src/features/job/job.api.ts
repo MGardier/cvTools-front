@@ -1,40 +1,26 @@
 
 import { apiClient } from '@/api/axios';
-import type {  ConfirmAccountParams, ConfirmAccountResponse, LogoutResponse, ResetPasswordParams, ResetPasswordResponse, SendConfirmAccountParams, SendConfirmAccountResponse, SendForgotPasswordParams, SendForgotPasswordResponse, SignInParams, SignInResponse, SignUpParams, SignUpResponse } from './types/api';
+import type { CreateJobParams, CreateJobResponse } from './types/api';
 
 
 
 
 
-const ENDPOINT = '/job';
+const ENDPOINT = { 
+  job: '/job',
+  user: '/user'
+ } as const;
 
 export const jobApi = {
 
 
   /**************** CREATE ************************************************************/
 
-  async createJobForUser(params: SignUpParams): Promise<SignUpResponse> {
-    return await apiClient.post(`${ENDPOINT}/signUp`, params);
+  async create(params: CreateJobParams): Promise<CreateJobResponse> {
+    const {userId, ...rest} = params;
+    return await apiClient.post(`${ENDPOINT.user}${userId}/${ENDPOINT.job}`, rest);
   },
 
-  /**************** UPDATE  ************************************************************/
-
-  async signIn(params: SignInParams): Promise<SignInResponse> {
-    return await apiClient.post(`${ENDPOINT}/signIn`, params);
-  },
-
-
-  /**************** FIND ************************************************************/
-
-  async logout(): Promise<LogoutResponse> {
-    return await apiClient.delete(`${ENDPOINT}/logout`);
-  },
-
-  /**************** DELETE ************************************************************/
-
-  async logout(): Promise<LogoutResponse> {
-    return await apiClient.delete(`${ENDPOINT}/logout`);
-  },
 
 
 }

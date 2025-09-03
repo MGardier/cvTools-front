@@ -26,85 +26,85 @@ export interface User {
 
 /****************************  JOB **************************************************************************** */
 
+export const TypeEnterprise = {
+  ESN : "ESN",
+  START_UP:"START_UP",
+  ENTERPRISE: "ENTERPRISE"
+} as const;
 
+export const JobStatus = { 
+  NEED_TO_CONTACT: "NEED_TO_CONTACT",
+  NEED_TO_VALIDATE_MESSAGE: "NEED_TO_VALIDATE_MESSAGE",
+  NEED_TO_SEND_MESSAGE:  "NEED_TO_SEND_MESSAGE",
+  INTERVIEWS:  "INTERVIEWS",
+  TECHNICAL_TEST :"TECHNICAL_TEST",
+  NEED_TO_SEND_THANKS_AFTER_INTERVIEW: "NEED_TO_SEND_THANKS_AFTER_INTERVIEW",
+  NEED_TO_SEND_MAIL_REMINDER: "NEED_TO_SEND_MAIL_REMINDER"
 
-export type TypeEnterprise =
-  "ESN"
-  | "START_UP"
-  | "ENTERPRISE"
-  ;
+}as const  ;
 
-export type JobStatus =
-  "NEED_TO_CONTACT"
-  | "NEED_TO_VALIDATE_MESSAGE"
-  | "NEED_TO_SEND_MESSAGE"
-  | "INTERVIEWS"
-  | "TECHNICAL_TEST"
-  | "NEED_TO_SEND_THANKS_AFTER_INTERVIEW"
-  | "NEED_TO_SEND_MAIL_REMINDER"
-  ;
+export const JobPriority = {
+  PERFECT:"PERFECT",
+  ATTAINABLE: "ATTAINABLE",
+  WHY_NOT:"WHY_NOT"
+  
+} as const;
 
-export type PriorityJob =
-  "PERFECT"
-  | "ATTAINABLE"
-  | "WHY_NOT"
-  ;
-
-export type ApplyMethod =
-|"LINKEDIN"
-|"SITE_WEB"
-|"EMAIL"
-|"AUTRE"
-  ;
-
-type Technology = {
-  id: number;
-  name: string;
-};
-
-export type ApplicationOrigin = 
-|"LINKEDIN"
-|"HELLOWORK"
-|"FRANCE_TRAVAIL"
-|"INDEED"
-|"WELCOME TO THE JUNGLE";
+export const JobApplyMethod = {
+  LINKEDIN :"LINKEDIN",
+  JOBOARD :"JOBOARD",
+  EMAIL: "EMAIL",
+  OTHER: "OTHER",
+} as const;
 
 
 
-export type Address = {
-  id: number;
-  city: string
-  postalCode: string;
-};
 
 
 export type Job = {
   id: number;
   enterprise: string;
-  type: TypeEnterprise;
+  type: typeof TypeEnterprise[keyof typeof TypeEnterprise];
   link: string;
   jobTitle: string;
   managerName: string;
   managerEmail: string;
-  detailsToRemember: string | null;
-  linkLinkedin: string | null;
-  salaryMin: number | null;
-  salaryMax: number | null;
-  salaryCurrency: string | null;
-  status: JobStatus;
-  priority: PriorityJob;
-  description: string | null;
-  applicationMethod: ApplyMethod;
-  origin: ApplicationOrigin;
+  salaryMin?: number;
+  salaryMax?: number;
+
+  status: typeof JobStatus[keyof typeof JobStatus];
+  priority: typeof JobPriority[keyof typeof JobPriority];
+  description?: string;
+  detailsToRemember?: string;
+  applicationMethod: typeof JobApplyMethod[keyof typeof JobApplyMethod];
   interviewCount: number;
-  rejectionReason: string | null;
-  rating: number | null;
+  rejectionReason?: string;
+  rating?: number;
   archived: boolean;
+
+
   createdAt: Date;
-  updatedAt: Date | null;
-  appliedAt: Date | null;
-  lastContactAt: Date | null;
+  updatedAt?: Date;
+  appliedAt?: Date ;
+  lastContactAt?: Date;
+
   technologies: Technology[];
-  adress : Address;
+  adress: Address;
   user: User;
+};
+
+
+/****************************  TECHNOLOGY  **************************************************************************** */
+
+export type Technology = {
+  id: number;
+  name: string;
+}
+
+/****************************  ADDRESS **************************************************************************** */
+
+export type Address = {
+  id: number;
+  city: string
+  postalCode: string;
 };

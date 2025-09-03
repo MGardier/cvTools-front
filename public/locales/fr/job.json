@@ -1,0 +1,12 @@
+{ 
+  "pages": {
+    "createJob": {
+      "title" : "Créer une candidature",
+      "form" : {
+        "enterprise": "Entreprise",
+        "button": "Créer une candidature"
+      }
+
+    }
+} 
+}

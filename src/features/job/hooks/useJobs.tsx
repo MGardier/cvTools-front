@@ -1,4 +1,8 @@
+import { useState } from "react"
+
 export const useJobs =()=> {
-  
-  return <></>
+
+  const [setData,data] = useState();
+
+  return {data};
 }
