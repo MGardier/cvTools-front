@@ -10,11 +10,14 @@ const badgeVariants = cva(
         warning:
           "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-amber-100 text-amber-800",
         primary:
-          "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-blue-100 text-blue-800",
+          "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-blue-400 hover:bg-blue-800 text-white ",
         violet:
           "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-purple-100 text-purple-800",
         danger:
           "inline-flex items-center rounded-full px-2.5 py-1 font-medium bg-red-100 text-red-800",
+        outline_blue:
+          "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-white hover:bg-blue-400 hover:text-white text-blue-500 border-1 border-blue-400 "
+
 
    
       },

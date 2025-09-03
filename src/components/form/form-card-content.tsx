@@ -28,7 +28,7 @@ export const FormCardContent = <TFieldValues extends FieldValues>({
     <CardContent>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid gap-6">
+          <div className="grid gap-6 ">
             {children}
             <Button
               type="submit"

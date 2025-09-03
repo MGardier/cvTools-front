@@ -25,6 +25,21 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     jobTitle:
       z.string(),
 
+    
+    //STATUS
+    status:
+      z.enum(JobStatus),
+
+    //PRIORITY
+    priority:
+      z.enum(JobPriority),
+
+    
+    //APPLICATION METHOD
+    applicationMethod:
+      z.enum(JobApplyMethod),
+
+
     //MANAGER NAME
     managerName:
       z.string()
@@ -52,19 +67,6 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
       z.number()
         .optional(),
 
-
-    //STATUS
-    status:
-      z.enum(JobStatus),
-
-    //PRIORITY
-    priority:
-      z.enum(JobPriority),
-
-    
-    //APPLICATION METHOD
-    applicationMethod:
-      z.enum(JobApplyMethod),
 
     //APPLICATION METHOD
     appliedAt:

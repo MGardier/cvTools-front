@@ -33,6 +33,7 @@ import {
 import type { Job } from "@/types/entity";
 import { jobColumns } from "./job-columns";
 import { useJobs } from "../hooks/useJobs";
+import { DialogCreateJob } from "./dialog-create-job";
 
 
 export function Jobs() {
@@ -85,10 +86,7 @@ export function Jobs() {
           className="max-w-sm "
         />
         <div className="flex  gap-2 justify-center items-center">
-          <Button className="flex  gap-2  text-white"  variant="blue">
-            <Plus />
-            Ajouter
-          </Button>
+<DialogCreateJob />
           {!isMobile && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

@@ -3,7 +3,14 @@
     "createJob": {
       "title" : "Créer une candidature",
       "form" : {
-        "enterprise": "Entreprise",
+        "enterprise": {
+          "label": "Entreprise",
+          "placeholder" : "CvTools Company"
+        } ,
+        "jobTitle": {
+          "label" : "Titre",
+          "placeholder" : "Développeur Fullstack"
+        },
         "button": "Créer une candidature"
       }
 
