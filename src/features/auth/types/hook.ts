@@ -1,7 +1,8 @@
 import type { SubmitHandler, UseFormReturn } from "react-hook-form";
 import type { ResetPasswordData, SendConfirmAccountData, SendForgotPasswordData, SignInData, SignUpData } from "./form";
 import type { TFunction } from "i18next";
-import type { ApiErrors } from "./api";
+import type { ApiErrors } from "@/types/api";
+
 
 
 

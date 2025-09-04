@@ -11,9 +11,10 @@ import { Input } from "@/components/ui/input";
 import type { TFunction } from "i18next";
 import { Plus, X } from "lucide-react";
 import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
-import type { createJobSchema } from "../schema/job-schema";
+
 import type z from "zod";
 import { useState } from "react";
+import type { createJobSchema } from "../../schema/job-schema";
 
 interface TechnologiesFormProps {
   t: TFunction<"job", undefined>;
@@ -63,20 +64,26 @@ export const TechnologiesForm = ({
                     <div className="flex gap-2 items-center justify-center">
                       <Input
                         type={isLast ? "text" : "hidden"}
-                        placeholder={t("pages.createJob.form.technologies.placeholder")}
+                        placeholder={t(
+                          "pages.createJob.form.technologies.placeholder"
+                        )}
                         {...field}
                         required
                       />
                       {isLast && (
                         <Button
                           onClick={() => {
-                            technologiesFields.append({ name: "name" });
-                            setTechBadges((prevState) => [
-                              ...prevState,
-                              {
-                                name: form.watch(`technologies.${index}.name`),
-                              },
-                            ]);
+                            if (field.value !== "" && field.value) {
+                              technologiesFields.append({ name: "" });
+                              setTechBadges((prevState) => [
+                                ...prevState,
+                                {
+                                  name: form.watch(
+                                    `technologies.${index}.name`
+                                  ),
+                                },
+                              ]);
+                            }
                           }}
                           type="button"
                           className=" w-6flex gap-2  text-white"

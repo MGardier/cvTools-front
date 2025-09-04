@@ -52,7 +52,7 @@ export const JobPriority = {
 
 export const JobApplyMethod = {
   LINKEDIN :"LINKEDIN",
-  JOBOARD :"JOBOARD",
+  JOBBOARD :"JOBBOARD",
   EMAIL: "EMAIL",
   OTHER: "OTHER",
 } as const;

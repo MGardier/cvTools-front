@@ -8,23 +8,24 @@ import {
 import { Input } from "@/components/ui/input";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
-
 interface FormCardFieldProps<TFormData extends FieldValues> {
   label?: string;
   name: Path<TFormData>;
   type: string;
   placeholder?: string;
-  required ?: boolean;
+  required?: boolean;
   form: UseFormReturn<TFormData>;
+  step?: number;
 }
 
-export const FormCardField = <TFormData extends FieldValues>  ({
+export const FormCardField = <TFormData extends FieldValues>({
   form,
   label,
   name,
   type,
-  required = false,
   placeholder,
+  required = false,
+  step,
 }: FormCardFieldProps<TFormData>) => {
   return (
     <div className="grid gap-3">
@@ -33,9 +34,22 @@ export const FormCardField = <TFormData extends FieldValues>  ({
         name={name}
         render={({ field }) => (
           <FormItem>
-              <FormLabel>{label}</FormLabel>
+            <FormLabel>
+              {label}{" "}
+              <p className="text-muted-foreground text-xs">
+                {required ? " (Requis)" : " (Optionnel)"}
+              </p>
+            </FormLabel>
             <FormControl>
-              <Input {...{placeholder,type,required,...field}}/>
+              <Input
+                {...{
+                  placeholder,
+                  type,
+                  required,
+                  ...field,
+                  ...(type === "number" ? { step } : {}),
+                }}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>

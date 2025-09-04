@@ -17,6 +17,7 @@ interface SelectFieldProps<TFormData extends FieldValues> {
   }[];
   placeholder: string;
   form: UseFormReturn<TFormData>;
+  required ?: boolean;
 }
 
 export const SelectField = <TFormData extends FieldValues>({
@@ -25,6 +26,7 @@ export const SelectField = <TFormData extends FieldValues>({
   form,
   objectValues,
   placeholder,
+  required = false
 }: SelectFieldProps<TFormData>) => {
   return (
     <div className="grid gap-3">
@@ -33,8 +35,8 @@ export const SelectField = <TFormData extends FieldValues>({
         name={name}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{label}</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormLabel>{label} <p className="text-muted-foreground text-xs">{required ? ' (Requis)' : ' (Optionnel)'}</p></FormLabel>
+            <Select required={required} onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder={placeholder} />

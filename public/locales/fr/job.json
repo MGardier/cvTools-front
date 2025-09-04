@@ -1,32 +1,106 @@
-{ 
+{
   "pages": {
     "createJob": {
-      "title" : "Créer une candidature",
-      "form" : {
+      "title": "Créer une candidature",
+      "form": {
         "enterprise": {
           "label": "Nom de l'entreprise",
-          "placeholder" : "CvTools Company"
-        } ,
+          "placeholder": "Company"
+        },
         "jobTitle": {
-          "label" : "Titre de la candidature",
-          "placeholder" : "Développeur Fullstack"
+          "label": "Titre de la candidature",
+          "placeholder": "Développeur Fullstack"
         },
-        "technologies" : {
-          "label" :"Technologies",
-          "placeholder" : "React"
+        "technologies": {
+          "label": "Technologies",
+          "placeholder": "React"
         },
-        "type" :{
+        "type": {
           "label": "Type d'entreprise",
           "placeholder": "Veuillez choisir un type d'entreprise",
           "values": {
-            "esn" :"Entreprise de Service Numérique",
-            "start_up" :"Start Up ",
-            "enterprise" :"Entreprise classique"
+            "esn": "Entreprise de Service Numérique",
+            "start_up": "Start Up ",
+            "enterprise": "Entreprise classique"
           }
         },
-        "button": "Créer une candidature"
+        "link": {
+          "label": "Lien de l'offre",
+          "placeholder": "https://www.hellowork.com/"
+        },
+        "status": {
+          "label": "Status de la candidature",
+          "placeholder": "Veuillez choisir un status",
+          "values": {
+            "need_to_contact": "A contacter",
+            "need_to_validate_message": "Message à valider",
+            "need_to_send_message": "Message à envoyer",
+            "interviews": "Entretien en cours",
+            "technical_test": "Test technique en cours",
+            "need_to_send_thanks_after_interview": "Envoyer remerciements aprés entretien",
+            "need_to_send_mail_reminder": "A relancer"
+          }
+        },
+        "priority": {
+          "label": "Priorité de la candidature",
+          "placeholder": "Veuillez choisir une priorité",
+          "values": {
+            "perfect": "Parfait",
+            "attainable": "Atteignable",
+            "why_not": "Pourquoi pas "
+          }
+        },
+        "applicationMethod": {
+          "label": "Méthode utilisée pour envoyer la candidature",
+          "placeholder": "Veuillez choisir une méthode",
+          "values": {
+            "linkedin": "Linkedin",
+            "jobboard": "Job Board",
+            "email": "Par email",
+            "other": "Autre moyen"
+          }
+        },
+        "managerName": {
+          "label": "Nom du contact",
+          "placeholder": "John Doe"
+        },
+        "managerEmail": {
+          "label": "Email du contact",
+          "placeholder": "john.doe@mail.com"
+        },
+        "address": {
+          "city": {
+            "label": "Ville",
+            "placeholder": "Paris"
+          },
+          "postalCode": {
+            "label": "Code Postal",
+            "placeholder": "60000"
+          },
+          "street": {
+            "label": "Rue",
+            "placeholder": "52 rue du Boulevard"
+          }
+        },
+        "appliedAt": {
+          "label": "Postulé le",
+          "selectLabel": "Veuillez choisir une date",
+          "placeholder": "01 septembre 2025"
+        },
+        "salaryMin": {
+          "label": "Fourchette basse du salaire  annuel brut en €",
+          "placeholder": "30000"
+        },
+        "salaryMax": {
+          "label": "Fourchette haute du salaire  annuel brut en €",
+          "placeholder": "35000"
+        },
+        "button": {
+          "previous_step": "Précédent",
+          "next_step": "Suivant",
+          "submit": "Créer une candidature"
+        }
       }
-
     }
-} 
+  }
 }
