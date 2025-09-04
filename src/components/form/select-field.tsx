@@ -44,7 +44,7 @@ export const SelectField = <TFormData extends FieldValues>({
               </FormControl>
               <SelectContent>
                 {objectValues.map((element) => (
-                  <SelectItem value={element.value}>{element.label}</SelectItem>
+                  <SelectItem key={element.value} value={element.value}>{element.label}</SelectItem>
                 ))}
               </SelectContent>
             </Select>

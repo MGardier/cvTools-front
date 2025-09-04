@@ -17,25 +17,40 @@ import { JobFormFirstStep } from "./form/job-form-first-step";
 import { JobFormSecondStep } from "./form/job-form-second-step";
 import { JobFormThirdStep } from "./form/job-form-third-step";
 import { JobFormFourthStep } from "./form/job-form-fourth-step";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 export function DialogCreateJob() {
   const { t, onSubmit, form, error, isPending, isError, technologiesFields } =
     useCreateJob();
   const [currentStep, setCurrentStep] = useState(1);
+  
   return (
     <div className="grid gap-6">
       <Dialog>
         <form>
+          {/* TRIGGER MODAL */}
           <DialogTrigger asChild>
             <Button className="flex  gap-2  text-white" variant="blue">
               <Plus />
               Ajouter
             </Button>
           </DialogTrigger>
+
+          {/************* CONTENT *********************************************** */}
           <DialogContent className="lg:min-w-4xl md:min-w-2xl min-w-64">
             <DialogHeader>
               <DialogTitle>{t("pages.createJob.title")}</DialogTitle>
               <DialogDescription>
+
+              {/* ERROR DISPLAY */}
+
                 {isError && (
                   <div className="text-red-600 mt-4 flex items-center justify-center gap-2">
                     <p>
@@ -50,6 +65,8 @@ export function DialogCreateJob() {
                 )}
               </DialogDescription>
             </DialogHeader>
+
+             {/* FORM */}
             <Card className="border-0 shadow-none w-full ">
               <FormCardContent
                 {...{
@@ -59,54 +76,87 @@ export function DialogCreateJob() {
                   isLoading: isPending,
                 }}
               >
-
-                {/* STEP 1 */} 
+                {/* STEP 1 */}
                 {currentStep === 1 && (
                   <JobFormFirstStep {...{ t, form, technologiesFields }} />
                 )}
 
-                {/* STEP 2 */} 
+                {/* STEP 2 */}
                 {currentStep === 2 && (
                   <JobFormSecondStep {...{ t, form, technologiesFields }} />
                 )}
 
-                {/* STEP 3 */} 
+                {/* STEP 3 */}
                 {currentStep === 3 && (
                   <JobFormThirdStep {...{ t, form, technologiesFields }} />
                 )}
 
-                {/* STEP 4 */} 
+                {/* STEP 4 */}
                 {currentStep === 4 && (
                   <JobFormFourthStep {...{ t, form, technologiesFields }} />
                 )}
-
               </FormCardContent>
             </Card>
-            <DialogFooter>
 
-              {/* PREVIOUS BUTTON  */} 
-              {currentStep !== 1 && (
-                <Button
-                  variant="destructive"
-                  className="w-min flex gap-2 "
-                  onClick={() => setCurrentStep((prevStep)=> prevStep-1)}
-                >
-                  {t("pages.createJob.form.button.previous_step")}
-                </Button>
-              )}
+            {/************* FOOTER *********************************************** */}
 
-              {/* NEXT BUTTON  */} 
-              {currentStep !== 4 && (
-                <Button
-                  className="w-min flex gap-2 "
-                  variant="blue"
-                  onClick={() => setCurrentStep((prevStep) => prevStep+ 1)}
-                >
-                  {t("pages.createJob.form.button.next_step")}
-                </Button>
-              )}
+              {/* PAGINATION */}
+            <DialogFooter className="flex justify-between items-center">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={() =>
+                        currentStep > 1 &&
+                        setCurrentStep((prevStep) => prevStep - 1)
+                      }
+                    />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink
+                      onClick={() => setCurrentStep(1)}
+                      isActive={currentStep === 1}
+                    >
+                      1
+                    </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink
+                      onClick={() => setCurrentStep(2)}
+                      isActive={currentStep === 2}
+                    >
+                      2
+                    </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink
+                      onClick={() => setCurrentStep(3)}
+                      isActive={currentStep === 3}
+                    >
+                      3
+                    </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink
+                      onClick={() => setCurrentStep(4)}
+                      isActive={currentStep === 4}
+                    >
+                      4
+                    </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={() =>
+                        currentStep < 5 &&
+                        setCurrentStep((prevStep) => prevStep + 1)
+                      }
+                      isActive={currentStep === 4}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
 
-              {/* SUBMIT BUTTON  */} 
+              {/* SUBMIT BUTTON  */}
               {currentStep === 4 && (
                 <Button
                   type="submit"
