@@ -1,18 +1,21 @@
 import { useTranslation } from "react-i18next";
 
 import { useMutation } from "@tanstack/react-query";
-import { authService } from "../../auth.service";
 
 import { toast } from "react-toastify";
 
-import type { UseLogoutReturn } from "../../types/hook";
-import type { ApiErrors, LogoutResponse } from "../../types/api";
+
 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/data/routes";
-import { useAuthStore } from "../../auth.store";
+
 import { useCookieStore } from "@/store/cookie.store";
+import type { UseLogoutReturn } from "../types/hook";
+import { useAuthStore } from "../auth.store";
+import type { LogoutResponse } from "../types/api";
+import type { ApiErrors } from "@/types/api";
+import { authService } from "../auth.service";
 
 export const useLogout = (): UseLogoutReturn => {
   const { t } = useTranslation("auth");

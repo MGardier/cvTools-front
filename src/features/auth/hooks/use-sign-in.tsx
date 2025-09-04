@@ -4,16 +4,20 @@ import { useForm } from "react-hook-form";
 import type z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { authService } from "../../auth.service";
+
 import { toast } from "react-toastify";
 
-import { createSignInSchema } from "../../schema/auth-schema";
+
 import { useNavigate } from "react-router-dom";
-import type { ApiErrors, SignInResponse } from "../../types/api";
-import type { UseSignInReturn } from "../../types/hook";
-import { useAuthStore } from "../../auth.store";
+
 import { ROUTES } from "@/data/routes";
 import { useCookieStore } from "@/store/cookie.store";
+import type { UseSignInReturn } from "../types/hook";
+import { useAuthStore } from "../auth.store";
+import { createSignInSchema } from "../schema/auth-schema";
+import type { SignInResponse } from "../types/api";
+import type { ApiErrors } from "@/types/api";
+import { authService } from "../auth.service";
 
 export const useSignIn = (): UseSignInReturn => {
   const { t } = useTranslation("auth");

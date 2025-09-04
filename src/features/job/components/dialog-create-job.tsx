@@ -30,7 +30,7 @@ export function DialogCreateJob() {
   const { t, onSubmit, form, error, isPending, isError, technologiesFields } =
     useCreateJob();
   const [currentStep, setCurrentStep] = useState(1);
-  
+  console.log(error)
   return (
     <div className="grid gap-6">
       <Dialog>

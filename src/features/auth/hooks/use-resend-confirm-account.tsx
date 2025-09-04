@@ -4,16 +4,20 @@ import { useForm } from "react-hook-form";
 import type z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { authService } from "../../auth.service";
+
 
 import { toast } from "react-toastify";
 
-import { createSendConfirmAccountSchema } from "../../schema/auth-schema";
 
 
-import type { UseSendConfirmReturn } from "../../types/hook";
-import type { ApiErrors, SendConfirmAccountResponse } from "../../types/api";
+
+
 import { useState } from "react";
+import type { UseSendConfirmReturn } from "../types/hook";
+import { createSendConfirmAccountSchema } from "../schema/auth-schema";
+import type { SendConfirmAccountResponse } from "../types/api";
+import type { ApiErrors } from "@/types/api";
+import { authService } from "../auth.service";
 
 
 
