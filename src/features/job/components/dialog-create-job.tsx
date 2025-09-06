@@ -51,7 +51,6 @@ export function DialogCreateJob() {
     fieldsInSteps.fourth.has(field.split(".")[0])
   );
 
-  console.log(form.watch())
   //TODO: message de trad avec params
   return (
     <div className="grid gap-6">
@@ -83,11 +82,8 @@ export function DialogCreateJob() {
               </p>
             )}
 
-
             {errorFields.length > 0 && (
-              <p>
-                {t("pages.createJob.form.errors.invalid_fields")} :
-              </p>
+              <p>{t("pages.createJob.form.errors.invalid_fields")} :</p>
             )}
           </div>
           {/* FORM */}
@@ -102,7 +98,16 @@ export function DialogCreateJob() {
             >
               {/* STEP 1 */}
               {currentStep === 1 && (
-                <JobFormFirstStep {...{ t, form, technologiesFields }} />
+                <JobFormFirstStep
+                  {...{
+                    t,
+                    form,
+                    technologiesFields,
+                    isTechnologyFieldInError: errorFields.some(
+                      (field) => field.split(".")[0] === "technologies"
+                    ),
+                  }}
+                />
               )}
 
               {/* STEP 2 */}

@@ -14,12 +14,14 @@ interface JobFormFirstStepProps {
   technologiesFields: UseFieldArrayReturn<
     z.infer<ReturnType<typeof createJobSchema>>
   >;
+  isTechnologyFieldInError: boolean;
 }
 
 export const JobFormFirstStep = ({
   t,
   form,
   technologiesFields,
+  isTechnologyFieldInError
 }: JobFormFirstStepProps) => {
   //TODO : translations sortir le form et les enums
 
@@ -36,7 +38,7 @@ export const JobFormFirstStep = ({
       />
 
       {/** TECHNOLOGIES  */}
-      <TechnologiesForm {...{ form, t, technologiesFields }} />
+      <TechnologiesForm {...{ form, t,isTechnologyFieldInError, technologiesFields }} />
 
       {/** STATUS  */}
       <SelectField

@@ -13,6 +13,7 @@ import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 
 import type z from "zod";
 import type { createJobSchema } from "../../schema/job-schema";
+import { boolean } from "zod";
 
 interface TechnologiesFormProps {
   t: TFunction<"job", undefined>;
@@ -20,6 +21,7 @@ interface TechnologiesFormProps {
   technologiesFields: UseFieldArrayReturn<
     z.infer<ReturnType<typeof createJobSchema>>
   >;
+  isTechnologyFieldInError: boolean;
 }
 //TODO: AUTO Complete
 
@@ -27,18 +29,32 @@ export const TechnologiesForm = ({
   t,
   form,
   technologiesFields,
+  isTechnologyFieldInError,
 }: TechnologiesFormProps) => {
+  const technologies = technologiesFields.fields.filter((_, index) => {
+    const value = form.watch(`technologies.${index}.name`);
+    return (
+      value && value.trim() && index < technologiesFields.fields.length - 1
+    );
+  });
+  console.log(new Set(Object.keys(form.formState.errors)));
 
-const technologies = technologiesFields.fields.filter((_,index)=>{
-  const value =form.watch(`technologies.${index}.name`)
-  return value && value.trim() && index < technologiesFields.fields.length -1;
-})
   return (
     <div className="grid gap-6">
       <div className="grid gap-3">
         <FormLabel>
-          {t("pages.createJob.form.technologies.label")}{" "}
-          <p className="text-muted-foreground text-xs"> (Requis)</p>
+          <div className="flex flex-col justitfy-left items-left gap-2">
+            <p className={isTechnologyFieldInError ? "text-destructive" : ""}>
+              {t("pages.createJob.form.technologies.label")}{" "}
+              <span className="text-muted-foreground text-xs"> (Requis)</span>
+            </p>
+
+            {isTechnologyFieldInError && (
+              <p className="text-destructive text-sm font-normal">
+                {t("validation.technologies.required")}
+              </p>
+            )}
+          </div>
         </FormLabel>
 
         <div className="flex flex-wrap gap-2 ">
@@ -65,6 +81,11 @@ const technologies = technologiesFields.fields.filter((_,index)=>{
                   <FormControl>
                     <div className="flex gap-2 items-center justify-center">
                       <Input
+                        className={
+                          isTechnologyFieldInError
+                            ? "border-destructive  ring-destructive/20"
+                            : ""
+                        }
                         type={isLast ? "text" : "hidden"}
                         placeholder={t(
                           "pages.createJob.form.technologies.placeholder"
@@ -77,8 +98,6 @@ const technologies = technologiesFields.fields.filter((_,index)=>{
                           onClick={() => {
                             if (field.value !== "" && field.value) {
                               technologiesFields.append({ name: "" });
-
-            
                             }
                           }}
                           type="button"

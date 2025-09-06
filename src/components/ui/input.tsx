@@ -49,7 +49,6 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         //error
         "aria-invalid:border-destructive",
         "aria-invalid:ring-destructive/20",
-        "dark:aria-invalid:ring-destructive/40",
         className
       )}
       {...props}
