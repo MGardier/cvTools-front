@@ -23,6 +23,7 @@ export const JobFormFirstStep = ({
   technologiesFields,
   isTechnologyFieldInError
 }: JobFormFirstStepProps) => {
+  
   //TODO : translations sortir le form et les enums
 
   return (

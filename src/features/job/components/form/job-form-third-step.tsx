@@ -1,15 +1,12 @@
 import { FormCardField } from "@/components/form/form-card-field";
 import type { TFunction } from "i18next";
-import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
+import type {  UseFormReturn } from "react-hook-form";
 import type z from "zod";
 import type { createJobSchema } from "../../schema/job-schema";
 
 interface JobFormThirdStepProps {
   t: TFunction<"job", undefined>;
   form: UseFormReturn<z.infer<ReturnType<typeof createJobSchema>>>;
-  technologiesFields: UseFieldArrayReturn<
-    z.infer<ReturnType<typeof createJobSchema>>
-  >;
 }
 
 export const JobFormThirdStep = ({
@@ -18,43 +15,31 @@ export const JobFormThirdStep = ({
 }: JobFormThirdStepProps) => {
   return (
     <>
-      {/** LINK  */}
+      {/** DESCRIPTION  */}
       <FormCardField
-        label={t("pages.createJob.form.link.label")}
-        name="link"
+        label={t("pages.createJob.form.description.label")}
+        name="description"
         type="text"
-        placeholder={t("pages.createJob.form.link.placeholder")}
+        placeholder={t("pages.createJob.form.description.placeholder")}
         required
         {...{ form }}
       />
 
 
-      {/** ADDRESS CITY  */}
+      {/** REJECTED REASON  */}
       <FormCardField
-        label={t("pages.createJob.form.address.city.label")}
-        name="address.city"
+        label={t("pages.createJob.form.rejectedReason.label")}
+        name="rejectedReason"
         type="text"
-        placeholder={t("pages.createJob.form.address.city.placeholder")}
+        placeholder={t("pages.createJob.form.rejectedReason.placeholder")}
+        required
         {...{ form }}
       />
 
-      {/** ADDRESS POSTAL CODE  */}
-      <FormCardField
-        label={t("pages.createJob.form.address.postalCode.label")}
-        name="address.postalCode"
-        type="text"
-        placeholder={t("pages.createJob.form.address.postalCode.placeholder")}
-        {...{ form }}
-      />
 
-      {/** ADDRESS STREET  */}
-      <FormCardField
-        label={t("pages.createJob.form.address.street.label")}
-        name="address.street"
-        type="text"
-        placeholder={t("pages.createJob.form.address.street.placeholder")}
-        {...{ form }}
-      />
+
+
+
     </>
   );
 };

@@ -32,6 +32,7 @@ export const JobFormSecondStep = ({ t, form }: JobFormSecondStepProps) => {
         name="type"
         placeholder={t("pages.createJob.form.type.placeholder")}
         form={form}
+        required
         objectValues={Object.values(TypeEnterprise).map((value) => {
           return {
             value,
@@ -48,6 +49,7 @@ export const JobFormSecondStep = ({ t, form }: JobFormSecondStepProps) => {
         name="applicationMethod"
         placeholder={t("pages.createJob.form.applicationMethod.placeholder")}
         form={form}
+        required
         objectValues={Object.values(JobApplyMethod).map((value) => {
           return {
             value,
@@ -58,7 +60,7 @@ export const JobFormSecondStep = ({ t, form }: JobFormSecondStepProps) => {
         })}
       />
 
-      {/** APPLIEDAT  */}
+      {/** APPLIED AT  */}
       <DatePickerField
         label={t("pages.createJob.form.appliedAt.label")}
         name="appliedAt"

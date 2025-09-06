@@ -15,8 +15,10 @@ import { useCreateJob } from "../hooks/useCreateJob";
 import { useState } from "react";
 import { JobFormFirstStep } from "./form/job-form-first-step";
 import { JobFormSecondStep } from "./form/job-form-second-step";
-import { JobFormThirdStep } from "./form/job-form-third-step";
 import { JobFormFourthStep } from "./form/job-form-fourth-step";
+import {
+  JobFormFifthStep,
+} from "./form/job-form-fifth-step";
 import {
   Pagination,
   PaginationContent,
@@ -25,6 +27,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { JobFormSixthStep } from "./form/job-form-sixth-step";
+import { JobFormThirdStep } from "./form/job-form-third-step";
 
 export function DialogCreateJob() {
   const { t, onSubmit, form, error, isPending, isError, technologiesFields } =
@@ -33,8 +37,10 @@ export function DialogCreateJob() {
   const fieldsInSteps = {
     first: new Set(["jobTitle", "technologies", "status", "priority"]),
     second: new Set(["enterprise", "type", "applicationMethod", "appliedAt"]),
-    third: new Set(["link", "address"]),
-    fourth: new Set(["managerName", "managerEmail", "salaryMin", "salaryMax"]),
+    third: new Set(["description", "rating", "rejectedReason", "archived"]),
+    fourth: new Set(["link", "address"]),
+    fifth: new Set(["managerName", "managerEmail", "salaryMin", "salaryMax"]),
+    sixth: new Set(["detailsToRemember", "interviewCount", "lastContactAt"]),
   };
 
   const errorFields = Object.keys(form.formState.errors);
@@ -50,7 +56,12 @@ export function DialogCreateJob() {
   const isErrorInFourthStep = errorFields.some((field) =>
     fieldsInSteps.fourth.has(field.split(".")[0])
   );
-
+  const isErrorInFithStep = errorFields.some((field) =>
+    fieldsInSteps.fifth.has(field.split(".")[0])
+  );
+  const isErrorInSixthStep = errorFields.some((field) =>
+    fieldsInSteps.sixth.has(field.split(".")[0])
+  );
   //TODO: message de trad avec params
   return (
     <div className="grid gap-6">
@@ -83,7 +94,7 @@ export function DialogCreateJob() {
             )}
 
             {errorFields.length > 0 && (
-              <p>{t("pages.createJob.form.errors.invalid_fields")} :</p>
+              <p>{t("pages.createJob.form.errors.invalid_fields")}</p>
             )}
           </div>
           {/* FORM */}
@@ -111,19 +122,20 @@ export function DialogCreateJob() {
               )}
 
               {/* STEP 2 */}
-              {currentStep === 2 && (
-                <JobFormSecondStep {...{ t, form, technologiesFields }} />
-              )}
+              {currentStep === 2 && <JobFormSecondStep {...{ t, form }} />}
 
               {/* STEP 3 */}
-              {currentStep === 3 && (
-                <JobFormThirdStep {...{ t, form, technologiesFields }} />
-              )}
+              {currentStep === 3 && <JobFormThirdStep {...{ t, form }} />}
 
               {/* STEP 4 */}
-              {currentStep === 4 && (
-                <JobFormFourthStep {...{ t, form, technologiesFields }} />
-              )}
+              {currentStep === 4 && <JobFormFourthStep {...{ t, form }} />}
+
+              {/* STEP 5 */}
+              {currentStep === 5 && <JobFormFifthStep {...{ t, form }} />}
+
+              {/* STEP 6 */}
+              {currentStep === 6 && <JobFormSixthStep {...{ t, form }} />}
+
               {/************* FOOTER *********************************************** */}
 
               {/* PAGINATION */}
@@ -174,20 +186,38 @@ export function DialogCreateJob() {
                         4
                       </PaginationLink>
                     </PaginationItem>
+                                        <PaginationItem>
+                      <PaginationLink
+                        className={isErrorInFourthStep ? "text-red-500" : ""}
+                        onClick={() => setCurrentStep(5)}
+                        isActive={currentStep === 5}
+                      >
+                        5
+                      </PaginationLink>
+                    </PaginationItem>
+                                        <PaginationItem>
+                      <PaginationLink
+                        className={isErrorInFourthStep ? "text-red-500" : ""}
+                        onClick={() => setCurrentStep(6)}
+                        isActive={currentStep === 6}
+                      >
+                        6
+                      </PaginationLink>
+                    </PaginationItem>
                     <PaginationItem>
                       <PaginationNext
                         onClick={() =>
-                          currentStep < 5 &&
+                          currentStep < 6 &&
                           setCurrentStep((prevStep) => prevStep + 1)
                         }
-                        isActive={currentStep === 4}
+                        isActive={currentStep === 6}
                       />
                     </PaginationItem>
                   </PaginationContent>
                 </Pagination>
 
                 {/* SUBMIT BUTTON  */}
-                {currentStep === 4 && (
+                {currentStep === 6 && (
                   <Button
                     type="submit"
                     variant="blue"

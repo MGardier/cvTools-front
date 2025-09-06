@@ -4,7 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
-import { FormField, FormItem, FormLabel } from "../ui/form";
+import { FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 
@@ -41,6 +41,7 @@ export const DatePickerField = <TFormData extends FieldValues>({
             <FormLabel htmlFor="date" className="px-1">
               {label} <p className="text-muted-foreground text-xs">{required ? ' (Requis)' : ' (Optionnel)'}</p>
             </FormLabel>
+            <FormMessage />
             <div className="relative flex gap-2">
               <Input
   

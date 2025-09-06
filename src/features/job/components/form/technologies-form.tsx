@@ -13,7 +13,6 @@ import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 
 import type z from "zod";
 import type { createJobSchema } from "../../schema/job-schema";
-import { boolean } from "zod";
 
 interface TechnologiesFormProps {
   t: TFunction<"job", undefined>;

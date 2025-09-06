@@ -18,12 +18,12 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     //TECHNOLOGIES
     technologies:
       z.object({
-        name: z.string().min(1,{ message: t('validation.technologies.required') })
+        name: z.string().min(1, { message: t('validation.technologies.required') })
       }).array().min(1, { message: t('validation.technologies.required') }),
 
     //STATUS
     status:
-      z.enum(JobStatus,{ message: t('validation.status.required') }),
+      z.enum(JobStatus, { message: t('validation.status.required') }),
 
     //PRIORITY
     priority:
@@ -31,27 +31,65 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
 
 
-     /**************************** SECOND STEP ****************************************** */
-    //type
-    type:
-      z.enum(TypeEnterprise, { message: t('validation.type.notEmpty') }),
-
-    //LINK
-    link:
-      z.string(),
+    /**************************** SECOND STEP ****************************************** */
 
 
-          //ENTERPRISE
+
+    //ENTERPRISE
     enterprise:
-      z.string().min(1, { message: t('validation.jobTitle.notEmpty') }),
+      z.string().min(1, { message: t('validation.jobTitle.required') }),
 
-
+    //TYPE
+    type:
+      z.enum(TypeEnterprise, { message: t('validation.type.required') }),
 
 
     //APPLICATION METHOD
     applicationMethod:
-      z.enum(JobApplyMethod),
+      z.enum(JobApplyMethod, { message: t('validation.applicationMethod.required') }),
 
+
+    //APPLIED AT
+    appliedAt:
+      z.date({ message: t('validation.appliedAt.invalid') }).optional(),
+
+
+
+    /**************************** THIRD STEP ****************************************** */
+
+    //DESCRIPTION
+    description:
+      z.string().optional(),
+
+    //RATING
+    rating:
+      z.number().min(0, { message: t('validation.rating.minLength') }).max(5, { message: t('validation.rating.maxLength') }).optional(),
+
+    //REJECTED REASON 
+    rejectedReason:
+      z.string().optional(),
+
+    //ARCHIVED
+    archived:
+      z.boolean({ message: t('validation.archived.invalid') }),
+
+
+
+    /**************************** FOURTH STEP ****************************************** */
+    //LINK
+    link:
+      z.string().min(1, { message: t('validation.link.required') }),
+
+    //ADDRESS
+    address:
+      z.object({
+        city: z.string(),
+        postalCode: z.string(),
+        street: z.string()
+      }, { message: t('validation.address.invalid') }).optional(),
+
+
+    /**************************** FIFTH STEP ****************************************** */
 
     //MANAGER NAME
     managerName:
@@ -63,13 +101,6 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
       z.email()
         .optional(),
 
-
-    //DETAILS TO REMEMBER
-    detailsToRemember:
-      z.string()
-        .optional(),
-
-
     //SALARY MIN
     salaryMin:
       z.number()
@@ -80,19 +111,22 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
       z.number()
         .optional(),
 
+    /**************************** SIXTH STEP ****************************************** */
 
-    //APPLICATION METHOD
-    appliedAt:
-      z.date().optional(),
+    //DETAILS TO REMEMBER
+    detailsToRemember:
+      z.string()
+        .optional(),
+
+    //INTERVIEW COUNT
+    interviewCount:
+      z.number().min(0, { message: t('validation.interviewCount.minLength') }),
+
+    //LAST CONTACT AT
+    lastContactAt:
+      z.date({ message: t('validation.lastContactAt.invalid') }).optional(),
 
 
-    //ADDRESS
-    address:
-      z.object({
-        city: z.string(),
-        postalCode: z.string(),
-        street: z.string()
-      })
 
   })
 

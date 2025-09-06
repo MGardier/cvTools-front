@@ -95,22 +95,46 @@
           "label": "Fourchette haute du salaire  annuel brut en €",
           "placeholder": "35000"
         },
+        "rejectedReason": {
+          "label": "Raison si refus",
+          "placeholder": "La raison de refus ...."
+        },
+        "description": {
+          "label": "Description de l'offre",
+          "placeholder": "Votre  description..."
+        },
         "button": {
           "previous_step": "Précédent",
           "next_step": "Suivant",
           "submit": "Créer une candidature"
         },
         "errors": {
-          "invalid_fields": "Certaines étapes sont invalides "
+          "invalid_fields": "Certaines étapes sont invalides."
         }
       }
     }
   },
-  
+
   "validation": {
     "jobTitle": { "required": "Le titre est requis." },
     "technologies": { "required": "Les technologies sont requises." },
-    "status" : {"required": "Le statut est requis. "},
-    "priority" : {"required": "La priorité est requis."}
+    "status": { "required": "Le statut est requis. " },
+    "priority": { "required": "La priorité est requis." },
+    "type": { "required": "Le type est requis." },
+    "applicationMethod": { "required": "La méthode est requise." },
+    "appliedAt": { "invalid": "La date n'est pas valide." },
+    "link": { "required": "Le lien est requis." },
+    "rating": {
+      "minLength": "La note ne peut pas être inférieur à 0.",
+      "maxLength": "La note ne peut pas être supérieur à 5."
+    },
+    "archived": { "invalid": "Est archivée n'est pas valide." },
+    "address": { "invalid": "L'adresse n'est pas valide" },
+    "interviewCount": {
+      "minLength": "Le nombre d'entretiens ne peut pas être inférieur à zéro."
+    },
+    "lastContactAt": {
+      "invalid": "La date du dernier contact n'est pas valide."
+    }
   }
 }

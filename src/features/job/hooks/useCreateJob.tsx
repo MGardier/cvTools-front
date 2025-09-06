@@ -33,6 +33,7 @@ export const useCreateJob = (): UseCreateJobReturn => {
     salaryMin: undefined,
     salaryMax: undefined,
     appliedAt: undefined,
+    rejectedReason: undefined,
 
     //ENUM
     type: undefined,
