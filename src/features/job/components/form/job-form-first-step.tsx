@@ -21,6 +21,8 @@ export const JobFormFirstStep = ({
   form,
   technologiesFields,
 }: JobFormFirstStepProps) => {
+  //TODO : translations sortir le form et les enums
+
   return (
     <>
       {/** TITLE  */}
@@ -30,7 +32,6 @@ export const JobFormFirstStep = ({
         type="text"
         placeholder={t("pages.createJob.form.jobTitle.placeholder")}
         required
-        aria-required
         {...{ form }}
       />
 
@@ -43,6 +44,7 @@ export const JobFormFirstStep = ({
         name="status"
         placeholder={t("pages.createJob.form.status.placeholder")}
         form={form}
+        required
         objectValues={Object.values(JobStatus).map((value) => {
           return {
             value,
@@ -53,12 +55,14 @@ export const JobFormFirstStep = ({
         })}
       />
 
+      
       {/** PRIORITY  */}
       <SelectField
         label={t("pages.createJob.form.priority.label")}
         name="priority"
         placeholder={t("pages.createJob.form.priority.placeholder")}
         form={form}
+        required
         objectValues={Object.values(JobPriority).map((value) => {
           return {
             value,

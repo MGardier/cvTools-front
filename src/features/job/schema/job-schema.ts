@@ -9,32 +9,45 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
   return z.object({
 
-    //ENTERPRISE
-    enterprise:
-      z.string(),
+    /**************************** FIRST STEP ****************************************** */
 
+    //JOB TITLE
+    jobTitle:
+      z.string().min(1, { message: t('validation.jobTitle.required') }),
+
+    //TECHNOLOGIES
+    technologies:
+      z.object({
+        name: z.string().min(1,{ message: t('validation.technologies.required') })
+      }).array().min(1, { message: t('validation.technologies.required') }),
+
+    //STATUS
+    status:
+      z.enum(JobStatus,{ message: t('validation.status.required') }),
+
+    //PRIORITY
+    priority:
+      z.enum(JobPriority, { message: t('validation.priority.required') }),
+
+
+
+     /**************************** SECOND STEP ****************************************** */
     //type
     type:
-      z.enum(TypeEnterprise),
+      z.enum(TypeEnterprise, { message: t('validation.type.notEmpty') }),
 
     //LINK
     link:
       z.string(),
 
-    //JOB TITLE
-    jobTitle:
-      z.string(),
 
-    
-    //STATUS
-    status:
-      z.enum(JobStatus),
+          //ENTERPRISE
+    enterprise:
+      z.string().min(1, { message: t('validation.jobTitle.notEmpty') }),
 
-    //PRIORITY
-    priority:
-      z.enum(JobPriority),
 
-    
+
+
     //APPLICATION METHOD
     applicationMethod:
       z.enum(JobApplyMethod),
@@ -72,24 +85,19 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     appliedAt:
       z.date().optional(),
 
-    //TECHNOLOGIES
-    technologies : 
-    z.object({
-      name: z.string()
-    }).array(),
 
     //ADDRESS
-    address : 
+    address:
       z.object({
         city: z.string(),
-        postalCode : z.string(),
+        postalCode: z.string(),
         street: z.string()
       })
-          
+
   })
 
     // CUSTOM VALIDATION
-    .refine((data) => Number(data?.salaryMax) > Number(data.salaryMin) && data.salaryMin && data.salaryMax  , {
+    .refine((data) => Number(data?.salaryMax) > Number(data.salaryMin) && data.salaryMin && data.salaryMax, {
       message: t('errors.validation.confirmPassword.notEqual'),
     })
 

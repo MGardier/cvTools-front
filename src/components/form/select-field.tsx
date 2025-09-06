@@ -1,5 +1,5 @@
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
-import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import {
   Select,
   SelectContent,
@@ -36,6 +36,7 @@ export const SelectField = <TFormData extends FieldValues>({
         render={({ field }) => (
           <FormItem>
             <FormLabel>{label} <p className="text-muted-foreground text-xs">{required ? ' (Requis)' : ' (Optionnel)'}</p></FormLabel>
+            <FormMessage />
             <Select required={required} onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger className="w-full">

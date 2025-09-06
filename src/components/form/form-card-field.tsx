@@ -40,6 +40,7 @@ export const FormCardField = <TFormData extends FieldValues>({
                 {required ? " (Requis)" : " (Optionnel)"}
               </p>
             </FormLabel>
+            <FormMessage />
             <FormControl>
               <Input
                 {...{
@@ -51,7 +52,6 @@ export const FormCardField = <TFormData extends FieldValues>({
                 }}
               />
             </FormControl>
-            <FormMessage />
           </FormItem>
         )}
       />

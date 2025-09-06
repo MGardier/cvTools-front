@@ -5,7 +5,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import type { TFunction } from "i18next";
@@ -13,7 +12,6 @@ import { Plus, X } from "lucide-react";
 import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 
 import type z from "zod";
-import { useState } from "react";
 import type { createJobSchema } from "../../schema/job-schema";
 
 interface TechnologiesFormProps {
@@ -23,28 +21,32 @@ interface TechnologiesFormProps {
     z.infer<ReturnType<typeof createJobSchema>>
   >;
 }
+//TODO: AUTO Complete
 
 export const TechnologiesForm = ({
   t,
   form,
   technologiesFields,
 }: TechnologiesFormProps) => {
-  const [techBadges, setTechBadges] = useState<{ name: string }[]>([]);
+
+const technologies = technologiesFields.fields.filter((_,index)=>{
+  const value =form.watch(`technologies.${index}.name`)
+  return value && value.trim() && index < technologiesFields.fields.length -1;
+})
   return (
     <div className="grid gap-6">
       <div className="grid gap-3">
-        <FormLabel>{t("pages.createJob.form.technologies.label")}</FormLabel>
+        <FormLabel>
+          {t("pages.createJob.form.technologies.label")}{" "}
+          <p className="text-muted-foreground text-xs"> (Requis)</p>
+        </FormLabel>
+
         <div className="flex flex-wrap gap-2 ">
-          {techBadges.map((tech, index) => (
+          {technologies.map((tech, index) => (
             <Badge
               variant="outline_blue"
-              key={`${tech.name}-${index}`}
-              onClick={() => {
-                technologiesFields.remove(index);
-                setTechBadges((prevState) =>
-                  prevState.filter((prevTech) => prevTech !== tech)
-                );
-              }}
+              key={`${tech}-${index}`}
+              onClick={() => technologiesFields.remove(index)}
             >
               {form.watch(`technologies.${index}.name`)}
               <X />
@@ -75,14 +77,8 @@ export const TechnologiesForm = ({
                           onClick={() => {
                             if (field.value !== "" && field.value) {
                               technologiesFields.append({ name: "" });
-                              setTechBadges((prevState) => [
-                                ...prevState,
-                                {
-                                  name: form.watch(
-                                    `technologies.${index}.name`
-                                  ),
-                                },
-                              ]);
+
+            
                             }
                           }}
                           type="button"
@@ -95,7 +91,6 @@ export const TechnologiesForm = ({
                       )}
                     </div>
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />

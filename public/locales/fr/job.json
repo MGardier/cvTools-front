@@ -99,8 +99,18 @@
           "previous_step": "Précédent",
           "next_step": "Suivant",
           "submit": "Créer une candidature"
+        },
+        "errors": {
+          "invalid_fields": "Certaines étapes sont invalides "
         }
       }
     }
+  },
+  
+  "validation": {
+    "jobTitle": { "required": "Le titre est requis." },
+    "technologies": { "required": "Les technologies sont requises." },
+    "status" : {"required": "Le statut est requis. "},
+    "priority" : {"required": "La priorité est requis."}
   }
 }
