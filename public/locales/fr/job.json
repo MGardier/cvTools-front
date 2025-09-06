@@ -96,13 +96,15 @@
           "placeholder": "35000"
         },
         "rejectedReason": {
-          "label": "Raison si refus",
-          "placeholder": "La raison de refus ...."
+          "label": "Raison si refusée",
+          "placeholder": "La raison du refus ...."
         },
         "description": {
           "label": "Description de l'offre",
           "placeholder": "Votre  description..."
         },
+        "rating":{"label":"Note d'auto évalutation pour cet offre "},
+        "archived" :{"label" : "Archiver la candidature"},
         "button": {
           "previous_step": "Précédent",
           "next_step": "Suivant",

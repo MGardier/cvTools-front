@@ -36,7 +36,6 @@ export const TechnologiesForm = ({
       value && value.trim() && index < technologiesFields.fields.length - 1
     );
   });
-  console.log(new Set(Object.keys(form.formState.errors)));
 
   return (
     <div className="grid gap-6">

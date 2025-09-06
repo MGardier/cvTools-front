@@ -20,7 +20,6 @@ export const useCreateJob = (): UseCreateJobReturn => {
   const userId = Number(useAuthStore().user?.id);
 
   const defaultValues = {
-    
     //REQUIRED
     enterprise: "",
     link: "",
@@ -28,12 +27,17 @@ export const useCreateJob = (): UseCreateJobReturn => {
     managerName: "",
     managerEmail: "",
     detailsToRemember: "",
+    rating: 0,
+    archived: false,
+    interviewCount: 0,
 
     //OPTIONNAL
     salaryMin: undefined,
     salaryMax: undefined,
     appliedAt: undefined,
+    lastContactAt: undefined,
     rejectedReason: undefined,
+    description: undefined,
 
     //ENUM
     type: undefined,
@@ -52,7 +56,6 @@ export const useCreateJob = (): UseCreateJobReturn => {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues,
-  
   });
 
   const technologiesFields = useFieldArray({
@@ -69,7 +72,7 @@ export const useCreateJob = (): UseCreateJobReturn => {
   });
 
   const onSubmit = (values: z.infer<typeof schema>) => {
-    console.log(values)
+    // console.log(values)
     mutation.mutate({ ...values, userId });
   };
 
@@ -80,9 +83,6 @@ export const useCreateJob = (): UseCreateJobReturn => {
     onSubmit,
     isPending: mutation.isPending,
     isError: mutation.isError,
-    technologiesFields ,
-
-   
-
+    technologiesFields,
   };
 };
