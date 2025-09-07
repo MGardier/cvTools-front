@@ -25,7 +25,7 @@ export const JobFormFifthStep = ({ t, form }: JobFormFourthStepProps) => {
       <FormCardField
         label={t("pages.createJob.form.managerEmail.label")}
         name="managerEmail"
-        type="text"
+        type="email"
         placeholder={t("pages.createJob.form.managerEmail.placeholder")}
         {...{ form }}
       />

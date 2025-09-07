@@ -89,7 +89,7 @@ export const TechnologiesForm = ({
                           "pages.createJob.form.technologies.placeholder"
                         )}
                         {...field}
-                        required
+                        
                       />
                       {isLast && (
                         <Button

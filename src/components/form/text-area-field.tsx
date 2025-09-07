@@ -5,7 +5,7 @@ import { Textarea } from "../ui/textarea";
 interface TextAreaFieldProps<TFormData extends FieldValues> {
   label?: string;
   name: Path<TFormData>;
-  type: string;
+
   placeholder?: string;
   required?: boolean;
   form: UseFormReturn<TFormData>;
@@ -16,7 +16,6 @@ export const TextAreaField = <TFormData extends FieldValues>({
   form,
   label,
   name,
-  type,
   placeholder,
   required = false,
 
@@ -40,7 +39,6 @@ export const TextAreaField = <TFormData extends FieldValues>({
               <Textarea
                 {...{
                   placeholder,
-                  type,
                   required,
                   ...field,
                 }}

@@ -2,6 +2,7 @@
   "pages": {
     "createJob": {
       "title": "Créer une candidature",
+      "description": "Permet de créer une candidature et de l'enregistrer.",
       "form": {
         "enterprise": {
           "label": "Nom de l'entreprise",
@@ -103,8 +104,17 @@
           "label": "Description de l'offre",
           "placeholder": "Votre  description..."
         },
-        "rating":{"label":"Note d'auto évalutation pour cet offre "},
-        "archived" :{"label" : "Archiver la candidature"},
+        "rating": { "label": "Note d'auto évalutation pour cet offre " },
+        "archived": { "label": "Archiver la candidature" },
+        "detailsToRemember": {
+          "label": "Détails à se rappeler",
+          "placeholder": "Vos détails ..."
+        },
+        "interviewCount": { "label": "Nombre d'entretiens " },
+        "lastContactAt": {
+          "label": "Dernier contact le ",
+          "placeholder": "01 septembre 2025"
+        },
         "button": {
           "previous_step": "Précédent",
           "next_step": "Suivant",
@@ -137,6 +147,20 @@
     },
     "lastContactAt": {
       "invalid": "La date du dernier contact n'est pas valide."
+    },
+    "managerEmail": {
+      "invalid": "L'email n'est pas valide."
+    },
+    "salaryMax": {
+      "label": "Le salaire max n'est pas valide."
+    },
+    "salaryMin": {
+      "label": "Le salaire min n'est pas valide."
+    }
+  },
+  "messages": {
+    "success": {
+      "createJob": "Votre candidature a bien été créer."
     }
   }
 }

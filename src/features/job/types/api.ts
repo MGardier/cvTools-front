@@ -1,7 +1,9 @@
 import type { ApiResponse } from "@/types/api";
-import type { CreateJobData } from "./form";
 
-export interface CreateJobParams extends CreateJobData{
+import type z from "zod";
+import type { createJobSchema } from "../schema/job-schema";
+
+export interface CreateJobParams extends z.infer<ReturnType<typeof createJobSchema>>{
   userId : number
 }
 

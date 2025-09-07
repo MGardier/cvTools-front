@@ -22,9 +22,7 @@ export const JobFormThirdStep = ({
       <TextAreaField
         label={t("pages.createJob.form.description.label")}
         name="description"
-        type="text"
         placeholder={t("pages.createJob.form.description.placeholder")}
-        required
         {...{ form }}
       />
 
@@ -34,10 +32,8 @@ export const JobFormThirdStep = ({
         name="rating"
         min={0}
         max={5}
-        required
         {...{ form }}
       />
-
 
       {/** REJECTED REASON  */}
       <FormCardField
@@ -45,7 +41,6 @@ export const JobFormThirdStep = ({
         name="rejectedReason"
         type="text"
         placeholder={t("pages.createJob.form.rejectedReason.placeholder")}
-        required
         {...{ form }}
       />
 

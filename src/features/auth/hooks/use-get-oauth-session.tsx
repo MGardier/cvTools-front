@@ -13,6 +13,7 @@ import type { ApiErrors } from "@/types/api";
 import { authService } from "../auth.service";
 import { ROUTES } from "@/data/routes";
 
+//TODO: modifier les typages form par celui de zod
 export const useGetOauthSession = (sessionId : string , loginMethod: string): UseCompleteOauthReturn => {
   const { t } = useTranslation("auth");
   const navigate = useNavigate();

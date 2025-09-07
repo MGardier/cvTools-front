@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { createJobSchema } from "../schema/job-schema";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm, type Resolver } from "react-hook-form";
 import type z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import type { ApiErrors } from "@/types/api";
 import type { UseCreateJobReturn } from "../types/hook";
 
-//TODO: modifier les typages form par celui de zod
+
 
 export const useCreateJob = (): UseCreateJobReturn => {
   const { t } = useTranslation("job");
@@ -24,14 +24,15 @@ export const useCreateJob = (): UseCreateJobReturn => {
     enterprise: "",
     link: "",
     jobTitle: "",
-    managerName: "",
-    managerEmail: "",
+
     detailsToRemember: "",
     rating: 0,
     archived: false,
     interviewCount: 0,
 
     //OPTIONNAL
+    managerName: undefined,
+    managerEmail: undefined,
     salaryMin: undefined,
     salaryMax: undefined,
     appliedAt: undefined,
@@ -54,7 +55,7 @@ export const useCreateJob = (): UseCreateJobReturn => {
     },
   };
   const form = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema) as Resolver<z.infer<typeof schema>>,
     defaultValues,
   });
 
@@ -65,14 +66,13 @@ export const useCreateJob = (): UseCreateJobReturn => {
 
   const mutation = useMutation<CreateJobResponse, ApiErrors, CreateJobParams>({
     mutationFn: jobService.create,
-    onSuccess: (response) => {
-      toast.success(t("messages.success.signIn"));
+    onSuccess: () => {
+      toast.success(t("messages.success.createJob"));
     },
     onError: () => toast.error(t("messages.errors.fallback")),
   });
 
   const onSubmit = (values: z.infer<typeof schema>) => {
-    // console.log(values)
     mutation.mutate({ ...values, userId });
   };
 

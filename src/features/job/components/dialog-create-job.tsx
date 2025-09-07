@@ -4,7 +4,6 @@ import { Card } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -29,6 +28,7 @@ import {
 } from "@/components/ui/pagination";
 import { JobFormSixthStep } from "./form/job-form-sixth-step";
 import { JobFormThirdStep } from "./form/job-form-third-step";
+import { DialogDescription } from "@radix-ui/react-dialog";
 
 export function DialogCreateJob() {
   const { t, onSubmit, form, error, isPending, isError, technologiesFields } =
@@ -43,6 +43,7 @@ export function DialogCreateJob() {
     sixth: new Set(["detailsToRemember", "interviewCount", "lastContactAt"]),
   };
 
+  //Know which steps in invalid
   const errorFields = Object.keys(form.formState.errors);
   const isErrorInFirstStep = errorFields.some((field) =>
     fieldsInSteps.first.has(field.split(".")[0])
@@ -62,6 +63,9 @@ export function DialogCreateJob() {
   const isErrorInSixthStep = errorFields.some((field) =>
     fieldsInSteps.sixth.has(field.split(".")[0])
   );
+
+
+
   //TODO: message de trad avec params
   return (
     <div className="grid gap-6">
@@ -78,6 +82,9 @@ export function DialogCreateJob() {
         <DialogContent className="lg:min-w-4xl md:min-w-2xl min-w-64">
           <DialogHeader>
             <DialogTitle>{t("pages.createJob.title")}</DialogTitle>
+            <DialogDescription>
+              {t("pages.createJob.description")}
+            </DialogDescription>
           </DialogHeader>
           <div className="text-red-600 mt-4 flex flex-col items-center justify-center gap-2">
             {/* ERROR DISPLAY */}
@@ -188,7 +195,7 @@ export function DialogCreateJob() {
                     </PaginationItem>
                                         <PaginationItem>
                       <PaginationLink
-                        className={isErrorInFourthStep ? "text-red-500" : ""}
+                        className={isErrorInFithStep ? "text-red-500" : ""}
                         onClick={() => setCurrentStep(5)}
                         isActive={currentStep === 5}
                       >
@@ -197,7 +204,7 @@ export function DialogCreateJob() {
                     </PaginationItem>
                                         <PaginationItem>
                       <PaginationLink
-                        className={isErrorInFourthStep ? "text-red-500" : ""}
+                        className={isErrorInSixthStep ? "text-red-500" : ""}
                         onClick={() => setCurrentStep(6)}
                         isActive={currentStep === 6}
                       >

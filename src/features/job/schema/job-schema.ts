@@ -18,8 +18,8 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     //TECHNOLOGIES
     technologies:
       z.object({
-        name: z.string().min(1, { message: t('validation.technologies.required') })
-      }).array().min(1, { message: t('validation.technologies.required') }),
+        name: z.string()
+      }).array().min(1, { message: t('validation.technologies.required') }).transform((tech)=> tech.filter(tech => tech.name.trim())),
 
     //STATUS
     status:
@@ -51,7 +51,7 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
     //APPLIED AT
     appliedAt:
-      z.date({ message: t('validation.appliedAt.invalid') }).optional(),
+      z.coerce.date({ message: t('validation.appliedAt.invalid') }).optional(),
 
 
 
@@ -63,7 +63,7 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
     //RATING
     rating:
-      z.number().min(0, { message: t('validation.rating.minLength') }).max(5, { message: t('validation.rating.maxLength') }).optional(),
+      z.coerce.number().min(0, { message: t('validation.rating.minLength') }).max(5, { message: t('validation.rating.maxLength') }).optional(),
 
     //REJECTED REASON 
     rejectedReason:
@@ -71,7 +71,7 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
     //ARCHIVED
     archived:
-      z.boolean({ message: t('validation.archived.invalid') }),
+      z.coerce.boolean({ message: t('validation.archived.invalid') }),
 
 
 
@@ -98,17 +98,17 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
     //MANAGER EMAIL
     managerEmail:
-      z.email()
+      z.email( { message: t('validation.managerEmail.required') })
         .optional(),
 
     //SALARY MIN
     salaryMin:
-      z.number()
+      z.coerce.number( { message: t('validation.salaryMin.required') })
         .optional(),
 
     //SALARY MAX
     salaryMax:
-      z.number()
+      z.coerce.number( { message: t('validation.salaryMax.required') })
         .optional(),
 
     /**************************** SIXTH STEP ****************************************** */
@@ -120,19 +120,13 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
     //INTERVIEW COUNT
     interviewCount:
-      z.number().min(0, { message: t('validation.interviewCount.minLength') }),
+      z.coerce.number().min(0, { message: t('validation.interviewCount.minLength') }),
 
     //LAST CONTACT AT
     lastContactAt:
-      z.date({ message: t('validation.lastContactAt.invalid') }).optional(),
-
+      z.coerce.date({ message: t('validation.lastContactAt.invalid') }).optional(),
 
 
   })
-
-    // CUSTOM VALIDATION
-    .refine((data) => Number(data?.salaryMax) > Number(data.salaryMin) && data.salaryMin && data.salaryMax, {
-      message: t('errors.validation.confirmPassword.notEqual'),
-    })
 
 }

@@ -9,6 +9,7 @@ import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 
 
+
 interface DatePickerFieldProps<TFormData extends FieldValues>{
   label: string;
   placeholder: string;
@@ -31,6 +32,7 @@ export const DatePickerField = <TFormData extends FieldValues>({
   const [month, setMonth] = useState<Date | undefined>(date);
 
 //TODO: onCLick de l'input ouvrir aussi la calendar
+//TODO : probleme validation de la date
   return (
     <div className="grid gap-3">
       <FormField
@@ -50,6 +52,7 @@ export const DatePickerField = <TFormData extends FieldValues>({
                 placeholder={placeholder}
                 className="bg-background pr-10"
                 required = {required}
+                type="text"
                 onChange={(e) => {
                   const date = new Date(e.target.value);
                   field.onChange(date);
@@ -58,6 +61,7 @@ export const DatePickerField = <TFormData extends FieldValues>({
                     setMonth(date);
                   }
                 }}
+                onClick={()=> setOpen(!open)}
                 onKeyDown={(e) => {
                   if (e.key === "ArrowDown") {
                     e.preventDefault();

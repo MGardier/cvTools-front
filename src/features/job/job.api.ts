@@ -18,7 +18,7 @@ export const jobApi = {
 
   async create(params: CreateJobParams): Promise<CreateJobResponse> {
     const {userId, ...rest} = params;
-    return await apiClient.post(`${ENDPOINT.user}${userId}/${ENDPOINT.job}`, rest);
+    return await apiClient.post(`${ENDPOINT.user}/${userId}${ENDPOINT.job}`, rest);
   },
 
 
