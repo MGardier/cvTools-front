@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { AuthCardHeader } from "../auth-card-header";
+import { useLogout } from "../../hooks/use-logout";
 
-import { useLogout } from "../hooks/use-logout";
 
 
 export const LogoutForm = () => {

@@ -3,6 +3,7 @@ import { GoogleLogo } from "@/components/logo/google-logo";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
+// TODO : ajout d'un loader
 export const AuthSocialMedia = () => {
   const { t } = useTranslation("auth");
   const githubOauth = () =>

@@ -1,15 +1,18 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { createResetPasswordSchema } from "../../schema/auth-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import type z from "zod";
-import { authService } from "../../auth.service";
-import type { ApiErrors, ResetPasswordResponse } from "../../types/api";
+
 import { ROUTES } from "@/data/routes";
-import type { UseResetPasswordReturn } from "../../types/hook";
+import type { UseResetPasswordReturn } from "../types/hook";
+import { createResetPasswordSchema } from "../schema/auth-schema";
+import type { ResetPasswordResponse } from "../types/api";
+import type { ApiErrors } from "@/types/api";
+import { authService } from "../auth.service";
+
 
 export const useResetPassword = (token: string): UseResetPasswordReturn => {
   const { t } = useTranslation("auth");

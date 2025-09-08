@@ -11,7 +11,7 @@ const buttonVariants = cva(
         default:
           "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
         destructive:
-          "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+          "bg-red-400 text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
           "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
         secondary:
@@ -19,13 +19,15 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
-        blue: "bg-blue-400 text-white shadow-xs hover:bg-blue-900 focus-visible:ring-blue-500/50 ",
+        blue: "bg-blue-400 text-white shadow-xs hover:bg-blue-800 focus-visible:ring-blue-500/50 text-white",
+        success: "bg-green-600 text-white shadow-xs hover:bg-green-700 focus-visible:ring-green-600/50 text-white",
+
    
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        form: "h-12 rounded-2xl px-6 has-[>svg]:px-4",
+        form: "h-8 md:h-12 rounded-xl md:rounded-2xl px-6 has-[>svg]:px-4",
         icon: "size-9",
       },
     },

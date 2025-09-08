@@ -2,23 +2,8 @@
 
 /************************************************** API ********************************/
 
+import type { ApiResponse } from "@/types/api";
 import type { User } from "@/types/entity";
-
-export interface ApiResponse {
-
-  success: boolean;
-  statusCode: number;
-  message?: string;
-  timestamp: string;
-  path: string;
-
-}
-
-
-export interface ApiErrors extends ApiResponse {
-
-}
-
 
 /************************************************** SIGNUP ********************************/
 

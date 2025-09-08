@@ -3,8 +3,9 @@ import { AuthCardHeader } from "../auth-card-header";
 import { AuthCardContent } from "../auth-card-content";
 import { AuthSocialMedia } from "../auth-social-media";
 import { AuthField } from "../auth-field";
-import { useSignUp } from "../hooks/use-sign-up";
+
 import { ROUTES } from "@/data/routes";
+import { useSignUp } from "../../hooks/use-sign-up";
 
 //TODO: corriger redirection
 

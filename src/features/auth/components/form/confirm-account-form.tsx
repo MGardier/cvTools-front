@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { AuthCardHeader } from "../auth-card-header";
 
-import { useConfirmAccount } from "../hooks/use-confirm-account";
+import { useConfirmAccount } from "../../hooks/use-confirm-account";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/data/routes";
 

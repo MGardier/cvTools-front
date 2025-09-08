@@ -3,14 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
-import { authService } from "../../auth.service";
-import type { ApiErrors, SignInResponse } from "../../types/api";
-import { ROUTES } from "@/data/routes";
-import type { UseCompleteOauthReturn,  } from "../../types/hook";
-import { useAuthStore } from "../../auth.store";
+
 import { useEffect } from "react";
 import { useCookieStore } from "@/store/cookie.store";
+import type { UseCompleteOauthReturn } from "../types/hook";
+import { useAuthStore } from "../auth.store";
+import type { SignInResponse } from "../types/api";
+import type { ApiErrors } from "@/types/api";
+import { authService } from "../auth.service";
+import { ROUTES } from "@/data/routes";
 
+//TODO: modifier les typages form par celui de zod
 export const useGetOauthSession = (sessionId : string , loginMethod: string): UseCompleteOauthReturn => {
   const { t } = useTranslation("auth");
   const navigate = useNavigate();

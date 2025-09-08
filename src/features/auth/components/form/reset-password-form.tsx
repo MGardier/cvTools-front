@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { AuthCardHeader } from "../auth-card-header";
 import { AuthCardContent } from "../auth-card-content";
 import { AuthField } from "../auth-field";
-import { useResetPassword } from "../hooks/use-reset-password";
+import { useResetPassword } from "../../hooks/use-reset-password";
 
 export interface ResetPasswordFormProps {
   token: string;
