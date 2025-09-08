@@ -28,13 +28,13 @@ export const FormCardField = <TFormData extends FieldValues>({
   step,
 }: FormCardFieldProps<TFormData>) => {
   return (
-    <div className="grid gap-3">
+    <div className="space-y-3 ">
       <FormField
         control={form.control}
         name={name}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>
+            <FormLabel className="text-sm">
               {label}{" "}
               <p className="text-muted-foreground text-xs">
                 {required ? " (Requis)" : " (Optionnel)"}

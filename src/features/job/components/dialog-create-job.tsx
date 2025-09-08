@@ -15,9 +15,7 @@ import { useState } from "react";
 import { JobFormFirstStep } from "./form/job-form-first-step";
 import { JobFormSecondStep } from "./form/job-form-second-step";
 import { JobFormFourthStep } from "./form/job-form-fourth-step";
-import {
-  JobFormFifthStep,
-} from "./form/job-form-fifth-step";
+import { JobFormFifthStep } from "./form/job-form-fifth-step";
 import {
   Pagination,
   PaginationContent,
@@ -29,6 +27,7 @@ import {
 import { JobFormSixthStep } from "./form/job-form-sixth-step";
 import { JobFormThirdStep } from "./form/job-form-third-step";
 import { DialogDescription } from "@radix-ui/react-dialog";
+
 
 export function DialogCreateJob() {
   const { t, onSubmit, form, error, isPending, isError, technologiesFields } =
@@ -64,8 +63,6 @@ export function DialogCreateJob() {
     fieldsInSteps.sixth.has(field.split(".")[0])
   );
 
-
-
   //TODO: message de trad avec params
   return (
     <div className="grid gap-6">
@@ -79,14 +76,14 @@ export function DialogCreateJob() {
         </DialogTrigger>
 
         {/************* CONTENT *********************************************** */}
-        <DialogContent className="lg:min-w-4xl md:min-w-2xl min-w-64">
+        <DialogContent className="flex flex-col w-full  max-w-[calc(100%-1rem)]  md:max-w-[calc(100%-1rem)] overflow-hidden   lg:max-w-4xl max-h-[95vh] md:max-h-[90vh] lg:max-h-[90vh] ">
           <DialogHeader>
-            <DialogTitle>{t("pages.createJob.title")}</DialogTitle>
-            <DialogDescription>
-              {t("pages.createJob.description")}
-            </DialogDescription>
+            <DialogTitle className="text-lg">
+              {t("pages.createJob.title")}
+            </DialogTitle>
+            <DialogDescription></DialogDescription>
           </DialogHeader>
-          <div className="text-red-600 mt-4 flex flex-col items-center justify-center gap-2">
+          <div className="text-red-600 text-xs flex-shrink-0 flex flex-col items-center gap-1">
             {/* ERROR DISPLAY */}
 
             {isError && (
@@ -105,7 +102,7 @@ export function DialogCreateJob() {
             )}
           </div>
           {/* FORM */}
-          <Card className="border-0 shadow-none w-full ">
+          <Card className="border-0 shadow-none  ">
             <FormCardContent
               {...{
                 onSubmit,
@@ -146,11 +143,12 @@ export function DialogCreateJob() {
               {/************* FOOTER *********************************************** */}
 
               {/* PAGINATION */}
-              <DialogFooter className="flex justify-between items-center">
+              <DialogFooter className="flex-shrink-0 flex flex-col gap-2 md:flex-row md:justify-between md:items-center mt-2 md:mt-4">
                 <Pagination>
-                  <PaginationContent>
+                  <PaginationContent className="gap-1 md:gap-2">
                     <PaginationItem>
                       <PaginationPrevious
+                        className="h-6 px-1 text-xs md:h-9 md:px-2 md:text-sm"
                         onClick={() =>
                           currentStep > 1 &&
                           setCurrentStep((prevStep) => prevStep - 1)
@@ -159,7 +157,9 @@ export function DialogCreateJob() {
                     </PaginationItem>
                     <PaginationItem>
                       <PaginationLink
-                        className={isErrorInFirstStep ? "text-red-500" : ""}
+                        className={`h-6 w-6 text-xs md:h-9 md:w-9 md:text-sm ${
+                          isErrorInFirstStep ? "text-red-500" : ""
+                        }`}
                         onClick={() => setCurrentStep(1)}
                         isActive={currentStep === 1}
                       >
@@ -168,7 +168,9 @@ export function DialogCreateJob() {
                     </PaginationItem>
                     <PaginationItem>
                       <PaginationLink
-                        className={isErrorInSecondStep ? "text-red-500" : ""}
+                        className={`h-6 w-6 text-xs md:h-9 md:w-9 md:text-sm ${
+                          isErrorInSecondStep ? "text-red-500" : ""
+                        }`}
                         onClick={() => setCurrentStep(2)}
                         isActive={currentStep === 2}
                       >
@@ -177,7 +179,9 @@ export function DialogCreateJob() {
                     </PaginationItem>
                     <PaginationItem>
                       <PaginationLink
-                        className={isErrorInThirdStep ? "text-red-500" : ""}
+                        className={`h-6 w-6 text-xs md:h-9 md:w-9 md:text-sm ${
+                          isErrorInThirdStep ? "text-red-500" : ""
+                        }`}
                         onClick={() => setCurrentStep(3)}
                         isActive={currentStep === 3}
                       >
@@ -186,25 +190,31 @@ export function DialogCreateJob() {
                     </PaginationItem>
                     <PaginationItem>
                       <PaginationLink
-                        className={isErrorInFourthStep ? "text-red-500" : ""}
+                        className={`h-6 w-6 text-xs md:h-9 md:w-9 md:text-sm ${
+                          isErrorInFourthStep ? "text-red-500" : ""
+                        }`}
                         onClick={() => setCurrentStep(4)}
                         isActive={currentStep === 4}
                       >
                         4
                       </PaginationLink>
                     </PaginationItem>
-                                        <PaginationItem>
+                    <PaginationItem>
                       <PaginationLink
-                        className={isErrorInFithStep ? "text-red-500" : ""}
+                        className={`h-6 w-6 text-xs md:h-9 md:w-9 md:text-sm ${
+                          isErrorInFithStep ? "text-red-500" : ""
+                        }`}
                         onClick={() => setCurrentStep(5)}
                         isActive={currentStep === 5}
                       >
                         5
                       </PaginationLink>
                     </PaginationItem>
-                                        <PaginationItem>
+                    <PaginationItem>
                       <PaginationLink
-                        className={isErrorInSixthStep ? "text-red-500" : ""}
+                        className={`h-6 w-6 text-xs md:h-9 md:w-9 md:text-sm ${
+                          isErrorInSixthStep ? "text-red-500" : ""
+                        }`}
                         onClick={() => setCurrentStep(6)}
                         isActive={currentStep === 6}
                       >
@@ -217,7 +227,7 @@ export function DialogCreateJob() {
                           currentStep < 6 &&
                           setCurrentStep((prevStep) => prevStep + 1)
                         }
-                        isActive={currentStep === 6}
+                    
                       />
                     </PaginationItem>
                   </PaginationContent>
@@ -228,7 +238,7 @@ export function DialogCreateJob() {
                   <Button
                     type="submit"
                     variant="blue"
-                    className="w-min flex gap-2 "
+                    className="h-6 px-2 text-xs md:h-10 md:px-4 md:text-sm flex items-center gap-1 md:gap-2 w-full md:w-auto"
                     disabled={isPending}
                   >
                     {isPending && (

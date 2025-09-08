@@ -18,10 +18,10 @@ import {
   ArrowUpDown,
   Building2,
   Calendar,
-  ChevronDown,
   MoreHorizontal,
 } from "lucide-react";
 
+  //TODO : mettre un event listener pour ajuster le mobile 
 const isMobile = window.innerWidth <= 768;
 
 export const jobColumns: ColumnDef<Job>[] = [
@@ -33,42 +33,43 @@ export const jobColumns: ColumnDef<Job>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Métier
+          Titre
           <ArrowUpDown />
         </Button>
       );
     },
     cell: ({ row }) => {
-      // const splitJobTitle = splitTextAtSpaces(row.getValue("jobTitle"), 18);
+      console.log(row)
+      const splitJobTitle = splitTextAtSpaces(row.getValue("jobTitle"), 18);
 
-      // return isMobile ? (
-      //   <div className="flex flex-col justify-start items-start gap-2">
-      //     {splitJobTitle.map((text) => (
-      //       <span
-      //         key={`${text}-${row.getValue("enterprise")}`}
-      //         className="font-medium text-gray-900 text-sm"
-      //       >
-      //         {text}
-      //       </span>
-      //     ))}
-      //   <Badge className="text-xs md:text-sm lg:text-sm" variant={"warning"} >
-      //     A contacter
-      //   </Badge>
-      //     <span className="flex items-center justify-items-center gap-2 text-gray-500 text-xs">
-      //       <Building2 className="text-gray-400" size={12} />
-      //       {row.getValue("enterprise")}
-      //     </span>
+      return isMobile ? (
+        <div className="flex flex-col justify-start items-start gap-2">
+          {splitJobTitle.map((text) => (
+            <span
+              key={`${text}-${row.getValue("enterprise")}`}
+              className="font-medium text-gray-900 text-sm"
+            >
+              {text}
+            </span>
+          ))}
+        <Badge className="text-xs md:text-sm lg:text-sm" variant={"warning"} >
+             {row.getValue("enterprise")}
+        </Badge>
+          <span className="flex items-center justify-items-center gap-2 text-gray-500 text-xs">
+            <Building2 className="text-gray-400" size={12} />
+            {row.getValue("enterprise")}
+          </span>
 
-      //     <span className="flex items-center justify-items-center gap-2 text-xs text-gray-600">
-      //       <Calendar className="text-gray-400" size={12} />
-      //       {formatDate(new Date(row.getValue("appliedAt")))}
-      //     </span>
-      //   </div>
-      // ) : (
-      //   <span className="font-medium text-gray-900 ">
-      //     {row.getValue("jobTitle")}
-      //   </span>
-      // );
+          <span className="flex items-center justify-items-center gap-2 text-xs text-gray-600">
+            <Calendar className="text-gray-400" size={12} />
+            {formatDate(new Date(row.getValue("appliedAt")))}
+          </span>
+        </div>
+      ) : (
+        <span className="font-medium text-gray-900 ">
+          {row.getValue("jobTitle")}
+        </span>
+      );
     },
   },
   {
@@ -85,16 +86,16 @@ export const jobColumns: ColumnDef<Job>[] = [
       );
     },
     cell: ({ row }) => {
-      // return (
-      //   <span className="flex items-center justify-items-center gap-2 text-gray-600">
-      //     <Building2 className="text-gray-400" size={16} />
-      //     {row.getValue("enterprise")}
-      //   </span>
-      // );
+      return (
+        <span className="flex items-center justify-items-center gap-2 text-gray-600">
+          <Building2 className="text-gray-400" size={16} />
+          {row.getValue("enterprise")}
+        </span>
+      );
     },
   },
   {
-    accessorKey: "origin",
+    accessorKey: "applicationMethod",
     header: ({ column }) => {
       return (
         <Button
@@ -106,8 +107,8 @@ export const jobColumns: ColumnDef<Job>[] = [
         </Button>
       );
     },
-    cell: () => {
-      //return <AppLogo className="text-sm " />;
+    cell: ({row}) => {
+      return         row.getValue("applicationMethod");
     },
   },
   {
@@ -124,11 +125,11 @@ export const jobColumns: ColumnDef<Job>[] = [
       );
     },
     cell: ({ row }) => {
-      // return (
-      //   <Badge className="text-sm md:text-sm lg:text-sm" variant={"warning"}>
-      //     A contacter
-      //   </Badge>
-      // );
+      return (
+        <Badge className="text-sm md:text-sm lg:text-sm" variant={"warning"}>
+          {row.getValue('status')}
+        </Badge>
+      );
     },
   },
 
@@ -146,12 +147,15 @@ export const jobColumns: ColumnDef<Job>[] = [
       );
     },
     cell: ({ row }) => {
-      // return (
-      //   <span className="flex items-center justify-items-center gap-2 text-sm text-gray-600">
-      //     <Calendar className="text-gray-400" size={16} />
-      //     {formatDate(new Date(row.getValue("appliedAt")))}
-      //   </span>
-      // );
+
+      if(!row.getValue("appliedAt"))
+        return     <span className="flex items-center justify-items-center gap-2 text-sm text-gray-600"></span>
+      return (
+        <span className="flex items-center justify-items-center gap-2 text-sm text-gray-600">
+          <Calendar className="text-gray-400" size={16} />
+          {formatDate(new Date(row.getValue("appliedAt")))}
+        </span>
+      );
     },
   },
   {

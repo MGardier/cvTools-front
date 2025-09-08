@@ -19,10 +19,10 @@ export const FormCardContent = <TFieldValues extends FieldValues>({
 }: FormCardContentProps<TFieldValues>) => {
 
   return (
-    <CardContent>
+    <CardContent className="px-3 md:px-6 lg:px-6">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid gap-6 ">
+          <div className="grid gap-6  ">
             {children}
 
           </div>

@@ -2,7 +2,6 @@
   "pages": {
     "createJob": {
       "title": "Créer une candidature",
-      "description": "Permet de créer une candidature et de l'enregistrer.",
       "form": {
         "enterprise": {
           "label": "Nom de l'entreprise",

@@ -37,12 +37,13 @@ import { DialogCreateJob } from "./dialog-create-job";
 
 
 export function Jobs() {
-  const {data} = useJobs();
+  const {data,isLoading} = useJobs();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
-  //TODO : mettre un event listener pour ajuster le mobile 
+
+  console.log(data,isLoading)
   const isMobile = window.innerWidth <= 768;
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({
@@ -52,6 +53,7 @@ export function Jobs() {
       status: !isMobile,
     });
   const [rowSelection, setRowSelection] = React.useState({});
+
 
   const table = useReactTable<Job>({
     data,
@@ -71,7 +73,8 @@ export function Jobs() {
       rowSelection,
     },
   });
-
+  if(isLoading) 
+    return <div></div>
   return (
     <div className="w-full">
       <div className="md:flex lg:flex flex items-center justify-between gap-2 py-4">
@@ -160,7 +163,7 @@ export function Jobs() {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={jobColumns.length}
+                  colSpan={jobColumns?.length}
                   className="h-24 text-center"
                 >
                   No results.
@@ -172,7 +175,7 @@ export function Jobs() {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredSelectedRowModel().rows?.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="space-x-2">

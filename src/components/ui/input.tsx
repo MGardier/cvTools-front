@@ -9,14 +9,14 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
       data-slot="input"
       className={cn(
         "flex",
-        "h-12",
+        "h-8 md:h-12 lg:h-12",
         "w-full",
-        "rounded-2xl",
+        "rounded-lg md:rounded-2xl lg:rounded-2xl",
         "border",
         "border-input",
         "bg-transparent",
-        "px-3 py-1",
-        "text-base",
+        "px-2 md:px-3  lg:px-3 py-1",
+        "text-sm md:text-base lg:text-base",
         "shadow-xs",
         "outline-none",
         "transition-[color,box-shadow]",
@@ -38,7 +38,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         "selection:text-white",
 
         //Focus style
-        "focus-visible:ring-2 focus-visible:ring-blue-500/50",
+        "focus-visible:ring-1 md:focus-visible:ring-2 lg:focus-visible:ring-2  focus-visible:ring-blue-500/50",
         "focus-visible:border-blue-500",
 
         // Disabled style
