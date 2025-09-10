@@ -24,8 +24,6 @@ export const useCreateJob = (): UseCreateJobReturn => {
     enterprise: "",
     link: "",
     jobTitle: "",
-
-    detailsToRemember: "",
     rating: 0,
     archived: false,
     interviewCount: 0,
@@ -33,8 +31,6 @@ export const useCreateJob = (): UseCreateJobReturn => {
     //OPTIONNAL
     managerName: undefined,
     managerEmail: undefined,
-    salaryMin: undefined,
-    salaryMax: undefined,
     appliedAt: undefined,
     lastContactAt: undefined,
     rejectedReason: undefined,
@@ -51,7 +47,6 @@ export const useCreateJob = (): UseCreateJobReturn => {
     address: {
       city: "",
       postalCode: "",
-      street: "",
     },
   };
   const form = useForm<z.infer<typeof schema>>({

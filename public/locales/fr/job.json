@@ -76,10 +76,6 @@
           "postalCode": {
             "label": "Code Postal",
             "placeholder": "60000"
-          },
-          "street": {
-            "label": "Rue",
-            "placeholder": "52 rue du Boulevard"
           }
         },
         "appliedAt": {

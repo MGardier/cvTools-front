@@ -89,7 +89,15 @@ export const TechnologiesForm = ({
                           "pages.createJob.form.technologies.placeholder"
                         )}
                         {...field}
-                        onKe
+                        onKeyDown={(e) => {
+                          if (
+                            e.key === "Enter" &&
+                            field.value !== "" &&
+                            field.value
+                          ) {
+                            technologiesFields.append({ name: "" });
+                          }
+                        }}
                       />
                       {isLast && (
                         <Button

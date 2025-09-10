@@ -85,7 +85,6 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
       z.object({
         city: z.string(),
         postalCode: z.string(),
-        street: z.string()
       }, { message: t('validation.address.invalid') }).optional(),
 
 
