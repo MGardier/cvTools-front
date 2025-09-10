@@ -51,7 +51,7 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
     //APPLIED AT
     appliedAt:
-      z.coerce.date({ message: t('validation.appliedAt.invalid') }).optional(),
+      z.coerce.date({ message: t('validation.appliedAt.invalid') }).nullable().optional(),
 
 
 
@@ -63,7 +63,7 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
     //RATING
     rating:
-      z.coerce.number().min(0, { message: t('validation.rating.minLength') }).max(5, { message: t('validation.rating.maxLength') }).optional(),
+      z.coerce.number().min(0, { message: t('validation.rating.minLength') }).max(5, { message: t('validation.rating.maxLength') }).nullable().optional(),
 
     //REJECTED REASON 
     rejectedReason:
@@ -106,7 +106,7 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
     //LAST CONTACT AT
     lastContactAt:
-      z.coerce.date({ message: t('validation.lastContactAt.invalid') }).optional(),
+      z.coerce.date({ message: t('validation.lastContactAt.invalid') }).nullable().optional(),
 
 
   })

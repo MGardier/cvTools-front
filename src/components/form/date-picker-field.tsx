@@ -50,9 +50,10 @@ export const DatePickerField = <TFormData extends FieldValues>({
                 id="date"
                 value={field.value}
                 placeholder={placeholder}
-                className="bg-background pr-10"
+                className="bg-background pr-10 "
                 required = {required}
                 type="text"
+                disableDisabledStyles={true}
                 onChange={(e) => {
                   const date = new Date(e.target.value);
                   field.onChange(date);
@@ -68,6 +69,7 @@ export const DatePickerField = <TFormData extends FieldValues>({
                     setOpen(true);
                   }
                 }}
+                disabled
               />
               <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>

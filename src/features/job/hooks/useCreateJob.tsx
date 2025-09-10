@@ -10,6 +10,7 @@ import { jobService } from "../job.service";
 import { toast } from "react-toastify";
 import type { ApiErrors } from "@/types/api";
 import type { UseCreateJobReturn } from "../types/hook";
+import { JobApplyMethod, JobPriority, JobStatus, TypeEnterprise } from "@/types/entity";
 
 
 
@@ -29,18 +30,18 @@ export const useCreateJob = (): UseCreateJobReturn => {
     interviewCount: 0,
 
     //OPTIONNAL
-    managerName: undefined,
-    managerEmail: undefined,
-    appliedAt: undefined,
-    lastContactAt: undefined,
-    rejectedReason: undefined,
-    description: undefined,
+    managerName: "",
+    managerEmail: "",
+    appliedAt: null,
+    lastContactAt: null,
+    rejectedReason: "",
+    description: "",
 
     //ENUM
-    type: undefined,
-    status: undefined,
-    priority: undefined,
-    applicationMethod: undefined,
+    type: TypeEnterprise.ENTERPRISE,
+    status: JobStatus.NEED_TO_CONTACT,
+    priority: JobPriority.ATTAINABLE,
+    applicationMethod: JobApplyMethod.JOBBOARD,
 
     //NESTED
     technologies: [{ name: "" }],
