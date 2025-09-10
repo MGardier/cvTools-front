@@ -101,23 +101,6 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
       z.email( { message: t('validation.managerEmail.required') })
         .optional(),
 
-    //SALARY MIN
-    salaryMin:
-      z.coerce.number( { message: t('validation.salaryMin.required') })
-        .optional(),
-
-    //SALARY MAX
-    salaryMax:
-      z.coerce.number( { message: t('validation.salaryMax.required') })
-        .optional(),
-
-    /**************************** SIXTH STEP ****************************************** */
-
-    //DETAILS TO REMEMBER
-    detailsToRemember:
-      z.string()
-        .optional(),
-
     //INTERVIEW COUNT
     interviewCount:
       z.coerce.number().min(0, { message: t('validation.interviewCount.minLength') }),

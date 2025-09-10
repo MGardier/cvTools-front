@@ -69,13 +69,10 @@ export type Job = {
   jobTitle: string;
   managerName: string;
   managerEmail: string;
-  salaryMin?: number;
-  salaryMax?: number;
 
   status: typeof JobStatus[keyof typeof JobStatus];
   priority: typeof JobPriority[keyof typeof JobPriority];
   description?: string;
-  detailsToRemember?: string;
   applicationMethod: typeof JobApplyMethod[keyof typeof JobApplyMethod];
   interviewCount: number;
   rejectionReason?: string;

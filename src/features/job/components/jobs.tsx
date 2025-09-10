@@ -35,15 +35,13 @@ import { jobColumns } from "./job-columns";
 import { useJobs } from "../hooks/useJobs";
 import { DialogCreateJob } from "./dialog-create-job";
 
-
 export function Jobs() {
-  const {data,isLoading} = useJobs();
+  const { data, isLoading, t } = useJobs();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
 
-  console.log(data,isLoading)
   const isMobile = window.innerWidth <= 768;
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({
@@ -54,10 +52,9 @@ export function Jobs() {
     });
   const [rowSelection, setRowSelection] = React.useState({});
 
-
   const table = useReactTable<Job>({
     data,
-    columns: jobColumns,
+    columns: jobColumns(t),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -73,8 +70,7 @@ export function Jobs() {
       rowSelection,
     },
   });
-  if(isLoading) 
-    return <div></div>
+  if (isLoading) return <div className="w-full"> </div>;
   return (
     <div className="w-full">
       <div className="md:flex lg:flex flex items-center justify-between gap-2 py-4">
@@ -89,7 +85,7 @@ export function Jobs() {
           className="max-w-sm "
         />
         <div className="flex  gap-2 justify-center items-center">
-<DialogCreateJob />
+          <DialogCreateJob />
           {!isMobile && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -184,15 +180,14 @@ export function Jobs() {
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            {t("pages.jobs.previous")}
           </Button>
           <Button
             variant="outline"
-
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            {t("pages.jobs.next")}
           </Button>
         </div>
       </div>

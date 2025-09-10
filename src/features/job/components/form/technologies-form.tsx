@@ -89,7 +89,7 @@ export const TechnologiesForm = ({
                           "pages.createJob.form.technologies.placeholder"
                         )}
                         {...field}
-                        
+                        onKe
                       />
                       {isLast && (
                         <Button

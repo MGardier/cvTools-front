@@ -3,6 +3,7 @@ import type { TFunction } from "i18next";
 import type { UseFormReturn } from "react-hook-form";
 import type z from "zod";
 import type { createJobSchema } from "../../schema/job-schema";
+import { DatePickerField } from "@/components/form/date-picker-field";
 
 interface JobFormFourthStepProps {
   t: TFunction<"job", undefined>;
@@ -30,23 +31,21 @@ export const JobFormFifthStep = ({ t, form }: JobFormFourthStepProps) => {
         {...{ form }}
       />
 
-      {/** SALARY MIN  */}
+      {/** INTERVIEW COUNT  */}
       <FormCardField
-        label={t("pages.createJob.form.salaryMin.label")}
-        name="salaryMin"
+        label={t("pages.createJob.form.interviewCount.label")}
+        name="interviewCount"
         type="number"
-        step={1000}
-        placeholder={t("pages.createJob.form.salaryMin.placeholder")}
+        step={1}
+        placeholder={t("pages.createJob.form.interviewCount.placeholder")}
         {...{ form }}
       />
-
-      {/** SALARY MAX    */}
-      <FormCardField
-        label={t("pages.createJob.form.salaryMax.label")}
-        name="salaryMax"
-        type="number"
-        step={1000}
-        placeholder={t("pages.createJob.form.salaryMax.placeholder")}
+      {/** LAST CONTACT AT  */}
+      <DatePickerField
+        label={t("pages.createJob.form.lastContactAt.label")}
+        name="lastContactAt"
+        placeholder={t("pages.createJob.form.lastContactAt.placeholder")}
+        selectLabel={t("pages.createJob.form.lastContactAt.selectLabel")}
         {...{ form }}
       />
     </>
