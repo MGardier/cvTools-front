@@ -44,14 +44,6 @@ export const JobFormFourthStep = ({
         {...{ form }}
       />
 
-      {/** ADDRESS STREET  */}
-      <FormCardField
-        label={t("pages.createJob.form.address.street.label")}
-        name="address.street"
-        type="text"
-        placeholder={t("pages.createJob.form.address.street.placeholder")}
-        {...{ form }}
-      />
     </>
   );
 };

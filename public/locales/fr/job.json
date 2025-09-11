@@ -76,24 +76,12 @@
           "postalCode": {
             "label": "Code Postal",
             "placeholder": "60000"
-          },
-          "street": {
-            "label": "Rue",
-            "placeholder": "52 rue du Boulevard"
           }
         },
         "appliedAt": {
           "label": "Postulé le",
           "selectLabel": "Veuillez choisir une date",
           "placeholder": "01 septembre 2025"
-        },
-        "salaryMin": {
-          "label": "Fourchette basse du salaire  annuel brut en €",
-          "placeholder": "30000"
-        },
-        "salaryMax": {
-          "label": "Fourchette haute du salaire  annuel brut en €",
-          "placeholder": "35000"
         },
         "rejectedReason": {
           "label": "Raison si refusée",
@@ -105,10 +93,6 @@
         },
         "rating": { "label": "Note d'auto évalutation pour cet offre " },
         "archived": { "label": "Archiver la candidature" },
-        "detailsToRemember": {
-          "label": "Détails à se rappeler",
-          "placeholder": "Vos détails ..."
-        },
         "interviewCount": { "label": "Nombre d'entretiens " },
         "lastContactAt": {
           "label": "Dernier contact le ",
@@ -123,9 +107,31 @@
           "invalid_fields": "Certaines étapes sont invalides."
         }
       }
+    },
+    "jobs":{
+      "columns" :{
+        "jobTitle" :"Titre",
+        "enterprise":"Entreprise",
+        "status":"Statut",
+        "applicationMethod":"Postulé via",
+        "appliedAt": "Postulée le",
+        "empty" : "Non renseigné",
+        "actions":"Actions"
+      },
+        "status":{
+          "need_to_contact" :"A contacter",
+          "need_to_validate_message" :"Valider message",
+          "need_to_send_message" :"Message à envoyer",
+          "interviews" :"Entretien prévu",
+          "technical_test" :"Test technique prévu",
+          "need_to_send_thanks_after_interview" :"Remerciements à envoyer",
+          "need_to_send_mail_reminder" :"Relance à effectuer"
+        },
+        "next": "Suivant",
+        "previous" : "Précédent"
+      
     }
   },
-
   "validation": {
     "jobTitle": { "required": "Le titre est requis." },
     "technologies": { "required": "Les technologies sont requises." },
@@ -149,17 +155,12 @@
     },
     "managerEmail": {
       "invalid": "L'email n'est pas valide."
-    },
-    "salaryMax": {
-      "label": "Le salaire max n'est pas valide."
-    },
-    "salaryMin": {
-      "label": "Le salaire min n'est pas valide."
     }
   },
   "messages": {
     "success": {
       "createJob": "Votre candidature a bien été créer."
     }
+
   }
 }

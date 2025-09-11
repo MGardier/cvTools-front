@@ -2,7 +2,12 @@ import * as React from "react";
 
 import { cn } from "@/utils/utils";
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+
+interface InputProps extends React.ComponentProps<"input"> {
+  disableDisabledStyles?: boolean;
+}
+
+function Input({ className, type, disableDisabledStyles, ...props }: InputProps) {
   return (
     <input
       type={type}
@@ -10,7 +15,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
       className={cn(
         "flex",
         "h-8 md:h-12 lg:h-12",
-        "w-full",
+        "w-full max-w-full",
         "rounded-lg md:rounded-2xl lg:rounded-2xl",
         "border",
         "border-input",
@@ -42,9 +47,11 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         "focus-visible:border-blue-500",
 
         // Disabled style
-        "disabled:pointer-events-none",
-        "disabled:cursor-not-allowed",
-        "disabled:opacity-50",
+         !disableDisabledStyles && [
+          "disabled:pointer-events-none",
+          "disabled:cursor-not-allowed", 
+          "disabled:opacity-50"
+        ],
 
         //error
         "aria-invalid:border-destructive",

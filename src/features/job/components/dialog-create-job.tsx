@@ -24,7 +24,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { JobFormSixthStep } from "./form/job-form-sixth-step";
+
 import { JobFormThirdStep } from "./form/job-form-third-step";
 import { DialogDescription } from "@radix-ui/react-dialog";
 
@@ -38,8 +38,8 @@ export function DialogCreateJob() {
     second: new Set(["enterprise", "type", "applicationMethod", "appliedAt"]),
     third: new Set(["description", "rating", "rejectedReason", "archived"]),
     fourth: new Set(["link", "address"]),
-    fifth: new Set(["managerName", "managerEmail", "salaryMin", "salaryMax"]),
-    sixth: new Set(["detailsToRemember", "interviewCount", "lastContactAt"]),
+    fifth: new Set(["managerName", "managerEmail","interviewCount","lastContactAt"]),
+
   };
 
   //Know which steps in invalid
@@ -59,9 +59,7 @@ export function DialogCreateJob() {
   const isErrorInFithStep = errorFields.some((field) =>
     fieldsInSteps.fifth.has(field.split(".")[0])
   );
-  const isErrorInSixthStep = errorFields.some((field) =>
-    fieldsInSteps.sixth.has(field.split(".")[0])
-  );
+
 
   //TODO: message de trad avec params
   return (
@@ -137,8 +135,6 @@ export function DialogCreateJob() {
               {/* STEP 5 */}
               {currentStep === 5 && <JobFormFifthStep {...{ t, form }} />}
 
-              {/* STEP 6 */}
-              {currentStep === 6 && <JobFormSixthStep {...{ t, form }} />}
 
               {/************* FOOTER *********************************************** */}
 
@@ -211,20 +207,9 @@ export function DialogCreateJob() {
                       </PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
-                      <PaginationLink
-                        className={`h-6 w-6 text-xs md:h-9 md:w-9 md:text-sm ${
-                          isErrorInSixthStep ? "text-red-500" : ""
-                        }`}
-                        onClick={() => setCurrentStep(6)}
-                        isActive={currentStep === 6}
-                      >
-                        6
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
                       <PaginationNext
                         onClick={() =>
-                          currentStep < 6 &&
+                          currentStep < 5 &&
                           setCurrentStep((prevStep) => prevStep + 1)
                         }
                     
@@ -234,7 +219,7 @@ export function DialogCreateJob() {
                 </Pagination>
 
                 {/* SUBMIT BUTTON  */}
-                {currentStep === 6 && (
+                {currentStep === 5 && (
                   <Button
                     type="submit"
                     variant="blue"

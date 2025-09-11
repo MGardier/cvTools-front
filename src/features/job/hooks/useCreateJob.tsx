@@ -10,11 +10,13 @@ import { jobService } from "../job.service";
 import { toast } from "react-toastify";
 import type { ApiErrors } from "@/types/api";
 import type { UseCreateJobReturn } from "../types/hook";
+import { removeEmptyFields } from "@/utils/utils";
 
 
 
 export const useCreateJob = (): UseCreateJobReturn => {
   const { t } = useTranslation("job");
+
 
   const schema = createJobSchema(t);
   const userId = Number(useAuthStore().user?.id);
@@ -24,21 +26,17 @@ export const useCreateJob = (): UseCreateJobReturn => {
     enterprise: "",
     link: "",
     jobTitle: "",
-
-    detailsToRemember: "",
     rating: 0,
     archived: false,
     interviewCount: 0,
 
     //OPTIONNAL
-    managerName: undefined,
-    managerEmail: undefined,
-    salaryMin: undefined,
-    salaryMax: undefined,
-    appliedAt: undefined,
-    lastContactAt: undefined,
-    rejectedReason: undefined,
-    description: undefined,
+    managerName: "",
+    managerEmail: "",
+    appliedAt: "" as "",
+    lastContactAt: "" as "",
+    rejectedReason: "",
+    description: "",
 
     //ENUM
     type: undefined,
@@ -51,7 +49,6 @@ export const useCreateJob = (): UseCreateJobReturn => {
     address: {
       city: "",
       postalCode: "",
-      street: "",
     },
   };
   const form = useForm<z.infer<typeof schema>>({
@@ -73,7 +70,8 @@ export const useCreateJob = (): UseCreateJobReturn => {
   });
 
   const onSubmit = (values: z.infer<typeof schema>) => {
-    mutation.mutate({ ...values, userId });
+    const params = removeEmptyFields(values) as z.infer<ReturnType<typeof createJobSchema>>;
+    mutation.mutate({ ...params, userId });
   };
 
   return {
