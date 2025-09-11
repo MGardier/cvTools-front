@@ -13,6 +13,9 @@ export interface CreateJobParams extends z.infer<ReturnType<typeof createJobSche
 export interface CreateJobResponse extends ApiResponse {
   data: null
 }
+export interface FindJobByIdByUserResponse extends ApiResponse {
+  data: Job
+}
 
 export interface FindAllJobByUserResponse extends ApiResponse {
   data: Job[]

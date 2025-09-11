@@ -28,6 +28,12 @@ export const jobApi = {
     return data;
   },
 
+  async findOneById(id: number, userId:number){
+    const {data} =  await apiClient.get(`${ENDPOINT.user}/${userId}${ENDPOINT.job}/${id}`);
+    return data;
+  }
+  
+
 }
 
 

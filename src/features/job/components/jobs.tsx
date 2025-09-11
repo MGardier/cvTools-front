@@ -36,7 +36,7 @@ import { useJobs } from "../hooks/useJobs";
 import { DialogCreateJob } from "./dialog-create-job";
 
 export function Jobs() {
-  const { data, isLoading, t } = useJobs();
+  const { data, isLoading, t ,} = useJobs();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -49,6 +49,7 @@ export function Jobs() {
       origin: !isMobile,
       appliedAt: !isMobile,
       status: !isMobile,
+      applicationMethod : !isMobile,
     });
   const [rowSelection, setRowSelection] = React.useState({});
 
