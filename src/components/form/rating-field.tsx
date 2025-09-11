@@ -34,8 +34,11 @@ export const RatingField = <TFormData extends FieldValues>({
 }: RatingFieldProps<TFormData>) => {
   const currentValue = form.watch(name) || min;
   const handleStarClick = (rating: number) => {
-
-    form.setValue(name, rating as PathValue<TFormData, typeof name>, {
+    let newValue = rating;
+    if(form.watch(name) === rating)
+      newValue = 0;
+      
+    form.setValue(name, newValue as PathValue<TFormData, typeof name>, {
       shouldDirty: true,
     });
   };

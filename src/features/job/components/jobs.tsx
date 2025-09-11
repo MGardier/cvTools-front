@@ -52,6 +52,7 @@ export function Jobs() {
     });
   const [rowSelection, setRowSelection] = React.useState({});
 
+  
   const table = useReactTable<Job>({
     data,
     columns: jobColumns(t),

@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import type { ApiErrors } from "@/types/api";
 import type { UseCreateJobReturn } from "../types/hook";
 import { removeEmptyFields } from "@/utils/utils";
-import type { Job } from "@/types/entity";
 
 
 
