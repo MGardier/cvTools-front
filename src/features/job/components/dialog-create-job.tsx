@@ -38,7 +38,7 @@ export function DialogCreateJob() {
     second: new Set(["enterprise", "type", "applicationMethod", "appliedAt"]),
     third: new Set(["description", "rating", "rejectedReason", "archived"]),
     fourth: new Set(["link", "address"]),
-    fifth: new Set(["managerName", "managerEmail", "salaryMin", "salaryMax"]),
+    fifth: new Set(["managerName", "managerEmail","interviewCount","lastContactAt"]),
 
   };
 

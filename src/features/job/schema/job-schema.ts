@@ -19,7 +19,7 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     technologies:
       z.object({
         name: z.string()
-      }).array().min(1, { message: t('validation.technologies.required') }).transform((tech)=> tech.filter(tech => tech.name.trim())),
+      }).array().min(1, { message: t('validation.technologies.required') }).transform((tech) => tech.filter(tech => tech.name.trim())),
 
     //STATUS
     status:
@@ -50,11 +50,7 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
 
     //APPLIED AT
-    appliedAt:
-      z.coerce.date({ message: t('validation.appliedAt.invalid') }).nullable().optional(),
-
-
-
+    appliedAt: z.union([z.literal(""), z.coerce.date()]),
     /**************************** THIRD STEP ****************************************** */
 
     //DESCRIPTION
@@ -63,7 +59,7 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
     //RATING
     rating:
-      z.coerce.number().min(0, { message: t('validation.rating.minLength') }).max(5, { message: t('validation.rating.maxLength') }).nullable().optional(),
+      z.coerce.number().min(0, { message: t('validation.rating.minLength') }).max(5, { message: t('validation.rating.maxLength') }).nullable(),
 
     //REJECTED REASON 
     rejectedReason:
@@ -83,22 +79,21 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     //ADDRESS
     address:
       z.object({
-        city: z.string(),
-        postalCode: z.string(),
-      }, { message: t('validation.address.invalid') }).optional(),
+        city: z.string().optional(),
+        postalCode: z.string().optional(),
+      }, { message: t('validation.address.invalid') }),
 
 
     /**************************** FIFTH STEP ****************************************** */
 
     //MANAGER NAME
     managerName:
-      z.string()
-        .optional(),
+      z.string().optional(),
+       
 
     //MANAGER EMAIL
     managerEmail:
-      z.email( { message: t('validation.managerEmail.required') })
-        .optional(),
+       z.union([z.literal(""), z.email()]),
 
     //INTERVIEW COUNT
     interviewCount:
@@ -106,9 +101,10 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
     //LAST CONTACT AT
     lastContactAt:
-      z.coerce.date({ message: t('validation.lastContactAt.invalid') }).nullable().optional(),
+      z.union([z.literal(""), z.coerce.date()]),
 
 
   })
+
 
 }

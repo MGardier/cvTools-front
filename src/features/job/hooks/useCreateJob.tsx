@@ -10,12 +10,14 @@ import { jobService } from "../job.service";
 import { toast } from "react-toastify";
 import type { ApiErrors } from "@/types/api";
 import type { UseCreateJobReturn } from "../types/hook";
-import { JobApplyMethod, JobPriority, JobStatus, TypeEnterprise } from "@/types/entity";
+import { removeEmptyFields } from "@/utils/utils";
+import type { Job } from "@/types/entity";
 
 
 
 export const useCreateJob = (): UseCreateJobReturn => {
   const { t } = useTranslation("job");
+
 
   const schema = createJobSchema(t);
   const userId = Number(useAuthStore().user?.id);
@@ -32,16 +34,16 @@ export const useCreateJob = (): UseCreateJobReturn => {
     //OPTIONNAL
     managerName: "",
     managerEmail: "",
-    appliedAt: null,
-    lastContactAt: null,
+    appliedAt: "" as "",
+    lastContactAt: "" as "",
     rejectedReason: "",
     description: "",
 
     //ENUM
-    type: TypeEnterprise.ENTERPRISE,
-    status: JobStatus.NEED_TO_CONTACT,
-    priority: JobPriority.ATTAINABLE,
-    applicationMethod: JobApplyMethod.JOBBOARD,
+    type: undefined,
+    status: undefined,
+    priority: undefined,
+    applicationMethod: undefined,
 
     //NESTED
     technologies: [{ name: "" }],
@@ -69,7 +71,8 @@ export const useCreateJob = (): UseCreateJobReturn => {
   });
 
   const onSubmit = (values: z.infer<typeof schema>) => {
-    mutation.mutate({ ...values, userId });
+    const params = removeEmptyFields(values) as z.infer<ReturnType<typeof createJobSchema>>;
+    mutation.mutate({ ...params, userId });
   };
 
   return {
