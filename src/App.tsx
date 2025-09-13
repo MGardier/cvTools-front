@@ -16,8 +16,9 @@ import { ResetPasswordPage } from "./pages/auth/reset-password-page";
 import { SignInPage } from "./pages/auth/sign-in-page";
 import { LogoutPage } from "./pages/auth/logout-page";
 import { GetOauthSessionPage } from "./pages/auth/get-oauth-session-page";
-import { JobsPage } from "./pages/job/jobs-page";
+import { FindAllJobsPage } from "./pages/job/find-all-jobs-page";
 import { PrivateRoutes } from "./pages/private-routes";
+import { FindOneJobPage } from "./pages/job/find-one-job-page";
 
 //TODO: Idée ajout un how it works pour montrer l'utilisation de la recherche, candidatures et relances
 //TODO: Idée ajout Avoir une recherche qui permettent de regrouper les jobs de plusieurs plateformes
@@ -78,12 +79,21 @@ function App() {
               element={<GetOauthSessionPage />}
             />
 
-            {/* GET OAUTH  SESSION */}
+            {/* FIND ALL JOBS */}
             <Route element={<PrivateRoutes />}>
               <Route
-                key="jobs"
-                path={ROUTES.job.getAll}
-                element={<JobsPage />}
+                key="findAllJobs"
+                path={ROUTES.job.findAll}
+                element={<FindAllJobsPage />}
+              />
+            </Route>
+
+            {/* FIND ONE JOB */}
+            <Route element={<PrivateRoutes />}>
+              <Route
+                key="findOneJob"
+                path={ROUTES.job.findOne}
+                element={<FindOneJobPage />}
               />
             </Route>
           </Routes>

@@ -5,7 +5,7 @@ import type z from "zod";
 import type { createJobSchema } from "../../schema/job-schema";
 
 import { SelectField } from "@/components/form/select-field";
-import {  JobPriority, JobStatus } from "@/types/entity";
+import {  JobCompatibility, JobStatus } from "@/types/entity";
 import { TechnologiesForm } from "./technologies-form";
 
 interface JobFormFirstStepProps {
@@ -59,18 +59,18 @@ export const JobFormFirstStep = ({
       />
 
       
-      {/** PRIORITY  */}
+      {/** COMPATIBILITY  */}
       <SelectField
-        label={t("pages.createJob.form.priority.label")}
-        name="priority"
-        placeholder={t("pages.createJob.form.priority.placeholder")}
+        label={t("pages.createJob.form.compatibility.label")}
+        name="compatibility"
+        placeholder={t("pages.createJob.form.compatibility.placeholder")}
         form={form}
         required
-        objectValues={Object.values(JobPriority).map((value) => {
+        objectValues={Object.values(JobCompatibility).map((value) => {
           return {
             value,
             label: t(
-              `pages.createJob.form.priority.values.${value.toLocaleLowerCase()}`
+              `pages.createJob.form.compatibility.values.${value.toLocaleLowerCase()}`
             ),
           };
         })}

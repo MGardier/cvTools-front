@@ -1,6 +1,7 @@
 
 import { apiClient } from '@/api/axios';
-import type { CreateJobParams, CreateJobResponse, FindAllJobByUserResponse } from './types/api';
+import type { CreateJobParams, CreateJobResponse, FindAllJobByUserResponse, FindJobByIdByUserResponse } from './types/api';
+
 
 
 
@@ -23,14 +24,13 @@ export const jobApi = {
 
 
   async findAll(userId: number): Promise<FindAllJobByUserResponse> {
+    return  await apiClient.get(`${ENDPOINT.user}/${userId}${ENDPOINT.job}`);
 
-    const {data} =  await apiClient.get(`${ENDPOINT.user}/${userId}${ENDPOINT.job}`);
-    return data;
   },
 
-  async findOneById(id: number, userId:number){
-    const {data} =  await apiClient.get(`${ENDPOINT.user}/${userId}${ENDPOINT.job}/${id}`);
-    return data;
+  async findOneById(id: number, userId:number): Promise<FindJobByIdByUserResponse>{
+    return  await apiClient.get(`${ENDPOINT.user}/${userId}${ENDPOINT.job}/${id}`);
+
   }
   
 

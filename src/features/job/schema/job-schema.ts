@@ -2,7 +2,7 @@
 
 import type { TFunction } from "i18next"
 import z from "zod"
-import { JobApplyMethod, JobPriority, JobStatus, TypeEnterprise } from '../../../types/entity';
+import { JobApplyMethod, JobCompatibility, JobStatus, TypeEnterprise } from '../../../types/entity';
 
 export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
@@ -25,9 +25,9 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     status:
       z.enum(JobStatus, { message: t('validation.status.required') }),
 
-    //PRIORITY
-    priority:
-      z.enum(JobPriority, { message: t('validation.priority.required') }),
+    //COMPATIBILITY
+    compatibility:
+      z.enum(JobCompatibility, { message: t('validation.compatibility.required') }),
 
 
 

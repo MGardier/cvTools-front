@@ -42,7 +42,7 @@ export const useCreateJob = (): UseCreateJobReturn => {
     //ENUM
     type: undefined,
     status: undefined,
-    priority: undefined,
+    compatibility: undefined,
     applicationMethod: undefined,
 
     //NESTED

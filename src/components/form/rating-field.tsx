@@ -69,11 +69,12 @@ export const RatingField = <TFormData extends FieldValues>({
                     onClick={() => handleStarClick(starValue)}
                   >
                     <Star
+  
                       className={cn(
                         "w-6 h-6 transition-colors",
                         isFilled
-                          ? " text-blue-400/80"
-                          : "text-gray-300 hover:text-blue-400/80"
+                          ? " text-blue-400/80 fill-blue-400/80"
+                          : "text-gray-300 hover:fill-blue-400/80 hover:text-blue-400/80"
                       )}
                     />
                   </button>

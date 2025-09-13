@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Loader2, Plus } from "lucide-react";
-import { useCreateJob } from "../hooks/useCreateJob";
+import { useCreateJob } from "../hooks/use-create-job";
 import { useState } from "react";
 import { JobFormFirstStep } from "./form/job-form-first-step";
 import { JobFormSecondStep } from "./form/job-form-second-step";
@@ -34,7 +34,7 @@ export function DialogCreateJob() {
     useCreateJob();
   const [currentStep, setCurrentStep] = useState(1);
   const fieldsInSteps = {
-    first: new Set(["jobTitle", "technologies", "status", "priority"]),
+    first: new Set(["jobTitle", "technologies", "status", "compatibility"]),
     second: new Set(["enterprise", "type", "applicationMethod", "appliedAt"]),
     third: new Set(["description", "rating", "rejectedReason", "archived"]),
     fourth: new Set(["link", "address"]),

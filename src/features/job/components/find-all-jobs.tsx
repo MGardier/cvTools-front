@@ -32,11 +32,11 @@ import {
 
 import type { Job } from "@/types/entity";
 import { jobColumns } from "./job-columns";
-import { useJobs } from "../hooks/useJobs";
+import { useFindAllJobs } from "../hooks/use-find-all-job";
 import { DialogCreateJob } from "./dialog-create-job";
 
-export function Jobs() {
-  const { data, isLoading, t ,} = useJobs();
+export const FindAllJobs = () => {
+  const { data, isPending, t ,} = useFindAllJobs();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -72,7 +72,7 @@ export function Jobs() {
       rowSelection,
     },
   });
-  if (isLoading) return <div className="w-full"> </div>;
+  if (isPending) return <div className="w-full"> </div>;
   return (
     <div className="w-full">
       <div className="md:flex lg:flex flex items-center justify-between gap-2 py-4">

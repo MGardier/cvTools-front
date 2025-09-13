@@ -17,6 +17,7 @@ export const ROUTES = {
     resetPassword :"reset-password",
   },
   job :{
-    getAll :"job/"
+    findAll :"jobs/",
+    findOne :"job/:jobId"
   }
 };
