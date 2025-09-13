@@ -45,10 +45,10 @@ export const JobFormThirdStep = ({
       />
 
 
-      {/** ARCHIVED  */}
+      {/** IS ARCHIVED  */}
       <SwitchField
-        label={t("pages.createJob.form.archived.label")}
-        name="archived"
+        label={t("pages.createJob.form.isArchived")}
+        name="isArchived"
         {...{ form }}
       />
 

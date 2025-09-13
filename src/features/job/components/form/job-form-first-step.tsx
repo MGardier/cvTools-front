@@ -7,6 +7,7 @@ import type { createJobSchema } from "../../schema/job-schema";
 import { SelectField } from "@/components/form/select-field";
 import {  JobCompatibility, JobStatus } from "@/types/entity";
 import { TechnologiesForm } from "./technologies-form";
+import { SwitchField } from "@/components/form/switch-field";
 
 interface JobFormFirstStepProps {
   t: TFunction<"job", undefined>;
@@ -76,6 +77,12 @@ export const JobFormFirstStep = ({
         })}
       />
 
+      {/** IS FAVORITE  */}
+      <SwitchField
+        label={t("pages.createJob.form.isFavorite")}
+        name="isFavorite"
+        {...{ form }}
+      />
 
     </>
   );

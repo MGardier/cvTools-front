@@ -29,11 +29,13 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     compatibility:
       z.enum(JobCompatibility, { message: t('validation.compatibility.required') }),
 
+    //IS FAVORITE
+    isFavorite:
+      z.coerce.boolean({ message: t('validation.isFavorite.invalid') }),
+
 
 
     /**************************** SECOND STEP ****************************************** */
-
-
 
     //ENTERPRISE
     enterprise:
@@ -51,6 +53,9 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
     //APPLIED AT
     appliedAt: z.union([z.literal(""), z.coerce.date()]),
+
+
+
     /**************************** THIRD STEP ****************************************** */
 
     //DESCRIPTION
@@ -66,12 +71,14 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
       z.string().optional(),
 
     //ARCHIVED
-    archived:
-      z.coerce.boolean({ message: t('validation.archived.invalid') }),
+    isArchived:
+      z.coerce.boolean({ message: t('validation.isArchived.invalid') }),
 
 
 
     /**************************** FOURTH STEP ****************************************** */
+
+
     //LINK
     link:
       z.string().min(1, { message: t('validation.link.required') }),
@@ -82,6 +89,11 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
         city: z.string().optional(),
         postalCode: z.string().optional(),
       }, { message: t('validation.address.invalid') }),
+
+
+    //NOTES
+    notes:
+      z.string().optional(),
 
 
     /**************************** FIFTH STEP ****************************************** */
@@ -102,7 +114,6 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     //LAST CONTACT AT
     lastContactAt:
       z.union([z.literal(""), z.coerce.date()]),
-
 
   })
 

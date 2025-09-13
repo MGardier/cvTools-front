@@ -24,6 +24,7 @@
             "enterprise": "Entreprise classique"
           }
         },
+
         "link": {
           "label": "Lien de l'offre",
           "placeholder": "https://www.hellowork.com/"
@@ -92,11 +93,16 @@
           "placeholder": "Votre  description..."
         },
         "rating": { "label": "Note d'auto évalutation pour cet offre " },
-        "archived": { "label": "Archiver la candidature" },
+        "isArchived":  "Archiver" ,
         "interviewCount": { "label": "Nombre d'entretiens " },
         "lastContactAt": {
           "label": "Dernier contact le ",
           "placeholder": "01 septembre 2025"
+        },
+        "isFavorite" : "Favoris",
+        "notes" :{
+          "label" :" Notes",
+          "placeholder" :"Les notes sur l'offres ou informations à retenir..."
         },
         "button": {
           "previous_step": "Précédent",

@@ -27,32 +27,32 @@ export interface User {
 /****************************  JOB **************************************************************************** */
 
 export const TypeEnterprise = {
-  ESN : "ESN",
-  START_UP:"START_UP",
+  ESN: "ESN",
+  START_UP: "START_UP",
   ENTERPRISE: "ENTERPRISE"
 } as const;
 
-export const JobStatus = { 
+export const JobStatus = {
   NEED_TO_CONTACT: "NEED_TO_CONTACT",
   NEED_TO_VALIDATE_MESSAGE: "NEED_TO_VALIDATE_MESSAGE",
-  NEED_TO_SEND_MESSAGE:  "NEED_TO_SEND_MESSAGE",
-  INTERVIEWS:  "INTERVIEWS",
-  TECHNICAL_TEST :"TECHNICAL_TEST",
+  NEED_TO_SEND_MESSAGE: "NEED_TO_SEND_MESSAGE",
+  INTERVIEWS: "INTERVIEWS",
+  TECHNICAL_TEST: "TECHNICAL_TEST",
   NEED_TO_SEND_THANKS_AFTER_INTERVIEW: "NEED_TO_SEND_THANKS_AFTER_INTERVIEW",
   NEED_TO_SEND_MAIL_REMINDER: "NEED_TO_SEND_MAIL_REMINDER"
 
-}as const  ;
+} as const;
 
 export const JobCompatibility = {
-  PERFECT:"PERFECT",
+  PERFECT: "PERFECT",
   ATTAINABLE: "ATTAINABLE",
-  WHY_NOT:"WHY_NOT"
-  
+  WHY_NOT: "WHY_NOT"
+
 } as const;
 
 export const JobApplyMethod = {
-  LINKEDIN :"LINKEDIN",
-  JOBBOARD :"JOBBOARD",
+  LINKEDIN: "LINKEDIN",
+  JOBBOARD: "JOBBOARD",
   EMAIL: "EMAIL",
   OTHER: "OTHER",
 } as const;
@@ -62,32 +62,45 @@ export const JobApplyMethod = {
 
 
 export type Job = {
+
+  //NUMBER
   id: number;
-  enterprise: string;
-  type: typeof TypeEnterprise[keyof typeof TypeEnterprise];
-  link: string;
+  interviewCount: number;
+  rating?: number;
+
+
+  //STRING
   jobTitle: string;
+  enterprise: string;
+  link: string;
   managerName: string;
   managerEmail: string;
+  description?: string;
+  notes?: string;
+  rejectionReason?: string;
 
+  //ENUM
+  type: typeof TypeEnterprise[keyof typeof TypeEnterprise];
   status: typeof JobStatus[keyof typeof JobStatus];
   compatibility: typeof JobCompatibility[keyof typeof JobCompatibility];
-  description?: string;
   applicationMethod: typeof JobApplyMethod[keyof typeof JobApplyMethod];
-  interviewCount: number;
-  rejectionReason?: string;
-  rating?: number;
-  archived: boolean;
 
 
+  //BOOLEAN
+  isArchived: boolean;
+  isFavorite: boolean;
+
+  //DATE
   createdAt: Date;
   updatedAt?: Date;
-  appliedAt?: Date ;
+  appliedAt?: Date;
   lastContactAt?: Date;
 
+  //RELATION
   technologies: Technology[];
   address: Address;
   user: User;
+  
 };
 
 
