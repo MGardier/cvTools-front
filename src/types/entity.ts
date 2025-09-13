@@ -43,7 +43,7 @@ export const JobStatus = {
 
 }as const  ;
 
-export const JobPriority = {
+export const JobCompatibility = {
   PERFECT:"PERFECT",
   ATTAINABLE: "ATTAINABLE",
   WHY_NOT:"WHY_NOT"
@@ -71,7 +71,7 @@ export type Job = {
   managerEmail: string;
 
   status: typeof JobStatus[keyof typeof JobStatus];
-  priority: typeof JobPriority[keyof typeof JobPriority];
+  compatibility: typeof JobCompatibility[keyof typeof JobCompatibility];
   description?: string;
   applicationMethod: typeof JobApplyMethod[keyof typeof JobApplyMethod];
   interviewCount: number;
@@ -86,7 +86,7 @@ export type Job = {
   lastContactAt?: Date;
 
   technologies: Technology[];
-  adress: Address;
+  address: Address;
   user: User;
 };
 

@@ -41,9 +41,9 @@
             "need_to_send_mail_reminder": "A relancer"
           }
         },
-        "priority": {
-          "label": "Priorité de la candidature",
-          "placeholder": "Veuillez choisir une priorité",
+        "compatibility": {
+          "label": "Compatibilité de la candidature",
+          "placeholder": "Veuillez choisir une compatibilité",
           "values": {
             "perfect": "Parfait",
             "attainable": "Atteignable",
@@ -136,7 +136,7 @@
     "jobTitle": { "required": "Le titre est requis." },
     "technologies": { "required": "Les technologies sont requises." },
     "status": { "required": "Le statut est requis. " },
-    "priority": { "required": "La priorité est requis." },
+    "compatibility": { "required": "La compatibilité est requise." },
     "type": { "required": "Le type est requis." },
     "applicationMethod": { "required": "La méthode est requise." },
     "appliedAt": { "invalid": "La date n'est pas valide." },

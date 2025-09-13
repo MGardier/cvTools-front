@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import type { ApiErrors } from "@/types/api";
 import type { UseCreateJobReturn } from "../types/hook";
 import { removeEmptyFields } from "@/utils/utils";
+import { queryClient } from "@/api/queryClient";
 
 
 
@@ -41,7 +42,7 @@ export const useCreateJob = (): UseCreateJobReturn => {
     //ENUM
     type: undefined,
     status: undefined,
-    priority: undefined,
+    compatibility: undefined,
     applicationMethod: undefined,
 
     //NESTED
@@ -64,6 +65,7 @@ export const useCreateJob = (): UseCreateJobReturn => {
   const mutation = useMutation<CreateJobResponse, ApiErrors, CreateJobParams>({
     mutationFn: jobService.create,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [`findAllJobByUser-${userId}`]})
       toast.success(t("messages.success.createJob"));
     },
     onError: () => toast.error(t("messages.errors.fallback")),

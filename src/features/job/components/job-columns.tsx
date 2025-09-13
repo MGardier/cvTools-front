@@ -6,7 +6,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -15,6 +14,7 @@ import { formatDate, splitTextAtSpaces } from "@/utils/utils";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 import { ArrowUpDown, Building2, Calendar, MoreHorizontal } from "lucide-react";
+
 
 //TODO : mettre un event listener pour ajuster le mobile
 const isMobile = window.innerWidth <= 768;
@@ -164,7 +164,7 @@ export const jobColumns = (t: TFunction): ColumnDef<Job>[] => [
         </div>
       );
     },
-    cell: () => (
+    cell: ({row}) => (
       <div className="flex items-center justify-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -174,7 +174,6 @@ export const jobColumns = (t: TFunction): ColumnDef<Job>[] => [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>Copy payment ID</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View customer</DropdownMenuItem>
