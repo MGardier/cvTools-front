@@ -19,7 +19,14 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     technologies:
       z.object({
         name: z.string()
-      }).array().min(1, { message: t('validation.technologies.required') }).transform((tech) => tech.filter(tech => tech.name.trim())),
+      }).array().transform((array) =>
+        // Remove empty technologies
+        array.filter(tech => tech.name && tech.name.trim().length > 0)
+      )
+        .refine(
+          (filteredArray) => filteredArray.length >= 1,
+          { message: t('validation.technologies.required') }
+        ),
 
     //STATUS
     status:
@@ -101,11 +108,11 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     //MANAGER NAME
     managerName:
       z.string().optional(),
-       
+
 
     //MANAGER EMAIL
     managerEmail:
-       z.union([z.literal(""), z.email()]),
+      z.union([z.literal(""), z.email()]),
 
     //INTERVIEW COUNT
     interviewCount:

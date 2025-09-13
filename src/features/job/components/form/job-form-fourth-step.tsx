@@ -18,38 +18,38 @@ export const JobFormFourthStep = ({
     <>
       {/** LINK  */}
       <FormCardField
-        label={t("pages.createJob.form.link.label")}
+        label={t("form.link.label")}
         name="link"
         type="text"
-        placeholder={t("pages.createJob.form.link.placeholder")}
+        placeholder={t("form.link.placeholder")}
         required
         {...{ form }}
       />
 
       {/** NOTES  */}
       <TextAreaField
-        label={t("pages.createJob.form.notes.label")}
+        label={t("form.notes.label")}
         name="notes"
-        placeholder={t("pages.createJob.form.notes.placeholder")}
+        placeholder={t("form.notes.placeholder")}
         {...{ form }}
       />
 
 
       {/** ADDRESS CITY  */}
       <FormCardField
-        label={t("pages.createJob.form.address.city.label")}
+        label={t("form.address.city.label")}
         name="address.city"
         type="text"
-        placeholder={t("pages.createJob.form.address.city.placeholder")}
+        placeholder={t("form.address.city.placeholder")}
         {...{ form }}
       />
 
       {/** ADDRESS POSTAL CODE  */}
       <FormCardField
-        label={t("pages.createJob.form.address.postalCode.label")}
+        label={t("form.address.postalCode.label")}
         name="address.postalCode"
         type="text"
-        placeholder={t("pages.createJob.form.address.postalCode.placeholder")}
+        placeholder={t("form.address.postalCode.placeholder")}
         {...{ form }}
       />
 

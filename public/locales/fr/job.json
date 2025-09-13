@@ -2,142 +2,144 @@
   "pages": {
     "createJob": {
       "title": "Créer une candidature",
-      "form": {
-        "enterprise": {
-          "label": "Nom de l'entreprise",
-          "placeholder": "Company"
-        },
-        "jobTitle": {
-          "label": "Titre de la candidature",
-          "placeholder": "Développeur Fullstack"
-        },
-        "technologies": {
-          "label": "Technologies",
-          "placeholder": "React"
-        },
-        "type": {
-          "label": "Type d'entreprise",
-          "placeholder": "Veuillez choisir un type d'entreprise",
-          "values": {
-            "esn": "Entreprise de Service Numérique",
-            "start_up": "Start Up ",
-            "enterprise": "Entreprise classique"
-          }
-        },
-
-        "link": {
-          "label": "Lien de l'offre",
-          "placeholder": "https://www.hellowork.com/"
-        },
-        "status": {
-          "label": "Status de la candidature",
-          "placeholder": "Veuillez choisir un status",
-          "values": {
-            "need_to_contact": "A contacter",
-            "need_to_validate_message": "Message à valider",
-            "need_to_send_message": "Message à envoyer",
-            "interviews": "Entretien en cours",
-            "technical_test": "Test technique en cours",
-            "need_to_send_thanks_after_interview": "Envoyer remerciements aprés entretien",
-            "need_to_send_mail_reminder": "A relancer"
-          }
-        },
-        "compatibility": {
-          "label": "Compatibilité de la candidature",
-          "placeholder": "Veuillez choisir une compatibilité",
-          "values": {
-            "perfect": "Parfait",
-            "attainable": "Atteignable",
-            "why_not": "Pourquoi pas "
-          }
-        },
-        "applicationMethod": {
-          "label": "Méthode utilisée pour envoyer la candidature",
-          "placeholder": "Veuillez choisir une méthode",
-          "values": {
-            "linkedin": "Linkedin",
-            "jobboard": "Job Board",
-            "email": "Par email",
-            "other": "Autre moyen"
-          }
-        },
-        "managerName": {
-          "label": "Nom du contact",
-          "placeholder": "John Doe"
-        },
-        "managerEmail": {
-          "label": "Email du contact",
-          "placeholder": "john.doe@mail.com"
-        },
-        "address": {
-          "city": {
-            "label": "Ville",
-            "placeholder": "Paris"
-          },
-          "postalCode": {
-            "label": "Code Postal",
-            "placeholder": "60000"
-          }
-        },
-        "appliedAt": {
-          "label": "Postulé le",
-          "selectLabel": "Veuillez choisir une date",
-          "placeholder": "01 septembre 2025"
-        },
-        "rejectedReason": {
-          "label": "Raison si refusée",
-          "placeholder": "La raison du refus ...."
-        },
-        "description": {
-          "label": "Description de l'offre",
-          "placeholder": "Votre  description..."
-        },
-        "rating": { "label": "Note d'auto évalutation pour cet offre " },
-        "isArchived":  "Archiver" ,
-        "interviewCount": { "label": "Nombre d'entretiens " },
-        "lastContactAt": {
-          "label": "Dernier contact le ",
-          "placeholder": "01 septembre 2025"
-        },
-        "isFavorite" : "Favoris",
-        "notes" :{
-          "label" :" Notes",
-          "placeholder" :"Les notes sur l'offres ou informations à retenir..."
-        },
-        "button": {
-          "previous_step": "Précédent",
-          "next_step": "Suivant",
-          "submit": "Créer une candidature"
-        },
-        "errors": {
-          "invalid_fields": "Certaines étapes sont invalides."
-        }
-      }
+      "button": "Créer une candidature"
     },
-    "jobs":{
-      "columns" :{
-        "jobTitle" :"Titre",
-        "enterprise":"Entreprise",
-        "status":"Statut",
-        "applicationMethod":"Postulé via",
+    "jobs": {
+      "columns": {
+        "jobTitle": "Titre",
+        "enterprise": "Entreprise",
+        "status": "Statut",
+        "applicationMethod": "Postulé via",
         "appliedAt": "Postulée le",
-        "empty" : "Non renseigné",
-        "actions":"Actions"
+        "empty": "Non renseigné",
+        "actions": "Actions"
       },
-        "status":{
-          "need_to_contact" :"A contacter",
-          "need_to_validate_message" :"Valider message",
-          "need_to_send_message" :"Message à envoyer",
-          "interviews" :"Entretien prévu",
-          "technical_test" :"Test technique prévu",
-          "need_to_send_thanks_after_interview" :"Remerciements à envoyer",
-          "need_to_send_mail_reminder" :"Relance à effectuer"
-        },
-        "next": "Suivant",
-        "previous" : "Précédent"
-      
+      "status": {
+        "need_to_contact": "A contacter",
+        "need_to_validate_message": "Valider message",
+        "need_to_send_message": "Message à envoyer",
+        "interviews": "Entretien prévu",
+        "technical_test": "Test technique prévu",
+        "need_to_send_thanks_after_interview": "Remerciements à envoyer",
+        "need_to_send_mail_reminder": "Relance à effectuer"
+      },
+      "next": "Suivant",
+      "previous": "Précédent"
     }
   },
+
+  "form": {
+    "enterprise": {
+      "label": "Nom de l'entreprise",
+      "placeholder": "Company"
+    },
+    "jobTitle": {
+      "label": "Titre de la candidature",
+      "placeholder": "Développeur Fullstack"
+    },
+    "technologies": {
+      "label": "Technologies",
+      "placeholder": "React"
+    },
+    "type": {
+      "label": "Type d'entreprise",
+      "placeholder": "Veuillez choisir un type d'entreprise",
+      "values": {
+        "esn": "Entreprise de Service Numérique",
+        "start_up": "Start Up ",
+        "enterprise": "Entreprise classique"
+      }
+    },
+
+    "link": {
+      "label": "Lien de l'offre",
+      "placeholder": "https://www.hellowork.com/"
+    },
+    "status": {
+      "label": "Status de la candidature",
+      "placeholder": "Veuillez choisir un status",
+      "values": {
+        "need_to_contact": "A contacter",
+        "need_to_validate_message": "Message à valider",
+        "need_to_send_message": "Message à envoyer",
+        "interviews": "Entretien en cours",
+        "technical_test": "Test technique en cours",
+        "need_to_send_thanks_after_interview": "Envoyer remerciements aprés entretien",
+        "need_to_send_mail_reminder": "A relancer"
+      }
+    },
+    "compatibility": {
+      "label": "Compatibilité de la candidature",
+      "placeholder": "Veuillez choisir une compatibilité",
+      "values": {
+        "perfect": "Parfait",
+        "attainable": "Atteignable",
+        "why_not": "Pourquoi pas "
+      }
+    },
+    "applicationMethod": {
+      "label": "Méthode utilisée pour envoyer la candidature",
+      "placeholder": "Veuillez choisir une méthode",
+      "values": {
+        "linkedin": "Linkedin",
+        "jobboard": "Job Board",
+        "email": "Par email",
+        "other": "Autre moyen"
+      }
+    },
+    "managerName": {
+      "label": "Nom du contact",
+      "placeholder": "John Doe"
+    },
+    "managerEmail": {
+      "label": "Email du contact",
+      "placeholder": "john.doe@mail.com"
+    },
+    "address": {
+      "city": {
+        "label": "Ville",
+        "placeholder": "Paris"
+      },
+      "postalCode": {
+        "label": "Code Postal",
+        "placeholder": "60000"
+      }
+    },
+    "appliedAt": {
+      "label": "Postulé le",
+      "selectLabel": "Veuillez choisir une date",
+      "placeholder": "01 septembre 2025"
+    },
+    "rejectedReason": {
+      "label": "Raison si refusée",
+      "placeholder": "La raison du refus ...."
+    },
+    "description": {
+      "label": "Description de l'offre",
+      "placeholder": "Votre  description..."
+    },
+    "rating": { "label": "Note d'auto évalutation pour cet offre " },
+    "isArchived": "Archiver",
+    "interviewCount": { "label": "Nombre d'entretiens " },
+    "lastContactAt": {
+      "label": "Dernier contact le ",
+      "placeholder": "01 septembre 2025"
+    },
+    "isFavorite": "Favoris",
+    "notes": {
+      "label": " Notes",
+      "placeholder": "Les notes sur l'offres ou informations à retenir..."
+    },
+    "button": {
+      "previous_step": "Précédent",
+      "next_step": "Suivant",
+      "submit": "Créer une candidature"
+    },
+    "errors": {
+      "invalidStep": "Certaines étapes sont invalides."
+    }
+  },
+
   "validation": {
     "jobTitle": { "required": "Le titre est requis." },
     "technologies": { "required": "Les technologies sont requises." },
@@ -167,6 +169,5 @@
     "success": {
       "createJob": "Votre candidature a bien été créer."
     }
-
   }
 }

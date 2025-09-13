@@ -20,15 +20,15 @@ export const JobFormThirdStep = ({
     <>
       {/** DESCRIPTION  */}
       <TextAreaField
-        label={t("pages.createJob.form.description.label")}
+        label={t("form.description.label")}
         name="description"
-        placeholder={t("pages.createJob.form.description.placeholder")}
+        placeholder={t("form.description.placeholder")}
         {...{ form }}
       />
 
       {/** RATING  */}
       <RatingField
-        label={t("pages.createJob.form.rating.label")}
+        label={t("form.rating.label")}
         name="rating"
         min={0}
         max={5}
@@ -37,17 +37,17 @@ export const JobFormThirdStep = ({
 
       {/** REJECTED REASON  */}
       <FormCardField
-        label={t("pages.createJob.form.rejectedReason.label")}
+        label={t("form.rejectedReason.label")}
         name="rejectedReason"
         type="text"
-        placeholder={t("pages.createJob.form.rejectedReason.placeholder")}
+        placeholder={t("form.rejectedReason.placeholder")}
         {...{ form }}
       />
 
 
       {/** IS ARCHIVED  */}
       <SwitchField
-        label={t("pages.createJob.form.isArchived")}
+        label={t("form.isArchived")}
         name="isArchived"
         {...{ form }}
       />

@@ -10,7 +10,7 @@ const badgeVariants = cva(
         warning:
           "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-amber-100 text-amber-800",
         primary:
-          "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-blue-400 hover:bg-blue-800 text-white ",
+          "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-blue-400 hover:bg-blue-600/80 text-white ",
         violet:
           "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-purple-100 text-purple-800",
         danger:

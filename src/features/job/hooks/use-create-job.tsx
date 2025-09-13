@@ -52,6 +52,26 @@ export const useCreateJob = (): UseCreateJobReturn => {
       postalCode: "",
     },
   };
+
+    const fieldsInSteps = {
+    first: new Set([
+      "jobTitle",
+      "technologies",
+      "status",
+      "compatibility",
+      "isFavorite",
+    ]),
+    second: new Set(["enterprise", "type", "applicationMethod", "appliedAt"]),
+    third: new Set(["description", "rating", "rejectedReason", "isArchived"]),
+    fourth: new Set(["link", "address", "notes"]),
+    fifth: new Set([
+      "managerName",
+      "managerEmail",
+      "interviewCount",
+      "lastContactAt",
+    ]),
+  };
+
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema) as Resolver<z.infer<typeof schema>>,
     defaultValues,
@@ -84,5 +104,7 @@ export const useCreateJob = (): UseCreateJobReturn => {
     isPending: mutation.isPending,
     isError: mutation.isError,
     technologiesFields,
+    fieldsInSteps
+
   };
 };

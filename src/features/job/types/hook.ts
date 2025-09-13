@@ -16,6 +16,7 @@ export interface UseCreateJobReturn {
   onSubmit: SubmitHandler<z.infer<ReturnType<typeof createJobSchema>>>;
   form: UseFormReturn<z.infer<ReturnType<typeof createJobSchema>>>;
   technologiesFields : UseFieldArrayReturn<z.infer<ReturnType<typeof createJobSchema>>>
+  fieldsInSteps : Record<string,Set<string>>
 }
 
 

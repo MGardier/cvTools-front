@@ -17,7 +17,10 @@ export const ROUTES = {
     resetPassword :"reset-password",
   },
   job :{
-    findAll :"jobs/",
+    create :"create-job",
+    update :"update-job/:jobId",
+    delete :"delete-job/:jobId",
+    findAll :"jobs",
     findOne :"job/:jobId"
   }
 };

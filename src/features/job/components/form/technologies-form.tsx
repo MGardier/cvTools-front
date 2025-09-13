@@ -43,7 +43,7 @@ export const TechnologiesForm = ({
         <FormLabel>
           <div className="flex flex-col justitfy-left items-left gap-2">
             <p className={isTechnologyFieldInError ? "text-destructive" : ""}>
-              {t("pages.createJob.form.technologies.label")}{" "}
+              {t("form.technologies.label")}{" "}
               <span className="text-muted-foreground text-xs"> (Requis)</span>
             </p>
 
@@ -86,7 +86,7 @@ export const TechnologiesForm = ({
                         }
                         type={isLast ? "text" : "hidden"}
                         placeholder={t(
-                          "pages.createJob.form.technologies.placeholder"
+                          "form.technologies.placeholder"
                         )}
                         {...field}
                         onKeyDown={(e) => {
