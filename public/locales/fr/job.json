@@ -168,6 +168,9 @@
   "messages": {
     "success": {
       "createJob": "Votre candidature a bien été créer."
+    },
+    "errors" :{
+      "createJob":"Une erreur est survenue lors de la création de la candidature."
     }
   }
 }

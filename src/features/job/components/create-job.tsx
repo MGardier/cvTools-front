@@ -50,21 +50,21 @@ export const CreateJob = () => {
     fieldsInSteps.fifth.has(field.split(".")[0])
   );
 
-  console.log(form.formState.errors)
-
   return (
     <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
       <FormCardHeader title={t("pages.createJob.title")}>
-
-        {form.formState.errors  && (
-          <div className="text-red-600 mt-4 flex items-center justify-center gap-2">
+        <div className="text-red-600 mt-4 flex items-center justify-center gap-2">
+          {errorFields.length > 0 && !isPending && !isError && (
             <p>
-              <b>
-                { t("form.errors.invalidStep")}
-              </b>
+              <b>{t("form.errors.invalidStep")}</b>
             </p>
-          </div>
-        )}
+          )}
+          { !isPending && isError && (
+            <p>
+              <b>{t("messages.errors.createJob")}</b>
+            </p>
+          )}
+        </div>
       </FormCardHeader>
       <FormCardContent
         {...{

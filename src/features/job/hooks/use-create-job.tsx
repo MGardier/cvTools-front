@@ -12,12 +12,15 @@ import type { ApiErrors } from "@/types/api";
 import type { UseCreateJobReturn } from "../types/hook";
 import { removeEmptyFields } from "@/utils/utils";
 import { queryClient } from "@/api/queryClient";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/data/routes";
 
 
 
 export const useCreateJob = (): UseCreateJobReturn => {
   const { t } = useTranslation("job");
 
+  const navigate = useNavigate();
 
   const schema = createJobSchema(t);
   const userId = Number(useAuthStore().user?.id);
@@ -87,6 +90,7 @@ export const useCreateJob = (): UseCreateJobReturn => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`findAllJobByUser-${userId}`]})
       toast.success(t("messages.success.createJob"));
+      navigate(`${ROUTES.job.findAll}`)
     },
     onError: () => toast.error(t("messages.errors.fallback")),
   });
