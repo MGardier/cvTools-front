@@ -2,17 +2,19 @@ import { FormCardField } from "@/components/form/form-card-field";
 import type { TFunction } from "i18next";
 import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 import type z from "zod";
-import type { createJobSchema } from "../../schema/job-schema";
+
 
 import { SelectField } from "@/components/form/select-field";
 import {  JobCompatibility, JobStatus } from "@/types/entity";
 import { TechnologiesForm } from "./technologies-form";
+import { SwitchField } from "@/components/form/switch-field";
+import type { jobFormSchema } from "../../schema/job-schema";
 
 interface JobFormFirstStepProps {
   t: TFunction<"job", undefined>;
-  form: UseFormReturn<z.infer<ReturnType<typeof createJobSchema>>>;
+  form: UseFormReturn<z.infer<ReturnType<typeof jobFormSchema>>>;
   technologiesFields: UseFieldArrayReturn<
-    z.infer<ReturnType<typeof createJobSchema>>
+    z.infer<ReturnType<typeof jobFormSchema>>
   >;
   isTechnologyFieldInError: boolean;
 }
@@ -30,10 +32,10 @@ export const JobFormFirstStep = ({
     <>
       {/** TITLE  */}
       <FormCardField
-        label={t("pages.createJob.form.jobTitle.label")}
+        label={t("form.jobTitle.label")}
         name="jobTitle"
         type="text"
-        placeholder={t("pages.createJob.form.jobTitle.placeholder")}
+        placeholder={t("form.jobTitle.placeholder")}
         required
         {...{ form }}
       />
@@ -43,16 +45,16 @@ export const JobFormFirstStep = ({
 
       {/** STATUS  */}
       <SelectField
-        label={t("pages.createJob.form.status.label")}
+        label={t("form.status.label")}
         name="status"
-        placeholder={t("pages.createJob.form.status.placeholder")}
+        placeholder={t("form.status.placeholder")}
         form={form}
         required
         objectValues={Object.values(JobStatus).map((value) => {
           return {
             value,
             label: t(
-              `pages.createJob.form.status.values.${value.toLocaleLowerCase()}`
+              `form.status.values.${value.toLocaleLowerCase()}`
             ),
           };
         })}
@@ -61,21 +63,27 @@ export const JobFormFirstStep = ({
       
       {/** COMPATIBILITY  */}
       <SelectField
-        label={t("pages.createJob.form.compatibility.label")}
+        label={t("form.compatibility.label")}
         name="compatibility"
-        placeholder={t("pages.createJob.form.compatibility.placeholder")}
+        placeholder={t("form.compatibility.placeholder")}
         form={form}
         required
         objectValues={Object.values(JobCompatibility).map((value) => {
           return {
             value,
             label: t(
-              `pages.createJob.form.compatibility.values.${value.toLocaleLowerCase()}`
+              `form.compatibility.values.${value.toLocaleLowerCase()}`
             ),
           };
         })}
       />
 
+      {/** IS FAVORITE  */}
+      <SwitchField
+        label={t("form.isFavorite")}
+        name="isFavorite"
+        {...{ form }}
+      />
 
     </>
   );

@@ -4,7 +4,7 @@ import type { TFunction } from "i18next"
 import z from "zod"
 import { JobApplyMethod, JobCompatibility, JobStatus, TypeEnterprise } from '../../../types/entity';
 
-export const createJobSchema = (t: TFunction<'job', undefined>) => {
+export const jobFormSchema = (t: TFunction<'job', undefined>) => {
 
 
   return z.object({
@@ -19,7 +19,14 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     technologies:
       z.object({
         name: z.string()
-      }).array().min(1, { message: t('validation.technologies.required') }).transform((tech) => tech.filter(tech => tech.name.trim())),
+      }).array().transform((array) =>
+        // Remove empty technologies
+        array.filter(tech => tech.name && tech.name.trim().length > 0)
+      )
+        .refine(
+          (filteredArray) => filteredArray.length >= 1,
+          { message: t('validation.technologies.required') }
+        ),
 
     //STATUS
     status:
@@ -29,11 +36,13 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     compatibility:
       z.enum(JobCompatibility, { message: t('validation.compatibility.required') }),
 
+    //IS FAVORITE
+    isFavorite:
+      z.coerce.boolean({ message: t('validation.isFavorite.invalid') }),
+
 
 
     /**************************** SECOND STEP ****************************************** */
-
-
 
     //ENTERPRISE
     enterprise:
@@ -51,6 +60,9 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
 
     //APPLIED AT
     appliedAt: z.union([z.literal(""), z.coerce.date()]),
+
+
+
     /**************************** THIRD STEP ****************************************** */
 
     //DESCRIPTION
@@ -66,12 +78,14 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
       z.string().optional(),
 
     //ARCHIVED
-    archived:
-      z.coerce.boolean({ message: t('validation.archived.invalid') }),
+    isArchived:
+      z.coerce.boolean({ message: t('validation.isArchived.invalid') }),
 
 
 
     /**************************** FOURTH STEP ****************************************** */
+
+
     //LINK
     link:
       z.string().min(1, { message: t('validation.link.required') }),
@@ -84,16 +98,21 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
       }, { message: t('validation.address.invalid') }),
 
 
+    //NOTES
+    notes:
+      z.string().optional(),
+
+
     /**************************** FIFTH STEP ****************************************** */
 
     //MANAGER NAME
     managerName:
       z.string().optional(),
-       
+
 
     //MANAGER EMAIL
     managerEmail:
-       z.union([z.literal(""), z.email()]),
+      z.union([z.literal(""), z.email()]),
 
     //INTERVIEW COUNT
     interviewCount:
@@ -102,7 +121,6 @@ export const createJobSchema = (t: TFunction<'job', undefined>) => {
     //LAST CONTACT AT
     lastContactAt:
       z.union([z.literal(""), z.coerce.date()]),
-
 
   })
 

@@ -10,7 +10,7 @@ const badgeVariants = cva(
         warning:
           "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-amber-100 text-amber-800",
         primary:
-          "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-blue-400 hover:bg-blue-800 text-white ",
+          "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-blue-400 hover:bg-blue-600/80 text-white ",
         violet:
           "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-purple-100 text-purple-800",
         danger:
@@ -20,7 +20,7 @@ const badgeVariants = cva(
         blue:
            "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-blue-400 text-white  border-1 border-blue-400 ",
         emerald:
-           "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-emerald-600 text-white  border-1 border-emerald-600 "
+           "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-emerald-500 text-white  border-1 border-emerald-500 "
 
    
       },

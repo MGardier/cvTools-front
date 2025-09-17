@@ -36,7 +36,7 @@ import { useFindAllJobs } from "../hooks/use-find-all-job";
 import { DialogCreateJob } from "./dialog-create-job";
 
 export const FindAllJobs = () => {
-  const { data, isPending, t ,} = useFindAllJobs();
+  const { data, isPending, t } = useFindAllJobs();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -49,11 +49,10 @@ export const FindAllJobs = () => {
       origin: !isMobile,
       appliedAt: !isMobile,
       status: !isMobile,
-      applicationMethod : !isMobile,
+      applicationMethod: !isMobile,
     });
   const [rowSelection, setRowSelection] = React.useState({});
 
-  
   const table = useReactTable<Job>({
     data,
     columns: jobColumns(t),
@@ -87,7 +86,10 @@ export const FindAllJobs = () => {
           className="max-w-sm "
         />
         <div className="flex  gap-2 justify-center items-center">
-          <DialogCreateJob />
+          <Button className="flex  gap-2  text-white" variant="blue">
+            <Plus />
+            Ajouter
+          </Button>
           {!isMobile && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -195,4 +197,4 @@ export const FindAllJobs = () => {
       </div>
     </div>
   );
-}
+};

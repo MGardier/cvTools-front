@@ -2,47 +2,57 @@ import { FormCardField } from "@/components/form/form-card-field";
 import type { TFunction } from "i18next";
 import type {  UseFormReturn } from "react-hook-form";
 import type z from "zod";
-import type { createJobSchema } from "../../schema/job-schema";
+import type { jobFormSchema } from "../../schema/job-schema";
+import { TextAreaField } from "@/components/form/text-area-field";
 
-interface JobFormThirdStepProps {
+interface JobFormFourthStepProps {
   t: TFunction<"job", undefined>;
-  form: UseFormReturn<z.infer<ReturnType<typeof createJobSchema>>>;
+  form: UseFormReturn<z.infer<ReturnType<typeof jobFormSchema>>>;
 }
 
 export const JobFormFourthStep = ({
   t,
   form,
-}: JobFormThirdStepProps) => {
+}: JobFormFourthStepProps) => {
   return (
     <>
       {/** LINK  */}
       <FormCardField
-        label={t("pages.createJob.form.link.label")}
+        label={t("form.link.label")}
         name="link"
         type="text"
-        placeholder={t("pages.createJob.form.link.placeholder")}
+        placeholder={t("form.link.placeholder")}
         required
+        {...{ form }}
+      />
+
+      {/** NOTES  */}
+      <TextAreaField
+        label={t("form.notes.label")}
+        name="notes"
+        placeholder={t("form.notes.placeholder")}
         {...{ form }}
       />
 
 
       {/** ADDRESS CITY  */}
       <FormCardField
-        label={t("pages.createJob.form.address.city.label")}
+        label={t("form.address.city.label")}
         name="address.city"
         type="text"
-        placeholder={t("pages.createJob.form.address.city.placeholder")}
+        placeholder={t("form.address.city.placeholder")}
         {...{ form }}
       />
 
       {/** ADDRESS POSTAL CODE  */}
       <FormCardField
-        label={t("pages.createJob.form.address.postalCode.label")}
+        label={t("form.address.postalCode.label")}
         name="address.postalCode"
         type="text"
-        placeholder={t("pages.createJob.form.address.postalCode.placeholder")}
+        placeholder={t("form.address.postalCode.placeholder")}
         {...{ form }}
       />
+
 
     </>
   );

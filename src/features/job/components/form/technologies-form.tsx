@@ -12,17 +12,19 @@ import { Plus, X } from "lucide-react";
 import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 
 import type z from "zod";
-import type { createJobSchema } from "../../schema/job-schema";
+import type { jobFormSchema } from "../../schema/job-schema";
+
 
 interface TechnologiesFormProps {
   t: TFunction<"job", undefined>;
-  form: UseFormReturn<z.infer<ReturnType<typeof createJobSchema>>>;
+  form: UseFormReturn<z.infer<ReturnType<typeof jobFormSchema>>>;
   technologiesFields: UseFieldArrayReturn<
-    z.infer<ReturnType<typeof createJobSchema>>
+    z.infer<ReturnType<typeof jobFormSchema>>
   >;
   isTechnologyFieldInError: boolean;
 }
 //TODO: AUTO Complete
+// TODO : empecher de créer un auto complete 
 
 export const TechnologiesForm = ({
   t,
@@ -43,7 +45,7 @@ export const TechnologiesForm = ({
         <FormLabel>
           <div className="flex flex-col justitfy-left items-left gap-2">
             <p className={isTechnologyFieldInError ? "text-destructive" : ""}>
-              {t("pages.createJob.form.technologies.label")}{" "}
+              {t("form.technologies.label")}{" "}
               <span className="text-muted-foreground text-xs"> (Requis)</span>
             </p>
 
@@ -86,7 +88,7 @@ export const TechnologiesForm = ({
                         }
                         type={isLast ? "text" : "hidden"}
                         placeholder={t(
-                          "pages.createJob.form.technologies.placeholder"
+                          "form.technologies.placeholder"
                         )}
                         {...field}
                         onKeyDown={(e) => {

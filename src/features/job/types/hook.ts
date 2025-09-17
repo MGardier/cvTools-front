@@ -1,21 +1,43 @@
 import type { TFunction } from "i18next";
 
 import type { SubmitHandler, UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
-import type { createJobSchema } from "../schema/job-schema";
+
 import type z from "zod";
 import type { ApiErrors } from "@/types/api";
-import type { FindAllJobByUserResponse } from "./api";
+import type { FindAllJobByUserResponse,  } from "./api";
 import type { Job } from "@/types/entity";
+import type { jobFormSchema } from "../schema/job-schema";
 
-/**************** CREATE *********************************************/
+/**************** FORM *********************************************/
+
+export interface UseJobFormReturn {
+
+  onSubmit: SubmitHandler<z.infer<ReturnType<typeof jobFormSchema>>>;
+  form: UseFormReturn<z.infer<ReturnType<typeof jobFormSchema>>>;
+  technologiesFields : UseFieldArrayReturn<z.infer<ReturnType<typeof jobFormSchema>>>
+
+}
+
+/**************** UPDATE  *********************************************/
+
+export interface UseUpdateJobReturn {
+  queryIsPending: boolean;
+  queryIsError : boolean;
+  mutationIsPending : boolean;
+  mutationIsError : boolean;
+  job: Job | undefined;
+  t: TFunction<'job', undefined>;
+  handleSubmit: SubmitHandler<z.infer<ReturnType<typeof jobFormSchema>>>;
+  fieldsInSteps : Record<string,Set<string>>
+}
+
+
 export interface UseCreateJobReturn {
   isPending: boolean;
   isError: boolean;
-  error: ApiErrors | null,
   t: TFunction<'job', undefined>;
-  onSubmit: SubmitHandler<z.infer<ReturnType<typeof createJobSchema>>>;
-  form: UseFormReturn<z.infer<ReturnType<typeof createJobSchema>>>;
-  technologiesFields : UseFieldArrayReturn<z.infer<ReturnType<typeof createJobSchema>>>
+  handleSubmit: SubmitHandler<z.infer<ReturnType<typeof jobFormSchema>>>;
+  fieldsInSteps : Record<string,Set<string>>
 }
 
 
