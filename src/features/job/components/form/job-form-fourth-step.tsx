@@ -2,12 +2,12 @@ import { FormCardField } from "@/components/form/form-card-field";
 import type { TFunction } from "i18next";
 import type {  UseFormReturn } from "react-hook-form";
 import type z from "zod";
-import type { createJobSchema } from "../../schema/job-schema";
+import type { jobFormSchema } from "../../schema/job-schema";
 import { TextAreaField } from "@/components/form/text-area-field";
 
 interface JobFormFourthStepProps {
   t: TFunction<"job", undefined>;
-  form: UseFormReturn<z.infer<ReturnType<typeof createJobSchema>>>;
+  form: UseFormReturn<z.infer<ReturnType<typeof jobFormSchema>>>;
 }
 
 export const JobFormFourthStep = ({

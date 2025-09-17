@@ -13,9 +13,9 @@ export const cn = (...inputs: ClassValue[]): string => {
 
 
 export const formatDate = (date: Date): string => {
-  return date.toLocaleDateString("fr-FR", {
+  return new Date(date).toLocaleDateString("fr-FR", {
     day: "numeric",
-    month: "short",
+    month: "long",
     year: "numeric",
   })
 }
@@ -54,14 +54,7 @@ export const splitTextAtSpaces = (text: string, limit: number): string[] => {
   return texts;
 };
 
-export const removeEmptyFields = <T extends Record<string, any>>(obj: T): Partial<T> => {
-  return Object.entries(obj).reduce((acc, [key, value]) => {
-    if (value !== '' && value !== null && value !== undefined) {
-      acc[key as keyof T] = value
-    }
-    return acc
-  }, {} as Partial<T>)
-}
+
 
 
 

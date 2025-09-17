@@ -2,18 +2,19 @@ import { FormCardField } from "@/components/form/form-card-field";
 import type { TFunction } from "i18next";
 import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 import type z from "zod";
-import type { createJobSchema } from "../../schema/job-schema";
+
 
 import { SelectField } from "@/components/form/select-field";
 import {  JobCompatibility, JobStatus } from "@/types/entity";
 import { TechnologiesForm } from "./technologies-form";
 import { SwitchField } from "@/components/form/switch-field";
+import type { jobFormSchema } from "../../schema/job-schema";
 
 interface JobFormFirstStepProps {
   t: TFunction<"job", undefined>;
-  form: UseFormReturn<z.infer<ReturnType<typeof createJobSchema>>>;
+  form: UseFormReturn<z.infer<ReturnType<typeof jobFormSchema>>>;
   technologiesFields: UseFieldArrayReturn<
-    z.infer<ReturnType<typeof createJobSchema>>
+    z.infer<ReturnType<typeof jobFormSchema>>
   >;
   isTechnologyFieldInError: boolean;
 }

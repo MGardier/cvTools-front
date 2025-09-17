@@ -13,7 +13,7 @@ export const FindOneJobHeader = ({ job }: FindOneJobHeaderProps) => {
         </h3>
         <div className="flex flex-wrap gap-2 ">
           {job.technologies.map((tech, index) => (
-            <Badge variant="blue" key={`${tech}-${index}`}>
+            <Badge variant="emerald" key={`${tech}-${index}`}>
               {tech.name}
             </Badge>
           ))}

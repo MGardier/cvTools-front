@@ -12,17 +12,19 @@ import { Plus, X } from "lucide-react";
 import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 
 import type z from "zod";
-import type { createJobSchema } from "../../schema/job-schema";
+import type { jobFormSchema } from "../../schema/job-schema";
+
 
 interface TechnologiesFormProps {
   t: TFunction<"job", undefined>;
-  form: UseFormReturn<z.infer<ReturnType<typeof createJobSchema>>>;
+  form: UseFormReturn<z.infer<ReturnType<typeof jobFormSchema>>>;
   technologiesFields: UseFieldArrayReturn<
-    z.infer<ReturnType<typeof createJobSchema>>
+    z.infer<ReturnType<typeof jobFormSchema>>
   >;
   isTechnologyFieldInError: boolean;
 }
 //TODO: AUTO Complete
+// TODO : empecher de créer un auto complete 
 
 export const TechnologiesForm = ({
   t,

@@ -20,7 +20,7 @@ const badgeVariants = cva(
         blue:
            "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-blue-400 text-white  border-1 border-blue-400 ",
         emerald:
-           "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-emerald-600 text-white  border-1 border-emerald-600 "
+           "inline-flex items-center rounded-full px-2.5 py-1  font-medium bg-emerald-500 text-white  border-1 border-emerald-500 "
 
    
       },

@@ -4,7 +4,7 @@ import type { TFunction } from "i18next"
 import z from "zod"
 import { JobApplyMethod, JobCompatibility, JobStatus, TypeEnterprise } from '../../../types/entity';
 
-export const createJobSchema = (t: TFunction<'job', undefined>) => {
+export const jobFormSchema = (t: TFunction<'job', undefined>) => {
 
 
   return z.object({

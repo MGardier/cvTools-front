@@ -77,7 +77,7 @@ export type Job = {
   managerEmail: string;
   description?: string;
   notes?: string;
-  rejectionReason?: string;
+  rejectedReason?: string;
 
   //ENUM
   type: typeof TypeEnterprise[keyof typeof TypeEnterprise];

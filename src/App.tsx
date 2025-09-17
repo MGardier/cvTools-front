@@ -20,6 +20,7 @@ import { FindAllJobsPage } from "./pages/job/find-all-jobs-page";
 import { PrivateRoutes } from "./pages/private-routes";
 import { FindOneJobPage } from "./pages/job/find-one-job-page";
 import { CreateJobPage } from "./pages/job/create-job-page";
+import { UpdateJobPage } from "./pages/job/update-job-page";
 
 //TODO: Idée ajout un how it works pour montrer l'utilisation de la recherche, candidatures et relances
 //TODO: Idée ajout Avoir une recherche qui permettent de regrouper les jobs de plusieurs plateformes
@@ -89,6 +90,15 @@ function App() {
                 key="createJob"
                 path={ROUTES.job.create}
                 element={<CreateJobPage />}
+              />
+            </Route>
+
+            {/* UPDATE  */}
+            <Route element={<PrivateRoutes />}>
+              <Route
+                key="updateJob"
+                path={ROUTES.job.update}
+                element={<UpdateJobPage />}
               />
             </Route>
 

@@ -6,15 +6,13 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
 import { FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
+import { formatDate } from "@/utils/utils";
 
-
-
-
-interface DatePickerFieldProps<TFormData extends FieldValues>{
+interface DatePickerFieldProps<TFormData extends FieldValues> {
   label: string;
   placeholder: string;
   selectLabel: string;
-  name:Path<TFormData>;
+  name: Path<TFormData>;
   form: UseFormReturn<TFormData>;
   required?: boolean;
 }
@@ -25,14 +23,14 @@ export const DatePickerField = <TFormData extends FieldValues>({
   selectLabel,
   placeholder,
   name,
-  required =false
+  required = false,
 }: DatePickerFieldProps<TFormData>) => {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [month, setMonth] = useState<Date | undefined>(date);
 
-//TODO: onCLick de l'input ouvrir aussi la calendar
-//TODO : probleme validation de la date
+  //TODO: onCLick de l'input ouvrir aussi la calendar
+  //TODO : probleme validation de la date
   return (
     <div className="grid gap-3">
       <FormField
@@ -41,28 +39,29 @@ export const DatePickerField = <TFormData extends FieldValues>({
         render={({ field }) => (
           <FormItem>
             <FormLabel htmlFor="date" className="px-1">
-              {label} <p className="text-muted-foreground text-xs">{required ? ' (Requis)' : ' (Optionnel)'}</p>
+              {label}{" "}
+              <p className="text-muted-foreground text-xs">
+                {required ? " (Requis)" : " (Optionnel)"}
+              </p>
             </FormLabel>
             <FormMessage />
             <div className="relative flex gap-2">
               <Input
-  
                 id="date"
-                value={field.value}
+                value={field.value ? formatDate(field.value) : ""}
                 placeholder={placeholder}
                 className="bg-background pr-10 "
-                required = {required}
+                required={required}
                 type="text"
                 disableDisabledStyles={true}
                 onChange={(e) => {
                   const date = new Date(e.target.value);
                   field.onChange(date);
-                  if (isValidDate(date)) {
-                    setDate(date);
-                    setMonth(date);
-                  }
+
+                  setDate(date);
+                  setMonth(date);
                 }}
-                onClick={()=> setOpen(!open)}
+                onClick={() => setOpen(!open)}
                 onKeyDown={(e) => {
                   if (e.key === "ArrowDown") {
                     e.preventDefault();
@@ -96,7 +95,7 @@ export const DatePickerField = <TFormData extends FieldValues>({
                     onMonthChange={setMonth}
                     onSelect={(date) => {
                       setDate(date);
-                      field.onChange(formatDate(date));
+                      field.onChange(formatDate(date!));
                       setOpen(false);
                     }}
                   />
@@ -109,22 +108,3 @@ export const DatePickerField = <TFormData extends FieldValues>({
     </div>
   );
 };
-
-function formatDate(date: Date | undefined) {
-  if (!date) {
-    return "";
-  }
-
-  return date.toLocaleDateString("fr-FR", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-}
-
-function isValidDate(date: Date | undefined) {
-  if (!date) {
-    return false;
-  }
-  return !isNaN(date.getTime());
-}
