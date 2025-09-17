@@ -4,7 +4,7 @@ import type { UseFormReturn } from "react-hook-form";
 import type z from "zod";
 
 import { DatePickerField } from "@/components/form/date-picker-field";
-import type { jobFormSchema } from "../../schema/job-schema";
+import type { jobFormSchema } from "../../../schema/job-schema";
 
 interface JobFormFourthStepProps {
   t: TFunction<"job", undefined>;

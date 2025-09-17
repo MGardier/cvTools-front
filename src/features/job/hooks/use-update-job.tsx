@@ -61,7 +61,7 @@ export const useUpdateJob = ({
         queryKey: [`findAllJobByUser-${userId}`],
       });
       toast.success(t("messages.success.createJob"));
-      navigate(`${ROUTES.job.findAll}`);
+      navigate(`/${ROUTES.job.findAll}`)
     },
     onError: () => toast.error(t("messages.errors.fallback")),
   });

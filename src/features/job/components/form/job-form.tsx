@@ -1,91 +1,98 @@
-import { FormCardContent } from "@/components/form/form-card-content";
-import { FormCardHeader } from "@/components/form/form-card-header";
-import { Card } from "@/components/ui/card";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-
-import { useJobForm } from "@/features/job/hooks/use-job-form";
-
-import { cn } from "@/utils/utils";
 import { useState } from "react";
-import { useUpdateJob } from "../hooks/use-update-job";
-import { JobFormFirstStep } from "./form/steps/job-form-first-step";
-import { JobFormSecondStep } from "./form/steps/job-form-second-step";
-import { JobFormThirdStep } from "./form/steps/job-form-third-step";
-import { JobFormFourthStep } from "./form/steps/job-form-fourth-step";
-import { JobFormFifthStep } from "./form/steps/job-form-fifth-step";
+import { useJobForm } from "../../hooks/use-job-form";
+import type { Job } from "@/types/entity";
+import type { TFunction } from "i18next";
+import type { SubmitHandler } from "react-hook-form";
+import type { jobFormSchema } from "../../schema/job-schema";
+import type z from "zod";
+import { Card } from "@/components/ui/card";
+import { FormCardHeader } from "@/components/form/form-card-header";
+import { FormCardContent } from "@/components/form/form-card-content";
+import { JobFormFirstStep } from "./steps/job-form-first-step";
+import { JobFormSecondStep } from "./steps/job-form-second-step";
+import { JobFormThirdStep } from "./steps/job-form-third-step";
+import { JobFormFourthStep } from "./steps/job-form-fourth-step";
+import { JobFormFifthStep } from "./steps/job-form-fifth-step";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { cn } from "@/utils/utils";
 
-interface UpdateJobProps {
-  jobId: number
+interface JobFormProps {
+  job?: Job;
+  t: TFunction<"job", undefined>;
+  handleSubmit: SubmitHandler<z.infer<ReturnType<typeof jobFormSchema>>>;
+  isError: boolean;
+  isPending: boolean;
 }
 
-export const UpdateJob = ({jobId}: UpdateJobProps)=> {
-  
-  const {
-    t,
+export const JobForm = ({
+  job,
+  t,
+  handleSubmit,
+  isError,
+  isPending,
+
+}: JobFormProps) => {
+  const { onSubmit, form, technologiesFields, fieldsByStep } = useJobForm({
     job,
-    queryIsError,
-    mutationIsError,
-    queryIsPending,
-    mutationIsPending,
+    t,
     handleSubmit,
-    fieldsInSteps,
-  } = useUpdateJob({jobId});
-
-
-  const {
-    onSubmit,
-    form,
-    technologiesFields,
-  } = useJobForm({t,job, handleSubmit});
-
-
-
+  });
 
   const [currentStep, setCurrentStep] = useState(1);
 
-  /* GET ERROR BY STEP */
-
+  /* GET ERROR FOR EACH STEP AND NESTED FORM */
   const errorFields = Object.keys(form.formState.errors);
+
   const isErrorInFirstStep = errorFields.some((field) =>
-    fieldsInSteps.first.has(field.split(".")[0])
+    fieldsByStep.first.has(field.split(".")[0])
   );
+  const isTechnologyFieldInError = errorFields.some(
+    (field) => field.split(".")[0] === "technologies"
+  );
+
   const isErrorInSecondStep = errorFields.some((field) =>
-    fieldsInSteps.second.has(field.split(".")[0])
+    fieldsByStep.second.has(field.split(".")[0])
   );
   const isErrorInThirdStep = errorFields.some((field) =>
-    fieldsInSteps.third.has(field.split(".")[0])
+    fieldsByStep.third.has(field.split(".")[0])
   );
   const isErrorInFourthStep = errorFields.some((field) =>
-    fieldsInSteps.fourth.has(field.split(".")[0])
+    fieldsByStep.fourth.has(field.split(".")[0])
   );
   const isErrorInFithStep = errorFields.some((field) =>
-    fieldsInSteps.fifth.has(field.split(".")[0])
+    fieldsByStep.fifth.has(field.split(".")[0])
   );
 
-    if(queryIsPending)
-    return <></>
   return (
-    <Card key="form" className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
-      <FormCardHeader title={t("pages.updateJob.title")}>
+    <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
+      <FormCardHeader title={t("pages.createJob.title")}>
         <div className="text-red-600 mt-4 flex items-center justify-center gap-2">
-          {errorFields.length > 0 && !mutationIsPending && !mutationIsError && (
+          {errorFields.length > 0 && !isPending && !isError && (
             <p>
               <b>{t("form.errors.invalidStep")}</b>
             </p>
           )}
-          { !mutationIsPending && mutationIsError && (
+          {!isPending && isError && (
             <p>
-              <b>{t("messages.errors.createJob")}</b>
+              <b>{t("messages.errors.classic")}</b>
             </p>
           )}
         </div>
       </FormCardHeader>
+
       <FormCardContent
         {...{
           onSubmit,
           form,
           labelButton: t("pages.createJob.button"),
-          isLoading: mutationIsPending,
+          isLoading: isPending,
         }}
       >
         <div className="grid gap-6">
@@ -96,9 +103,7 @@ export const UpdateJob = ({jobId}: UpdateJobProps)=> {
                 t,
                 form,
                 technologiesFields,
-                isTechnologyFieldInError: errorFields.some(
-                  (field) => field.split(".")[0] === "technologies"
-                ),
+                isTechnologyFieldInError
               }}
             />
           )}
@@ -205,4 +210,5 @@ export const UpdateJob = ({jobId}: UpdateJobProps)=> {
       </FormCardContent>
     </Card>
   );
-}
+  <></>;
+};

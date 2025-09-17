@@ -6,7 +6,7 @@ import type z from "zod";
 import { SelectField } from "@/components/form/select-field";
 import { JobApplyMethod, TypeEnterprise } from "@/types/entity";
 import { DatePickerField } from "@/components/form/date-picker-field";
-import type { jobFormSchema } from "../../schema/job-schema";
+import type { jobFormSchema } from "../../../schema/job-schema";
 
 interface JobFormSecondStepProps {
   t: TFunction<"job", undefined>;

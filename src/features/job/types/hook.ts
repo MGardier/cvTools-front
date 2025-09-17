@@ -15,6 +15,7 @@ export interface UseJobFormReturn {
   onSubmit: SubmitHandler<z.infer<ReturnType<typeof jobFormSchema>>>;
   form: UseFormReturn<z.infer<ReturnType<typeof jobFormSchema>>>;
   technologiesFields : UseFieldArrayReturn<z.infer<ReturnType<typeof jobFormSchema>>>
+  fieldsByStep : Record<string,Set<string>>
 
 }
 
@@ -25,7 +26,7 @@ export interface UseUpdateJobReturn {
   queryIsError : boolean;
   mutationIsPending : boolean;
   mutationIsError : boolean;
-  job: Job | undefined;
+  job?: Job ;
   t: TFunction<'job', undefined>;
   handleSubmit: SubmitHandler<z.infer<ReturnType<typeof jobFormSchema>>>;
   fieldsInSteps : Record<string,Set<string>>
@@ -37,7 +38,7 @@ export interface UseCreateJobReturn {
   isError: boolean;
   t: TFunction<'job', undefined>;
   handleSubmit: SubmitHandler<z.infer<ReturnType<typeof jobFormSchema>>>;
-  fieldsInSteps : Record<string,Set<string>>
+
 }
 
 

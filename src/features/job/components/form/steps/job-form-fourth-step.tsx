@@ -2,7 +2,7 @@ import { FormCardField } from "@/components/form/form-card-field";
 import type { TFunction } from "i18next";
 import type {  UseFormReturn } from "react-hook-form";
 import type z from "zod";
-import type { jobFormSchema } from "../../schema/job-schema";
+import type { jobFormSchema } from "../../../schema/job-schema";
 import { TextAreaField } from "@/components/form/text-area-field";
 
 interface JobFormFourthStepProps {

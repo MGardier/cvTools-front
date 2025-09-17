@@ -6,7 +6,7 @@ import type z from "zod";
 import { TextAreaField } from "@/components/form/text-area-field";
 import { RatingField } from "@/components/form/rating-field";
 import {SwitchField } from "@/components/form/switch-field";
-import type { jobFormSchema } from "../../schema/job-schema";
+import type { jobFormSchema } from "../../../schema/job-schema";
 
 interface JobFormThirdStepProps {
   t: TFunction<"job", undefined>;
