@@ -42,11 +42,11 @@ export interface UseCreateJobReturn {
 
 
 /**************** FIND ALL  *********************************************/
-export interface UseFindAllJobReturn {
+export interface UseJobsListReturn {
   isPending: boolean;
-  error: ApiErrors | null,
+  isError: boolean;
   t: TFunction<'job', undefined>;
-  data: FindAllJobByUserResponse | undefined
+  data?: Job[] 
 }
 
 

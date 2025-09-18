@@ -1,77 +1,43 @@
-import * as React from "react";
-import {
-  type ColumnFiltersState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  type SortingState,
-  useReactTable,
-  type VisibilityState,
-} from "@tanstack/react-table";
-import { ChevronDown, Plus, Search } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
 import type { Job } from "@/types/entity";
+import { flexRender, getCoreRowModel, useReactTable, type VisibilityState } from "@tanstack/react-table";
+import { useState } from "react";
 import { jobColumns } from "./job-columns";
-import { useFindAllJobs } from "../hooks/use-find-all-job";
-import { DialogCreateJob } from "./dialog-create-job";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, Plus } from "lucide-react";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import type { TFunction } from "i18next";
 
-export const FindAllJobs = () => {
-  const { data, isPending, t } = useFindAllJobs();
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
+interface JobDataTableProps  {
+  data: Job[];
+  t: TFunction<'job',undefined>
 
+}
+
+
+
+export const JobDatable = ({t,data} : JobDataTableProps)=> {
   const isMobile = window.innerWidth <= 768;
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({
+    useState<VisibilityState>({
       enterprise: !isMobile,
       origin: !isMobile,
       appliedAt: !isMobile,
       status: !isMobile,
       applicationMethod: !isMobile,
     });
-  const [rowSelection, setRowSelection] = React.useState({});
+
 
   const table = useReactTable<Job>({
-    data,
+    data ,
     columns: jobColumns(t),
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    state: {
-      sorting,
-      columnFilters,
-      columnVisibility,
-      rowSelection,
-    },
+    state: {columnVisibility}
+    /* MANUAL OPTIONS FOR SERVER SIDE */
   });
-  if (isPending) return <div className="w-full"> </div>;
+  
   return (
     <div className="w-full">
       <div className="md:flex lg:flex flex items-center justify-between gap-2 py-4">
@@ -86,7 +52,7 @@ export const FindAllJobs = () => {
           className="max-w-sm "
         />
         <div className="flex  gap-2 justify-center items-center">
-          <Button className="flex  gap-2  text-white" variant="blue">
+          <Button className="flex  gap-2  text-white" variant="blue" >
             <Plus />
             Ajouter
           </Button>
@@ -195,6 +161,5 @@ export const FindAllJobs = () => {
           </Button>
         </div>
       </div>
-    </div>
-  );
-};
+    </div>)
+}

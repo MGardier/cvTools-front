@@ -11,21 +11,14 @@ export const jobApi = {
 
   /**************** CREATE ************************************************************/
 
-  async create(params: CreateJobParams): Promise<CreateJobResponse> {
-    const { userId, ...rest } = params;
-    return await apiClient.post(`${ENDPOINTS.user}/${userId}${ENDPOINTS.job}`, rest);
+  async create(userId: number ,data: Omit<CreateJobParams,'userId'>): Promise<CreateJobResponse> {
+    return await apiClient.post(`${ENDPOINTS.user}/${userId}${ENDPOINTS.job}`, data);
   },
-
-
 
   /**************** UPDATE ************************************************************/
 
-  async update(params: UpdateJobParams): Promise<Job> {
-
-    const { userId, jobId, ...rest } = params;
-    const response = await apiClient.put(`${ENDPOINTS.user}/${userId}${ENDPOINTS.job}/${jobId}`, rest);
-    return response.data;
-
+  async update(jobId: number, userId: number ,data: Omit<UpdateJobParams, 'jobId' | 'userId'>): Promise<Job> {
+    return await apiClient.put(`${ENDPOINTS.user}/${userId}${ENDPOINTS.job}/${jobId}`, data);
   },
 
   /**************** FIND ************************************************************/

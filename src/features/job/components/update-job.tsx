@@ -21,11 +21,11 @@ export const UpdateJob = ({ jobId }: UpdateJobProps) => {
   if (query.isError)
     return (
       <FetchingFailed
-        title={t("pages.updateJob.title")}
+        title={t("pages.update.title")}
         message={
           query.error.statusCode ===  404 
           || query.error.statusCode === 401 
-          ? t("messages.errors.updateJob.notFound")
+          ? t("messages.errors.update.notFound")
            : t("messages.errors.classic")}
       />
     );
@@ -38,8 +38,8 @@ export const UpdateJob = ({ jobId }: UpdateJobProps) => {
         handleSubmit,
         isError: mutationIsError,
         isPending: mutationIsPending,
-        title: t("pages.updateJob.title"),
-        labelButton: t("pages.updateJob.button"),
+        title: t("pages.update.title"),
+        labelButton: t("pages.update.button"),
       }}
     />
   );
