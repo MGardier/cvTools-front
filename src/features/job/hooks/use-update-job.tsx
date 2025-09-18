@@ -26,24 +26,7 @@ export const useUpdateJob = ({
 
   const userId = Number(useAuthStore().user?.id);
 
-  const fieldsInSteps = {
-    first: new Set([
-      "jobTitle",
-      "technologies",
-      "status",
-      "compatibility",
-      "isFavorite",
-    ]),
-    second: new Set(["enterprise", "type", "applicationMethod", "appliedAt"]),
-    third: new Set(["description", "rating", "rejectedReason", "isArchived"]),
-    fourth: new Set(["link", "address", "notes"]),
-    fifth: new Set([
-      "managerName",
-      "managerEmail",
-      "interviewCount",
-      "lastContactAt",
-    ]),
-  };
+
 
   /*************************** QUERY ******************************************/
 
@@ -78,6 +61,6 @@ export const useUpdateJob = ({
     mutationIsError:mutation.isError,
     mutationIsPending:mutation.isPending,
     handleSubmit,
-    fieldsInSteps,
+    
   };
 };

@@ -1,4 +1,4 @@
-import { FormCardField } from "@/components/form/form-card-field";
+import {  InputField } from "@/components/form/input-field";
 import type { TFunction } from "i18next";
 import type { UseFormReturn } from "react-hook-form";
 import type z from "zod";
@@ -17,7 +17,7 @@ export const JobFormSecondStep = ({ t, form }: JobFormSecondStepProps) => {
   return (
     <>
       {/** ENTERPRISE  */}
-      <FormCardField
+      <InputField
         label={t("form.enterprise.label")}
         name="enterprise"
         type="text"

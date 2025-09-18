@@ -1,9 +1,10 @@
-import { FormCardField } from "@/components/form/form-card-field";
+
 import type { TFunction } from "i18next";
 import type {  UseFormReturn } from "react-hook-form";
 import type z from "zod";
 import type { jobFormSchema } from "../../../schema/job-schema";
 import { TextAreaField } from "@/components/form/text-area-field";
+import { InputField } from "@/components/form/input-field";
 
 interface JobFormFourthStepProps {
   t: TFunction<"job", undefined>;
@@ -17,7 +18,7 @@ export const JobFormFourthStep = ({
   return (
     <>
       {/** LINK  */}
-      <FormCardField
+      <InputField
         label={t("form.link.label")}
         name="link"
         type="text"
@@ -36,7 +37,7 @@ export const JobFormFourthStep = ({
 
 
       {/** ADDRESS CITY  */}
-      <FormCardField
+      <InputField
         label={t("form.address.city.label")}
         name="address.city"
         type="text"
@@ -45,7 +46,7 @@ export const JobFormFourthStep = ({
       />
 
       {/** ADDRESS POSTAL CODE  */}
-      <FormCardField
+      <InputField
         label={t("form.address.postalCode.label")}
         name="address.postalCode"
         type="text"

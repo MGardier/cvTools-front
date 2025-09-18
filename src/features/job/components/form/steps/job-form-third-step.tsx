@@ -1,4 +1,4 @@
-import { FormCardField } from "@/components/form/form-card-field";
+import { InputField } from "@/components/form/input-field";
 import type { TFunction } from "i18next";
 import type {  UseFormReturn } from "react-hook-form";
 import type z from "zod";
@@ -37,7 +37,7 @@ export const JobFormThirdStep = ({
       />
 
       {/** REJECTED REASON  */}
-      <FormCardField
+      <InputField
         label={t("form.rejectedReason.label")}
         name="rejectedReason"
         type="text"

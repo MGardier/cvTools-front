@@ -29,7 +29,6 @@ export interface UseUpdateJobReturn {
   job?: Job ;
   t: TFunction<'job', undefined>;
   handleSubmit: SubmitHandler<z.infer<ReturnType<typeof jobFormSchema>>>;
-  fieldsInSteps : Record<string,Set<string>>
 }
 
 

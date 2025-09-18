@@ -29,6 +29,7 @@ interface JobFormProps {
   handleSubmit: SubmitHandler<z.infer<ReturnType<typeof jobFormSchema>>>;
   isError: boolean;
   isPending: boolean;
+  title: string
 }
 
 export const JobForm = ({
@@ -37,6 +38,7 @@ export const JobForm = ({
   handleSubmit,
   isError,
   isPending,
+  title
 
 }: JobFormProps) => {
   const { onSubmit, form, technologiesFields, fieldsByStep } = useJobForm({
@@ -72,7 +74,7 @@ export const JobForm = ({
 
   return (
     <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
-      <FormCardHeader title={t("pages.createJob.title")}>
+      <FormCardHeader title={title}>
         <div className="text-red-600 mt-4 flex items-center justify-center gap-2">
           {errorFields.length > 0 && !isPending && !isError && (
             <p>

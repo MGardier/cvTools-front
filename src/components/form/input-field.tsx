@@ -8,7 +8,7 @@ import {
 import { Input } from "@/components/ui/input";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
-interface FormCardFieldProps<TFormData extends FieldValues> {
+interface InputFieldProps<TFormData extends FieldValues> {
   label?: string;
   name: Path<TFormData>;
   type: string;
@@ -18,7 +18,7 @@ interface FormCardFieldProps<TFormData extends FieldValues> {
   step?: number;
 }
 
-export const FormCardField = <TFormData extends FieldValues>({
+export const InputField = <TFormData extends FieldValues>({
   form,
   label,
   name,
@@ -26,7 +26,7 @@ export const FormCardField = <TFormData extends FieldValues>({
   placeholder,
   required = false,
   step,
-}: FormCardFieldProps<TFormData>) => {
+}: InputFieldProps<TFormData>) => {
   return (
     <div className="space-y-3 ">
       <FormField

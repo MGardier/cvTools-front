@@ -1,10 +1,11 @@
-import { FormCardField } from "@/components/form/form-card-field";
+
 import type { TFunction } from "i18next";
 import type { UseFormReturn } from "react-hook-form";
 import type z from "zod";
 
 import { DatePickerField } from "@/components/form/date-picker-field";
 import type { jobFormSchema } from "../../../schema/job-schema";
+import { InputField } from "@/components/form/input-field";
 
 interface JobFormFourthStepProps {
   t: TFunction<"job", undefined>;
@@ -15,7 +16,7 @@ export const JobFormFifthStep = ({ t, form }: JobFormFourthStepProps) => {
   return (
     <>
       {/** MANAGER NAME  */}
-      <FormCardField
+      <InputField
         label={t("form.managerName.label")}
         name="managerName"
         type="text"
@@ -24,7 +25,7 @@ export const JobFormFifthStep = ({ t, form }: JobFormFourthStepProps) => {
       />
 
       {/** MANAGER EMAIL  */}
-      <FormCardField
+      <InputField
         label={t("form.managerEmail.label")}
         name="managerEmail"
         type="email"
@@ -33,7 +34,7 @@ export const JobFormFifthStep = ({ t, form }: JobFormFourthStepProps) => {
       />
 
       {/** INTERVIEW COUNT  */}
-      <FormCardField
+      <InputField
         label={t("form.interviewCount.label")}
         name="interviewCount"
         type="number"
