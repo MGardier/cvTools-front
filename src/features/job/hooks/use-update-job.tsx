@@ -12,6 +12,7 @@ import type { jobFormSchema } from "../schema/job-schema";
 import type z from "zod";
 import type { UseUpdateJobReturn } from "../types/hook";
 import type { Job } from "@/types/entity";
+import { JobService } from "../job.service";
 
 interface useUpdateJobProps {
   jobId: number;
@@ -36,13 +37,13 @@ export const useUpdateJob = ({
 
   /*************************** MUTATION ******************************************/
 
-  const mutation = useMutation<Job, ApiErrors, UpdateJobParams>({
-    mutationFn: jobApi.update,
+  const mutation = useMutation<void, ApiErrors, UpdateJobParams>({
+    mutationFn: JobService.update,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [`findAllJobByUser-${userId}`],
       });
-      toast.success(t("messages.success.createJob"));
+      toast.success(t("messages.success.update"));
       navigate(`/${ROUTES.job.findAll}`)
     },
     onError: () => toast.error(t("messages.errors.fallback")),

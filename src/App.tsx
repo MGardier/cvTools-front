@@ -102,7 +102,7 @@ function App() {
               />
             </Route>
 
-            {/* FIND ALL JOBS */}
+            {/* FIND ALL JOBS  */}
             <Route element={<PrivateRoutes />}>
               <Route
                 key="findAllJobs"

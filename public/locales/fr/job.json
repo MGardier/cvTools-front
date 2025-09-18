@@ -1,14 +1,15 @@
 {
   "pages": {
-    "createJob": {
+    "create": {
       "title": "Créer une candidature",
       "button": "Créer une candidature"
     },
-        "updateJob": {
+        "update": {
       "title": "Modifier une candidature",
       "button": "Modifier la  candidature"
     },
-    "jobs": {
+    "findAll": {
+      "title": "Mes candidatures",
       "columns": {
         "jobTitle": "Titre",
         "enterprise": "Entreprise",
@@ -174,12 +175,14 @@
   },
   "messages": {
     "success": {
-      "createJob": "Votre candidature a bien été créer."
+      "create": "Votre candidature a bien été créer.",
+      "update": "Votre candidature a bien été modifiée."
     },
     "errors" :{
       "classic": "Une erreur est survenue.",
-      "updateJob" :{"notFound":"La candidature n'a pas été trouvée."},
-      "createJob":"Une erreur est survenue lors de la création de la candidature."
+      "update" :{"notFound":"La candidature n'a pas été trouvée."},
+      "create":"Une erreur est survenue lors de la création de la candidature.",
+      "findAll" : "Une erreur est survenue lors de la récupération des données."
     }
   }
 }

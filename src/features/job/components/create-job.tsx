@@ -12,8 +12,8 @@ export const CreateJob = () => {
           handleSubmit,
           isError,
           isPending,
-          title: t("pages.createJob.title"),
-          labelButton: t("pages.createJob.button"),
+          title: t("pages.create.title"),
+          labelButton: t("pages.create.button"),
         }}
       />
     </>

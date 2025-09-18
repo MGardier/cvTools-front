@@ -10,9 +10,10 @@ import type { ApiErrors } from "@/types/api";
 import { queryClient } from "@/api/queryClient";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/data/routes";
-import { jobApi } from "../job.api";
 import { jobFormSchema } from "../schema/job-schema";
 import type { UseCreateJobReturn } from "../types/hook";
+import { JobService } from "../job.service";
+import type { CreateJobParams } from "../types/api";
 
 
 
@@ -26,11 +27,11 @@ export const useCreateJob = (): UseCreateJobReturn => {
   const userId = Number(useAuthStore().user?.id);
 
 
-  const mutation = useMutation<any, ApiErrors, any>({
-    mutationFn: jobApi.create,
+  const mutation = useMutation<void, ApiErrors, CreateJobParams>({
+    mutationFn: JobService.create,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`findAllJobByUser-${userId}`]})
-      toast.success(t("messages.success.createJob"));
+      toast.success(t("messages.success.create"));
       navigate(`/${ROUTES.job.findAll}`)
     },
     onError: () => toast.error(t("messages.errors.fallback")),
