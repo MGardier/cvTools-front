@@ -1,21 +1,14 @@
 import { Card } from "@/components/ui/card";
 import { InputSkeletonField } from "@/components/form/skeleton/input-skeleton-field";
-import { FormCardHeader } from "@/components/form/form-card-header";
 import { PaginationSkeleton } from "@/components/skeleton/pagination-skeleton";
 import { SubmitSkeleton } from "@/components/form/skeleton/submit-skeleton";
 import { SwitchSkeletonField } from "@/components/form/skeleton/switch-skeleton-field";
+import { FormCardSkeletonHeader } from "@/components/form/form-card-skeleton-header";
 
-interface JobPendingFormProps {
-  title: string;
-}
-
-export const JobPendingForm = ({ title }: JobPendingFormProps) => {
+export const JobSkeletonForm = () => {
   return (
     <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
-      {/* Header */}
-      <FormCardHeader title={title} />
-
-      {/* Content */}
+      <FormCardSkeletonHeader />
       <div className="px-6">
         <div className="grid gap-6">
           <InputSkeletonField />

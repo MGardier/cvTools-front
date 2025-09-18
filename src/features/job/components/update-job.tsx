@@ -1,31 +1,46 @@
-
-import { Suspense } from "react";
+import { FetchingFailed } from "@/components/fetching-failed";
 import { useUpdateJob } from "../hooks/use-update-job";
 import { JobForm } from "./form/job-form";
-import { JobPendingForm } from "./form/job-pending-form";
-
+import { JobSkeletonForm } from "./form/job-skeleton-form";
 
 interface UpdateJobProps {
-  jobId: number
+  jobId: number;
 }
 
-export const UpdateJob = ({jobId}: UpdateJobProps)=> {
-  
+export const UpdateJob = ({ jobId }: UpdateJobProps) => {
   const {
     t,
     job,
-    queryIsError,
+    query,
     mutationIsError,
-    queryIsPending,
     mutationIsPending,
     handleSubmit,
+  } = useUpdateJob({ jobId });
 
-  } = useUpdateJob({jobId});
 
-    const title = t("pages.updateJob.title");
-
+  if (query.isError)
     return (
-      <Suspense fallback={<JobPendingForm title={title} />}>
-        <JobForm {...{t,job,handleSubmit,isError : mutationIsError,isPending : mutationIsPending,title}}/>
-      </Suspense>)
-}
+      <FetchingFailed
+        title={t("pages.updateJob.title")}
+        message={
+          query.error.statusCode ===  404 
+          || query.error.statusCode === 401 
+          ? t("messages.errors.updateJob.notFound")
+           : t("messages.errors.classic")}
+      />
+    );
+  if (query.isPending) return <JobSkeletonForm />;
+  return (
+    <JobForm
+      {...{
+        t,
+        job,
+        handleSubmit,
+        isError: mutationIsError,
+        isPending: mutationIsPending,
+        title: t("pages.updateJob.title"),
+        labelButton: t("pages.updateJob.button"),
+      }}
+    />
+  );
+};

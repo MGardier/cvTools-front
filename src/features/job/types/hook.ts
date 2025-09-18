@@ -7,6 +7,7 @@ import type { ApiErrors } from "@/types/api";
 import type { FindAllJobByUserResponse,  } from "./api";
 import type { Job } from "@/types/entity";
 import type { jobFormSchema } from "../schema/job-schema";
+import type { UseQueryResult } from "@tanstack/react-query";
 
 /**************** FORM *********************************************/
 
@@ -22,8 +23,7 @@ export interface UseJobFormReturn {
 /**************** UPDATE  *********************************************/
 
 export interface UseUpdateJobReturn {
-  queryIsPending: boolean;
-  queryIsError : boolean;
+  query : UseQueryResult<Job, ApiErrors>;
   mutationIsPending : boolean;
   mutationIsError : boolean;
   job?: Job ;

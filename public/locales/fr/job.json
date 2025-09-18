@@ -4,6 +4,10 @@
       "title": "Créer une candidature",
       "button": "Créer une candidature"
     },
+        "updateJob": {
+      "title": "Modifier une candidature",
+      "button": "Modifier la  candidature"
+    },
     "jobs": {
       "columns": {
         "jobTitle": "Titre",
@@ -136,8 +140,7 @@
     },
     "button": {
       "previous_step": "Précédent",
-      "next_step": "Suivant",
-      "submit": "Créer une candidature"
+      "next_step": "Suivant"
     },
     "errors": {
       "invalidStep": "Certaines étapes sont invalides."
@@ -175,6 +178,7 @@
     },
     "errors" :{
       "classic": "Une erreur est survenue.",
+      "updateJob" :{"notFound":"La candidature n'a pas été trouvée."},
       "createJob":"Une erreur est survenue lors de la création de la candidature."
     }
   }

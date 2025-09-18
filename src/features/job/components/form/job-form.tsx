@@ -29,7 +29,8 @@ interface JobFormProps {
   handleSubmit: SubmitHandler<z.infer<ReturnType<typeof jobFormSchema>>>;
   isError: boolean;
   isPending: boolean;
-  title: string
+  title: string,
+  labelButton: string,
 }
 
 export const JobForm = ({
@@ -38,9 +39,12 @@ export const JobForm = ({
   handleSubmit,
   isError,
   isPending,
-  title
+  title,
+  labelButton
 
 }: JobFormProps) => {
+
+
   const { onSubmit, form, technologiesFields, fieldsByStep } = useJobForm({
     job,
     t,
@@ -49,7 +53,9 @@ export const JobForm = ({
 
   const [currentStep, setCurrentStep] = useState(1);
 
-  /* GET ERROR FOR EACH STEP AND NESTED FORM */
+
+  /***********GET ERROR FOR EACH STEP AND NESTED FORM *******************/
+
   const errorFields = Object.keys(form.formState.errors);
 
   const isErrorInFirstStep = errorFields.some((field) =>
@@ -75,6 +81,8 @@ export const JobForm = ({
   return (
     <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
       <FormCardHeader title={title}>
+
+        {/* ERROR */}
         <div className="text-red-600 mt-4 flex items-center justify-center gap-2">
           {errorFields.length > 0 && !isPending && !isError && (
             <p>
@@ -89,11 +97,12 @@ export const JobForm = ({
         </div>
       </FormCardHeader>
 
+      {/* FORM */}
       <FormCardContent
         {...{
           onSubmit,
           form,
-          labelButton: t("pages.createJob.button"),
+          labelButton,
           isLoading: isPending,
         }}
       >

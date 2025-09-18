@@ -27,7 +27,6 @@ export const useUpdateJob = ({
   const userId = Number(useAuthStore().user?.id);
 
 
-
   /*************************** QUERY ******************************************/
 
   const query = useQuery<Job, ApiErrors>({
@@ -56,8 +55,7 @@ export const useUpdateJob = ({
   return {
     t,
     job: query.data,
-    queryIsError:query.isError,
-    queryIsPending:query.isPending,
+    query,
     mutationIsError:mutation.isError,
     mutationIsPending:mutation.isPending,
     handleSubmit,
