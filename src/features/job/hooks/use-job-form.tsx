@@ -3,7 +3,6 @@ import { useFieldArray, useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type z from "zod";
 
-import { removeEmptyFields } from "@/utils/utils";
 import type { Job } from "@/types/entity";
 import type { TFunction } from "i18next";
 import type { UseJobFormReturn } from "../types/hook";
@@ -21,6 +20,26 @@ export const useJobForm = ({
   handleSubmit,
 }: useJobFormProps): UseJobFormReturn => {
   
+
+    const fieldsByStep = {
+    first: new Set([
+      "jobTitle",
+      "technologies",
+      "status",
+      "compatibility",
+      "isFavorite",
+    ]),
+    second: new Set(["enterprise", "type", "applicationMethod", "appliedAt"]),
+    third: new Set(["description", "rating", "rejectedReason", "isArchived"]),
+    fourth: new Set(["link", "address", "notes"]),
+    fifth: new Set([
+      "managerName",
+      "managerEmail",
+      "interviewCount",
+      "lastContactAt",
+    ]),
+  };
+
   const values = {
     //REQUIRED
     enterprise: job?.enterprise ? job.enterprise : "",
@@ -79,5 +98,6 @@ export const useJobForm = ({
     form,
     onSubmit,
     technologiesFields,
+    fieldsByStep,
   };
 };

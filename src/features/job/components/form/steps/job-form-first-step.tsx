@@ -1,4 +1,4 @@
-import { FormCardField } from "@/components/form/form-card-field";
+import { InputField } from "@/components/form/input-field";
 import type { TFunction } from "i18next";
 import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 import type z from "zod";
@@ -6,9 +6,10 @@ import type z from "zod";
 
 import { SelectField } from "@/components/form/select-field";
 import {  JobCompatibility, JobStatus } from "@/types/entity";
-import { TechnologiesForm } from "./technologies-form";
+import { TechnologiesForm } from "../technologies-form";
 import { SwitchField } from "@/components/form/switch-field";
-import type { jobFormSchema } from "../../schema/job-schema";
+import type { jobFormSchema } from "@/features/job/schema/job-schema";
+
 
 interface JobFormFirstStepProps {
   t: TFunction<"job", undefined>;
@@ -26,12 +27,12 @@ export const JobFormFirstStep = ({
   isTechnologyFieldInError
 }: JobFormFirstStepProps) => {
   
-  //TODO : translations sortir le form et les enums
+  
 
   return (
     <>
       {/** TITLE  */}
-      <FormCardField
+      <InputField
         label={t("form.jobTitle.label")}
         name="jobTitle"
         type="text"

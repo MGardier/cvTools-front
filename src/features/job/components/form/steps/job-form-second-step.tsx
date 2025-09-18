@@ -1,4 +1,4 @@
-import { FormCardField } from "@/components/form/form-card-field";
+import {  InputField } from "@/components/form/input-field";
 import type { TFunction } from "i18next";
 import type { UseFormReturn } from "react-hook-form";
 import type z from "zod";
@@ -6,7 +6,7 @@ import type z from "zod";
 import { SelectField } from "@/components/form/select-field";
 import { JobApplyMethod, TypeEnterprise } from "@/types/entity";
 import { DatePickerField } from "@/components/form/date-picker-field";
-import type { jobFormSchema } from "../../schema/job-schema";
+import type { jobFormSchema } from "../../../schema/job-schema";
 
 interface JobFormSecondStepProps {
   t: TFunction<"job", undefined>;
@@ -17,7 +17,7 @@ export const JobFormSecondStep = ({ t, form }: JobFormSecondStepProps) => {
   return (
     <>
       {/** ENTERPRISE  */}
-      <FormCardField
+      <InputField
         label={t("form.enterprise.label")}
         name="enterprise"
         type="text"

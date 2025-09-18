@@ -25,33 +25,13 @@ export const useCreateJob = (): UseCreateJobReturn => {
 
   const userId = Number(useAuthStore().user?.id);
 
-  
-    const fieldsInSteps = {
-    first: new Set([
-      "jobTitle",
-      "technologies",
-      "status",
-      "compatibility",
-      "isFavorite",
-    ]),
-    second: new Set(["enterprise", "type", "applicationMethod", "appliedAt"]),
-    third: new Set(["description", "rating", "rejectedReason", "isArchived"]),
-    fourth: new Set(["link", "address", "notes"]),
-    fifth: new Set([
-      "managerName",
-      "managerEmail",
-      "interviewCount",
-      "lastContactAt",
-    ]),
-  };
 
- 
   const mutation = useMutation<any, ApiErrors, any>({
     mutationFn: jobApi.create,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`findAllJobByUser-${userId}`]})
       toast.success(t("messages.success.createJob"));
-      navigate(`${ROUTES.job.findAll}`)
+      navigate(`/${ROUTES.job.findAll}`)
     },
     onError: () => toast.error(t("messages.errors.fallback")),
   });
@@ -65,6 +45,6 @@ export const useCreateJob = (): UseCreateJobReturn => {
     handleSubmit,
     isPending: mutation.isPending,
     isError: mutation.isError,
-    fieldsInSteps
+ 
   };
 };

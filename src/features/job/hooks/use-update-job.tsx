@@ -26,24 +26,6 @@ export const useUpdateJob = ({
 
   const userId = Number(useAuthStore().user?.id);
 
-  const fieldsInSteps = {
-    first: new Set([
-      "jobTitle",
-      "technologies",
-      "status",
-      "compatibility",
-      "isFavorite",
-    ]),
-    second: new Set(["enterprise", "type", "applicationMethod", "appliedAt"]),
-    third: new Set(["description", "rating", "rejectedReason", "isArchived"]),
-    fourth: new Set(["link", "address", "notes"]),
-    fifth: new Set([
-      "managerName",
-      "managerEmail",
-      "interviewCount",
-      "lastContactAt",
-    ]),
-  };
 
   /*************************** QUERY ******************************************/
 
@@ -61,7 +43,7 @@ export const useUpdateJob = ({
         queryKey: [`findAllJobByUser-${userId}`],
       });
       toast.success(t("messages.success.createJob"));
-      navigate(`${ROUTES.job.findAll}`);
+      navigate(`/${ROUTES.job.findAll}`)
     },
     onError: () => toast.error(t("messages.errors.fallback")),
   });
@@ -73,11 +55,10 @@ export const useUpdateJob = ({
   return {
     t,
     job: query.data,
-    queryIsError:query.isError,
-    queryIsPending:query.isPending,
+    query,
     mutationIsError:mutation.isError,
     mutationIsPending:mutation.isPending,
     handleSubmit,
-    fieldsInSteps,
+    
   };
 };
