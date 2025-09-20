@@ -26,7 +26,7 @@ export const jobColumns = (t: TFunction): ColumnDef<Job>[] => [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          {t("pages.jobs.columns.jobTitle")}
+          {t("pages.findAll.columns.jobTitle")}
           <ArrowUpDown />
         </Button>
       );
@@ -72,7 +72,7 @@ export const jobColumns = (t: TFunction): ColumnDef<Job>[] => [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          {t("pages.jobs.columns.enterprise")}
+          {t("pages.findAll.columns.enterprise")}
           <ArrowUpDown />
         </Button>
       );
@@ -94,7 +94,7 @@ export const jobColumns = (t: TFunction): ColumnDef<Job>[] => [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          {t("pages.jobs.columns.status")}
+          {t("pages.findAll.columns.status")}
           <ArrowUpDown />
         </Button>
       );
@@ -102,7 +102,7 @@ export const jobColumns = (t: TFunction): ColumnDef<Job>[] => [
     cell: ({ row }) => {
       return (
         <Badge className="text-sm md:text-sm lg:text-sm" variant={"warning"}>
-          {t(`pages.jobs.status.${String(row.getValue("status")).toLowerCase()}`)}
+          {t(`pages.findAll.status.${String(row.getValue("status")).toLowerCase()}`)}
         </Badge>
       );
     },
@@ -115,7 +115,7 @@ export const jobColumns = (t: TFunction): ColumnDef<Job>[] => [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          {t("pages.jobs.columns.applicationMethod")}
+          {t("pages.findAll.columns.applicationMethod")}
           <ArrowUpDown />
         </Button>
       );
@@ -133,7 +133,7 @@ export const jobColumns = (t: TFunction): ColumnDef<Job>[] => [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          {t("pages.jobs.columns.appliedAt")}
+          {t("pages.findAll.columns.appliedAt")}
           <ArrowUpDown />
         </Button>
       );
@@ -142,7 +142,7 @@ export const jobColumns = (t: TFunction): ColumnDef<Job>[] => [
       if (!row.getValue("appliedAt"))
         return (
           <span className="flex items-center justify-items-center gap-2 text-sm text-gray-600">
-            {t("pages.jobs.columns.empty")}
+            {t("pages.findAll.columns.empty")}
           </span>
         );
       return (
@@ -158,7 +158,7 @@ export const jobColumns = (t: TFunction): ColumnDef<Job>[] => [
     header: () => {
       return (
         <div className="flex items-center justify-center">
-          <Button variant="ghost">{t("pages.jobs.columns.actions")}</Button>
+          <Button variant="ghost">{t("pages.findAll.columns.actions")}</Button>
         </div>
       );
     },

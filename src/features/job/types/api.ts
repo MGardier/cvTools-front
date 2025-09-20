@@ -1,4 +1,4 @@
-import type { ApiResponse } from "@/types/api";
+import type { ApiResponse, FilterDataResponse } from "@/types/api";
 
 import type z from "zod";
 import type {  jobFormSchema } from "../schema/job-schema";
@@ -31,6 +31,9 @@ export interface FindJobByIdByUserResponse extends ApiResponse {
 
 /**************************** FIND ALL **************************************************** */
 
+
+
+
 export interface FindAllJobByUserResponse extends ApiResponse {
-  data: Job[]
+  data: FilterDataResponse<Job>
 }

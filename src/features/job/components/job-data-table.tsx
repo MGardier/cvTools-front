@@ -1,6 +1,6 @@
 import type { Job } from "@/types/entity";
 import { flexRender, getCoreRowModel, useReactTable, type VisibilityState } from "@tanstack/react-table";
-import { useState } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 import { jobColumns } from "./job-columns";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -8,16 +8,21 @@ import { ChevronDown, Plus } from "lucide-react";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import type { TFunction } from "i18next";
+import { DataTablePagination } from "@/components/data-table/data-table-pagination";
 
 interface JobDataTableProps  {
   data: Job[];
-  t: TFunction<'job',undefined>
+  t: TFunction<'job',undefined>;
+  count ?: number;
+  maxPage?: number;
+  setCurrentPage : Dispatch<SetStateAction<number>> ;
+  currentPage : number;
 
 }
 
 
 
-export const JobDatable = ({t,data} : JobDataTableProps)=> {
+export const JobDatable = ({t,data,count,maxPage,setCurrentPage,currentPage} : JobDataTableProps)=> {
   const isMobile = window.innerWidth <= 768;
   const [columnVisibility, setColumnVisibility] =
     useState<VisibilityState>({
@@ -34,8 +39,10 @@ export const JobDatable = ({t,data} : JobDataTableProps)=> {
     columns: jobColumns(t),
     getCoreRowModel: getCoreRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-    state: {columnVisibility}
+    state: {columnVisibility},
     /* MANUAL OPTIONS FOR SERVER SIDE */
+       manualPagination: true,
+    pageCount: maxPage,
   });
   
   return (
@@ -145,20 +152,12 @@ export const JobDatable = ({t,data} : JobDataTableProps)=> {
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="space-x-2">
-          <Button
-            variant="outline"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            {t("pages.jobs.previous")}
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            {t("pages.jobs.next")}
-          </Button>
+          <DataTablePagination {...{
+            t,
+            currentPage,
+            setCurrentPage,
+            length : maxPage!
+          }}/>
         </div>
       </div>
     </div>)

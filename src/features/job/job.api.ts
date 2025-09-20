@@ -3,6 +3,8 @@ import { apiClient } from '@/api/axios';
 import type { CreateJobParams, CreateJobResponse, FindAllJobByUserResponse, UpdateJobParams,  } from './types/api';
 import { ENDPOINTS } from '@/data/endpoints';
 import type { Job } from '@/types/entity';
+import type { FilterOptions } from '@/types/api';
+
 
 
 
@@ -23,8 +25,8 @@ export const jobApi = {
 
   /**************** FIND ************************************************************/
 
-  async findAll(userId: number): Promise<FindAllJobByUserResponse> {
-    return await apiClient.get(`${ENDPOINTS.user}/${userId}${ENDPOINTS.job}`);
+  async findAll(userId: number, filterParams : FilterOptions): Promise<FindAllJobByUserResponse> {
+    return await apiClient.get(`${ENDPOINTS.user}/${userId}${ENDPOINTS.job}`,{params : filterParams});
 
   },
 

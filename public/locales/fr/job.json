@@ -161,7 +161,8 @@
       "minLength": "La note ne peut pas être inférieur à 0.",
       "maxLength": "La note ne peut pas être supérieur à 5."
     },
-    "archived": { "invalid": "Est archivée n'est pas valide." },
+    "isArchived": { "invalid": "L'ajout à l'archivage n'est pas valide." },
+    "isFavorite": { "invalid": "L'ajout aux favoris n'est pas valide." },
     "address": { "invalid": "L'adresse n'est pas valide" },
     "interviewCount": {
       "minLength": "Le nombre d'entretiens ne peut pas être inférieur à zéro."

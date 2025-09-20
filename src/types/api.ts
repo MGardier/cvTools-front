@@ -10,7 +10,23 @@ export interface ApiResponse {
 }
 
 
+
 export interface ApiErrors extends ApiResponse {
 
 }
 
+
+export interface FilterDataResponse<Tdata> {
+  data :Tdata[],
+  count: number;
+  limit: number;
+  page: number;
+  maxPage: number;
+
+}
+
+export interface FilterOptions {
+  page?: number;
+  limit?: number;
+
+}

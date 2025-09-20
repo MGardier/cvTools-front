@@ -31,11 +31,11 @@ const badgeVariants = cva(
       },
 
     },
-    defaultVariants: {
+   defaultVariants: {
       variant: "primary",
       size: "default",
 
-
+ 
     },
   }
 );
