@@ -4,10 +4,10 @@ import type { SubmitHandler, UseFieldArrayReturn, UseFormReturn } from "react-ho
 
 import type z from "zod";
 import type { ApiErrors } from "@/types/api";
-import type { FindAllJobByUserResponse,  } from "./api";
 import type { Job } from "@/types/entity";
 import type { jobFormSchema } from "../schema/job-schema";
 import type { UseQueryResult } from "@tanstack/react-query";
+import type { Dispatch, SetStateAction } from "react";
 
 /**************** FORM *********************************************/
 
@@ -46,7 +46,12 @@ export interface UseJobsListReturn {
   isPending: boolean;
   isError: boolean;
   t: TFunction<'job', undefined>;
-  data?: Job[] 
+  data?: Job[]
+  count?: number,
+  limit: number,
+  maxPage?: number 
+  currentPage : number,
+  setCurrentPage :  Dispatch<SetStateAction<number>>
 }
 
 

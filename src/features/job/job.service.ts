@@ -1,6 +1,7 @@
 import type { Job } from "@/types/entity";
 import { jobApi } from "./job.api";
 import type { CreateJobParams, UpdateJobParams } from "./types/api";
+import type { FilterDataResponse, FilterOptions } from "@/types/api";
 
 
 
@@ -27,8 +28,14 @@ export const JobService = {
 
   /**************** FIND ALL ************************************************************/
 
-  async findAll(userId: number): Promise<Job[]> {
-    const response = await jobApi.findAll(userId);
+  async findAll(userId: number, filterOptions  : FilterOptions ): Promise<FilterDataResponse<Job>> {
+    const {limit,page} = filterOptions
+    const filterParams = {
+      ...(limit ? {limit }: {limit: 6} ),
+      ...(page ? {page }: {page: 1} )
+    };
+
+    const response = await jobApi.findAll(userId,filterParams);
     return response.data;
   },
 
