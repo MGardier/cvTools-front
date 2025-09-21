@@ -16,6 +16,13 @@ export interface ApiErrors extends ApiResponse {
 }
 
 
+export interface DataTableParams {
+  currentPage : number;
+  limit: number;
+  sort : string[]
+
+}
+
 export interface FilterDataResponse<Tdata> {
   data :Tdata[],
   count: number;
@@ -25,8 +32,3 @@ export interface FilterDataResponse<Tdata> {
 
 }
 
-export interface FilterOptions {
-  page?: number;
-  limit?: number;
-
-}

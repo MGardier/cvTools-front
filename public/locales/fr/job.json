@@ -28,6 +28,7 @@
         "need_to_send_thanks_after_interview": "Remerciements à envoyer",
         "need_to_send_mail_reminder": "Relance à effectuer"
       },
+      "limitPerPage" :"Limite par page",
       "next": "Suivant",
       "previous": "Précédent"
     }

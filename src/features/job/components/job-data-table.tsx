@@ -1,50 +1,80 @@
 import type { Job } from "@/types/entity";
-import { flexRender, getCoreRowModel, useReactTable, type VisibilityState } from "@tanstack/react-table";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  type VisibilityState,
+} from "@tanstack/react-table";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { jobColumns } from "./job-columns";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Plus } from "lucide-react";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ArrowDown, ChevronDown, Plus } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import type { TFunction } from "i18next";
 import { DataTablePagination } from "@/components/data-table/data-table-pagination";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import type { DataTableParams } from "@/types/api";
 
-interface JobDataTableProps  {
+interface JobDataTableProps {
   data: Job[];
-  t: TFunction<'job',undefined>;
-  count ?: number;
+  t: TFunction<"job", undefined>;
+  count?: number;
+  params: DataTableParams;
+  setParams: Dispatch<SetStateAction<DataTableParams>>;
   maxPage?: number;
-  setCurrentPage : Dispatch<SetStateAction<number>> ;
-  currentPage : number;
 
 }
 
-
-
-export const JobDatable = ({t,data,count,maxPage,setCurrentPage,currentPage} : JobDataTableProps)=> {
+export const JobDatable = ({
+  t,
+  data,
+  count,
+  setParams,
+  params,
+  maxPage,
+}: JobDataTableProps) => {
   const isMobile = window.innerWidth <= 768;
-  const [columnVisibility, setColumnVisibility] =
-    useState<VisibilityState>({
-      enterprise: !isMobile,
-      origin: !isMobile,
-      appliedAt: !isMobile,
-      status: !isMobile,
-      applicationMethod: !isMobile,
-    });
-
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+    enterprise: !isMobile,
+    origin: !isMobile,
+    appliedAt: !isMobile,
+    status: !isMobile,
+    applicationMethod: !isMobile,
+  });
 
   const table = useReactTable<Job>({
-    data ,
+    data,
     columns: jobColumns(t),
     getCoreRowModel: getCoreRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-    state: {columnVisibility},
+    state: { columnVisibility },
     /* MANUAL OPTIONS FOR SERVER SIDE */
-       manualPagination: true,
+    manualPagination: true,
     pageCount: maxPage,
   });
-  
+
+  const limitSelect = [5, 10, 15, 20];
   return (
     <div className="w-full">
       <div className="md:flex lg:flex flex items-center justify-between gap-2 py-4">
@@ -59,7 +89,7 @@ export const JobDatable = ({t,data,count,maxPage,setCurrentPage,currentPage} : J
           className="max-w-sm "
         />
         <div className="flex  gap-2 justify-center items-center">
-          <Button className="flex  gap-2  text-white" variant="blue" >
+          <Button className="flex  gap-2  text-white" variant="blue">
             <Plus />
             Ajouter
           </Button>
@@ -146,19 +176,37 @@ export const JobDatable = ({t,data,count,maxPage,setCurrentPage,currentPage} : J
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-between space-x-2 py-4">
         <div className="text-muted-foreground flex-1 text-sm">
           {table.getFilteredSelectedRowModel().rows?.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
-        <div className="space-x-2">
-          <DataTablePagination {...{
-            t,
-            currentPage,
-            setCurrentPage,
-            length : maxPage!
-          }}/>
+        <div className="hidden items-center gap-2 lg:flex">
+          <Label>{t("pages.findAll.limitPerPage")}</Label>
+          <Select required onValueChange={(value) =>  setParams((prevParams)=> {return {...prevParams , limit: Number(value)}} ) }>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder={params.limit} />
+            </SelectTrigger>
+
+            <SelectContent>
+              {limitSelect.map((limit) => (
+                <SelectItem key={limit} value={String(limit)}>
+                  {limit}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-x-2 ">
+          <DataTablePagination
+            {...{
+              currentPage : params.currentPage,
+              setParams ,
+               maxPage ,
+            }}
+          />
         </div>
       </div>
-    </div>)
-}
+    </div>
+  );
+};

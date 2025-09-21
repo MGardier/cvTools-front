@@ -6,7 +6,7 @@ import { FetchingFailed } from "@/components/fetching-failed";
 //filter , sort, pagination , archived , favoris
 
 export const JobsList = () => {
-  const { data ,limit, count, maxPage, isPending, isError, t ,setCurrentPage,currentPage}= useJobsList();
+  const { data ,params, setParams, count, maxPage, isPending, isError, t }= useJobsList();
 
   if (isPending) return <JobSkeletonDataTable />;
 
@@ -23,7 +23,7 @@ export const JobsList = () => {
       <h1 className="text-3xl font-display font-semibold  leading-8 tracking-tighter">
         {t("pages.findAll.title")}
       </h1>
-      <JobDatable {...{ t, data: data || [],count, maxPage,setCurrentPage,currentPage ,limit }} />
+      <JobDatable {...{ t, data: data || [],count, maxPage,params, setParams }} />
     </div>
   );
 };

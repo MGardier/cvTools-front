@@ -29,8 +29,8 @@ interface JobFormProps {
   handleSubmit: SubmitHandler<z.infer<ReturnType<typeof jobFormSchema>>>;
   isError: boolean;
   isPending: boolean;
-  title: string,
-  labelButton: string,
+  title: string;
+  labelButton: string;
 }
 
 export const JobForm = ({
@@ -40,11 +40,8 @@ export const JobForm = ({
   isError,
   isPending,
   title,
-  labelButton
-
+  labelButton,
 }: JobFormProps) => {
-
-
   const { onSubmit, form, technologiesFields, fieldsByStep } = useJobForm({
     job,
     t,
@@ -52,7 +49,6 @@ export const JobForm = ({
   });
 
   const [currentStep, setCurrentStep] = useState(1);
-
 
   /***********GET ERROR FOR EACH STEP AND NESTED FORM *******************/
 
@@ -81,7 +77,6 @@ export const JobForm = ({
   return (
     <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
       <FormCardHeader title={title}>
-
         {/* ERROR */}
         <div className="text-red-600 mt-4 flex items-center justify-center gap-2">
           {errorFields.length > 0 && !isPending && !isError && (
@@ -114,7 +109,7 @@ export const JobForm = ({
                 t,
                 form,
                 technologiesFields,
-                isTechnologyFieldInError
+                isTechnologyFieldInError,
               }}
             />
           )}
@@ -135,6 +130,7 @@ export const JobForm = ({
             <PaginationContent className="gap-1 md:gap-2">
               <PaginationItem>
                 <PaginationPrevious
+                  label={t("pages.findAll.previous")}
                   className="h-6 px-1 text-xs md:h-9 md:px-2 md:text-sm"
                   onClick={() =>
                     currentStep > 1 &&
@@ -209,6 +205,7 @@ export const JobForm = ({
               </PaginationItem>
               <PaginationItem>
                 <PaginationNext
+                  label={t("pages.findAll.next")}
                   onClick={() =>
                     currentStep < 5 &&
                     setCurrentStep((prevStep) => prevStep + 1)
