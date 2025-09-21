@@ -1,20 +1,16 @@
 import { cn } from "@/utils/utils";
 import { PaginationLink } from "../ui/pagination";
 import { PaginationItem } from "@/components/ui/pagination";
+import type { ReactNode } from "react";
 
 interface DataTablePaginationItemProps {
-  page: number;
-  isInError?: boolean;
-  isActive: boolean;
-  handleClick: (page: number) => void;
-  key: number;
+  children: ReactNode;
+  handleClick: () => void;
 }
 
 export const DataTablePaginationItem = ({
 
-  page,
-  isInError,
-  isActive,
+  children,
   handleClick,
 }: DataTablePaginationItemProps) => {
   return (
@@ -22,13 +18,10 @@ export const DataTablePaginationItem = ({
       <PaginationLink
         className={cn(
           "h-6 w-6 text-xs md:h-9 md:w-9 md:text-sm cursor-pointer",
-          isInError && "text-red-500",
-          isActive && "text-blue-600"
         )}
-        onClick={() => handleClick(page)}
-        isActive={isActive}
+        onClick={() => handleClick()}
       >
-        {page}
+        {children}
       </PaginationLink>
     </PaginationItem>
   );

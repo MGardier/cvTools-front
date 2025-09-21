@@ -3,7 +3,7 @@ import type { TFunction } from "i18next";
 import type { SubmitHandler, UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 
 import type z from "zod";
-import type { ApiErrors } from "@/types/api";
+import type { ApiErrors, DataTableParams } from "@/types/api";
 import type { Job } from "@/types/entity";
 import type { jobFormSchema } from "../schema/job-schema";
 import type { UseQueryResult } from "@tanstack/react-query";
@@ -48,10 +48,10 @@ export interface UseJobsListReturn {
   t: TFunction<'job', undefined>;
   data?: Job[]
   count?: number,
-  limit: number,
-  maxPage?: number 
-  currentPage : number,
-  setCurrentPage :  Dispatch<SetStateAction<number>>
+  maxPage: number 
+  params :DataTableParams
+  setParams :  Dispatch<SetStateAction<DataTableParams>>
+
 }
 
 
