@@ -1,7 +1,8 @@
 import type { Job } from "@/types/entity";
 import { jobApi } from "./job.api";
 import type { CreateJobParams, UpdateJobParams } from "./types/api";
-import type { DataTableParams, FilterDataResponse } from "@/types/api";
+import type {  FilterDataResponse } from "@/types/api";
+import type { DataTableParams } from "@/types/data-table";
 
 
 
@@ -29,10 +30,11 @@ export const JobService = {
   /**************** FIND ALL ************************************************************/
 
   async findAll(userId: number, params  : DataTableParams ): Promise<FilterDataResponse<Job>> {
-    const {limit,currentPage} = params
+    const {limit,currentPage,sorting} = params
     const filterParams = {
       ...(limit ? {limit }: {limit: 6} ),
-      ...(currentPage ? {page: currentPage }: {page: 1} )
+      ...(currentPage ? {page: currentPage }: {page: 1} ),
+      ...(sorting.length >0 ? {sort: (sorting.map((sortItem)=> `${sortItem.field}:${sortItem.direction}`)).join()}: {})
     };
 
     const response = await jobApi.findAll(userId,filterParams);

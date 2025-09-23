@@ -15,12 +15,10 @@ export interface ApiErrors extends ApiResponse {
 
 }
 
-
-export interface DataTableParams {
-  currentPage : number;
+export interface FilterParams {
   limit: number;
-  sort : string[]
-
+  page : number;
+  sort?: string;
 }
 
 export interface FilterDataResponse<Tdata> {

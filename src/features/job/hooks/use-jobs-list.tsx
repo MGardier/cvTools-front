@@ -3,10 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useTranslation } from "react-i18next";
 import type { UseJobsListReturn } from "../types/hook";
-import type { ApiErrors, DataTableParams, FilterDataResponse } from "@/types/api";
+import type { ApiErrors,  FilterDataResponse } from "@/types/api";
 import { JobService } from "../job.service";
 import type { Job } from "@/types/entity";
 import {  useState } from "react";
+import type { DataTableParams } from "@/types/data-table";
 
 export const useJobsList = (initialPage :number = 1, initialLimit : number = 5): UseJobsListReturn => {
   const { t } = useTranslation("job");
@@ -14,7 +15,8 @@ export const useJobsList = (initialPage :number = 1, initialLimit : number = 5):
   const defaultParams = {
     currentPage : initialPage || 1 ,
     limit : initialLimit || 5,
-    sort : []
+    sorting : [],
+
   }
 
   const [params,setParams] = useState<DataTableParams>(defaultParams);
@@ -33,5 +35,5 @@ export const useJobsList = (initialPage :number = 1, initialLimit : number = 5):
   console.log(params)
   
 
-  return { data : data?.data, count: data?.count, maxPage : data?.maxPage, isPending, isError, t ,params,setParams};
+  return { data : data?.data, count: data?.count, maxPage : data?.maxPage!, isPending, isError, t ,params,setParams};
 };
