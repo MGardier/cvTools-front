@@ -3,11 +3,12 @@ import type { TFunction } from "i18next";
 import type { SubmitHandler, UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 
 import type z from "zod";
-import type { ApiErrors, DataTableParams } from "@/types/api";
+import type { ApiErrors } from "@/types/api";
 import type { Job } from "@/types/entity";
 import type { jobFormSchema } from "../schema/job-schema";
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { Dispatch, SetStateAction } from "react";
+import type { DataTableParams } from "@/types/data-table";
 
 /**************** FORM *********************************************/
 

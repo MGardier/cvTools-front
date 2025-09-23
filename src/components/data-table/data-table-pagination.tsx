@@ -1,4 +1,4 @@
-import type { TFunction } from "i18next";
+
 import {
   Pagination,
   PaginationContent,
@@ -13,7 +13,8 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
-import type { DataTableParams } from "@/types/api";
+import type { DataTableParams } from "@/types/data-table";
+
 
 interface DataTablePaginationProps {
   currentPage: number;

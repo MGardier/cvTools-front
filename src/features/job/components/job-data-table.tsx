@@ -34,7 +34,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { DataTableParams } from "@/types/api";
+import type { DataTableParams } from "@/types/data-table";
+
 
 interface JobDataTableProps {
   data: Job[];
@@ -65,7 +66,7 @@ export const JobDatable = ({
 
   const table = useReactTable<Job>({
     data,
-    columns: jobColumns(t),
+    columns: jobColumns(t,params,setParams),
     getCoreRowModel: getCoreRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     state: { columnVisibility },
@@ -202,7 +203,7 @@ export const JobDatable = ({
             {...{
               currentPage : params.currentPage,
               setParams ,
-               maxPage ,
+               maxPage: maxPage! ,
             }}
           />
         </div>
