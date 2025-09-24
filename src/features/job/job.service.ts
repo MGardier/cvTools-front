@@ -31,6 +31,7 @@ export const JobService = {
 
   async findAll(userId: number, params  : DataTableParams ): Promise<FilterDataResponse<Job>> {
     const {limit,currentPage,sorting} = params
+    //retiret limit , sortir util 
     const filterParams = {
       ...(limit ? {limit }: {limit: 6} ),
       ...(currentPage ? {page: currentPage }: {page: 1} ),

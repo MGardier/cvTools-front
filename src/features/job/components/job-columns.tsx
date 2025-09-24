@@ -16,6 +16,7 @@ import { ArrowUpDown, Building2, Calendar, MoreHorizontal } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
 
 //TODO : mettre un event listener pour ajuster le mobile
+//TODO : icon lucid react  haut et bas
 const isMobile = window.innerWidth <= 768;
 
 export const jobColumns = (

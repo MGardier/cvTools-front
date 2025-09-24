@@ -36,7 +36,6 @@ import {
 } from "@/components/ui/select";
 import type { DataTableParams } from "@/types/data-table";
 
-
 interface JobDataTableProps {
   data: Job[];
   t: TFunction<"job", undefined>;
@@ -44,8 +43,9 @@ interface JobDataTableProps {
   params: DataTableParams;
   setParams: Dispatch<SetStateAction<DataTableParams>>;
   maxPage?: number;
-
 }
+
+//TODO: Ajouter le isFavorites ou is Archived
 
 export const JobDatable = ({
   t,
@@ -66,7 +66,7 @@ export const JobDatable = ({
 
   const table = useReactTable<Job>({
     data,
-    columns: jobColumns(t,params,setParams),
+    columns: jobColumns(t, params, setParams),
     getCoreRowModel: getCoreRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     state: { columnVisibility },
@@ -77,7 +77,7 @@ export const JobDatable = ({
 
   const limitSelect = [5, 10, 15, 20];
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col ">
       <div className="md:flex lg:flex flex items-center justify-between gap-2 py-4">
         <Input
           placeholder="Filter emails..."
@@ -177,14 +177,23 @@ export const JobDatable = ({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-between space-x-2 py-4">
+
+      <div className="flex items-center justify-between gap-2  py-4">
         <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows?.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
-        <div className="hidden items-center gap-2 lg:flex">
+
+        <div className="hidden items-center gap-2 lg:flex w-content">
+          {/* ajouter le nombre de de pages sur */ }
           <Label>{t("pages.findAll.limitPerPage")}</Label>
-          <Select required onValueChange={(value) =>  setParams((prevParams)=> {return {...prevParams , limit: Number(value)}} ) }>
+          <Select
+            required
+            onValueChange={(value) =>
+              setParams((prevParams) => {
+                return { ...prevParams, limit: Number(value), currentPage: 1 };
+              })
+            }
+          >
             <SelectTrigger className="w-full">
               <SelectValue placeholder={params.limit} />
             </SelectTrigger>
@@ -198,12 +207,13 @@ export const JobDatable = ({
             </SelectContent>
           </Select>
         </div>
+
         <div className="space-x-2 ">
           <DataTablePagination
             {...{
-              currentPage : params.currentPage,
-              setParams ,
-               maxPage: maxPage! ,
+              currentPage: params.currentPage,
+              setParams,
+              maxPage: maxPage!,
             }}
           />
         </div>
