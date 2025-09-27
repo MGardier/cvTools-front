@@ -13,7 +13,7 @@ import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 
 import type z from "zod";
 import type { jobFormSchema } from "../../schema/job-schema";
-
+import { cn } from "@/utils/utils";
 
 interface TechnologiesFormProps {
   t: TFunction<"job", undefined>;
@@ -24,7 +24,7 @@ interface TechnologiesFormProps {
   isTechnologyFieldInError: boolean;
 }
 //TODO: AUTO Complete
-// TODO : empecher de créer un auto complete 
+// TODO : empecher de créer un auto complete
 
 export const TechnologiesForm = ({
   t,
@@ -81,15 +81,13 @@ export const TechnologiesForm = ({
                   <FormControl>
                     <div className="flex gap-2 items-center justify-center">
                       <Input
-                        className={
+                        className={cn("h-8 md:h-12 lg:h-12 w-full max-w-full",
                           isTechnologyFieldInError
                             ? "border-destructive  ring-destructive/20"
-                            : ""
+                            : "")
                         }
                         type={isLast ? "text" : "hidden"}
-                        placeholder={t(
-                          "form.technologies.placeholder"
-                        )}
+                        placeholder={t("form.technologies.placeholder")}
                         {...field}
                         onKeyDown={(e) => {
                           if (

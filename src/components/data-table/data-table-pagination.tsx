@@ -21,7 +21,7 @@ interface DataTablePaginationProps {
   maxPage: number;
   setParams: Dispatch<SetStateAction<DataTableParams>>;
 }
-
+//TODO :grise si pas pooyuvoir utiliser
 export const DataTablePagination = ({
   currentPage,
   setParams,

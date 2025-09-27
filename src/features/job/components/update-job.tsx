@@ -16,7 +16,7 @@ export const UpdateJob = ({ jobId }: UpdateJobProps) => {
     mutationIsPending,
     handleSubmit,
   } = useUpdateJob({ jobId });
-
+  
 
   if (query.isError)
     return (
@@ -30,6 +30,8 @@ export const UpdateJob = ({ jobId }: UpdateJobProps) => {
       />
     );
   if (query.isPending) return <JobSkeletonForm />;
+
+
   return (
     <JobForm
       {...{

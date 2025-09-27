@@ -44,6 +44,7 @@ export const InputField = <TFormData extends FieldValues>({
             <FormControl>
               <Input
                 {...{
+                  className: "h-8 md:h-12 lg:h-12 w-full max-w-full",
                   placeholder,
                   type,
                   required,

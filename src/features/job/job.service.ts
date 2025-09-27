@@ -30,11 +30,15 @@ export const JobService = {
   /**************** FIND ALL ************************************************************/
 
   async findAll(userId: number, params  : DataTableParams ): Promise<FilterDataResponse<Job>> {
-    const {limit,currentPage,sorting} = params
+    const {limit,currentPage,sorting,filters} = params
+    //retirer limit , sort dans un  util 
     const filterParams = {
       ...(limit ? {limit }: {limit: 6} ),
       ...(currentPage ? {page: currentPage }: {page: 1} ),
-      ...(sorting.length >0 ? {sort: (sorting.map((sortItem)=> `${sortItem.field}:${sortItem.direction}`)).join()}: {})
+      ...(filters ? {filters }: {} ),
+      ...(sorting.length >0 ? {sort: (sorting.map((sortItem)=> `${sortItem.field}:${sortItem.direction}`)).join()}: {}),
+
+  
     };
 
     const response = await jobApi.findAll(userId,filterParams);

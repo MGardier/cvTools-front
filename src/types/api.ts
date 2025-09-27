@@ -19,6 +19,8 @@ export interface FilterParams {
   limit: number;
   page : number;
   sort?: string;
+  filter?: string;
+  
 }
 
 export interface FilterDataResponse<Tdata> {

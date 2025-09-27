@@ -7,6 +7,9 @@ interface InputProps extends React.ComponentProps<"input"> {
   disableDisabledStyles?: boolean;
 }
 
+
+       
+
 function Input({ className, type, disableDisabledStyles, ...props }: InputProps) {
   return (
     <input
@@ -14,8 +17,6 @@ function Input({ className, type, disableDisabledStyles, ...props }: InputProps)
       data-slot="input"
       className={cn(
         "flex",
-        "h-8 md:h-12 lg:h-12",
-        "w-full max-w-full",
         "rounded-lg md:rounded-2xl lg:rounded-2xl",
         "border",
         "border-input",

@@ -66,7 +66,7 @@ export const createSignInSchema = (t: TFunction<'auth', undefined>) => {
       z.string({ message: t('validation.password.invalid') })
         .min(8, { message: t('validation.password.minLength') })
         .regex(REGEX_PASSWORD, { message: t('validation.password.invalid') }),
-  })
+  }).transform((data) => data)
 }
 
 
