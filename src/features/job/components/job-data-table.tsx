@@ -5,7 +5,7 @@ import {
   useReactTable,
   type VisibilityState,
 } from "@tanstack/react-table";
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { useMemo, useState, type Dispatch, type SetStateAction } from "react";
 import { jobColumns } from "./job-columns";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -35,6 +35,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { DataTableParams } from "@/types/data-table";
+import { DataTableHeader } from "@/components/data-table/data-table-header";
+import { ROUTES } from "@/data/routes";
 
 interface JobDataTableProps {
   data: Job[];
@@ -55,18 +57,11 @@ export const JobDatable = ({
   params,
   maxPage,
 }: JobDataTableProps) => {
-  const isMobile = window.innerWidth <= 768;
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
-    enterprise: !isMobile,
-    origin: !isMobile,
-    appliedAt: !isMobile,
-    status: !isMobile,
-    applicationMethod: !isMobile,
-  });
-
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+const columns  = useMemo(()=> jobColumns(t, params, setParams),[]);
   const table = useReactTable<Job>({
     data,
-    columns: jobColumns(t, params, setParams),
+    columns,
     getCoreRowModel: getCoreRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     state: { columnVisibility },
@@ -77,53 +72,18 @@ export const JobDatable = ({
 
   const limitSelect = [5, 10, 15, 20];
   return (
-    <div className="w-full flex flex-col ">
-      <div className="md:flex lg:flex flex items-center justify-between gap-2 py-4">
-        <Input
-          placeholder="Filter emails..."
-          value={
-            (table.getColumn("jobTitle")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("jobTitle")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm "
-        />
-        <div className="flex  gap-2 justify-center items-center">
-          <Button className="flex  gap-2  text-white" variant="blue">
-            <Plus />
-            Ajouter
-          </Button>
-          {!isMobile && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-auto">
-                  Columns <ChevronDown />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {table
-                  .getAllColumns()
-                  .filter((column) => column.getCanHide())
-                  .map((column) => {
-                    return (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) =>
-                          column.toggleVisibility(!!value)
-                        }
-                      >
-                        {column.id}
-                      </DropdownMenuCheckboxItem>
-                    );
-                  })}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-        </div>
-      </div>
+    <div className="w-full flex flex-col mt-4 ">
+      <DataTableHeader
+        {...{
+          filters: params.filters,
+          setFilter : (keyword: string)=> setParams((prevParams)=> {return {...prevParams,filter : keyword }}),
+          columns: table
+            .getAllColumns()
+            .filter((column) => column.getCanHide()),
+          addItemLink: `${ROUTES.job.create}`,
+        }}
+      />
+
       <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader className="bg-gray-50">
@@ -133,7 +93,7 @@ export const JobDatable = ({
                   return (
                     <TableHead
                       key={header.id}
-                      className="h-10 px-4 text-left align-middle font-medium text-gray-700 uppercase text-xs tracking-wide"
+                      className="h-10 px-4 text-left align-middle font-medium text-gray-700  text-sm tracking-wide"
                     >
                       {header.isPlaceholder
                         ? null
@@ -184,7 +144,7 @@ export const JobDatable = ({
         </div>
 
         <div className="hidden items-center gap-2 lg:flex w-content">
-          {/* ajouter le nombre de de pages sur */ }
+          {/* ajouter le nombre de de pages sur */}
           <Label>{t("pages.findAll.limitPerPage")}</Label>
           <Select
             required

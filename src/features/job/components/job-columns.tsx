@@ -1,3 +1,4 @@
+import { DataTableColumnHeaderItem } from "@/components/data-table/data-table-column-header-item";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,98 +10,71 @@ import {
 } from "@/components/ui/dropdown-menu";
 import type { DataTableParams } from "@/types/data-table";
 import type { Job } from "@/types/entity";
-import { cn, formatDate, splitTextAtSpaces } from "@/utils/utils";
+import { formatDate, splitTextAtSpaces } from "@/utils/utils";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import { ArrowUpDown, Building2, Calendar, MoreHorizontal } from "lucide-react";
+import { Building2, Calendar, MoreHorizontal } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
-
-//TODO : mettre un event listener pour ajuster le mobile
-//TODO : icon lucid react  haut et bas
-const isMobile = window.innerWidth <= 768;
 
 export const jobColumns = (
   t: TFunction,
   params: DataTableParams,
   setParams: Dispatch<SetStateAction<DataTableParams>>
 ): ColumnDef<Job>[] => {
-  const addOrUpdateSort = (field: string) => {
-    const existingIndex = params.sorting.findIndex(
-      (sort) => sort.field === field
-    );
+  const updateSort = (field: string, direction: "asc" | "desc" | "none") => {
+    setParams((prevParam) => {
+      const otherSorts = prevParam.sorting.filter((s) => s.field !== field);
 
-    if (existingIndex === -1) {
-      setParams((prevParam) => {
+      if (direction !== "none")
         return {
           ...prevParam,
-          sorting: [...prevParam.sorting, { field, direction: "asc" }],
+          sorting: [...otherSorts, { field, direction }],
         };
-      });
-    } else {
-      const direction = params.sorting[existingIndex].direction;
-
-      if (direction === "asc")
-        setParams((prevParam) => {
-          return {
-            ...prevParam,
-            sorting: prevParam.sorting.map((sortItem) =>
-              sortItem.field === field ? { field, direction: "desc" } : sortItem
-            ),
-          };
-        });
       else
-        setParams((prevParam) => {
-          return {
-            ...prevParam,
-            sorting: prevParam.sorting.filter(
-              (sortItem) => sortItem.field !== field
-            ),
-          };
-        });
-    }
+        return {
+          ...prevParam,
+          sorting: otherSorts,
+        };
+    });
   };
+
+  const setFilter = (field: string, value: string) =>
+    setParams((prev) => {
+      const newFilters = {...prev.filters};
+
+      if (!value) delete newFilters[field];
+      else newFilters[field] = value;
+      return {
+        ...prev,
+        filters: newFilters,
+        currentPage:1,
+      };
+    });
 
   return [
     {
       accessorKey: "jobTitle",
-      header: ({ column }) => {
+      header: () => {
         return (
-          <Button variant="ghost" onClick={() => addOrUpdateSort("jobTitle")}>
-            {t("pages.findAll.columns.jobTitle")}
-            <ArrowUpDown className={params.sorting.some((sortingItem) => sortingItem.field === "jobTitle") ? "text-blue-500" : ""  }/>
-          </Button>
+          <DataTableColumnHeaderItem
+            {...{
+              title: t("pages.findAll.columns.jobTitle"),
+              updateSort: (direction: "asc" | "desc" | "none") =>
+                updateSort("jobTitle", direction),
+              sortDirection: params.sorting.find(
+                (sortItem) => sortItem.field === "jobTitle"
+              )?.direction,
+              filterValue : params.filters['jobTitle'],
+              setFilterValue: (value: string) => setFilter("jobTitle", value),
+            }}
+          />
         );
       },
       cell: ({ row }) => {
+        //TODO: S'occuper des titres trop long et corriger le probléme
         const splitJobTitle = splitTextAtSpaces(row.getValue("jobTitle"), 18);
 
-        return isMobile ? (
-          <div className="flex flex-col justify-start items-start gap-2">
-            {splitJobTitle.map((text) => (
-              <span
-                key={`${text}-${row.getValue("enterprise")}`}
-                className="font-medium text-gray-900 text-sm"
-              >
-                {text}
-              </span>
-            ))}
-            <Badge
-              className="text-xs md:text-sm lg:text-sm"
-              variant={"warning"}
-            >
-              {row.getValue("enterprise")}
-            </Badge>
-            <span className="flex items-center justify-items-center gap-2 text-gray-500 text-xs">
-              <Building2 className="text-gray-400" size={12} />
-              {row.getValue("enterprise")}
-            </span>
-
-            <span className="flex items-center justify-items-center gap-2 text-xs text-gray-600">
-              <Calendar className="text-gray-400" size={12} />
-              {formatDate(new Date(row.getValue("appliedAt")))}
-            </span>
-          </div>
-        ) : (
+        return (
           <span className="font-medium text-gray-900 ">
             {row.getValue("jobTitle")}
           </span>
@@ -109,12 +83,20 @@ export const jobColumns = (
     },
     {
       accessorKey: "enterprise",
-      header: ({ column }) => {
+      header: () => {
         return (
-          <Button variant="ghost" onClick={() => addOrUpdateSort("enterprise")}>
-            {t("pages.findAll.columns.enterprise")}
-            <ArrowUpDown className={params.sorting.some((sortingItem) => sortingItem.field === "enterprise") ? "text-blue-500" : ""  }/>
-          </Button>
+          <DataTableColumnHeaderItem
+            {...{
+              title: t("pages.findAll.columns.enterprise"),
+
+              updateSort: (direction: "asc" | "desc" | "none") =>
+                updateSort("enterprise", direction),
+              sortDirection: params.sorting.find(
+                (sortItem) => sortItem.field === "enterprise"
+              )?.direction,
+              setFilterValue: (value: string) => setFilter("enterprise", value),
+            }}
+          />
         );
       },
       cell: ({ row }) => {
@@ -128,15 +110,20 @@ export const jobColumns = (
     },
     {
       accessorKey: "status",
-      header: ({ column }) => {
+      header: () => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => addOrUpdateSort("status")}
-          >
-            {t("pages.findAll.columns.status")}
-            <ArrowUpDown className={params.sorting.some((sortingItem) => sortingItem.field === "status") ? "text-blue-500" : ""  }/>
-          </Button>
+          <DataTableColumnHeaderItem
+            {...{
+              title: t("pages.findAll.columns.status"),
+
+              updateSort: (direction: "asc" | "desc" | "none") =>
+                updateSort("status", direction),
+              sortDirection: params.sorting.find(
+                (sortItem) => sortItem.field === "status"
+              )?.direction,
+              setFilterValue: (value: string) => setFilter("status", value),
+            }}
+          />
         );
       },
       cell: ({ row }) => {
@@ -153,15 +140,20 @@ export const jobColumns = (
     },
     {
       accessorKey: "applicationMethod",
-      header: ({ column }) => {
+      header: () => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => addOrUpdateSort("applicationMethod")}
-          >
-            {t("pages.findAll.columns.applicationMethod")}
-            <ArrowUpDown className={params.sorting.some((sortingItem) => sortingItem.field === "applicationMethod") ? "text-blue-500" : ""  }/>
-          </Button>
+          <DataTableColumnHeaderItem
+            {...{
+              title: t("pages.findAll.columns.applicationMethod"),
+              updateSort: (direction: "asc" | "desc" | "none") =>
+                updateSort("applicationMethod", direction),
+              sortDirection: params.sorting.find(
+                (sortItem) => sortItem.field === "applicationMethod"
+              )?.direction,
+              setFilterValue: (value: string) =>
+                setFilter("applicationMethod", value),
+            }}
+          />
         );
       },
       cell: ({ row }) => {
@@ -173,10 +165,17 @@ export const jobColumns = (
       accessorKey: "appliedAt",
       header: ({ column }) => {
         return (
-          <Button variant="ghost" onClick={() => addOrUpdateSort("appliedAt")}>
-            {t("pages.findAll.columns.appliedAt")}
-            <ArrowUpDown className={params.sorting.some((sortingItem) => sortingItem.field === "appliedAt") ? "text-blue-500" : ""  }/>
-          </Button>
+          <DataTableColumnHeaderItem
+            {...{
+              title: t("pages.findAll.columns.appliedAt"),
+              updateSort: (direction: "asc" | "desc" | "none") =>
+                updateSort("appliedAt", direction),
+              sortDirection: params.sorting.find(
+                (sortItem) => sortItem.field === "appliedAt"
+              )?.direction,
+              setFilterValue: (value: string) => setFilter("appliedAt", value),
+            }}
+          />
         );
       },
       cell: ({ row }) => {

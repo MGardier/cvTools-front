@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from "clsx"
+import { useMemo } from "react"
 import { twMerge } from "tailwind-merge"
 
 
@@ -7,9 +8,6 @@ import { twMerge } from "tailwind-merge"
 export const cn = (...inputs: ClassValue[]): string => {
   return twMerge(clsx(inputs))
 }
-
-
-
 
 
 export const formatDate = (date: Date): string => {
@@ -56,5 +54,13 @@ export const splitTextAtSpaces = (text: string, limit: number): string[] => {
 
 
 
+export const debounce = <T extends unknown[]>(fn : (...args:T)=> void, delay: number) =>{
+  let timeoutId : NodeJS.Timeout;
+  return  (...args : T ) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(()=> fn(...args),delay);
+  }
+
+}
 
 

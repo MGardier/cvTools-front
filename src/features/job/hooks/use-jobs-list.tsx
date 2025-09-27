@@ -16,6 +16,7 @@ export const useJobsList = (initialPage :number = 1, initialLimit : number = 5):
     currentPage : initialPage || 1 ,
     limit : initialLimit || 5,
     sorting : [],
+    filters: {}
 
   }
 
