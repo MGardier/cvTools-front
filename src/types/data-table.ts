@@ -1,13 +1,18 @@
 
-export interface DataTableParams {
+
+export interface DataTableParams<TData> {
   currentPage : number;
   limit: number;
-  sorting : SortItem[]
-  filters: Record<string,string>;
-
+  sorting : SortItem<TData>[]
+ 
 }
 
-export interface SortItem {
-  field: string;
+export interface SortItem<TData> {
+  field: keyof TData;
   direction : 'asc' | 'desc' 
+}
+
+export interface EnumWithTranslationItem {
+  label : string;
+  value: string;
 }

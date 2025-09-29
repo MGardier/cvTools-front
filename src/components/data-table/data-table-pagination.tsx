@@ -15,11 +15,12 @@ import {
 } from "lucide-react";
 import type { DataTableParams } from "@/types/data-table";
 
+//TODO : Typage
 
 interface DataTablePaginationProps {
   currentPage: number;
   maxPage: number;
-  setParams: Dispatch<SetStateAction<DataTableParams>>;
+  setParams: Dispatch<SetStateAction<DataTableParams<any>>>;
 }
 //TODO :grise si pas pooyuvoir utiliser
 export const DataTablePagination = ({

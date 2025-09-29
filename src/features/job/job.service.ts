@@ -3,6 +3,7 @@ import { jobApi } from "./job.api";
 import type { CreateJobParams, UpdateJobParams } from "./types/api";
 import type {  FilterDataResponse } from "@/types/api";
 import type { DataTableParams } from "@/types/data-table";
+import type { FindAllJobParams } from "./types/data-table";
 
 
 
@@ -29,13 +30,17 @@ export const JobService = {
 
   /**************** FIND ALL ************************************************************/
 
-  async findAll(userId: number, params  : DataTableParams ): Promise<FilterDataResponse<Job>> {
-    const {limit,currentPage,sorting,filters} = params
+  async findAll(userId: number, params  : FindAllJobParams ): Promise<FilterDataResponse<Job>> {
+    const {limit,currentPage,sorting,jobTitle, enterprise, status,applicationMethod} = params
     //retirer limit , sort dans un  util 
     const filterParams = {
+
       ...(limit ? {limit }: {limit: 6} ),
       ...(currentPage ? {page: currentPage }: {page: 1} ),
-      ...(filters ? {filters }: {} ),
+      ...(jobTitle ? {jobTitle }: {} ),
+      ...(enterprise ? {enterprise }: {} ),
+      ...(status ? {status }: {} ),
+      ...(applicationMethod ? {applicationMethod }: {} ),
       ...(sorting.length >0 ? {sort: (sorting.map((sortItem)=> `${sortItem.field}:${sortItem.direction}`)).join()}: {}),
 
   

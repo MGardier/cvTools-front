@@ -14,13 +14,11 @@ import { useNavigate } from "react-router-dom";
 interface DataTableHeaderProps {
   columns: Column<Job, unknown>[];
   addItemLink: string;
-  setFilter: (keyWord: string) => void;
 }
 
 export const DataTableHeader = ({
   columns,
   addItemLink,
-  setFilter,
 }: DataTableHeaderProps) => {
   const navigate = useNavigate();
 
