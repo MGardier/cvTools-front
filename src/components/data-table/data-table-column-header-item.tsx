@@ -2,7 +2,6 @@ import { SlidersHorizontal } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
-
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -21,44 +20,77 @@ import { useCallback, useState } from "react";
 
 interface DataTableColumnHeaderItemProps {
   title: string;
-  updateSort: (direction: "asc" | "desc" | 'none') => void;
+  updateSort: (direction: "asc" | "desc" | "none") => void;
   filterValue?: string;
-  setFilterValue:(value:string) => void
+  selectFilterValue ?: {label: string, value: string}[]
+  setFilterValue: (value: string) => void;
+  filterType: "input" | "select" | "datePicker";
 }
 
 export const DataTableColumnHeaderItem = ({
   title,
   filterValue,
+selectFilterValue,
+  filterType,
   updateSort,
-  setFilterValue
+  setFilterValue,
 }: DataTableColumnHeaderItemProps) => {
   const [localFilterValue, setLocalFilterValue] = useState(filterValue || "");
 
-    const debouncedUpdate = useCallback(
+  const debouncedUpdate = useCallback(
     debounce((value: string) => setFilterValue(value), 500),
     [setFilterValue]
   );
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setLocalFilterValue(value);
-    debouncedUpdate(value); 
+    debouncedUpdate(value);
   };
 
   return (
     <div className="flex flex-col justify-center items-center py-2">
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <div className="flex gap-2 justify-center items-center" >
+          <div className="flex gap-2 justify-center items-center">
             {title}
-            <SlidersHorizontal size={16}/>
+            <SlidersHorizontal size={16} />
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-3xs py-4">
-          <DropdownMenuLabel className="text-center">
-            Recherche
-          </DropdownMenuLabel>
-          <Input type="text" className="h-8 w-xs max-w-52 mx-auto mb-4"  value={localFilterValue} onChange={handleChange}/>
+          {filterType === "input" && (
+            <>
+              <DropdownMenuLabel className="text-center">
+                Recherche
+              </DropdownMenuLabel>
+              <Input
+                type="text"
+                className="h-8 w-xs max-w-52 mx-auto mb-4"
+                value={localFilterValue}
+                onChange={handleChange}
+              />
+            </>
+          )}
+
+          {filterType === "select" && (
+            <>
+              <DropdownMenuLabel className="text-center">
+                Recherche par
+              </DropdownMenuLabel>
+              <Select onValueChange={setFilterValue} >
+                <SelectTrigger className="w-[180px] h-8 mx-auto">
+                  <SelectValue placeholder="Trier par ordre" />
+                </SelectTrigger>
+                <SelectContent className="">
+                  <SelectGroup>
+                    <SelectItem value="none" >Aucun</SelectItem> 
+                    {selectFilterValue?.map((e)=>  <SelectItem value={e.value}>{e.label}</SelectItem>)}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </>
+          )}
+
           <DropdownMenuSeparator />
           <DropdownMenuLabel className="text-center">
             Trier par Ordre

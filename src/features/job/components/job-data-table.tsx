@@ -34,16 +34,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { DataTableParams } from "@/types/data-table";
 import { DataTableHeader } from "@/components/data-table/data-table-header";
 import { ROUTES } from "@/data/routes";
+import type { FindAllJobParams } from "../types/data-table";
 
 interface JobDataTableProps {
   data: Job[];
   t: TFunction<"job", undefined>;
   count?: number;
-  params: DataTableParams;
-  setParams: Dispatch<SetStateAction<DataTableParams>>;
+  params: FindAllJobParams;
+  setParams: Dispatch<SetStateAction<FindAllJobParams>>;
   maxPage?: number;
 }
 
@@ -75,8 +75,7 @@ const columns  = useMemo(()=> jobColumns(t, params, setParams),[]);
     <div className="w-full flex flex-col mt-4 ">
       <DataTableHeader
         {...{
-          filters: params.filters,
-          setFilter : (keyword: string)=> setParams((prevParams)=> {return {...prevParams,filter : keyword }}),
+
           columns: table
             .getAllColumns()
             .filter((column) => column.getCanHide()),

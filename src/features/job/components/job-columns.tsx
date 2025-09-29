@@ -10,16 +10,22 @@ import {
 } from "@/components/ui/dropdown-menu";
 import type { DataTableParams } from "@/types/data-table";
 import type { Job } from "@/types/entity";
-import { formatDate, splitTextAtSpaces } from "@/utils/utils";
+import {
+  formatDate,
+  getJobSApplicationMethodWithTranslation,
+  getJobStatusWithTranslation,
+  splitTextAtSpaces,
+} from "@/utils/utils";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 import { Building2, Calendar, MoreHorizontal } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
+import type { FindAllJobParams } from "../types/data-table";
 
 export const jobColumns = (
   t: TFunction,
-  params: DataTableParams,
-  setParams: Dispatch<SetStateAction<DataTableParams>>
+  params: FindAllJobParams,
+  setParams: Dispatch<SetStateAction<FindAllJobParams>>
 ): ColumnDef<Job>[] => {
   const updateSort = (field: string, direction: "asc" | "desc" | "none") => {
     setParams((prevParam) => {
@@ -28,7 +34,7 @@ export const jobColumns = (
       if (direction !== "none")
         return {
           ...prevParam,
-          sorting: [...otherSorts, { field, direction }],
+          sorting: [...otherSorts, { field: field as keyof Job, direction }],
         };
       else
         return {
@@ -40,15 +46,18 @@ export const jobColumns = (
 
   const setFilter = (field: string, value: string) =>
     setParams((prev) => {
-      const newFilters = {...prev.filters};
-
-      if (!value) delete newFilters[field];
-      else newFilters[field] = value;
-      return {
-        ...prev,
-        filters: newFilters,
-        currentPage:1,
-      };
+      if (value !== "none")
+        return {
+          ...prev,
+          [field]: value ? value : "",
+          currentPage: 1,
+        };
+      else
+        return {
+          ...prev,
+          [field]: "",
+          currentPage: 1,
+        };
     });
 
   return [
@@ -59,25 +68,23 @@ export const jobColumns = (
           <DataTableColumnHeaderItem
             {...{
               title: t("pages.findAll.columns.jobTitle"),
+              filterType: "input",
               updateSort: (direction: "asc" | "desc" | "none") =>
                 updateSort("jobTitle", direction),
               sortDirection: params.sorting.find(
                 (sortItem) => sortItem.field === "jobTitle"
               )?.direction,
-              filterValue : params.filters['jobTitle'],
+              filterValue: params.jobTitle,
               setFilterValue: (value: string) => setFilter("jobTitle", value),
             }}
           />
         );
       },
       cell: ({ row }) => {
-        //TODO: S'occuper des titres trop long et corriger le probléme
         const splitJobTitle = splitTextAtSpaces(row.getValue("jobTitle"), 18);
 
         return (
-          <span className="font-medium text-gray-900 ">
-            {row.getValue("jobTitle")}
-          </span>
+          <span className="font-medium text-gray-900 ">{splitJobTitle}</span>
         );
       },
     },
@@ -88,12 +95,13 @@ export const jobColumns = (
           <DataTableColumnHeaderItem
             {...{
               title: t("pages.findAll.columns.enterprise"),
-
+              filterType: "input",
               updateSort: (direction: "asc" | "desc" | "none") =>
                 updateSort("enterprise", direction),
               sortDirection: params.sorting.find(
                 (sortItem) => sortItem.field === "enterprise"
               )?.direction,
+              filterValue: params.enterprise,
               setFilterValue: (value: string) => setFilter("enterprise", value),
             }}
           />
@@ -115,12 +123,15 @@ export const jobColumns = (
           <DataTableColumnHeaderItem
             {...{
               title: t("pages.findAll.columns.status"),
-
+              filterType: "select",
+              selectFilterValue: getJobStatusWithTranslation(t),
+              label: "Par status",
               updateSort: (direction: "asc" | "desc" | "none") =>
                 updateSort("status", direction),
               sortDirection: params.sorting.find(
                 (sortItem) => sortItem.field === "status"
               )?.direction,
+                            filterValue: params.status,
               setFilterValue: (value: string) => setFilter("status", value),
             }}
           />
@@ -145,11 +156,14 @@ export const jobColumns = (
           <DataTableColumnHeaderItem
             {...{
               title: t("pages.findAll.columns.applicationMethod"),
+              filterType: "select",
+              selectFilterValue: getJobSApplicationMethodWithTranslation(t),
               updateSort: (direction: "asc" | "desc" | "none") =>
                 updateSort("applicationMethod", direction),
               sortDirection: params.sorting.find(
                 (sortItem) => sortItem.field === "applicationMethod"
               )?.direction,
+                                          filterValue: params.applicationMethod,
               setFilterValue: (value: string) =>
                 setFilter("applicationMethod", value),
             }}
@@ -168,6 +182,8 @@ export const jobColumns = (
           <DataTableColumnHeaderItem
             {...{
               title: t("pages.findAll.columns.appliedAt"),
+              filterType: "datePicker",
+
               updateSort: (direction: "asc" | "desc" | "none") =>
                 updateSort("appliedAt", direction),
               sortDirection: params.sorting.find(
@@ -225,3 +241,7 @@ export const jobColumns = (
     },
   ];
 };
+
+
+
+

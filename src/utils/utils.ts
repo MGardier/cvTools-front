@@ -1,4 +1,6 @@
+import type { EnumWithTranslationItem } from "@/types/data-table"
 import { clsx, type ClassValue } from "clsx"
+import type { TFunction } from "i18next"
 import { useMemo } from "react"
 import { twMerge } from "tailwind-merge"
 
@@ -52,13 +54,66 @@ export const splitTextAtSpaces = (text: string, limit: number): string[] => {
   return texts;
 };
 
+export const getJobStatusWithTranslation = (t: TFunction<'job', undefined>): EnumWithTranslationItem[] => {
+  return [
+    {
+      value: "NEED_TO_CONTACT",
+      label: t('form.status.values.need_to_contact')
+    },
+    {
+      value: "NEED_TO_VALIDATE_MESSAGE",
+      label: t('form.status.values.need_to_validate_message')
+    },
+    {
+      value: "NEED_TO_SEND_MESSAGE",
+      label: t('form.status.values.need_to_send_message')
+    },
+    {
+      value: "INTERVIEWS",
+      label: t('form.status.values.interviews')
+    },
+    {
+      value: "TECHNICAL_TEST",
+      label: t('form.status.values.technical_test')
+    },
+    {
+      value: "NEED_TO_SEND_THANKS_AFTER_INTERVIEW",
+      label: t('form.status.values.need_to_send_thanks_after_interview')
+    },
+    {
+      value: "NEED_TO_SEND_MAIL_REMINDER",
+      label: t('form.status.values.need_to_send_mail_reminder')
+    },
+  ]
 
+}
 
-export const debounce = <T extends unknown[]>(fn : (...args:T)=> void, delay: number) =>{
-  let timeoutId : NodeJS.Timeout;
-  return  (...args : T ) => {
+export const getJobSApplicationMethodWithTranslation = (t: TFunction<'job', undefined>): EnumWithTranslationItem[] => {
+  return [
+    {
+      value: "LINKEDIN",
+      label: t('form.applicationMethod.values.linkedin')
+    },
+    {
+      value: "JOBBOARD",
+      label: t('form.applicationMethod.values.jobboard')
+    },
+    {
+      value: "EMAIL",
+      label: t('form.applicationMethod.values.email')
+    },
+    {
+      value: "OTHER",
+      label: t('form.applicationMethod.values.other')
+    },
+  ]
+}
+
+export const debounce = <T extends unknown[]>(fn: (...args: T) => void, delay: number) => {
+  let timeoutId: NodeJS.Timeout;
+  return (...args: T) => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(()=> fn(...args),delay);
+    timeoutId = setTimeout(() => fn(...args), delay);
   }
 
 }

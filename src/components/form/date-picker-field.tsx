@@ -30,7 +30,7 @@ export const DatePickerField = <TFormData extends FieldValues>({
   const [month, setMonth] = useState<Date | undefined>(date);
 
   //TODO: onCLick de l'input ouvrir aussi la calendar
-  //TODO : probleme validation de la date
+
   return (
     <div className="grid gap-3">
       <FormField

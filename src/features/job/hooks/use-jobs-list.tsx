@@ -8,6 +8,7 @@ import { JobService } from "../job.service";
 import type { Job } from "@/types/entity";
 import {  useState } from "react";
 import type { DataTableParams } from "@/types/data-table";
+import type { FindAllJobParams } from "../types/data-table";
 
 export const useJobsList = (initialPage :number = 1, initialLimit : number = 5): UseJobsListReturn => {
   const { t } = useTranslation("job");
@@ -16,11 +17,15 @@ export const useJobsList = (initialPage :number = 1, initialLimit : number = 5):
     currentPage : initialPage || 1 ,
     limit : initialLimit || 5,
     sorting : [],
-    filters: {}
+    jobTitle: "",
+    enterprise: "",
+    status : undefined,
+    applicationMethod : undefined,
+    appliedAt : undefined,
 
   }
 
-  const [params,setParams] = useState<DataTableParams>(defaultParams);
+  const [params,setParams] = useState<FindAllJobParams>(defaultParams);
  
   const { data, isPending,isError } = useQuery<FilterDataResponse<Job>, ApiErrors>({
     queryKey: [`findAllJobByUser-${userId}`,params],
