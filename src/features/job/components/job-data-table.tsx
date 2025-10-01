@@ -58,7 +58,7 @@ export const JobDatable = ({
   maxPage,
 }: JobDataTableProps) => {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-const columns  = useMemo(()=> jobColumns(t, params, setParams),[]);
+  const columns = useMemo(() => jobColumns(t, params, setParams), [params]);
   const table = useReactTable<Job>({
     data,
     columns,
@@ -75,11 +75,12 @@ const columns  = useMemo(()=> jobColumns(t, params, setParams),[]);
     <div className="w-full flex flex-col mt-4 ">
       <DataTableHeader
         {...{
-
+          params,
+          setParams,
           columns: table
             .getAllColumns()
             .filter((column) => column.getCanHide()),
-          addItemLink: `${ROUTES.job.create}`,
+          addItemLink: `/${ROUTES.job.create}`,
         }}
       />
 

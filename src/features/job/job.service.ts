@@ -2,7 +2,6 @@ import type { Job } from "@/types/entity";
 import { jobApi } from "./job.api";
 import type { CreateJobParams, UpdateJobParams } from "./types/api";
 import type {  FilterDataResponse } from "@/types/api";
-import type { DataTableParams } from "@/types/data-table";
 import type { FindAllJobParams } from "./types/data-table";
 
 

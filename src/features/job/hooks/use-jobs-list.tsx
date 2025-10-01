@@ -7,7 +7,6 @@ import type { ApiErrors,  FilterDataResponse } from "@/types/api";
 import { JobService } from "../job.service";
 import type { Job } from "@/types/entity";
 import {  useState } from "react";
-import type { DataTableParams } from "@/types/data-table";
 import type { FindAllJobParams } from "../types/data-table";
 
 export const useJobsList = (initialPage :number = 1, initialLimit : number = 5): UseJobsListReturn => {
@@ -21,7 +20,11 @@ export const useJobsList = (initialPage :number = 1, initialLimit : number = 5):
     enterprise: "",
     status : undefined,
     applicationMethod : undefined,
-    appliedAt : undefined,
+    appliedAt :{
+      value: undefined,
+      operator : undefined,
+      secondValue:undefined
+    }
 
   }
 

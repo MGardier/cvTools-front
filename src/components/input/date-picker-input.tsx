@@ -8,11 +8,11 @@ import { Calendar } from "../ui/calendar";
 import { formatDate } from "@/utils/utils";
 
 interface DatePickerInputProps {
-  value: Date
+  value: string 
   label: string;
   placeholder: string;
   required?: boolean;
-  handleOnChange :(value: Date) => VoidFunction
+  handleOnChange :(value: Date) => void
 }
 
 export const DatePickerInput = ({
@@ -27,6 +27,7 @@ export const DatePickerInput = ({
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
   const [month, setMonth] = useState<Date | undefined>(date);
+  
 
   //TODO: onCLick de l'input ouvrir aussi la calendar
 
@@ -80,7 +81,7 @@ export const DatePickerInput = ({
             month={month}
             onMonthChange={setMonth}
             onSelect={(date) => {
-              setDate(date);
+              setDate(date!);
               handleOnChange(formatDate(date));
               setOpen(false);
             }}

@@ -1,4 +1,3 @@
-import { DataTableColumnHeaderItem } from "@/components/data-table/data-table-column-header-item";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,76 +7,90 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { DataTableParams } from "@/types/data-table";
+
 import type { Job } from "@/types/entity";
 import {
   formatDate,
-  getJobSApplicationMethodWithTranslation,
-  getJobStatusWithTranslation,
   splitTextAtSpaces,
 } from "@/utils/utils";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import { Building2, Calendar, MoreHorizontal } from "lucide-react";
+import {
+  ArrowDownUp,
+  ArrowDownWideNarrow,
+  ArrowUpWideNarrow,
+  Building2,
+  Calendar,
+  MoreHorizontal,
+} from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
 import type { FindAllJobParams } from "../types/data-table";
+import type { SortFilterItem } from "@/types/data-table";
 
 export const jobColumns = (
   t: TFunction,
   params: FindAllJobParams,
   setParams: Dispatch<SetStateAction<FindAllJobParams>>
 ): ColumnDef<Job>[] => {
-  const updateSort = (field: string, direction: "asc" | "desc" | "none") => {
-    setParams((prevParam) => {
-      const otherSorts = prevParam.sorting.filter((s) => s.field !== field);
+  const sortingFields = params.sorting;
+  const updateSort = (field: keyof Job) => {
+    const existingIndex = sortingFields.findIndex(
+      (sort) => sort.field === field
+    );
 
-      if (direction !== "none")
+    if (existingIndex === -1) {
+      setParams((prevParam) => {
         return {
           ...prevParam,
-          sorting: [...otherSorts, { field: field as keyof Job, direction }],
+          sorting: [...prevParam.sorting, { field, direction: "asc" }],
         };
-      else
+      });
+    } else {
+      const direction = params.sorting[existingIndex].direction;
+
+      let nextDirection: "asc" | "desc" = "asc";
+      if (direction === "asc") nextDirection = "desc";
+
+      setParams((prevParam) => {
         return {
           ...prevParam,
-          sorting: otherSorts,
+          sorting: prevParam.sorting.map((sortItem) =>
+            sortItem.field === field
+              ? { field, direction: nextDirection }
+              : sortItem
+          ),
         };
-    });
+      });
+    }
   };
 
-  const setFilter = (field: string, value: string) =>
-    setParams((prev) => {
-      if (value !== "none")
-        return {
-          ...prev,
-          [field]: value ? value : "",
-          currentPage: 1,
-        };
-      else
-        return {
-          ...prev,
-          [field]: "",
-          currentPage: 1,
-        };
-    });
+
 
   return [
     {
       accessorKey: "jobTitle",
       header: () => {
+        const field: SortFilterItem<Job> | undefined = sortingFields.find(
+          (sort) => sort.field === "jobTitle"
+        );
         return (
-          <DataTableColumnHeaderItem
-            {...{
-              title: t("pages.findAll.columns.jobTitle"),
-              filterType: "input",
-              updateSort: (direction: "asc" | "desc" | "none") =>
-                updateSort("jobTitle", direction),
-              sortDirection: params.sorting.find(
-                (sortItem) => sortItem.field === "jobTitle"
-              )?.direction,
-              filterValue: params.jobTitle,
-              setFilterValue: (value: string) => setFilter("jobTitle", value),
-            }}
-          />
+          <Button variant="ghost" onClick={() => updateSort("jobTitle")}>
+            {t("pages.findAll.columns.jobTitle")}
+
+            {!field && <ArrowDownUp onClick={() => updateSort("jobTitle")} />}
+            {field?.direction === "asc" && (
+              <ArrowUpWideNarrow
+                onClick={() => updateSort("jobTitle")}
+                className="text-blue-500"
+              />
+            )}
+            {field?.direction === "desc" && (
+              <ArrowDownWideNarrow
+                onClick={() => updateSort("jobTitle")}
+                className="text-blue-500"
+              />
+            )}
+          </Button>
         );
       },
       cell: ({ row }) => {
@@ -91,20 +104,27 @@ export const jobColumns = (
     {
       accessorKey: "enterprise",
       header: () => {
+                const field: SortFilterItem<Job> | undefined = sortingFields.find(
+          (sort) => sort.field === "enterprise"
+        );
         return (
-          <DataTableColumnHeaderItem
-            {...{
-              title: t("pages.findAll.columns.enterprise"),
-              filterType: "input",
-              updateSort: (direction: "asc" | "desc" | "none") =>
-                updateSort("enterprise", direction),
-              sortDirection: params.sorting.find(
-                (sortItem) => sortItem.field === "enterprise"
-              )?.direction,
-              filterValue: params.enterprise,
-              setFilterValue: (value: string) => setFilter("enterprise", value),
-            }}
-          />
+          <Button variant="ghost" onClick={() => updateSort("enterprise")}>
+            {t("pages.findAll.columns.enterprise")}
+
+            {!field && <ArrowDownUp onClick={() => updateSort("enterprise")} />}
+            {field?.direction === "asc" && (
+              <ArrowUpWideNarrow
+                onClick={() => updateSort("enterprise")}
+                className="text-blue-500"
+              />
+            )}
+            {field?.direction === "desc" && (
+              <ArrowDownWideNarrow
+                onClick={() => updateSort("enterprise")}
+                className="text-blue-500"
+              />
+            )}
+          </Button>
         );
       },
       cell: ({ row }) => {
@@ -119,22 +139,27 @@ export const jobColumns = (
     {
       accessorKey: "status",
       header: () => {
+                const field: SortFilterItem<Job> | undefined = sortingFields.find(
+          (sort) => sort.field === "status"
+        );
         return (
-          <DataTableColumnHeaderItem
-            {...{
-              title: t("pages.findAll.columns.status"),
-              filterType: "select",
-              selectFilterValue: getJobStatusWithTranslation(t),
-              label: "Par status",
-              updateSort: (direction: "asc" | "desc" | "none") =>
-                updateSort("status", direction),
-              sortDirection: params.sorting.find(
-                (sortItem) => sortItem.field === "status"
-              )?.direction,
-                            filterValue: params.status,
-              setFilterValue: (value: string) => setFilter("status", value),
-            }}
-          />
+          <Button variant="ghost" onClick={() => updateSort("status")}>
+            {t("pages.findAll.columns.status")}
+
+            {!field && <ArrowDownUp onClick={() => updateSort("status")} />}
+            {field?.direction === "asc" && (
+              <ArrowUpWideNarrow
+                onClick={() => updateSort("status")}
+                className="text-blue-500"
+              />
+            )}
+            {field?.direction === "desc" && (
+              <ArrowDownWideNarrow
+                onClick={() => updateSort("status")}
+                className="text-blue-500"
+              />
+            )}
+          </Button>
         );
       },
       cell: ({ row }) => {
@@ -152,22 +177,27 @@ export const jobColumns = (
     {
       accessorKey: "applicationMethod",
       header: () => {
+                const field: SortFilterItem<Job> | undefined = sortingFields.find(
+          (sort) => sort.field === "applicationMethod"
+        );
         return (
-          <DataTableColumnHeaderItem
-            {...{
-              title: t("pages.findAll.columns.applicationMethod"),
-              filterType: "select",
-              selectFilterValue: getJobSApplicationMethodWithTranslation(t),
-              updateSort: (direction: "asc" | "desc" | "none") =>
-                updateSort("applicationMethod", direction),
-              sortDirection: params.sorting.find(
-                (sortItem) => sortItem.field === "applicationMethod"
-              )?.direction,
-                                          filterValue: params.applicationMethod,
-              setFilterValue: (value: string) =>
-                setFilter("applicationMethod", value),
-            }}
-          />
+          <Button variant="ghost" onClick={() => updateSort("applicationMethod")}>
+            {t("pages.findAll.columns.applicationMethod")}
+
+            {!field && <ArrowDownUp onClick={() => updateSort("applicationMethod")} />}
+            {field?.direction === "asc" && (
+              <ArrowUpWideNarrow
+                onClick={() => updateSort("applicationMethod")}
+                className="text-blue-500"
+              />
+            )}
+            {field?.direction === "desc" && (
+              <ArrowDownWideNarrow
+                onClick={() => updateSort("applicationMethod")}
+                className="text-blue-500"
+              />
+            )}
+          </Button>
         );
       },
       cell: ({ row }) => {
@@ -177,21 +207,28 @@ export const jobColumns = (
 
     {
       accessorKey: "appliedAt",
-      header: ({ column }) => {
+      header: () => {
+                const field: SortFilterItem<Job> | undefined = sortingFields.find(
+          (sort) => sort.field === "appliedAt"
+        );
         return (
-          <DataTableColumnHeaderItem
-            {...{
-              title: t("pages.findAll.columns.appliedAt"),
-              filterType: "datePicker",
+          <Button variant="ghost" onClick={() => updateSort("appliedAt")}>
+            {t("pages.findAll.columns.appliedAt")}
 
-              updateSort: (direction: "asc" | "desc" | "none") =>
-                updateSort("appliedAt", direction),
-              sortDirection: params.sorting.find(
-                (sortItem) => sortItem.field === "appliedAt"
-              )?.direction,
-              setFilterValue: (value: string) => setFilter("appliedAt", value),
-            }}
-          />
+            {!field && <ArrowDownUp onClick={() => updateSort("appliedAt")} />}
+            {field?.direction === "asc" && (
+              <ArrowUpWideNarrow
+                onClick={() => updateSort("appliedAt")}
+                className="text-blue-500"
+              />
+            )}
+            {field?.direction === "desc" && (
+              <ArrowDownWideNarrow
+                onClick={() => updateSort("appliedAt")}
+                className="text-blue-500"
+              />
+            )}
+          </Button>
         );
       },
       cell: ({ row }) => {
@@ -241,7 +278,3 @@ export const jobColumns = (
     },
   ];
 };
-
-
-
-
