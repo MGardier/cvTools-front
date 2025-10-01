@@ -57,7 +57,14 @@ export const DataTableHeader = ({
       },
     });
 
-  const 
+  const setFilter = (field: string, value: string)=>
+    setParams((prevParams)=> {
+      return {
+        ...prevParams,
+        [field] : value
+      }
+    })
+  
 
   return (
     <div className="md: flex  justify-between items-center py-4 mx-2">
@@ -77,8 +84,9 @@ export const DataTableHeader = ({
             <div className="flex  flex-col justify-center items-center gap-4">
 
               <FilterTextField 
-              {...{label,
-                defaultValue : params.jobTitle
+              {...{label: "",
+                defaultValue : params.jobTitle,
+                setFilter : (value: string)=> setFilter("jobTitle",value)
                 
               }}/>
 

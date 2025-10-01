@@ -7,10 +7,7 @@ export interface DataTableParams<TData> {
  
 }
 
-export interface SortFilterItem<TData> {
-  field: keyof TData;
-  direction : 'asc' | 'desc' 
-}
+
 
 export interface EnumWithTranslationItem {
   label : string;

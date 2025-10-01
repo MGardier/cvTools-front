@@ -15,22 +15,25 @@ export const FilterTextField = ({
   setFilter,
 }: FilterTextFieldProps) => {
   const [value, setValue] = useState(defaultValue);
-  const debouncedSetFilter = debounce((value: string) => setFilter(value), 500);
+  const debouncedSetFilter = debounce((value: string) => setFilter(value), 2000);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setValue(value);
     debouncedSetFilter(value);
   };
-  <div className="grid flex-1 gap-2">
-    <Label htmlFor="link" className="">
-      Recherche par titre
-    </Label>
-    <Input
-      type="text"
-      className="h-8 w-xs max-w-52 mx-auto mb-4"
-      value={value}
-      onChange={handleOnChange}
-    />
-  </div>;
+
+  return (
+    <div className="grid flex-1 gap-2">
+      <Label htmlFor="link" className="">
+        {label}
+      </Label>
+      <Input
+        type="text"
+        className="h-8 w-xs max-w-52 mx-auto mb-4"
+        value={value}
+        onChange={handleOnChange}
+      />
+    </div>
+  );
 };
