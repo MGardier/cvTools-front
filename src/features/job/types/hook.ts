@@ -7,8 +7,8 @@ import type { ApiErrors } from "@/types/api";
 import type { Job } from "@/types/entity";
 import type { jobFormSchema } from "../schema/job-schema";
 import type { UseQueryResult } from "@tanstack/react-query";
-import type { Dispatch, SetStateAction } from "react";
-import type { DataTableParams } from "@/types/data-table";
+
+import type { IUsePaginationReturn, IUseSortingReturn } from "@/types/hook";
 
 /**************** FORM *********************************************/
 
@@ -47,12 +47,11 @@ export interface UseJobsListReturn {
   isPending: boolean;
   isError: boolean;
   t: TFunction<'job', undefined>;
+  sortingManager : IUseSortingReturn<Job> ;
+  paginationManager : IUsePaginationReturn ;
   data?: Job[]
   count?: number,
   maxPage: number 
-  params :DataTableParams
-  setParams :  Dispatch<SetStateAction<DataTableParams>>
-
 
 }
 

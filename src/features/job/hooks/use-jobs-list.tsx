@@ -6,32 +6,55 @@ import type { UseJobsListReturn } from "../types/hook";
 import type { ApiErrors,  FilterDataResponse } from "@/types/api";
 import { JobService } from "../job.service";
 import type { Job } from "@/types/entity";
-import {  useState } from "react";
-import type { FindAllJobParams } from "../types/data-table";
+import {  useEffect, useState } from "react";
+
+import { useSorting } from "@/hooks/useSorting";
+import { usePagination } from "@/hooks/usePagination";
 
 export const useJobsList = (initialPage :number = 1, initialLimit : number = 5): UseJobsListReturn => {
   const { t } = useTranslation("job");
   const userId = Number(useAuthStore().user?.id);
-  const defaultParams = {
-    currentPage : initialPage || 1 ,
-    limit : initialLimit || 5,
-    sorting : [],
-    jobTitle: "",
-    enterprise: "",
-    status : undefined,
-    applicationMethod : undefined,
-    appliedAt :{
-      value: undefined,
-      operator : undefined,
-      secondValue:undefined
-    }
 
-  }
+  const sortingManager = useSorting<Job>();
+  const paginationManager = usePagination(5,0);
 
-  const [params,setParams] = useState<FindAllJobParams>(defaultParams);
+  // const defaultParams = {
+  //   currentPage : initialPage || 1 ,
+  //   limit : initialLimit || 5,
+  //   jobTitle: "",
+  //   enterprise: "",
+  //   status : undefined,
+  //   applicationMethod : undefined,
+  //   appliedAt :{
+  //     value: undefined,
+  //     operator : undefined,
+  //     secondValue:undefined
+  //   }
+
+  // }
+
+const params  = {
+  page :paginationManager.pagination.page,
+  limit :paginationManager.pagination.limit,
+  sorting: sortingManager.sorting
+
+}
  
+const queryKey = [
+  'jobs',
+  'findAllByUser',
+  {
+    userId,
+    page: paginationManager.pagination.page,
+    limit: paginationManager.pagination.limit,
+    sorting: sortingManager.sorting, 
+  },
+] as const;
+
+
+
   const { data, isPending,isError } = useQuery<FilterDataResponse<Job>, ApiErrors>({
-    queryKey: [`findAllJobByUser-${userId}`,params],
+    queryKey,
     queryFn: () => JobService.findAll(userId,params),
 
     //data expiration for cache in  ms
@@ -41,8 +64,13 @@ export const useJobsList = (initialPage :number = 1, initialLimit : number = 5):
     staleTime : 60*60*1000
     
   },);
-  console.log(params)
   
+   useEffect(() => {
+    if (data?.count !== undefined) {
+      paginationManager.setTotalItems(data.count);
+    }
+  }, [data?.count]);
 
-  return { data : data?.data, count: data?.count, maxPage : data?.maxPage!, isPending, isError, t ,params,setParams};
+
+  return { sortingManager,paginationManager, data : data?.data, count: data?.count, maxPage : data?.maxPage!, isPending, isError, t };
 };

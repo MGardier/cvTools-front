@@ -1,6 +1,8 @@
 
 /**************************   SORTING  ***********************************************************/
 
+
+
 export interface ISortingItem<TData> {
   field: keyof TData;
   order: 'asc' | 'desc'
@@ -10,7 +12,7 @@ export interface IUseSortingReturn<TData> {
 
   sorting: ISortingItem<TData>[];
   updateSorting: (field: keyof TData) => void;
-  getSortOrder: (field: keyof TData) => "asc" | "desc" | "none"
+  getSortOrder : (field: keyof TData) => "asc" | "desc" | "none";
   clearSorting: () => void
 
 }
@@ -21,6 +23,7 @@ export interface IUseSortingReturn<TData> {
 export interface IPaginationItem {
   page: number;
   limit: number;
+  totalItems: number
 }
 
 export interface IUsePaginationReturn {
@@ -33,6 +36,8 @@ export interface IUsePaginationReturn {
   canGoNext: () => boolean;
   canGoPrev: () => boolean;
   getTotalPages: ()=>number;
+  setTotalItems: (totalItems: number)=> void ;
+
 
 
 }

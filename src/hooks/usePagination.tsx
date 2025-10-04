@@ -3,11 +3,12 @@ import { useCallback, useState } from "react";
 
 export const usePagination = (
   initialSize: number = 10,
-  totalItems: number
+  initialTotalItems: number
 ): IUsePaginationReturn => {
   const [pagination, setPagination] = useState<IPaginationItem>({
     page: 1,
     limit: initialSize,
+    totalItems : initialTotalItems
   });
 
   const setLimit = useCallback(
@@ -18,7 +19,9 @@ export const usePagination = (
     []
   );
 
-  const getTotalPages = useCallback(()=>  Math.ceil(totalItems / pagination.limit),[pagination.limit, totalItems])
+  const getTotalPages = useCallback(()=>  Math.ceil(pagination.totalItems / pagination.limit),[pagination.limit, pagination.totalItems])
+
+  const setTotalItems = useCallback((totalItems : number ) : void =>  setPagination((prev)=> {return{...prev,totalItems}}),[])
 
 
   const canGoNext = useCallback(
@@ -56,9 +59,11 @@ export const usePagination = (
 
   const clearPagination = useCallback(
     () =>
-      setPagination({
+      setPagination( {
         page: 1,
         limit: initialSize,
+        totalItems : initialTotalItems
+        
       }),
     [initialSize]
   );
@@ -72,6 +77,7 @@ export const usePagination = (
     canGoPrev,
     nextPage,
     prevPage,
-    getTotalPages  ,
+    getTotalPages,
+    setTotalItems
   };
 };

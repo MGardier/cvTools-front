@@ -6,44 +6,45 @@ import {
 
 } from "../ui/pagination";
 import { DataTablePaginationItem } from "./data-table-pagination-item";
-import type { Dispatch, SetStateAction } from "react";
+
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
-import type { DataTableParams } from "@/types/data-table";
+
+import type { IUsePaginationReturn, IUseSortingReturn } from "@/types/hook";
 
 //TODO : Typage
 
 interface DataTablePaginationProps {
-  currentPage: number;
-  maxPage: number;
-  setParams: Dispatch<SetStateAction<DataTableParams<any>>>;
+  paginationManager : IUsePaginationReturn
 }
 //TODO :grise si pas pooyuvoir utiliser
 export const DataTablePagination = ({
-  currentPage,
-  setParams,
-  maxPage,
+paginationManager
 }: DataTablePaginationProps) => {
+
+
+  const {pagination,canGoNext,canGoPrev,nextPage,prevPage,setPage,getTotalPages} = paginationManager;
+
   const paginations = [
     {
       icon: ChevronsLeft,
-      handleClick: () =>  currentPage !==  1 && setParams((prevParams) => {return {...prevParams, currentPage : 1}}),
+      handleClick: () =>  setPage(1),
     },
     {
       icon: ChevronLeftIcon,
-      handleClick: () =>  currentPage > 1 && setParams((prevParams) => {return {...prevParams, currentPage : prevParams.currentPage - 1}}),
+      handleClick: () =>  canGoPrev() && prevPage(),
     },
     {
       icon: ChevronRightIcon,
-      handleClick: () =>  currentPage < maxPage &&  setParams((prevParams) => {return {...prevParams, currentPage : prevParams.currentPage + 1}}),
+      handleClick: () => canGoNext() && nextPage(),
     },
     {
       icon: ChevronsRight,
-      handleClick: () => currentPage < maxPage && setParams((prevParams) => {return {...prevParams, currentPage : maxPage}}),
+      handleClick: () => setPage(getTotalPages()),
     },
   ];
 

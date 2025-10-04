@@ -10,7 +10,6 @@ import {
 import type { Column } from "@tanstack/react-table";
 import type { Job } from "@/types/entity";
 import { useNavigate } from "react-router-dom";
-import type { FindAllJobParams } from "@/features/job/types/data-table";
 import type { Dispatch, SetStateAction } from "react";
 import {
   Dialog,
@@ -29,8 +28,7 @@ import { FilterTextField } from "./filter-text-field";
 interface DataTableHeaderProps {
   columns: Column<Job, unknown>[];
   addItemLink: string;
-  params: FindAllJobParams;
-  setParams: Dispatch<SetStateAction<FindAllJobParams>>;
+
 }
 
 export const DataTableHeader = ({
@@ -57,14 +55,13 @@ export const DataTableHeader = ({
       },
     });
 
-  const setFilter = (field: string, value: string)=>
-    setParams((prevParams)=> {
+  const setFilter = (field: string, value: string) =>
+    setParams((prevParams) => {
       return {
         ...prevParams,
-        [field] : value
-      }
-    })
-  
+        [field]: value,
+      };
+    });
 
   return (
     <div className="md: flex  justify-between items-center py-4 mx-2">
@@ -82,57 +79,57 @@ export const DataTableHeader = ({
               <DialogDescription>Filtrer les candidatures.</DialogDescription>
             </DialogHeader>
             <div className="flex  flex-col justify-center items-center gap-4">
-
-              <FilterTextField 
-              {...{label: "",
-                defaultValue : params.jobTitle,
-                setFilter : (value: string)=> setFilter("jobTitle",value)
-                
-              }}/>
+              <FilterTextField
+                {...{
+                  label: "",
+                  defaultValue: params.jobTitle,
+                  setFilter: (value: string) => setFilter("jobTitle", value),
+                }}
+              />
 
               <div className="grid flex-1 gap-2">
                 <Label htmlFor="link" className="">
                   Recherche par titre
                 </Label>
                 <Input
-                type="text"
-                className="h-8 w-xs max-w-52 mx-auto mb-4"
-                value={params.jobTitle}
-                onChange={(e)=> setParams((prevParams)=> {return {
-                  ...prevParams,
-                  jobTitle : e.target.value
-                }}) }
-              />
-
+                  type="text"
+                  className="h-8 w-xs max-w-52 mx-auto mb-4"
+                  value={params.jobTitle}
+                  onChange={(e) =>
+                    setParams((prevParams) => {
+                      return {
+                        ...prevParams,
+                        jobTitle: e.target.value,
+                      };
+                    })
+                  }
+                />
               </div>
 
-                            <div className="grid flex-1 gap-2">
+              <div className="grid flex-1 gap-2">
                 <Label htmlFor="link" className="">
                   Recherche par Entreprise
                 </Label>
                 <Input
-                type="text"
-                className="h-8 w-xs max-w-52 mx-auto mb-4"
-                value={params.jobTitle}
-               // onChange={handleChange}
-              />
-
+                  type="text"
+                  className="h-8 w-xs max-w-52 mx-auto mb-4"
+                  value={params.jobTitle}
+                  // onChange={handleChange}
+                />
               </div>
 
-                                          <div className="grid flex-1 gap-2">
+              <div className="grid flex-1 gap-2">
                 <Label htmlFor="link" className="">
                   Egal au Statut
                 </Label>
                 <Input />
-
               </div>
 
-                                                        <div className="grid flex-1 gap-2">
+              <div className="grid flex-1 gap-2">
                 <Label htmlFor="link" className="">
-                  Par Postuler via 
+                  Par Postuler via
                 </Label>
                 <Input />
-
               </div>
             </div>
             <DialogFooter className="sm:justify-end">
@@ -144,7 +141,6 @@ export const DataTableHeader = ({
             </DialogFooter>
           </DialogContent>
         </Dialog>
-
         <Button
           className="flex  gap-2  text-white"
           variant="blue"

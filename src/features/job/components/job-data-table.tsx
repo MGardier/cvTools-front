@@ -36,29 +36,32 @@ import {
 } from "@/components/ui/select";
 import { DataTableHeader } from "@/components/data-table/data-table-header";
 import { ROUTES } from "@/data/routes";
-import type { FindAllJobParams } from "../types/data-table";
+
+import type { IUsePaginationReturn, IUseSortingReturn } from "@/types/hook";
 
 interface JobDataTableProps {
   data: Job[];
   t: TFunction<"job", undefined>;
   count?: number;
-  params: FindAllJobParams;
-  setParams: Dispatch<SetStateAction<FindAllJobParams>>;
+
   maxPage?: number;
+  sortingManager : IUseSortingReturn<Job>
+  paginationManager: IUsePaginationReturn
+
 }
 
 //TODO: Ajouter le isFavorites ou is Archived
 
 export const JobDatable = ({
+  sortingManager,
   t,
   data,
   count,
-  setParams,
-  params,
+  paginationManager,
   maxPage,
 }: JobDataTableProps) => {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const columns = useMemo(() => jobColumns(t, params, setParams), [params]);
+  const columns = useMemo(() => jobColumns(t, sortingManager),[t,sortingManager]);
   const table = useReactTable<Job>({
     data,
     columns,
@@ -73,7 +76,7 @@ export const JobDatable = ({
   const limitSelect = [5, 10, 15, 20];
   return (
     <div className="w-full flex flex-col mt-4 ">
-      <DataTableHeader
+      {/* <DataTableHeader
         {...{
           params,
           setParams,
@@ -82,7 +85,7 @@ export const JobDatable = ({
             .filter((column) => column.getCanHide()),
           addItemLink: `/${ROUTES.job.create}`,
         }}
-      />
+      /> */}
 
       <div className="overflow-hidden rounded-md border">
         <Table>
@@ -138,13 +141,10 @@ export const JobDatable = ({
         </Table>
       </div>
 
-      <div className="flex items-center justify-between gap-2  py-4">
-        <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
+      <div className="flex items-center justify-center gap-2  py-4">
 
-        <div className="hidden items-center gap-2 lg:flex w-content">
-          {/* ajouter le nombre de de pages sur */}
+        {/* <div className="hidden items-center gap-2 lg:flex w-content">
+
           <Label>{t("pages.findAll.limitPerPage")}</Label>
           <Select
             required
@@ -166,14 +166,12 @@ export const JobDatable = ({
               ))}
             </SelectContent>
           </Select>
-        </div>
+        </div> */}
 
         <div className="space-x-2 ">
           <DataTablePagination
             {...{
-              currentPage: params.currentPage,
-              setParams,
-              maxPage: maxPage!,
+              paginationManager
             }}
           />
         </div>
