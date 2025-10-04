@@ -1,13 +1,17 @@
 
 
-export interface DataTableParams<TData> {
-  currentPage : number;
+export interface IDataTableParams<TData> {
+  page : number;
   limit: number;
-  sorting : SortFilterItem<TData>[]
+  sorting : ISortFilterItem<TData>[]
  
 }
 
 
+export interface ISortFilterItem<TData> {
+  field: keyof TData;
+  order : 'asc' | 'desc'
+}
 
 export interface EnumWithTranslationItem {
   label : string;
@@ -15,8 +19,8 @@ export interface EnumWithTranslationItem {
 }
 
 export interface DateFilterParams {
-  value?: Date;
-   operator?: 'equals' | 'before' | 'after' | 'between';
+  value: Date;
+  operator: 'equals' | 'before' | 'after' | 'between';
   secondValue?: Date;
   
 }

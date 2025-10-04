@@ -2,7 +2,7 @@ import type { Job } from "@/types/entity";
 import { jobApi } from "./job.api";
 import type { CreateJobParams, UpdateJobParams } from "./types/api";
 import type {  FilterDataResponse } from "@/types/api";
-import type { FindAllJobParams } from "./types/data-table";
+import type {  IFindAllJobParams } from "./types/data-table";
 
 
 
@@ -29,23 +29,17 @@ export const JobService = {
 
   /**************** FIND ALL ************************************************************/
 
-  async findAll(userId: number, params  : FindAllJobParams ): Promise<FilterDataResponse<Job>> {
-    const {limit,currentPage,sorting,jobTitle, enterprise, status,applicationMethod} = params
+  async findAll(userId: number, params  : IFindAllJobParams ): Promise<FilterDataResponse<Job>> {
+    const {sorting, ...restParams} = params
     //retirer limit , sort dans un  util 
     const filterParams = {
 
-      ...(limit ? {limit }: {limit: 6} ),
-      ...(currentPage ? {page: currentPage }: {page: 1} ),
-      ...(jobTitle ? {jobTitle }: {} ),
-      ...(enterprise ? {enterprise }: {} ),
-      ...(status ? {status }: {} ),
-      ...(applicationMethod ? {applicationMethod }: {} ),
-      ...(sorting.length >0 ? {sort: (sorting.map((sortItem)=> `${sortItem.field}:${sortItem.direction}`)).join()}: {}),
+      ...(sorting.length >0 ? {sort: (sorting.map((sortItem)=> `${sortItem.field}:${sortItem.order}`)).join()}: {}),
 
   
     };
 
-    const response = await jobApi.findAll(userId,filterParams);
+    const response = await jobApi.findAll(userId,{...filterParams,...restParams});
     return response.data;
   },
 

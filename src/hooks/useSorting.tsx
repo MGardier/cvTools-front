@@ -6,6 +6,7 @@ export const useSorting = <TData,>(
 ): IUseSortingReturn<TData> => {
   const [sorting, setSorting] = useState<ISortingItem<TData>[]>(intialFields);
 
+
   const updateSorting = useCallback((field: keyof TData) => {
     setSorting((prev) => {
       const existingIndex = prev.findIndex((s) => s.field === field);
@@ -25,17 +26,19 @@ export const useSorting = <TData,>(
     });
   }, []);
 
-    const getSortOrder = useCallback(
+  const getSortOrder = useCallback(
     (field: keyof TData): "asc" | "desc" | "none" => {
+      // ✅ Lit depuis ref (toujours à jour)
       const item = sorting.find((s) => s.field === field);
       return item?.order ?? "none";
     },
-    [sorting]
+    [sorting] // ✅ Pas de deps (fonction stable)
   );
+
 
   const clearSorting = useCallback(() => {
     setSorting([]);
   }, []);
 
-  return { sorting, updateSorting,clearSorting , getSortOrder};
+  return { sorting, updateSorting,getSortOrder,clearSorting };
 };
