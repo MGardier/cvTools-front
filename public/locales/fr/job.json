@@ -30,7 +30,8 @@
       },
       "limitPerPage" :"Éléments par page",
       "next": "Suivant",
-      "previous": "Précédent"
+      "previous": "Précédent",
+      "currentPageOnMaxPage" :"Page {{currentPage}} sur {{maxPage}}"
     }
   },
 

@@ -20,8 +20,6 @@ export const ColumnHeader = <TData,>({
 }: ColumnHeaderProps<TData>) => {
   const handleClick = () => sortingManager.updateSorting(column);
   const sortOrder = sortingManager.getSortOrder(column);
-  if(column ==="jobTitle")
-    console.log(sortOrder)
   return (
     <Button variant="ghost" onClick={handleClick}>
       {title}

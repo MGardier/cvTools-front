@@ -171,7 +171,8 @@ export const JobDatable = ({
         <div className="space-x-2 ">
           <DataTablePagination
             {...{
-              paginationManager
+              paginationManager,
+              labelCurrentPageOnMaxPage : t("pages.findAll.currentPageOnMaxPage",{currentPage : paginationManager.pagination.page, maxPage : paginationManager.getTotalPages()})
             }}
           />
         </div>

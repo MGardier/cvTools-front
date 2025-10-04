@@ -1,10 +1,4 @@
-
-import {
-  Pagination,
-  PaginationContent,
-
-
-} from "../ui/pagination";
+import { Pagination, PaginationContent } from "../ui/pagination";
 import { DataTablePaginationItem } from "./data-table-pagination-item";
 
 import {
@@ -14,51 +8,57 @@ import {
   ChevronsRight,
 } from "lucide-react";
 
-import type { IUsePaginationReturn, IUseSortingReturn } from "@/types/hook";
+import type { IUsePaginationReturn } from "@/types/hook";
 
-//TODO : Typage
+
 
 interface DataTablePaginationProps {
-  paginationManager : IUsePaginationReturn
+  paginationManager: IUsePaginationReturn;
+  labelCurrentPageOnMaxPage: string
 }
-//TODO :grise si pas pooyuvoir utiliser
+
 export const DataTablePagination = ({
-paginationManager
+  paginationManager,
+  labelCurrentPageOnMaxPage,
 }: DataTablePaginationProps) => {
-
-
-  const {pagination,canGoNext,canGoPrev,nextPage,prevPage,setPage,getTotalPages} = paginationManager;
-
-  const paginations = [
-    {
-      icon: ChevronsLeft,
-      handleClick: () =>  setPage(1),
-    },
-    {
-      icon: ChevronLeftIcon,
-      handleClick: () =>  canGoPrev() && prevPage(),
-    },
-    {
-      icon: ChevronRightIcon,
-      handleClick: () => canGoNext() && nextPage(),
-    },
-    {
-      icon: ChevronsRight,
-      handleClick: () => setPage(getTotalPages()),
-    },
-  ];
+  const {
+    canGoNext,
+    canGoPrev,
+    nextPage,
+    prevPage,
+    setPage,
+    getTotalPages,
+  } = paginationManager;
 
   return (
     <Pagination>
       <PaginationContent className="gap-1 md:gap-2">
-        {paginations.map((pagination,index) => {
-          const Icon = pagination.icon;
-          return (
-            <DataTablePaginationItem key={index} handleClick={pagination.handleClick}>
-              <Icon />
-            </DataTablePaginationItem>
-          );
-        })}
+        <DataTablePaginationItem key="firstPage" handleClick={() => setPage(1)}>
+          <ChevronsLeft />
+        </DataTablePaginationItem>
+        <DataTablePaginationItem
+          key="prevPage"
+          handleClick={() => canGoPrev() && prevPage()}
+        >
+          <ChevronLeftIcon />
+        </DataTablePaginationItem>
+        <span className="flex items-center justify-items-center gap-2 text-sm text-gray-600">
+          {labelCurrentPageOnMaxPage}
+        </span>
+
+        <DataTablePaginationItem
+          key="nextPage"
+          handleClick={() => canGoNext() && nextPage()}
+        >
+          <ChevronRightIcon />
+        </DataTablePaginationItem>
+
+        <DataTablePaginationItem
+          key="lastPage"
+          handleClick={() => setPage(getTotalPages())}
+        >
+          <ChevronsRight />
+        </DataTablePaginationItem>
       </PaginationContent>
     </Pagination>
   );

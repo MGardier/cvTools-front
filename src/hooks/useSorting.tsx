@@ -28,11 +28,10 @@ export const useSorting = <TData,>(
 
   const getSortOrder = useCallback(
     (field: keyof TData): "asc" | "desc" | "none" => {
-      // ✅ Lit depuis ref (toujours à jour)
       const item = sorting.find((s) => s.field === field);
       return item?.order ?? "none";
     },
-    [sorting] // ✅ Pas de deps (fonction stable)
+    [sorting]
   );
 
 
