@@ -5,17 +5,9 @@ import {
   useReactTable,
   type VisibilityState,
 } from "@tanstack/react-table";
-import { useMemo, useState, type Dispatch, type SetStateAction } from "react";
+import { useMemo, useState } from "react";
 import { jobColumns } from "./job-columns";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { ArrowDown, ChevronDown, Plus } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import {
   Table,
   TableBody,
@@ -34,20 +26,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DataTableHeader } from "@/components/data-table/data-table-header";
-import { ROUTES } from "@/data/routes";
 
 import type { IUsePaginationReturn, IUseSortingReturn } from "@/types/hook";
+import { DataTableHeader } from "@/features/job/components/data-table-header";
+import type { IFiltersJobManager } from "../types/hook";
+import { ROUTES } from "@/data/routes";
 
 interface JobDataTableProps {
   data: Job[];
   t: TFunction<"job", undefined>;
-  count?: number;
-
-  maxPage?: number;
-  sortingManager : IUseSortingReturn<Job>
-  paginationManager: IUsePaginationReturn
-
+  filtersJobManager : IFiltersJobManager
+  sortingManager: IUseSortingReturn<Job>;
+  paginationManager: IUsePaginationReturn;
 }
 
 //TODO: Ajouter le isFavorites ou is Archived
@@ -56,12 +46,14 @@ export const JobDatable = ({
   sortingManager,
   t,
   data,
-  count,
   paginationManager,
-  maxPage,
+  filtersJobManager
 }: JobDataTableProps) => {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const columns = useMemo(() => jobColumns(t, sortingManager),[t,sortingManager]);
+  const columns = useMemo(
+    () => jobColumns(t, sortingManager),
+    [t, sortingManager]
+  );
   const table = useReactTable<Job>({
     data,
     columns,
@@ -70,22 +62,51 @@ export const JobDatable = ({
     state: { columnVisibility },
     /* MANUAL OPTIONS FOR SERVER SIDE */
     manualPagination: true,
-    pageCount: maxPage,
   });
 
-  const limitSelect = [5, 10, 15, 20];
+
+  const clearParams =  ()=> {
+    sortingManager.clearSorting()
+    paginationManager.clearPagination()
+    filtersJobManager.clearFilters()
+  }
+
+  const limitSelect = [5, 10, 15, 30, 50, 100];
+  const columnsChoices = [{
+    label : "Titre",
+    value : "jobTitle"
+  },
+  {
+    label : "Entreprise",
+    value : "enterprise"
+  },
+  {
+    label : "Status",
+    value : "status"
+  },
+    {
+    label : "Postuler via",
+    value : "applicationMethod"
+  },
+      {
+    label : "Postuler le",
+    value : "appliedAt"
+  },
+]
   return (
     <div className="w-full flex flex-col mt-4 ">
-      {/* <DataTableHeader
+      <DataTableHeader
         {...{
-          params,
-          setParams,
+          t,
+          filtersJobManager,
+          clearParams,
           columns: table
             .getAllColumns()
             .filter((column) => column.getCanHide()),
           addItemLink: `/${ROUTES.job.create}`,
+          columnsChoices
         }}
-      /> */}
+      />
 
       <div className="overflow-hidden rounded-md border">
         <Table>
@@ -142,20 +163,30 @@ export const JobDatable = ({
       </div>
 
       <div className="flex items-center justify-center gap-2  py-4">
-
-        {/* <div className="hidden items-center gap-2 lg:flex w-content">
-
+        <div className="space-x-2 ">
+          <DataTablePagination
+            {...{
+              paginationManager,
+              labelCurrentPageOnMaxPage: t(
+                "pages.findAll.currentPageOnMaxPage",
+                {
+                  currentPage: paginationManager.pagination.page,
+                  maxPage: paginationManager.getTotalPages(),
+                }
+              ),
+            }}
+          />
+        </div>
+        <div className="hidden items-center gap-2 lg:flex  w-content">
           <Label>{t("pages.findAll.limitPerPage")}</Label>
           <Select
             required
-            onValueChange={(value) =>
-              setParams((prevParams) => {
-                return { ...prevParams, limit: Number(value), currentPage: 1 };
-              })
+            onValueChange={(value: string) =>
+              paginationManager.setLimit(+value)
             }
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder={params.limit} />
+              <SelectValue placeholder={paginationManager.pagination.limit} />
             </SelectTrigger>
 
             <SelectContent>
@@ -166,15 +197,6 @@ export const JobDatable = ({
               ))}
             </SelectContent>
           </Select>
-        </div> */}
-
-        <div className="space-x-2 ">
-          <DataTablePagination
-            {...{
-              paginationManager,
-              labelCurrentPageOnMaxPage : t("pages.findAll.currentPageOnMaxPage",{currentPage : paginationManager.pagination.page, maxPage : paginationManager.getTotalPages()})
-            }}
-          />
         </div>
       </div>
     </div>

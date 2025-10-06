@@ -2,11 +2,12 @@ import type { IPaginationItem, IUsePaginationReturn } from "@/types/hook";
 import { useCallback, useState } from "react";
 
 export const usePagination = (
+  initialPage = 1,
   initialSize: number = 10,
   initialTotalItems: number
 ): IUsePaginationReturn => {
   const [pagination, setPagination] = useState<IPaginationItem>({
-    page: 1,
+    page: initialPage,
     limit: initialSize,
     totalItems : initialTotalItems
   });

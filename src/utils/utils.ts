@@ -1,7 +1,7 @@
-import type { EnumWithTranslationItem } from "@/types/data-table"
+
+import type { IEnumWithTranslationItem } from "@/types/form"
 import { clsx, type ClassValue } from "clsx"
 import type { TFunction } from "i18next"
-import { useMemo } from "react"
 import { twMerge } from "tailwind-merge"
 
 
@@ -12,7 +12,7 @@ export const cn = (...inputs: ClassValue[]): string => {
 }
 
 
-export const formatDate = (date: Date): string => {
+export const formatDate = (date: Date | string): string => {
   return new Date(date).toLocaleDateString("fr-FR", {
     day: "numeric",
     month: "long",
@@ -54,7 +54,7 @@ export const splitTextAtSpaces = (text: string, limit: number): string[] => {
   return texts;
 };
 
-export const getJobStatusWithTranslation = (t: TFunction<'job', undefined>): EnumWithTranslationItem[] => {
+export const getJobStatusWithTranslation = (t: TFunction<'job', undefined>): IEnumWithTranslationItem[] => {
   return [
     {
       value: "NEED_TO_CONTACT",
@@ -88,7 +88,7 @@ export const getJobStatusWithTranslation = (t: TFunction<'job', undefined>): Enu
 
 }
 
-export const getJobSApplicationMethodWithTranslation = (t: TFunction<'job', undefined>): EnumWithTranslationItem[] => {
+export const getJobSApplicationMethodWithTranslation = (t: TFunction<'job', undefined>): IEnumWithTranslationItem[] => {
   return [
     {
       value: "LINKEDIN",

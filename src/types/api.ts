@@ -19,7 +19,7 @@ export interface FilterParams {
   limit: number;
   page : number;
   sort?: string;
-  filter?: string;
+  filters?: string;
   
 }
 

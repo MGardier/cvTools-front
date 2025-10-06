@@ -30,12 +30,18 @@ export const JobService = {
   /**************** FIND ALL ************************************************************/
 
   async findAll(userId: number, params  : IFindAllJobParams ): Promise<FilterDataResponse<Job>> {
-    const {sorting, ...restParams} = params
+    const {sorting,filters, ...restParams} = params
     //retirer limit , sort dans un  util 
+    const existingFitlers = Object.entries(filters).map((f)=>{
+
+      if(f[1])
+        return `${f[0]}:${f[1]}`
+    }).filter((f)=> f).join()
+
     const filterParams = {
 
       ...(sorting.length >0 ? {sort: (sorting.map((sortItem)=> `${sortItem.field}:${sortItem.order}`)).join()}: {}),
-
+      ...(existingFitlers.length > 0 ?   {filters: existingFitlers} : {})
   
     };
 

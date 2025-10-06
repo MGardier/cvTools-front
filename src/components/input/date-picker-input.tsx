@@ -8,7 +8,7 @@ import { Calendar } from "../ui/calendar";
 import { formatDate } from "@/utils/utils";
 
 interface DatePickerInputProps {
-  value: string 
+  value: Date | string
   label: string;
   placeholder: string;
   required?: boolean;
@@ -28,11 +28,9 @@ export const DatePickerInput = ({
   const [date, setDate] = useState<Date>(new Date());
   const [month, setMonth] = useState<Date | undefined>(date);
   
-
-  //TODO: onCLick de l'input ouvrir aussi la calendar
-
+  
   return (
-    <div className="relative flex gap-2">
+    <div className="relative flex gap-2" >
       <Input
         id="date"
         value={value ? formatDate(value) : ""}
@@ -82,7 +80,7 @@ export const DatePickerInput = ({
             onMonthChange={setMonth}
             onSelect={(date) => {
               setDate(date!);
-              handleOnChange(formatDate(date));
+              handleOnChange(date!);
               setOpen(false);
             }}
           />

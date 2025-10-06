@@ -13,14 +13,3 @@ export interface ISortFilterItem<TData> {
   order : 'asc' | 'desc'
 }
 
-export interface EnumWithTranslationItem {
-  label : string;
-  value: string;
-}
-
-export interface DateFilterParams {
-  value: Date;
-  operator: 'equals' | 'before' | 'after' | 'between';
-  secondValue?: Date;
-  
-}
