@@ -14,10 +14,19 @@ import { useEffect, useState } from "react";
 import { useSorting } from "@/hooks/useSorting";
 import { usePagination } from "@/hooks/usePagination";
 
+
+//TODO : Navbar souligner les details visuels 
+
+
+//TODO : Donner des actions dans la data table 
+
+
 export const useJobsList = (
   initialPage: number = 1,
   initialLimit: number = 5
 ): IUseJobsListReturn => {
+
+
   const { t } = useTranslation("job");
   const userId = Number(useAuthStore().user?.id);
 
@@ -40,12 +49,12 @@ export const useJobsList = (
     setFiltersJob((prev) => {return {...prev,...filters}});
 
   
-
+//TODO : régler le soucis de la date parse
   const params = {
     page: paginationManager.pagination.page,
     limit: paginationManager.pagination.limit,
     sorting: sortingManager.sorting,
-    filters: {},
+    filters: filtersJob,
   };
 
   const queryKey = [
@@ -56,7 +65,7 @@ export const useJobsList = (
       page: paginationManager.pagination.page,
       limit: paginationManager.pagination.limit,
       sorting: sortingManager.sorting,
-      filters: {}
+      filters: filtersJob
     },
   ] as const;
 
@@ -78,7 +87,10 @@ export const useJobsList = (
     if (data?.count) {
       paginationManager.setTotalItems(data.count);
     }
-  }, [data?.count]);
+  }, [data?.count, paginationManager.setTotalItems]);
+
+
+  
 
   return {
     sortingManager,

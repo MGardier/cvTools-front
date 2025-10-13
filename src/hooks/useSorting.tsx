@@ -2,29 +2,44 @@ import type { IUseSortingReturn, ISortingItem } from "@/types/hook";
 import { useCallback, useState } from "react";
 
 export const useSorting = <TData,>(
-  intialFields: ISortingItem<TData>[] = []
+  initialFields: ISortingItem<TData>[] = []
 ): IUseSortingReturn<TData> => {
-  const [sorting, setSorting] = useState<ISortingItem<TData>[]>(intialFields);
+  const [sorting, setSorting] = useState<ISortingItem<TData>[]>(initialFields);
+
+
+/************** UDPATE FUNCTION ************** */
 
 
   const updateSorting = useCallback((field: keyof TData) => {
     setSorting((prev) => {
       const existingIndex = prev.findIndex((s) => s.field === field);
+
       if (existingIndex === -1)
-        return [...prev, { field, order: "asc" as const }];
+        return [...prev, { field, order: "asc" } as ISortingItem<TData>];
 
       const currentOrder = prev[existingIndex].order;
 
-      if (currentOrder === ("desc" as const))
+      if (currentOrder === "desc")
         return [...prev.filter((s) => s.field !== field)];
       else
         return [
           ...prev.map((s, i) =>
-            i === existingIndex ? { field, order: "desc" as const } : s
+            i === existingIndex
+              ? ({ field, order: "desc" } as ISortingItem<TData>)
+              : s
           ),
         ];
     });
   }, []);
+  
+
+  const clearSorting = useCallback(() => {
+    setSorting([]);
+  }, []);
+
+
+
+  /************** GETTER FUNCTION ************** */
 
   const getSortOrder = useCallback(
     (field: keyof TData): "asc" | "desc" | "none" => {
@@ -35,9 +50,13 @@ export const useSorting = <TData,>(
   );
 
 
-  const clearSorting = useCallback(() => {
-    setSorting([]);
-  }, []);
 
-  return { sorting, updateSorting,getSortOrder,clearSorting };
+  
+  return { 
+    sorting, 
+    updateSorting, 
+    getSortOrder, 
+    clearSorting 
+  };
+  
 };

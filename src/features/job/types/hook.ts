@@ -55,7 +55,6 @@ export interface IUseJobsListReturn {
 
 
 
-
 export interface IFiltersJobManager {
   filtersJob: IFiltersJob ;
   updateFilters: (filters : IFiltersJob) => void

@@ -6,79 +6,84 @@ export const usePagination = (
   initialSize: number = 10,
   initialTotalItems: number
 ): IUsePaginationReturn => {
+  
   const [pagination, setPagination] = useState<IPaginationItem>({
     page: initialPage,
     limit: initialSize,
-    totalItems : initialTotalItems
+    totalItems: initialTotalItems,
   });
 
-  const setLimit = useCallback(
-    (limit: number) =>
-      setPagination((prev) => {
-        return limit > 1 && limit <= 100 ? { ...prev, page: 1, limit } : prev;
-      }),
-    []
+
+  const getTotalPages = useCallback(
+    () => Math.ceil(pagination.totalItems / pagination.limit),
+    [pagination.limit, pagination.totalItems]
   );
 
-  const getTotalPages = useCallback(()=>  Math.ceil(pagination.totalItems / pagination.limit),[pagination.limit, pagination.totalItems])
 
-  const setTotalItems = useCallback((totalItems : number ) : void =>  setPagination((prev)=> {return{...prev,totalItems}}),[])
+  /********* UPDATE FUNCTION *********/
 
 
-  const canGoNext = useCallback(
-    () => getTotalPages() > pagination.page,
-    [pagination.page, getTotalPages]
-  );
+  const setLimit = useCallback((limit: number) => {
+    setPagination((prev) =>
+      limit > 1 && limit <= 100 ? { ...prev, page: 1, limit } : prev
+    );
+  }, []);
 
-  const canGoPrev = useCallback(() => 1 < pagination.page, [pagination.page]);
 
-  const setPage = useCallback(
-    (page: number) =>
-       setPagination((prev) => {
-            return page > 0 && page <= getTotalPages()
-        ?{ ...prev, page } : prev
-          })
-        ,
-    [getTotalPages]
-  );
+  const setTotalItems = useCallback((totalItems: number) => {
+    setPagination((prev) => ({ ...prev, totalItems }));
+  }, []);
 
-  const nextPage = useCallback(
-    () =>
-      setPagination((prev) => {
-        return canGoNext() ? { ...prev, page: prev.page + 1 } : prev;
-      }),
-    [canGoNext]
-  );
 
-  const prevPage = useCallback(
-    () =>
-      setPagination((prev) => {
-        return canGoPrev() ? { ...prev, page: prev.page - 1 } : prev;
-      }),
-    [canGoPrev]
-  );
+  const setPage = useCallback((page: number) => {
+    setPagination((prev) => {
+      const totalPages = Math.ceil(prev.totalItems / prev.limit); 
+      return page > 0 && page <= totalPages ? { ...prev, page } : prev;
+    });
+  }, []);
 
-  const clearPagination = useCallback(
-    () =>
-      setPagination( {
-        page: 1,
-        limit: initialSize,
-        totalItems : initialTotalItems
-        
-      }),
-    [initialSize]
-  );
+
+  const clearPagination = useCallback(() => {
+    setPagination({
+      page: 1,
+      limit: initialSize,
+      totalItems: initialTotalItems,
+    });
+  }, [initialSize, initialTotalItems]);
+
+
+
+
+ 
+  /********* NAVIGATION  FUNCTION *********/
+ 
+
+  const nextPage = useCallback(() => {
+    setPagination((prev) => {
+      const maxPage = Math.ceil(prev.totalItems / prev.limit); 
+      return prev.page < maxPage ? { ...prev, page: prev.page + 1 } : prev;
+    });
+  }, []);
+
+
+  const prevPage = useCallback(() => {
+    setPagination((prev) =>
+      prev.page > 1 ? { ...prev, page: prev.page - 1 } : prev
+    );
+  }, []);
+
+
 
   return {
     pagination,
     setPage,
     setLimit,
+    setTotalItems,
     clearPagination,
-    canGoNext,
-    canGoPrev,
+    getTotalPages,
     nextPage,
     prevPage,
-    getTotalPages,
-    setTotalItems
+    canGoNext: Math.ceil(pagination.totalItems / pagination.limit) > pagination.page,
+    canGoPrev: pagination.page > 1,
   };
 };

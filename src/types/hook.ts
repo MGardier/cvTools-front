@@ -12,7 +12,7 @@ export interface IUseSortingReturn<TData> {
 
   sorting: ISortingItem<TData>[];
   updateSorting: (field: keyof TData) => void;
-  getSortOrder : (field: keyof TData) => "asc" | "desc" | "none";
+  getSortOrder : (field: keyof TData) => 'asc' | 'desc' | 'none';
   clearSorting: () => void
 
 }
@@ -27,17 +27,19 @@ export interface IPaginationItem {
 }
 
 export interface IUsePaginationReturn {
+
   pagination: IPaginationItem;
+
   setPage: (page: number) => void
   setLimit: (limit: number) => void
   clearPagination: () => void
-  nextPage: () => void;
-  prevPage: () => void;
-  canGoNext: () => boolean;
-  canGoPrev: () => boolean;
-  getTotalPages: ()=>number;
   setTotalItems: (totalItems: number)=> void ;
 
+  nextPage: () => void;
+  prevPage: () => void;
 
+  canGoNext:  boolean;
+  canGoPrev: boolean;
+  getTotalPages: ()=>number;
 
 }
