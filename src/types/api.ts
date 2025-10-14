@@ -1,5 +1,5 @@
 
-export interface ApiResponse {
+export interface IApiResponse {
 
   success: boolean;
   statusCode: number;
@@ -11,19 +11,19 @@ export interface ApiResponse {
 
 
 
-export interface ApiErrors extends ApiResponse {
+export interface IApiErrors extends IApiResponse {
 
 }
 
-export interface FilterParams {
+
+export interface IFilterParams<TFilter extends object> {
   limit: number;
   page : number;
   sort?: string;
-  filters?: string;
-  
+  filters?: TFilter;
 }
 
-export interface FilterDataResponse<Tdata> {
+export interface IFilterDataResponse<Tdata> {
   data :Tdata[],
   count: number;
   limit: number;

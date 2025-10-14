@@ -55,7 +55,7 @@ export const DataTablePagination = ({
 
         <DataTablePaginationItem
           key="lastPage"
-          handleClick={() => setPage(getTotalPages())}
+          handleClick={() => getTotalPages() && setPage(getTotalPages()!)}
         >
           <ChevronsRight />
         </DataTablePaginationItem>

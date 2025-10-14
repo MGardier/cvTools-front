@@ -16,7 +16,7 @@ import { useState } from "react";
 import type { UseSendConfirmReturn } from "../types/hook";
 import { createSendConfirmAccountSchema } from "../schema/auth-schema";
 import type { SendConfirmAccountResponse } from "../types/api";
-import type { ApiErrors } from "@/types/api";
+import type { IApiErrors } from "@/types/api";
 import { authService } from "../auth.service";
 
 
@@ -38,7 +38,7 @@ export const useSendConfirmAccount = (defaultEmail: string | null): UseSendConfi
     defaultValues,
   });
 
-  const mutation= useMutation<SendConfirmAccountResponse,ApiErrors,z.infer<typeof schema>>({
+  const mutation= useMutation<SendConfirmAccountResponse,IApiErrors,z.infer<typeof schema>>({
     mutationFn: authService.sendConfirmAccount,
     onSuccess: (response)=>{
       toast.success(t("messages.success.sendConfirmAccount.short"))

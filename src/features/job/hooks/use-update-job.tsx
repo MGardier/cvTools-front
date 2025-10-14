@@ -6,11 +6,11 @@ import { jobApi } from "../job.api";
 import { queryClient } from "@/api/queryClient";
 import { toast } from "react-toastify";
 import { ROUTES } from "@/data/routes";
-import type { UpdateJobParams } from "../types/api";
-import type { ApiErrors } from "@/types/api";
+import type { IUpdateJobParams } from "../types/api";
+import type { IApiErrors } from "@/types/api";
 import type { jobFormSchema } from "../schema/job-schema";
 import type z from "zod";
-import type { UseUpdateJobReturn } from "../types/hook";
+import type { IUseUpdateJobReturn } from "../types/hook";
 import type { Job } from "@/types/entity";
 import { JobService } from "../job.service";
 
@@ -20,7 +20,7 @@ interface useUpdateJobProps {
 
 export const useUpdateJob = ({
   jobId,
-}: useUpdateJobProps): UseUpdateJobReturn => {
+}: useUpdateJobProps): IUseUpdateJobReturn => {
   const { t } = useTranslation("job");
 
   const navigate = useNavigate();
@@ -30,14 +30,14 @@ export const useUpdateJob = ({
 
   /*************************** QUERY ******************************************/
 
-  const query = useQuery<Job, ApiErrors>({
+  const query = useQuery<Job, IApiErrors>({
     queryKey: [`findOneJob-${jobId}-user-${userId}`],
     queryFn: () => jobApi.findOneById(jobId, userId),
   });
 
   /*************************** MUTATION ******************************************/
 
-  const mutation = useMutation<void, ApiErrors, UpdateJobParams>({
+  const mutation = useMutation<void, IApiErrors, IUpdateJobParams>({
     mutationFn: JobService.update,
     onSuccess: () => {
       queryClient.invalidateQueries({

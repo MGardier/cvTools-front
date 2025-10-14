@@ -2,7 +2,7 @@
 
 /************************************************** API ********************************/
 
-import type { ApiResponse } from "@/types/api";
+import type { IApiResponse } from "@/types/api";
 import type { User } from "@/types/entity";
 
 /************************************************** SIGNUP ********************************/
@@ -15,7 +15,7 @@ export interface SignUpParams {
 
 
 
-export interface SignUpResponse extends ApiResponse {
+export interface SignUpResponse extends IApiResponse {
   data: Pick<User, "id" | "email">
 }
 
@@ -24,7 +24,7 @@ export interface SignInParams extends SignUpParams {
 
 }
 
-export interface SignInResponse extends ApiResponse {
+export interface SignInResponse extends IApiResponse {
   data: {
     tokens: {
       accessToken: string;
@@ -38,7 +38,7 @@ export interface SignInResponse extends ApiResponse {
 
 /************************************************** LOGOUT ********************************/
 
-export interface LogoutResponse extends ApiResponse {
+export interface LogoutResponse extends IApiResponse {
   data: null
 }
 
@@ -49,7 +49,7 @@ export interface SendConfirmAccountParams {
 }
 
 
-export interface SendConfirmAccountResponse extends ApiResponse {
+export interface SendConfirmAccountResponse extends IApiResponse {
   data: Pick<User, "id" | "email" | "status">
 }
 
@@ -59,7 +59,7 @@ export interface ConfirmAccountParams {
 }
 
 
-export interface ConfirmAccountResponse extends ApiResponse {
+export interface ConfirmAccountResponse extends IApiResponse {
   data: Pick<User, "id" | "email" | "status">
 }
 
@@ -69,7 +69,7 @@ export interface SendForgotPasswordParams {
   email: string;
 }
 
-export interface SendForgotPasswordResponse extends ApiResponse {
+export interface SendForgotPasswordResponse extends IApiResponse {
   data: Pick<User, "id" | "email">
 }
 
@@ -79,7 +79,7 @@ export interface ResetPasswordParams {
   token: string;
 }
 
-export interface ResetPasswordResponse extends ApiResponse {
+export interface ResetPasswordResponse extends IApiResponse {
   data: null
 }
 

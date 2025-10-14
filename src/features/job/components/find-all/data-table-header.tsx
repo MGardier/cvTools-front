@@ -2,10 +2,8 @@ import { Plus, RotateCcw, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
 import { Input } from "@/components/ui/input";
 import type { IFiltersJob } from "@/features/job/types/hook";
-
 import {
   Sheet,
   SheetClose,
@@ -25,6 +23,7 @@ import {
 } from "@/utils/utils";
 import type { TFunction } from "i18next";
 import type { IUseFiltersReturn } from "@/types/hook";
+import type { JobApplyMethod, JobStatus } from "@/types/entity";
 
 interface JobDataTableHeaderProps {
   t: TFunction<"job", undefined>;
@@ -106,7 +105,9 @@ export const JobDataTableHeader = ({
             </SheetDescription>
           </SheetHeader>
           <div className="grid flex-1 auto-rows-min gap-6 px-4 py-4">
-            {/* Job Title Filter */}
+
+
+            {/* JOBTITLE */}
             <div className="grid gap-3">
               <Label htmlFor="filter-jobTitle">{t("filters.jobTitle")}</Label>
               <Input
@@ -117,7 +118,8 @@ export const JobDataTableHeader = ({
               />
             </div>
 
-            {/* Enterprise Filter */}
+
+            {/* ENTERPRISE */}
             <div className="grid gap-3">
               <Label htmlFor="filter-enterprise">{t("filters.enterprise")}</Label>
               <Input
@@ -128,11 +130,12 @@ export const JobDataTableHeader = ({
               />
             </div>
 
-            {/* Status Filter */}
+
+            {/* STATUS */}
             <div className="grid gap-3">
               <Label htmlFor="filter-status">{t("filters.status")}</Label>
               <SelectInput
-                handleOnChange={(value: string) => updateTempFilter("status", value as any)}
+                handleOnChange={(value: string) => updateTempFilter("status", value as typeof JobStatus[keyof typeof JobStatus])}
                 defaultValue={tempFilters.status}
                 required={false}
                 selectValues={getJobStatusWithTranslation(t)}
@@ -140,13 +143,14 @@ export const JobDataTableHeader = ({
               />
             </div>
 
-            {/* Application Method Filter */}
+
+            {/* APPLICATION METHOD */}
             <div className="grid gap-3">
               <Label htmlFor="filter-applicationMethod">
                 {t("filters.applicationMethod")}
               </Label>
               <SelectInput
-                handleOnChange={(value: string) => updateTempFilter("applicationMethod", value as any)}
+                handleOnChange={(value: string) => updateTempFilter("applicationMethod", value as typeof JobApplyMethod[keyof typeof JobApplyMethod])}
                 defaultValue={tempFilters.applicationMethod}
                 required={false}
                 selectValues={getJobSApplicationMethodWithTranslation(t)}
@@ -154,7 +158,8 @@ export const JobDataTableHeader = ({
               />
             </div>
 
-            {/* Applied At Filter */}
+
+            {/* APPLIED AT  */}
             <div className="grid gap-3">
               <Label htmlFor="filter-appliedAt">{t("filters.appliedAt")}</Label>
               <DatePickerInput
@@ -164,6 +169,8 @@ export const JobDataTableHeader = ({
                 handleOnChange={(value: Date) => updateTempFilter("appliedAt", value)}
               />
             </div>
+
+
           </div>
 
           <SheetFooter className="gap-2">

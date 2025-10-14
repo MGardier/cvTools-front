@@ -9,7 +9,7 @@ import { useCookieStore } from "@/store/cookie.store";
 import type { UseCompleteOauthReturn } from "../types/hook";
 import { useAuthStore } from "../auth.store";
 import type { SignInResponse } from "../types/api";
-import type { ApiErrors } from "@/types/api";
+import type { IApiErrors } from "@/types/api";
 import { authService } from "../auth.service";
 import { ROUTES } from "@/data/routes";
 
@@ -23,7 +23,7 @@ export const useGetOauthSession = (sessionId : string , loginMethod: string): Us
 
   const mutation = useMutation<
     SignInResponse,
-    ApiErrors,
+    IApiErrors,
     string
   >({
     mutationFn:  authService.getOauthSession,

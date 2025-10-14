@@ -14,7 +14,7 @@ import { useCookieStore } from "@/store/cookie.store";
 import type { UseLogoutReturn } from "../types/hook";
 import { useAuthStore } from "../auth.store";
 import type { LogoutResponse } from "../types/api";
-import type { ApiErrors } from "@/types/api";
+import type { IApiErrors } from "@/types/api";
 import { authService } from "../auth.service";
 
 export const useLogout = (): UseLogoutReturn => {
@@ -23,7 +23,7 @@ export const useLogout = (): UseLogoutReturn => {
   const authStore = useAuthStore();
   const cookieStore = useCookieStore();
 
-  const mutation = useMutation<LogoutResponse, ApiErrors>({
+  const mutation = useMutation<LogoutResponse, IApiErrors>({
     mutationFn: authService.logout,
     onSuccess: () => {
       authStore.resetAuth();

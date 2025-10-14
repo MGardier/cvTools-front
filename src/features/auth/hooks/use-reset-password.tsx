@@ -10,7 +10,7 @@ import { ROUTES } from "@/data/routes";
 import type { UseResetPasswordReturn } from "../types/hook";
 import { createResetPasswordSchema } from "../schema/auth-schema";
 import type { ResetPasswordResponse } from "../types/api";
-import type { ApiErrors } from "@/types/api";
+import type { IApiErrors } from "@/types/api";
 import { authService } from "../auth.service";
 
 
@@ -29,7 +29,7 @@ export const useResetPassword = (token: string): UseResetPasswordReturn => {
 
   const mutation = useMutation<
     ResetPasswordResponse,
-    ApiErrors,
+    IApiErrors,
     z.infer<typeof schema>
   >({
     mutationFn: (formData: z.infer<typeof schema>) =>

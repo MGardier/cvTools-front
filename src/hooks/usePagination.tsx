@@ -33,7 +33,7 @@ export const usePagination = (
 
   const setPage = useCallback((page: number): void => {
     setPagination((prev) => {
-      const totalPages = prev.totalItems ? Math.ceil(prev.totalItems / pagination.limit) : undefined;
+      const totalPages = prev.totalItems ? Math.ceil(prev.totalItems / prev.limit) : undefined;
       if(!totalPages)
         return prev;
       return page > 0 && page <= totalPages ? { ...prev, page } : prev;
@@ -53,7 +53,7 @@ export const usePagination = (
 
   const nextPage = useCallback((): void => {
     setPagination((prev) => {
-      const totalPages = prev.totalItems ? Math.ceil(prev.totalItems / pagination.limit) : undefined;
+      const totalPages = prev.totalItems ? Math.ceil(prev.totalItems / prev.limit) : undefined;
       if(!totalPages)
         return prev;
       return prev.page < totalPages ? { ...prev, page: prev.page + 1 } : prev;

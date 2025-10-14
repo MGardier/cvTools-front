@@ -1,19 +1,13 @@
-
-
 import type { Job } from "@/types/entity";
 import { formatDate, splitTextAtSpaces } from "@/utils/utils";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 import {
-
   Building2,
   Calendar,
 } from "lucide-react";
-
 import type { IUseSortingReturn } from "@/types/hook";
 import { ColumnHeader } from "@/components/data-table/column-header";
-
-
 
 
 export const jobColumns = (
@@ -116,7 +110,11 @@ export const jobColumns = (
         );
       },
       cell: ({ row }) => {
-        return row.getValue("applicationMethod");
+        <>            {t(
+              `pages.findAll.applicationMethod.${String(
+                row.getValue("applicationMethod")
+              ).toLowerCase()}`
+            )}</>
       },
     },
 

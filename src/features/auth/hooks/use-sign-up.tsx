@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/data/routes";
 
-import type { ApiErrors } from "@/types/api";
+import type { IApiErrors } from "@/types/api";
 import type { UseSignUpReturn } from "../types/hook";
 import { createSignUpSchema } from "../schema/auth-schema";
 import type { SignUpResponse } from "../types/api";
@@ -38,7 +38,7 @@ export const useSignUp = (): UseSignUpReturn => {
     defaultValues,
   });
 
-  const mutation = useMutation<SignUpResponse, ApiErrors, z.infer<typeof schema>>({
+  const mutation = useMutation<SignUpResponse, IApiErrors, z.infer<typeof schema>>({
     mutationFn: authService.signUp,
     onSuccess :(response)=> {
       toast.success(t("messages.success.signUp.short"))

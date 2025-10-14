@@ -5,20 +5,20 @@ import { useMutation } from "@tanstack/react-query";
 
 import { useAuthStore } from "@/features/auth/auth.store";
 import { toast } from "react-toastify";
-import type { ApiErrors } from "@/types/api";
+import type { IApiErrors } from "@/types/api";
 
 import { queryClient } from "@/api/queryClient";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/data/routes";
 import { jobFormSchema } from "../schema/job-schema";
-import type { UseCreateJobReturn } from "../types/hook";
+import type { IUseCreateJobReturn } from "../types/hook";
 import { JobService } from "../job.service";
-import type { CreateJobParams } from "../types/api";
+import type { ICreateJobParams } from "../types/api";
 
 
 
 
-export const useCreateJob = (): UseCreateJobReturn => {
+export const useCreateJob = (): IUseCreateJobReturn => {
   const { t } = useTranslation("job");
 
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export const useCreateJob = (): UseCreateJobReturn => {
   const userId = Number(useAuthStore().user?.id);
 
 
-  const mutation = useMutation<void, ApiErrors, CreateJobParams>({
+  const mutation = useMutation<void, IApiErrors, ICreateJobParams>({
     mutationFn: JobService.create,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`findAllJobByUser-${userId}`]})

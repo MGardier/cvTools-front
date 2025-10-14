@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useTranslation } from "react-i18next";
 import type { IFiltersJob, IUseJobsListReturn } from "../types/hook";
-import type { ApiErrors, FilterDataResponse } from "@/types/api";
+import type { IApiErrors, IFilterDataResponse } from "@/types/api";
 import { JobService } from "../job.service";
 import type { Job } from "@/types/entity";
 import { useEffect, useMemo } from 'react';
@@ -52,8 +52,8 @@ export const useJobsList = (
   const queryKey = ["jobs", "findAllByUser", { userId, params }];
 
   const { data, isPending, isError } = useQuery<
-    FilterDataResponse<Job>,
-    ApiErrors
+    IFilterDataResponse<Job>,
+    IApiErrors
   >({
     queryKey,
     queryFn: () => JobService.findAll(userId, params),
@@ -72,7 +72,7 @@ export const useJobsList = (
     if (data?.count) 
       paginationManager.setTotalItems(data.count);
     
-  }, [data?.count, paginationManager.setTotalItems]);
+  }, [data?.count]);
 
 
 

@@ -1,7 +1,7 @@
 import type { SubmitHandler, UseFormReturn } from "react-hook-form";
 import type { ResetPasswordData, SendConfirmAccountData, SendForgotPasswordData, SignInData, SignUpData } from "./form";
 import type { TFunction } from "i18next";
-import type { ApiErrors } from "@/types/api";
+import type { IApiErrors } from "@/types/api";
 
 
 
@@ -14,7 +14,7 @@ export interface UseSignUpReturn {
   form: UseFormReturn<SignUpData>;
   isPending: boolean;
   isError: boolean;
-  error: ApiErrors | null
+  error: IApiErrors | null
   t: TFunction<'auth', undefined>;
 }
 

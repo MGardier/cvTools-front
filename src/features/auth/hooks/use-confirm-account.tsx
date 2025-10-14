@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/data/routes";
 import type { UseConfirmReturn } from "../types/hook";
 import type { ConfirmAccountResponse } from "../types/api";
-import type { ApiErrors } from "@/types/api";
+import type { IApiErrors } from "@/types/api";
 import type { ConfirmAccountData } from "../types/form";
 import { authService } from "../auth.service";
 
@@ -21,7 +21,7 @@ export const useConfirmAccount = (token: string): UseConfirmReturn => {
 
   const mutation = useMutation<
     ConfirmAccountResponse,
-    ApiErrors,
+    IApiErrors,
     ConfirmAccountData
   >({
     mutationFn: authService.confirmAccount,

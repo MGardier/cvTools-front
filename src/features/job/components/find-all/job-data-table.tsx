@@ -32,7 +32,6 @@ import type { IFiltersJob } from "@/features/job/types/hook";
 
 import { ROUTES } from "@/data/routes";
 import { JobDataTableHeader } from "./data-table-header";
-import { generatePath, useNavigate } from "react-router-dom";
 
 interface JobDataTableProps {
   data: Job[];
@@ -144,10 +143,10 @@ export const JobDatable = ({
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={data?.length}
+                  colSpan={columns?.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                 {t("pages.findAll.noResult")}
                 </TableCell>
               </TableRow>
             )}

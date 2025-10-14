@@ -3,7 +3,7 @@ import type { TFunction } from "i18next";
 import type { SubmitHandler, UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 
 import type z from "zod";
-import type { ApiErrors } from "@/types/api";
+import type { IApiErrors } from "@/types/api";
 import type { Job, JobApplyMethod, JobStatus } from "@/types/entity";
 import type { jobFormSchema } from "../schema/job-schema";
 import type { UseQueryResult } from "@tanstack/react-query";
@@ -23,8 +23,8 @@ export interface UseJobFormReturn {
 
 /**************** UPDATE  *********************************************/
 
-export interface UseUpdateJobReturn {
-  query: UseQueryResult<Job, ApiErrors>;
+export interface IUseUpdateJobReturn {
+  query: UseQueryResult<Job, IApiErrors>;
   mutationIsPending: boolean;
   mutationIsError: boolean;
   job?: Job;
@@ -33,7 +33,7 @@ export interface UseUpdateJobReturn {
 }
 
 
-export interface UseCreateJobReturn {
+export interface IUseCreateJobReturn {
   isPending: boolean;
   isError: boolean;
   t: TFunction<'job', undefined>;
@@ -68,7 +68,7 @@ export interface IFiltersJob {
 /**************** FIND ONE  *********************************************/
 export interface IUseFindOneJobReturn {
   isPending: boolean;
-  error: ApiErrors | null,
+  error: IApiErrors | null,
   t: TFunction<'job', undefined>;
   job: Job | undefined
 }

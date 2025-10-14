@@ -11,7 +11,7 @@ import { ROUTES } from "@/data/routes";
 import type { UseSendForgotPasswordReturn } from "../types/hook";
 import { createSendForgotPasswordSchema } from "../schema/auth-schema";
 import type { SendForgotPasswordResponse } from "../types/api";
-import type { ApiErrors } from "@/types/api";
+import type { IApiErrors } from "@/types/api";
 import { authService } from "../auth.service";
 
 
@@ -29,7 +29,7 @@ export const useSendForgotPassword =  (defaultEmail: string | null): UseSendForg
     defaultValues,
   });
 
-  const mutation= useMutation<SendForgotPasswordResponse,ApiErrors,z.infer<typeof schema>>({
+  const mutation= useMutation<SendForgotPasswordResponse,IApiErrors,z.infer<typeof schema>>({
     mutationFn: authService.sendForgotPassword,
     onSuccess: (response)=>{
       toast.success(t("messages.success.sendForgotPassword.short"));
