@@ -11,20 +11,16 @@ import type { FilterParams } from '@/types/api';
 
 export const jobApi = {
 
-
-  /**************** CREATE ************************************************************/
-
   async create(userId: number ,data: Omit<CreateJobParams,'userId'>): Promise<CreateJobResponse> {
     return await apiClient.post(`${ENDPOINTS.user}/${userId}${ENDPOINTS.job}`, data);
   },
 
-  /**************** UPDATE ************************************************************/
+ 
 
   async update(jobId: number, userId: number ,data: Omit<UpdateJobParams, 'jobId' | 'userId'>): Promise<Job> {
     return await apiClient.put(`${ENDPOINTS.user}/${userId}${ENDPOINTS.job}/${jobId}`, data);
   },
 
-  /**************** FIND ************************************************************/
 
   async findAll(userId: number, filterParams : FilterParams): Promise<FindAllJobByUserResponse> {
     return await apiClient.get(`${ENDPOINTS.user}/${userId}${ENDPOINTS.job}`,{params : filterParams});

@@ -8,7 +8,7 @@ import type { Job, JobApplyMethod, JobStatus } from "@/types/entity";
 import type { jobFormSchema } from "../schema/job-schema";
 import type { UseQueryResult } from "@tanstack/react-query";
 
-import type { IUsePaginationReturn, IUseSortingReturn } from "@/types/hook";
+import type { IUseFiltersReturn, IUsePaginationReturn, IUseSortingReturn } from "@/types/hook";
 
 /**************** FORM *********************************************/
 
@@ -43,6 +43,7 @@ export interface UseCreateJobReturn {
 
 
 /**************** FIND ALL  *********************************************/
+
 export interface IUseJobsListReturn {
   isPending: boolean;
   isError: boolean;
@@ -50,16 +51,9 @@ export interface IUseJobsListReturn {
   sortingManager: IUseSortingReturn<Job>;
   paginationManager: IUsePaginationReturn;
   data?: Job[]
-  filtersJobManager: IFiltersJobManager
+  filtersManager: IUseFiltersReturn<IFiltersJob>
 }
 
-
-
-export interface IFiltersJobManager {
-  filtersJob: IFiltersJob ;
-  updateFilters: (filters : IFiltersJob) => void
-  clearFilters : ()=> void
-}
 
 export interface IFiltersJob {
   jobTitle?: string;
@@ -72,7 +66,7 @@ export interface IFiltersJob {
 
 
 /**************** FIND ONE  *********************************************/
-export interface UseFindOneJobReturn {
+export interface IUseFindOneJobReturn {
   isPending: boolean;
   error: ApiErrors | null,
   t: TFunction<'job', undefined>;

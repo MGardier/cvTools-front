@@ -1,16 +1,14 @@
 import type { IUseSortingReturn, ISortingItem } from "@/types/hook";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export const useSorting = <TData,>(
   initialFields: ISortingItem<TData>[] = []
 ): IUseSortingReturn<TData> => {
   const [sorting, setSorting] = useState<ISortingItem<TData>[]>(initialFields);
 
+  /************** UPDATE FUNCTION  ************** */
 
-/************** UDPATE FUNCTION ************** */
-
-
-  const updateSorting = useCallback((field: keyof TData) => {
+  const updateSorting = useCallback((field: keyof TData): void => {
     setSorting((prev) => {
       const existingIndex = prev.findIndex((s) => s.field === field);
 
@@ -31,15 +29,17 @@ export const useSorting = <TData,>(
         ];
     });
   }, []);
-  
 
-  const clearSorting = useCallback(() => {
+
+
+  const clearSorting = useCallback((): void => {
     setSorting([]);
   }, []);
 
 
 
   /************** GETTER FUNCTION ************** */
+
 
   const getSortOrder = useCallback(
     (field: keyof TData): "asc" | "desc" | "none" => {
@@ -51,12 +51,14 @@ export const useSorting = <TData,>(
 
 
 
-  
-  return { 
-    sorting, 
-    updateSorting, 
-    getSortOrder, 
-    clearSorting 
-  };
-  
+
+  return useMemo(
+    () => ({
+      sorting,
+      updateSorting,
+      getSortOrder,
+      clearSorting,
+    }),
+    [sorting]
+  );
 };

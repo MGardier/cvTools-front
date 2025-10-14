@@ -1,14 +1,13 @@
-import { useState } from "react";
-import { Input } from "../ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Button } from "../ui/button";
-import { CalendarIcon } from "lucide-react";
-import { Calendar } from "../ui/calendar";
-import { FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Input } from "@/components/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { formatDate } from "@/utils/utils";
+import { CalendarIcon } from "lucide-react";
+import { useState } from "react";
 
-interface DateInputProps<TFormData extends FieldValues> {
+
+interface DateInputProps {
   value : any;
   handleChange : (value :Date)=> void
   label: string;
@@ -16,18 +15,18 @@ interface DateInputProps<TFormData extends FieldValues> {
   required?: boolean;
 }
 
-export const DatePickerInput = <TFormData extends FieldValues>({
+export const DatePickerInput = ({
   value,
   handleChange,
   label,
   placeholder,
   required = false,
-}: DateInputProps<TFormData>) => {
+}: DateInputProps) => {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [month, setMonth] = useState<Date | undefined>(date);
 
-  //TODO: onCLick de l'input ouvrir aussi la calendar
+  
 
   return (
 
@@ -81,7 +80,7 @@ export const DatePickerInput = <TFormData extends FieldValues>({
                     onMonthChange={setMonth}
                     onSelect={(date) => {
                       setDate(date);
-                      handleChange(date);
+                      handleChange(date!);
                       setOpen(false);
                     }}
                   />

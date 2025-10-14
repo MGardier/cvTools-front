@@ -9,7 +9,7 @@ import type {  IFindAllJobParams } from "./types/data-table";
 
 export const JobService = {
 
-  /**************** CREATE ************************************************************/
+ 
 
   async create(params: CreateJobParams): Promise<void> {
     const { userId, ...data } = params;
@@ -18,7 +18,7 @@ export const JobService = {
   },
 
 
-  /**************** UPDATE ************************************************************/
+ 
   
   async update(params: UpdateJobParams): Promise<void> {
     const { userId, jobId, ...data } = params;
@@ -27,13 +27,11 @@ export const JobService = {
 
   },
 
-  /**************** FIND ALL ************************************************************/
+
 
   async findAll(userId: number, params  : IFindAllJobParams ): Promise<FilterDataResponse<Job>> {
     const {sorting,filters, ...restParams} = params
-    //retirer limit , sort dans un  util 
     const existingFitlers = Object.entries(filters).map((f)=>{
-
       if(f[1])
         return `${f[0]}:${f[1]}`
     }).filter((f)=> f).join()

@@ -2,23 +2,16 @@ import { useAuthStore } from "@/features/auth/auth.store";
 import { useQuery } from "@tanstack/react-query";
 
 import { useTranslation } from "react-i18next";
-import type {
-  IFiltersJob,
-  IUseJobsListReturn,
-} from "../types/hook";
+import type { IFiltersJob, IUseJobsListReturn } from "../types/hook";
 import type { ApiErrors, FilterDataResponse } from "@/types/api";
 import { JobService } from "../job.service";
 import type { Job } from "@/types/entity";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 
 import { useSorting } from "@/hooks/useSorting";
 import { usePagination } from "@/hooks/usePagination";
+import { useFilters } from "@/hooks/useFilters";
 
-
-//TODO : Navbar souligner les details visuels 
-
-
-//TODO : Donner des actions dans la data table 
 
 
 export const useJobsList = (
@@ -27,47 +20,35 @@ export const useJobsList = (
 ): IUseJobsListReturn => {
 
 
-  const { t } = useTranslation("job");
-  const userId = Number(useAuthStore().user?.id);
+  const userId = useMemo(()=>Number(useAuthStore().user?.id),[]);
 
+  const defaultFilters = useMemo(()=> ({
+    jobTitle: undefined,
+    enterprise: undefined,
+    status: undefined,
+    applicationMethod: undefined,
+    appliedAt: undefined,
+  }),[]);
+ 
+
+  const { t } = useTranslation("job");
   const sortingManager = useSorting<Job>();
   const paginationManager = usePagination(initialPage, initialLimit, 0);
+  const filtersManager = useFilters<IFiltersJob>(defaultFilters)
   
-  const defaultFilters = {
-      jobTitle: undefined,
-  enterprise: undefined,
-  status: undefined,
-  applicationMethod: undefined,
-  appliedAt : undefined
-  }
 
-  const [filtersJob, setFiltersJob] = useState<IFiltersJob>(defaultFilters);
-  console.log(filtersJob)
-  const clearFilters = () => setFiltersJob(defaultFilters);
 
-  const updateFilters = (filters : IFiltersJob) =>
-    setFiltersJob((prev) => {return {...prev,...filters}});
-
-  
-//TODO : régler le soucis de la date parse
   const params = {
     page: paginationManager.pagination.page,
     limit: paginationManager.pagination.limit,
     sorting: sortingManager.sorting,
-    filters: filtersJob,
+    filters : filtersManager.filters,
   };
 
-  const queryKey = [
-    "jobs",
-    "findAllByUser",
-    {
-      userId,
-      page: paginationManager.pagination.page,
-      limit: paginationManager.pagination.limit,
-      sorting: sortingManager.sorting,
-      filters: filtersJob
-    },
-  ] as const;
+
+  /******** QUERY *******/
+
+  const queryKey = ["jobs", "findAllByUser", { userId, params }];
 
   const { data, isPending, isError } = useQuery<
     FilterDataResponse<Job>,
@@ -83,19 +64,22 @@ export const useJobsList = (
     staleTime: 60 * 60 * 1000,
   });
 
+
+
   useEffect(() => {
-    if (data?.count) {
+    if (data?.count) 
       paginationManager.setTotalItems(data.count);
-    }
+    
   }, [data?.count, paginationManager.setTotalItems]);
 
 
-  
+
+
 
   return {
     sortingManager,
     paginationManager,
-    filtersJobManager: { updateFilters, filtersJob, clearFilters },
+    filtersManager,
     data: data?.data,
     isPending,
     isError,

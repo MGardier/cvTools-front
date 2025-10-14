@@ -27,28 +27,28 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import type { IUsePaginationReturn, IUseSortingReturn } from "@/types/hook";
+import type { IUseFiltersReturn, IUsePaginationReturn, IUseSortingReturn } from "@/types/hook";
 import { DataTableHeader } from "@/features/job/components/data-table-header";
-import type { IFiltersJobManager } from "../types/hook";
+
 import { ROUTES } from "@/data/routes";
 
-interface JobDataTableProps {
+interface JobDataTableProps<TFilter extends object> {
   data: Job[];
   t: TFunction<"job", undefined>;
-  filtersJobManager : IFiltersJobManager
+  filtersManager : IUseFiltersReturn<TFilter>
   sortingManager: IUseSortingReturn<Job>;
   paginationManager: IUsePaginationReturn;
 }
 
-//TODO: Ajouter le isFavorites ou is Archived
 
-export const JobDatable = ({
+
+export const JobDatable = <TFilter extends object,>({
   sortingManager,
   t,
   data,
   paginationManager,
-  filtersJobManager
-}: JobDataTableProps) => {
+  filtersManager
+}: JobDataTableProps<TFilter >) => {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const columns = useMemo(
     () => jobColumns(t, sortingManager),
@@ -60,15 +60,17 @@ export const JobDatable = ({
     getCoreRowModel: getCoreRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     state: { columnVisibility },
-    /* MANUAL OPTIONS FOR SERVER SIDE */
+
     manualPagination: true,
+    manualSorting :true,
+    manualFiltering : true,
   });
 
 
   const clearParams =  ()=> {
     sortingManager.clearSorting()
     paginationManager.clearPagination()
-    filtersJobManager.clearFilters()
+    filtersManager.clearFilters()
   }
 
   const limitSelect = [5, 10, 15, 30, 50, 100];
@@ -98,7 +100,7 @@ export const JobDatable = ({
       <DataTableHeader
         {...{
           t,
-          filtersJobManager,
+          filtersManager,
           clearParams,
           columns: table
             .getAllColumns()

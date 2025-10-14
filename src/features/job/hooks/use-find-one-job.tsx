@@ -1,12 +1,12 @@
 import { useAuthStore } from "@/features/auth/auth.store";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import type { UseFindOneJobReturn } from "../types/hook";
+import type { IUseFindOneJobReturn } from "../types/hook";
 import type { ApiErrors } from "@/types/api";
 import type { Job } from "@/types/entity";
 import { jobApi } from "../job.api";
 
-export const useFindOneJob = (id: number): UseFindOneJobReturn => {
+export const useFindOneJob = (id: number): IUseFindOneJobReturn => {
   const { t } = useTranslation("job");
   const userId = Number(useAuthStore().user?.id);
 

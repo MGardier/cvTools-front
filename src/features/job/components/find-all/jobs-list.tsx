@@ -1,16 +1,20 @@
-import { useJobsList } from "../hooks/use-jobs-list";
+import { useJobsList } from "../../hooks/use-jobs-list";
 import { JobSkeletonDataTable } from "./job-skeleton-data-table";
 import { JobDatable } from "./job-data-table";
 import { FetchingFailed } from "@/components/fetching-failed";
 
-//filter , sort, pagination , archived , favoris
+
 
 export const JobsList = () => {
   const {
-     filtersJobManager, 
+     filtersManager, 
      sortingManager, 
      data ,
-     paginationManager,  isPending, isError, t }= useJobsList();
+     paginationManager,  
+     isPending, 
+     isError, 
+     t 
+    } = useJobsList();
 
   if (isPending) return <JobSkeletonDataTable />;
 
@@ -27,7 +31,7 @@ export const JobsList = () => {
       <h1 className="text-3xl font-display font-semibold  leading-8 tracking-tighter">
         {t("pages.findAll.title")}
       </h1>
-      <JobDatable {...{ sortingManager,filtersJobManager,paginationManager,t, data: data || [] , }} />
+      <JobDatable {...{ sortingManager,filtersManager,paginationManager,t, data: data || [] , }} />
     </div>
   );
 };

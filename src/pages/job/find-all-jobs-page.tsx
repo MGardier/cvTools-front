@@ -1,4 +1,4 @@
-import {  JobsList } from "@/features/job/components/jobs-list"
+import {  JobsList } from "@/features/job/components/find-all/jobs-list"
 
 
 

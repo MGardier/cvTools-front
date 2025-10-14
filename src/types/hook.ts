@@ -38,8 +38,19 @@ export interface IUsePaginationReturn {
   nextPage: () => void;
   prevPage: () => void;
 
-  canGoNext:  boolean;
-  canGoPrev: boolean;
+  canGoNext: ()=> boolean;
+  canGoPrev: ()=> boolean;
   getTotalPages: ()=>number;
 
+}
+
+
+/**************************  FILTERS  ***********************************************************/
+
+export interface IUseFiltersReturn<TFilters extends object> {
+  filters: TFilters;
+  updateFilters: (partial: Partial<TFilters>) => void;
+  clearFilters: () => void;
+  hasActiveFilters: () => boolean;
+  getFilter: <K extends keyof TFilters>(key: K) => TFilters[K];
 }

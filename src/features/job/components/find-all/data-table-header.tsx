@@ -8,7 +8,6 @@ import { useState } from "react";
 import { Input } from "../../../components/ui/input";
 import type {
   IFiltersJob,
-  IFiltersJobManager,
 } from "@/features/job/types/hook";
 
 import {
@@ -29,29 +28,31 @@ import {
   getJobStatusWithTranslation,
 } from "@/utils/utils";
 import type { TFunction } from "i18next";
+import type { IUseFiltersReturn } from "@/types/hook";
 
-interface DataTableHeaderProps {
+interface DataTableHeaderProps <TFilter extends object> {
   t: TFunction<"Job", undefined>;
   addItemLink: string;
-  filtersJobManager: IFiltersJobManager;
+  filtersManager: IUseFiltersReturn<TFilter>;
   clearParams: () => void;
 }
 
-export const DataTableHeader = ({
+export const DataTableHeader = <TFilter extends object>({
   addItemLink,
   t,
-  filtersJobManager,
+  filtersManager,
   clearParams,
-}: DataTableHeaderProps) => {
+}: DataTableHeaderProps<TFilter>) => {
   const navigate = useNavigate();
 
-  const { filtersJob, updateFilters, clearFilters } = filtersJobManager;
+  const { filters, updateFilters, clearFilters } =   filtersManager;
+;
 
   const defaultFilters = {
-    jobTitle: filtersJob.jobTitle || "",
-    enterprise: filtersJob.enterprise || "",
-    status: filtersJob.status || undefined,
-    applicationMethod: filtersJob.applicationMethod || undefined,
+    jobTitle: filters.jobTitle || "",
+    enterprise: filters.enterprise || "",
+    status: filters.status || undefined,
+    applicationMethod: filters?.applicationMethod || undefined,
     appliedAt: undefined,
   };
 

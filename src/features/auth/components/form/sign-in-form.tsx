@@ -13,9 +13,11 @@ interface SignInProps {
   oauthErrorCode: string | null;
 }
 
-//TODO : Catcher  l'erreur si pas confirmer le compte
+
 export const SignInForm = ({ oauthErrorCode }: SignInProps) => {
+
   const { t, form, onSubmit, isError, isPending } = useSignIn();
+
   return (
     <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
       <AuthCardHeader title={t("pages.signIn.title")}>
