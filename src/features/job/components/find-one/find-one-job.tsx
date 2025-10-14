@@ -1,14 +1,14 @@
-import { useFindOneJob } from "../hooks/use-find-one-job";
+import { useFindOneJob } from "../../hooks/use-find-one-job";
 import { FindOneJobChronology } from "./find-one-job-chronology";
-import { FindOneJobHeader } from "./find-one/find-one-job-header";
-import { FindOneJobInfos } from "./find-one/find-one-job-infos";
+import { FindOneJobHeader } from "./find-one-job-header";
+import { FindOneJobInfos } from "./find-one-job-infos";
 
 interface DialogFindOneJobProps {
   id: number;
 }
 
 export const FindOneJob = ({ id }: DialogFindOneJobProps) => {
-  const { job, t, error, isPending } = useFindOneJob(id);
+  const { job,  isPending } = useFindOneJob(id);
   if (isPending) return <></>;
   if (!job) return <></>;
 

@@ -31,7 +31,14 @@ export const JobsList = () => {
       <h1 className="text-3xl font-display font-semibold  leading-8 tracking-tighter">
         {t("pages.findAll.title")}
       </h1>
-      <JobDatable {...{ sortingManager,filtersManager,paginationManager,t, data: data || [] , }} />
+      <JobDatable {...{ 
+        sortingManager,
+        filtersManager,
+        paginationManager,
+        t, 
+        data: data || [] 
+        }} 
+      />
     </div>
   );
 };

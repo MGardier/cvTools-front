@@ -1,4 +1,4 @@
-import { FindOneJob } from "@/features/job/components/find-one-job";
+import { FindOneJob } from "@/features/job/components/find-one/find-one-job";
 import { useParams } from "react-router-dom";
 
 export const FindOneJobPage = () => {

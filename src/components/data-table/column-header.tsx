@@ -27,6 +27,7 @@ export const ColumnHeader = <TData,>({
       {sortOrder === "none" && <ArrowDownUp />}
 
       {sortOrder === "asc" && <ArrowUpWideNarrow className="text-blue-500" />}
+      
       {sortOrder === "desc" && (
         <ArrowDownWideNarrow className="text-blue-500" />
       )}

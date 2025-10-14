@@ -41,5 +41,5 @@ export const useFilters = <TFilters extends object>(
       clearFilters,
       hasActiveFilters,
       getFilter,
-    }),[filters, clearFilters])
+    }),[filters,clearFilters])
 };

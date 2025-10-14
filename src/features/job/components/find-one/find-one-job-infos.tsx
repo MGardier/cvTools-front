@@ -1,7 +1,8 @@
 import type { Job } from "@/types/entity";
-import { FindOneJobInfosField } from "./find-one-job-infos-field";
+
 import { Building2, ChevronDown, ChevronUp,  Info, Mail,  MapPin, Percent, User } from "lucide-react";
 import { useState } from "react";
+import { FindOneJobInfosField } from "./find-one-job-infos-field";
 
  interface FindOneJobInfosProps {
   job: Job;

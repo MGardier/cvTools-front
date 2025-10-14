@@ -1,14 +1,10 @@
 import { Plus, RotateCcw, SlidersHorizontal } from "lucide-react";
-import { Button } from "../../../components/ui/button";
-
-import type { Job, JobApplyMethod, JobStatus } from "@/types/entity";
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import { Input } from "../../../components/ui/input";
-import type {
-  IFiltersJob,
-} from "@/features/job/types/hook";
+import { Input } from "@/components/ui/input";
+import type { IFiltersJob } from "@/features/job/types/hook";
 
 import {
   Sheet,
@@ -19,9 +15,9 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "../../../components/ui/sheet";
-import { Label } from "../../../components/ui/label";
-import { DatePickerInput } from "../../../components/input/date-picker-input";
+} from "@/components/ui/sheet";
+import { Label } from "@/components/ui/label";
+import { DatePickerInput } from "@/components/input/date-picker-input";
 import { SelectInput } from "@/components/form/input/select-input";
 import {
   getJobSApplicationMethodWithTranslation,
@@ -30,171 +26,183 @@ import {
 import type { TFunction } from "i18next";
 import type { IUseFiltersReturn } from "@/types/hook";
 
-interface DataTableHeaderProps <TFilter extends object> {
-  t: TFunction<"Job", undefined>;
+interface JobDataTableHeaderProps {
+  t: TFunction<"job", undefined>;
   addItemLink: string;
-  filtersManager: IUseFiltersReturn<TFilter>;
+  filtersManager: IUseFiltersReturn<IFiltersJob>;
   clearParams: () => void;
+  hasActiveParams?: boolean;
 }
 
-export const DataTableHeader = <TFilter extends object>({
+export const JobDataTableHeader = ({
   addItemLink,
   t,
   filtersManager,
   clearParams,
-}: DataTableHeaderProps<TFilter>) => {
+  hasActiveParams = false,
+}: JobDataTableHeaderProps) => {
   const navigate = useNavigate();
 
-  const { filters, updateFilters, clearFilters } =   filtersManager;
-;
+  const { filters, updateFilters, clearFilters, hasActiveFilters } = filtersManager;
 
-  const defaultFilters = {
-    jobTitle: filters.jobTitle || "",
-    enterprise: filters.enterprise || "",
-    status: filters.status || undefined,
-    applicationMethod: filters?.applicationMethod || undefined,
-    appliedAt: undefined,
+
+  const [tempFilters, setTempFilters] = useState<IFiltersJob>(filters);
+
+
+  const syncTempFilters = () => {
+    setTempFilters(filters);
   };
 
-  const [tempFilters, setTempFilters] = useState<IFiltersJob>(defaultFilters);
+  const updateTempFilter = <K extends keyof IFiltersJob>(
+    key: K,
+    value: IFiltersJob[K]
+  ) => {
+    setTempFilters((prev) => ({ ...prev, [key]: value }));
+  };
 
-  const updateTempFilters = (
-    column: keyof Job,
-    value:
-      | string
-      | Date
-      | (typeof JobApplyMethod)[keyof typeof JobApplyMethod]
-      | (typeof JobStatus)[keyof typeof JobStatus]
-  ) =>
-    setTempFilters((prev) => {
-      return { ...prev, [column]: value };
+  const applyFilters = () => {
+    updateFilters(tempFilters);
+  };
+
+  const handleClearFilters = () => {
+    clearFilters();
+    setTempFilters({
+      jobTitle: undefined,
+      enterprise: undefined,
+      status: undefined,
+      applicationMethod: undefined,
+      appliedAt: undefined,
     });
+  };
 
-  const applyFitlers = () => updateFilters(tempFilters);
   return (
     <div className="flex justify-start items-center gap-2 p-2">
       <Button
-        className="flex  gap-2  text-white"
+        className="flex gap-2 text-white"
         variant="blue"
         onClick={() => navigate(addItemLink)}
       >
         <Plus />
-        Ajouter
+        {t("actions.add")}
       </Button>
 
-      <Sheet>
+      <Sheet onOpenChange={(open) => open && syncTempFilters()}>
         <SheetTrigger asChild>
-          <Button className="flex  gap-2  text-white" variant="blue">
+          <Button className="flex gap-2 text-white" variant="blue">
             <SlidersHorizontal />
-            Filter
+            {t("actions.filter")}
+            {hasActiveFilters() && (
+              <span className="ml-1 rounded-full bg-white text-blue-600 px-2 py-0.5 text-xs font-semibold">
+                {Object.values(filters).filter((v) => v !== undefined && v !== null).length}
+              </span>
+            )}
           </Button>
         </SheetTrigger>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Filtres</SheetTitle>
+            <SheetTitle>{t("filters.title")}</SheetTitle>
             <SheetDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done.
+              {t("filters.description")}
             </SheetDescription>
           </SheetHeader>
-          <div className="grid flex-1 auto-rows-min gap-6 px-4">
-            <div className="grid gap-3" key="jobTitle">
-              <Label htmlFor="sheet-demo-name">Titre</Label>
+          <div className="grid flex-1 auto-rows-min gap-6 px-4 py-4">
+            {/* Job Title Filter */}
+            <div className="grid gap-3">
+              <Label htmlFor="filter-jobTitle">{t("filters.jobTitle")}</Label>
               <Input
-                value={tempFilters.jobTitle}
-                required={false}
-                onChange={(e) => updateTempFilters("jobTitle", e.target.value)}
+                id="filter-jobTitle"
+                value={tempFilters.jobTitle || ""}
+                placeholder={t("filters.jobTitlePlaceholder")}
+                onChange={(e) => updateTempFilter("jobTitle", e.target.value || undefined)}
               />
             </div>
-            <div className="grid gap-3" key="enterprise">
-              <Label htmlFor="sheet-demo-name">Entreprise</Label>
+
+            {/* Enterprise Filter */}
+            <div className="grid gap-3">
+              <Label htmlFor="filter-enterprise">{t("filters.enterprise")}</Label>
               <Input
-                value={tempFilters.enterprise}
+                id="filter-enterprise"
+                value={tempFilters.enterprise || ""}
+                placeholder={t("filters.enterprisePlaceholder")}
+                onChange={(e) => updateTempFilter("enterprise", e.target.value || undefined)}
+              />
+            </div>
+
+            {/* Status Filter */}
+            <div className="grid gap-3">
+              <Label htmlFor="filter-status">{t("filters.status")}</Label>
+              <SelectInput
+                handleOnChange={(value: string) => updateTempFilter("status", value as any)}
+                defaultValue={tempFilters.status}
                 required={false}
-                onChange={(e) =>
-                  updateTempFilters("enterprise", e.target.value)
-                }
+                selectValues={getJobStatusWithTranslation(t)}
+                placeholder={t("filters.statusPlaceholder")}
               />
             </div>
+
+            {/* Application Method Filter */}
             <div className="grid gap-3">
-              <Label htmlFor="sheet-demo-name">Status</Label>
+              <Label htmlFor="filter-applicationMethod">
+                {t("filters.applicationMethod")}
+              </Label>
               <SelectInput
-                {...{
-                  handleOnChange: (value: string) =>
-                    updateTempFilters("status", value),
-                  ...(tempFilters.status
-                    ? { defaultValue: tempFilters.status }
-                    : {}),
-                  required: false,
-                  selectValues: getJobStatusWithTranslation(t),
-                  placeholder: "CHoisir un status",
-                }}
+                handleOnChange={(value: string) => updateTempFilter("applicationMethod", value as any)}
+                defaultValue={tempFilters.applicationMethod}
+                required={false}
+                selectValues={getJobSApplicationMethodWithTranslation(t)}
+                placeholder={t("filters.applicationMethodPlaceholder")}
               />
             </div>
+
+            {/* Applied At Filter */}
             <div className="grid gap-3">
-              <Label htmlFor="sheet-demo-name">Postulé via</Label>
-              <SelectInput
-                {...{
-                  handleOnChange: (value: string) =>
-                    updateTempFilters("applicationMethod", value),
-                  ...(tempFilters.applicationMethod
-                    ? { defaultValue: tempFilters.applicationMethod }
-                    : {}),
-                  required: false,
-                  selectValues: getJobSApplicationMethodWithTranslation(t),
-                  placeholder: "CHoisir une méthode",
-                }}
-              />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="sheet-demo-username">Postulée le</Label>
+              <Label htmlFor="filter-appliedAt">{t("filters.appliedAt")}</Label>
               <DatePickerInput
                 value={tempFilters.appliedAt || ""}
-                label="Postulée le"
-                placeholder="2 septembre 2015"
-                handleOnChange={(value: Date) =>
-                  updateTempFilters("appliedAt", value)
-                }
+                label={t("filters.appliedAt")}
+                placeholder={t("filters.appliedAtPlaceholder")}
+                handleOnChange={(value: Date) => updateTempFilter("appliedAt", value)}
               />
             </div>
           </div>
-          <SheetFooter>
-            <Button
-              className="flex  gap-2  text-white"
-              variant="blue"
-              onClick={applyFitlers}
-            >
-              {" "}
-              <SlidersHorizontal /> Appliquer
-            </Button>
+
+          <SheetFooter className="gap-2">
             <SheetClose asChild>
               <Button
+                className="flex gap-2 text-white"
                 variant="blue"
-                onClick={() => {
-                  clearFilters();
-                  setTempFilters({
-                    jobTitle: "",
-                    enterprise: "",
-                    status: undefined,
-                    applicationMethod: undefined,
-                    appliedAt: undefined,
-                  });
-                }}
+                onClick={applyFilters}
               >
-                <RotateCcw /> Reinitialiser Filters
+                <SlidersHorizontal />
+                {t("actions.apply")}
+              </Button>
+            </SheetClose>
+            <SheetClose asChild>
+              <Button variant="outline" onClick={handleClearFilters}>
+                <RotateCcw className="mr-2 h-4 w-4" />
+                {t("actions.clearFilters")}
               </Button>
             </SheetClose>
           </SheetFooter>
         </SheetContent>
       </Sheet>
+
       <Button
-        className="flex  gap-2  text-white"
+        className="flex gap-2 text-white"
         variant="blue"
-        onClick={() => clearParams()}
+        onClick={clearParams}
+        disabled={!hasActiveFilters() && !hasActiveParams}
       >
         <RotateCcw />
-        Réinitialiser
+        {t("actions.resetAll")}
       </Button>
+
+
+      {hasActiveFilters() && (
+        <span className="text-sm text-gray-600">
+          {t("filters.activeCount", { count: Object.values(filters).filter((v) => v !== undefined && v !== null).length })}
+        </span>
+      )}
     </div>
   );
 };

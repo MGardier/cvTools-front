@@ -28,32 +28,42 @@ import {
 } from "@/components/ui/select";
 
 import type { IUseFiltersReturn, IUsePaginationReturn, IUseSortingReturn } from "@/types/hook";
-import { DataTableHeader } from "@/features/job/components/data-table-header";
+import type { IFiltersJob } from "@/features/job/types/hook";
 
 import { ROUTES } from "@/data/routes";
+import { JobDataTableHeader } from "./data-table-header";
+import { generatePath, useNavigate } from "react-router-dom";
 
-interface JobDataTableProps<TFilter extends object> {
+interface JobDataTableProps {
   data: Job[];
   t: TFunction<"job", undefined>;
-  filtersManager : IUseFiltersReturn<TFilter>
+  filtersManager: IUseFiltersReturn<IFiltersJob>;
   sortingManager: IUseSortingReturn<Job>;
   paginationManager: IUsePaginationReturn;
 }
 
-
-
-export const JobDatable = <TFilter extends object,>({
+export const JobDatable = ({
   sortingManager,
   t,
   data,
   paginationManager,
   filtersManager
-}: JobDataTableProps<TFilter >) => {
+}: JobDataTableProps) => {
+
+
+  const LIMIT_OPTIONS = [5, 10, 15, 30, 50, 100] as const ;
+  
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+ 
   const columns = useMemo(
-    () => jobColumns(t, sortingManager),
+    () => jobColumns(
+      t,
+      sortingManager,
+    ),
     [t, sortingManager]
   );
+
+
   const table = useReactTable<Job>({
     data,
     columns,
@@ -67,47 +77,28 @@ export const JobDatable = <TFilter extends object,>({
   });
 
 
-  const clearParams =  ()=> {
-    sortingManager.clearSorting()
-    paginationManager.clearPagination()
-    filtersManager.clearFilters()
-  }
+  const clearParams = () => {
+    sortingManager.clearSorting();
+    paginationManager.clearPagination();
+    filtersManager.clearFilters();
+  };
 
-  const limitSelect = [5, 10, 15, 30, 50, 100];
-  const columnsChoices = [{
-    label : "Titre",
-    value : "jobTitle"
-  },
-  {
-    label : "Entreprise",
-    value : "enterprise"
-  },
-  {
-    label : "Status",
-    value : "status"
-  },
-    {
-    label : "Postuler via",
-    value : "applicationMethod"
-  },
-      {
-    label : "Postuler le",
-    value : "appliedAt"
-  },
-]
+  const hasActiveParams =
+    sortingManager.sorting.length > 0 ||
+    paginationManager.pagination.page !== 1 ||
+    filtersManager.hasActiveFilters();
+
+
+  
+
   return (
     <div className="w-full flex flex-col mt-4 ">
-      <DataTableHeader
-        {...{
-          t,
-          filtersManager,
-          clearParams,
-          columns: table
-            .getAllColumns()
-            .filter((column) => column.getCanHide()),
-          addItemLink: `/${ROUTES.job.create}`,
-          columnsChoices
-        }}
+      <JobDataTableHeader
+        t={t}
+        filtersManager={filtersManager}
+        clearParams={clearParams}
+        hasActiveParams={hasActiveParams}
+        addItemLink={`/${ROUTES.job.create}`}
       />
 
       <div className="overflow-hidden rounded-md border">
@@ -153,7 +144,7 @@ export const JobDatable = <TFilter extends object,>({
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={jobColumns?.length}
+                  colSpan={data?.length}
                   className="h-24 text-center"
                 >
                   No results.
@@ -192,7 +183,7 @@ export const JobDatable = <TFilter extends object,>({
             </SelectTrigger>
 
             <SelectContent>
-              {limitSelect.map((limit) => (
+              {LIMIT_OPTIONS.map((limit) => (
                 <SelectItem key={limit} value={String(limit)}>
                   {limit}
                 </SelectItem>

@@ -6,7 +6,7 @@ import type { IFiltersJob, IUseJobsListReturn } from "../types/hook";
 import type { ApiErrors, FilterDataResponse } from "@/types/api";
 import { JobService } from "../job.service";
 import type { Job } from "@/types/entity";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from 'react';
 
 import { useSorting } from "@/hooks/useSorting";
 import { usePagination } from "@/hooks/usePagination";
@@ -20,7 +20,7 @@ export const useJobsList = (
 ): IUseJobsListReturn => {
 
 
-  const userId = useMemo(()=>Number(useAuthStore().user?.id),[]);
+  const userId = Number(useAuthStore().user?.id);
 
   const defaultFilters = useMemo(()=> ({
     jobTitle: undefined,
@@ -31,12 +31,13 @@ export const useJobsList = (
   }),[]);
  
 
-  const { t } = useTranslation("job");
+  const {t} =  useTranslation("job");
   const sortingManager = useSorting<Job>();
   const paginationManager = usePagination(initialPage, initialLimit, 0);
   const filtersManager = useFilters<IFiltersJob>(defaultFilters)
   
-
+  
+  
 
   const params = {
     page: paginationManager.pagination.page,
@@ -66,12 +67,12 @@ export const useJobsList = (
 
 
 
+
   useEffect(() => {
     if (data?.count) 
       paginationManager.setTotalItems(data.count);
     
   }, [data?.count, paginationManager.setTotalItems]);
-
 
 
 

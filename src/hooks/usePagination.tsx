@@ -4,8 +4,9 @@ import { useCallback, useMemo, useState } from "react";
 export const usePagination = (
   initialPage = 1,
   initialSize: number = 10,
-  initialTotalItems: number = 0
+  initialTotalItems?: number
 ): IUsePaginationReturn => {
+
   const [pagination, setPagination] = useState<IPaginationItem>({
     page: initialPage,
     limit: initialSize,
@@ -13,9 +14,10 @@ export const usePagination = (
   });
 
   const getTotalPages = useCallback(
-    (): number => Math.ceil(pagination.totalItems / pagination.limit),
+    (): number | undefined => pagination.totalItems ? Math.ceil(pagination.totalItems / pagination.limit) : undefined,
     [pagination.limit, pagination.totalItems]
   );
+
 
   /********* UPDATE FUNCTION *********/
 
@@ -31,7 +33,9 @@ export const usePagination = (
 
   const setPage = useCallback((page: number): void => {
     setPagination((prev) => {
-      const totalPages = Math.ceil(prev.totalItems / prev.limit);
+      const totalPages = prev.totalItems ? Math.ceil(prev.totalItems / pagination.limit) : undefined;
+      if(!totalPages)
+        return prev;
       return page > 0 && page <= totalPages ? { ...prev, page } : prev;
     });
   }, []);
@@ -44,12 +48,15 @@ export const usePagination = (
     });
   }, [initialSize, initialTotalItems]);
 
+
   /********* NAVIGATION  FUNCTION *********/
 
   const nextPage = useCallback((): void => {
     setPagination((prev) => {
-      const maxPage = Math.ceil(prev.totalItems / prev.limit);
-      return prev.page < maxPage ? { ...prev, page: prev.page + 1 } : prev;
+      const totalPages = prev.totalItems ? Math.ceil(prev.totalItems / pagination.limit) : undefined;
+      if(!totalPages)
+        return prev;
+      return prev.page < totalPages ? { ...prev, page: prev.page + 1 } : prev;
     });
   }, []);
   
@@ -61,9 +68,11 @@ export const usePagination = (
   }, []);
 
   const canGoNext = useCallback(
-  (): boolean => {
-    const maxPage = Math.ceil(pagination.totalItems / pagination.limit);
-    return maxPage > pagination.page;
+  (): boolean | undefined => {
+    const totalPages =  pagination.totalItems ? Math.ceil(pagination.totalItems / pagination.limit) : undefined
+    if(!totalPages)
+      return undefined;
+    return totalPages > pagination.page;
   },
   [pagination.page, pagination.totalItems, pagination.limit]
 );
@@ -73,6 +82,8 @@ const canGoPrev = useCallback(
   (): boolean => pagination.page > 1,
   [pagination.page]
 );
+
+
   return useMemo(
     () => ({
       pagination,

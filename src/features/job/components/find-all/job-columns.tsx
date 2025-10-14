@@ -1,12 +1,4 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 
 import type { Job } from "@/types/entity";
 import { formatDate, splitTextAtSpaces } from "@/utils/utils";
@@ -16,17 +8,20 @@ import {
 
   Building2,
   Calendar,
-  MoreHorizontal,
 } from "lucide-react";
 
 import type { IUseSortingReturn } from "@/types/hook";
 import { ColumnHeader } from "@/components/data-table/column-header";
+
+
+
 
 export const jobColumns = (
   t: TFunction,
   sortingManager: IUseSortingReturn<Job>
 ): ColumnDef<Job>[] => {
 
+ 
   return [
 
 
@@ -95,13 +90,13 @@ export const jobColumns = (
       },
       cell: ({ row }) => {
         return (
-          <Badge className="text-sm md:text-sm lg:text-sm" variant={"warning"}>
+          <>
             {t(
               `pages.findAll.status.${String(
                 row.getValue("status")
               ).toLowerCase()}`
             )}
-          </Badge>
+          </>
         );
       },
     },
@@ -157,36 +152,5 @@ export const jobColumns = (
     },
 
 
-    /************** ACTIONS ************* */
-    {
-      id: "actions",
-      header: () => {
-        return (
-          <div className="flex items-center justify-center">
-            <Button variant="ghost">
-              {t("pages.findAll.columns.actions")}
-            </Button>
-          </div>
-        );
-      },
-      cell: ({ row }) => (
-        <div className="flex items-center justify-center">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0 ">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>Copy payment ID</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>View customer</DropdownMenuItem>
-              <DropdownMenuItem>View payment details</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      ),
-    },
   ];
 };

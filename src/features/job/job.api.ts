@@ -15,12 +15,9 @@ export const jobApi = {
     return await apiClient.post(`${ENDPOINTS.user}/${userId}${ENDPOINTS.job}`, data);
   },
 
- 
-
   async update(jobId: number, userId: number ,data: Omit<UpdateJobParams, 'jobId' | 'userId'>): Promise<Job> {
     return await apiClient.put(`${ENDPOINTS.user}/${userId}${ENDPOINTS.job}/${jobId}`, data);
   },
-
 
   async findAll(userId: number, filterParams : FilterParams): Promise<FindAllJobByUserResponse> {
     return await apiClient.get(`${ENDPOINTS.user}/${userId}${ENDPOINTS.job}`,{params : filterParams});
@@ -32,7 +29,6 @@ export const jobApi = {
     return response.data;
 
   }
-
 
 }
 

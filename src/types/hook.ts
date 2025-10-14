@@ -23,7 +23,7 @@ export interface IUseSortingReturn<TData> {
 export interface IPaginationItem {
   page: number;
   limit: number;
-  totalItems: number
+  totalItems?: number
 }
 
 export interface IUsePaginationReturn {
@@ -38,9 +38,9 @@ export interface IUsePaginationReturn {
   nextPage: () => void;
   prevPage: () => void;
 
-  canGoNext: ()=> boolean;
+  canGoNext: ()=> boolean | undefined;
   canGoPrev: ()=> boolean;
-  getTotalPages: ()=>number;
+  getTotalPages: ()=>number | undefined;
 
 }
 

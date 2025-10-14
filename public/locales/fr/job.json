@@ -187,5 +187,27 @@
       "create":"Une erreur est survenue lors de la création de la candidature.",
       "findAll" : "Une erreur est survenue lors de la récupération des données."
     }
+  },
+    "actions": {
+    "add": "Ajouter",
+    "filter": "Filtrer",
+    "apply": "Appliquer",
+    "clearFilters": "Réinitialiser les filtres",
+    "resetAll": "Tout réinitialiser"
+  },
+  "filters": {
+    "title": "Filtres",
+    "description": "Filtrez vos offres d'emploi selon vos critères",
+    "jobTitle": "Titre du poste",
+    "jobTitlePlaceholder": "Ex: Développeur React",
+    "enterprise": "Entreprise",
+    "enterprisePlaceholder": "Ex: Google",
+    "status": "Statut",
+    "statusPlaceholder": "Choisir un statut",
+    "applicationMethod": "Méthode de candidature",
+    "applicationMethodPlaceholder": "Choisir une méthode",
+    "appliedAt": "Postulé le",
+    "appliedAtPlaceholder": "Sélectionner une date",
+    "activeCount": "{{count}} filtre(s) actif(s)"
   }
 }

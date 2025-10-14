@@ -40,7 +40,7 @@ export const MobileNavigation = ({ menuItems }: MobileNavigationProps) => {
               </DropdownMenuLabel>
 
               <DropdownMenuGroup>
-                {menuItem.linkItems.map((linkItem) => (
+                {menuItem.linkItems.map((linkItem :any) => (
                   <MobileNavigationLink linkItem={linkItem} />
                 ))}
               </DropdownMenuGroup>

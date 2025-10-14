@@ -24,14 +24,14 @@ export const DesktopNavigation = ({ menuItems }: DeskTopNavigationProps) => {
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <div className="grid w-max gap-3   md:grid-cols-2 ">
-                {menuItem.linkItems.map((linkItem) => (
+                {menuItem.linkItems.map((linkItem: any) => (
                   <DesktopNavigationItem
                     key={linkItem.title}
                     title={linkItem.title}
                     href={linkItem.link}
                     icon={linkItem.icon}
                     description={linkItem.description}
-                  />
+                  /> 
                 ))}
               </div>
             </NavigationMenuContent>
