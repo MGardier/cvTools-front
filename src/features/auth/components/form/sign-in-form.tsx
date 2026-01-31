@@ -4,7 +4,7 @@ import { AuthCardContent } from "../auth-card-content";
 import { AuthSocialMedia } from "../auth-social-media";
 import { AuthField } from "../auth-field";
 
-import { useSignIn } from "../../hooks/use-sign-in";
+import { useSignIn } from "../hooks/use-sign-in";
 import { ROUTES } from "@/data/routes";
 
 

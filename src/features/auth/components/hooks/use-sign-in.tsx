@@ -12,12 +12,12 @@ import { useNavigate } from "react-router-dom";
 
 import { ROUTES } from "@/data/routes";
 import { useCookieStore } from "@/store/cookie.store";
-import type { UseSignInReturn } from "../types/hook";
-import { useAuthStore } from "../auth.store";
-import { createSignInSchema } from "../schema/auth-schema";
-import type { SignInResponse } from "../types/api";
+import type { UseSignInReturn } from "../../types/hook";
+import { useAuthStore } from "../../auth.store";
+import { createSignInSchema } from "../../schema/auth-schema";
+import type { SignInResponse } from "../../types/api";
 import type { IApiErrors } from "@/types/api";
-import { authService } from "../auth.service";
+import { authService } from "../../auth.service";
 
 export const useSignIn = (): UseSignInReturn => {
   const { t } = useTranslation("auth");

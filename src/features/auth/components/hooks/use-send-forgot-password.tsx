@@ -8,11 +8,11 @@ import { toast } from "react-toastify";
 import type z from "zod";
 
 import { ROUTES } from "@/data/routes";
-import type { UseSendForgotPasswordReturn } from "../types/hook";
-import { createSendForgotPasswordSchema } from "../schema/auth-schema";
-import type { SendForgotPasswordResponse } from "../types/api";
+import type { UseSendForgotPasswordReturn } from "../../types/hook";
+import { createSendForgotPasswordSchema } from "../../schema/auth-schema";
+import type { SendForgotPasswordResponse } from "../../types/api";
 import type { IApiErrors } from "@/types/api";
-import { authService } from "../auth.service";
+import { authService } from "../../auth.service";
 
 
 export const useSendForgotPassword =  (defaultEmail: string | null): UseSendForgotPasswordReturn=> {

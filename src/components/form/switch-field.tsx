@@ -27,7 +27,7 @@ export const SwitchField = <TFormData extends FieldValues>({
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              {label}{" "}
+              {label} 
               <p className="text-muted-foreground text-xs">(Optionnel)</p>
             </FormLabel>
             <FormMessage />

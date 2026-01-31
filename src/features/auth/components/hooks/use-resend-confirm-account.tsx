@@ -13,11 +13,11 @@ import { toast } from "react-toastify";
 
 
 import { useState } from "react";
-import type { UseSendConfirmReturn } from "../types/hook";
-import { createSendConfirmAccountSchema } from "../schema/auth-schema";
-import type { SendConfirmAccountResponse } from "../types/api";
+import type { UseSendConfirmReturn } from "../../types/hook";
+import { createSendConfirmAccountSchema } from "../../schema/auth-schema";
+import type { SendConfirmAccountResponse } from "../../types/api";
 import type { IApiErrors } from "@/types/api";
-import { authService } from "../auth.service";
+import { authService } from "../../auth.service";
 
 
 

@@ -11,11 +11,11 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/data/routes";
 
 import { useCookieStore } from "@/store/cookie.store";
-import type { UseLogoutReturn } from "../types/hook";
-import { useAuthStore } from "../auth.store";
-import type { LogoutResponse } from "../types/api";
+import type { UseLogoutReturn } from "../../types/hook";
+import { useAuthStore } from "../../auth.store";
+import type { LogoutResponse } from "../../types/api";
 import type { IApiErrors } from "@/types/api";
-import { authService } from "../auth.service";
+import { authService } from "../../auth.service";
 
 export const useLogout = (): UseLogoutReturn => {
   const { t } = useTranslation("auth");

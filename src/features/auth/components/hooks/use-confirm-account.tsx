@@ -9,11 +9,11 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/data/routes";
-import type { UseConfirmReturn } from "../types/hook";
-import type { ConfirmAccountResponse } from "../types/api";
+import type { UseConfirmReturn } from "../../types/hook";
+import type { ConfirmAccountResponse } from "../../types/api";
 import type { IApiErrors } from "@/types/api";
-import type { ConfirmAccountData } from "../types/form";
-import { authService } from "../auth.service";
+import type { ConfirmAccountData } from "../../types/form";
+import { authService } from "../../auth.service";
 
 export const useConfirmAccount = (token: string): UseConfirmReturn => {
   const { t } = useTranslation("auth");

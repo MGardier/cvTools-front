@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 export const useSorting = <TData,>(
   initialFields: ISortingItem<TData>[] = []
 ): IUseSortingReturn<TData> => {
+  
   const [sorting, setSorting] = useState<ISortingItem<TData>[]>(initialFields);
 
   /************** UPDATE FUNCTION  ************** */
