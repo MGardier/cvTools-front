@@ -16,11 +16,6 @@ import { ResetPasswordPage } from "./pages/auth/reset-password-page";
 import { SignInPage } from "./pages/auth/sign-in-page";
 import { LogoutPage } from "./pages/auth/logout-page";
 import { GetOauthSessionPage } from "./pages/auth/get-oauth-session-page";
-import { FindAllJobsPage } from "./pages/job/find-all-jobs-page";
-import { PrivateRoutes } from "./pages/private-routes";
-import { FindOneJobPage } from "./pages/job/find-one-job-page";
-import { CreateJobPage } from "./pages/job/create-job-page";
-import { UpdateJobPage } from "./pages/job/update-job-page";
 
 //TODO: Idée ajout un how it works pour montrer l'utilisation de la recherche, candidatures et relances
 //TODO: Idée ajout Avoir une recherche qui permettent de regrouper les jobs de plusieurs plateformes
@@ -81,53 +76,6 @@ function App() {
               path={ROUTES.auth.getOauthSession}
               element={<GetOauthSessionPage />}
             />
-
-            {/************************* JOB *************************************** */}
-
-            {/* CREATE  */}
-            <Route element={<PrivateRoutes />}>
-              <Route
-                key="createJob"
-                path={ROUTES.job.create}
-                element={<CreateJobPage />}
-              />
-            </Route>
-
-            {/* UPDATE  */}
-            <Route element={<PrivateRoutes />}>
-              <Route
-                key="updateJob"
-                path={ROUTES.job.update}
-                element={<UpdateJobPage />}
-              />
-            </Route>
-
-            {/* FIND ALL JOBS  */}
-            <Route element={<PrivateRoutes />}>
-              <Route
-                key="findAllJobs"
-                path={ROUTES.job.findAll}
-                element={<FindAllJobsPage />}
-              />
-            </Route>
-
-            {/* FIND ALL JOBS */}
-            <Route element={<PrivateRoutes />}>
-              <Route
-                key="findAllJobs"
-                path={ROUTES.job.findAll}
-                element={<FindAllJobsPage />}
-              />
-            </Route>
-
-            {/* FIND ONE JOB */}
-            <Route element={<PrivateRoutes />}>
-              <Route
-                key="findOneJob"
-                path={ROUTES.job.findOne}
-                element={<FindOneJobPage />}
-              />
-            </Route>
           </Routes>
         </BrowserRouter>
       </main>
