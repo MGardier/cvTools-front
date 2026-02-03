@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,7 +6,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/common/components/ui/dropdown-menu";
 
 import { Menu } from "lucide-react";
 import { MobileNavigationLink } from "./mobile-navigation-link";

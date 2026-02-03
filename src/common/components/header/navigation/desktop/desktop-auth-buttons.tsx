@@ -1,5 +1,5 @@
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/components/ui/button";
 import { ROUTES } from "@/common/data/routes";
 
 export const DesktopAuthButtons = () => {

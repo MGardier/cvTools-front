@@ -1,4 +1,4 @@
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { DropdownMenuItem } from "@/common/components/ui/dropdown-menu";
 
 import { cn } from "@/common/utils/utils";
 import { forwardRef, type ComponentPropsWithoutRef } from "react";

@@ -1,6 +1,6 @@
 import { cn } from "@/common/utils/utils";
 import { PaginationLink } from "../ui/pagination";
-import { PaginationItem } from "@/components/ui/pagination";
+import { PaginationItem } from "@/common/components/ui/pagination";
 import type { ReactNode } from "react";
 
 interface DataTablePaginationItemProps {

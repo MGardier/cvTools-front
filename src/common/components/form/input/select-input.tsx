@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/common/components/ui/select";
 import type { ISelectValues } from "@/common/types/form";
 
 

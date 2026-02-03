@@ -4,7 +4,7 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+} from "@/common/components/ui/navigation-menu";
 
 
 import { DesktopNavigationItem } from "./desktop-navigation-item";

@@ -1,4 +1,4 @@
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { DropdownMenuItem } from "@/common/components/ui/dropdown-menu";
 import { ROUTES } from "@/common/data/routes";
 
 export const MobileAuthButton = () => {

@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import { HomePage } from "./pages/home-page";
 import { SignUpPage } from "./pages/auth/sign-up-page";
 
-import { Header } from "./components/header/header";
+import { Header } from "./common/components/header/header";
 import { ROUTES } from "./common/data/routes";
 import { ConfirmAccountPage } from "./pages/auth/confirm-account-page";
 import { ResetPasswordPage } from "./pages/auth/reset-password-page";

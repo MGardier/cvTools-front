@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { CardContent } from "@/components/ui/card";
-import { Form } from "@/components/ui/form";
+import { Button } from "@/common/components/ui/button";
+import { CardContent } from "@/common/components/ui/card";
+import { Form } from "@/common/components/ui/form";
 import { Loader2 } from "lucide-react";
 import type {
   FieldValues,

@@ -1,8 +1,8 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/common/components/ui/card";
 import { AuthCardHeader } from "../auth-card-header";
 
 import { useConfirmAccount } from "../hooks/use-confirm-account";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/components/ui/button";
 import { ROUTES } from "@/common/data/routes";
 
 export interface ReSendConfirmAccountFormProps {

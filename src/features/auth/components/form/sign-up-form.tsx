@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+import { Card } from "@/common/components/ui/card";
 import { AuthCardHeader } from "../auth-card-header";
 import { AuthCardContent } from "../auth-card-content";
 import { AuthSocialMedia } from "../auth-social-media";
