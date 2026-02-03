@@ -2,8 +2,8 @@
 
 /************************************************** API ********************************/
 
-import type { IApiResponse } from "@/types/api";
-import type { User } from "@/types/entity";
+import type { IApiResponse } from "@/common/types/api";
+import type { User } from "@/common/types/entity";
 
 /************************************************** SIGNUP ********************************/
 

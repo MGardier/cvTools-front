@@ -1,4 +1,4 @@
-import { ROUTES } from '@/data/routes'
+import { ROUTES } from '@/common/data/routes'
 import { useAuthStore } from '@/features/auth/auth.store'
 import { Navigate, Outlet } from 'react-router-dom'
 export const PrivateRoutes = () => {

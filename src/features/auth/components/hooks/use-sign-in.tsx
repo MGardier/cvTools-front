@@ -10,14 +10,14 @@ import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
 
-import { ROUTES } from "@/data/routes";
-import { useCookieStore } from "@/store/cookie.store";
+import { ROUTES } from "@/common/data/routes";
+import { useCookieStore } from "@/common/store/cookie.store";
 import type { UseSignInReturn } from "../../types/hook";
 import { useAuthStore } from "../../auth.store";
 import { createSignInSchema } from "../../schema/auth-schema";
 import type { SignInResponse } from "../../types/api";
-import type { IApiErrors } from "@/types/api";
-import { authService } from "../../auth.service";
+import type { IApiErrors } from "@/common/types/api";
+import { authService } from "@/lib/api/auth/auth.service";
 
 export const useSignIn = (): UseSignInReturn => {
   const { t } = useTranslation("auth");

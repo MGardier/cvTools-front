@@ -3,7 +3,7 @@ import { AuthCardHeader } from "../auth-card-header";
 
 import { useConfirmAccount } from "../hooks/use-confirm-account";
 import { Button } from "@/components/ui/button";
-import { ROUTES } from "@/data/routes";
+import { ROUTES } from "@/common/data/routes";
 
 export interface ReSendConfirmAccountFormProps {
   token: string;

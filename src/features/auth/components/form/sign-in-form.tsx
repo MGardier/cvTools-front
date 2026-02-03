@@ -5,7 +5,7 @@ import { AuthSocialMedia } from "../auth-social-media";
 import { AuthField } from "../auth-field";
 
 import { useSignIn } from "../hooks/use-sign-in";
-import { ROUTES } from "@/data/routes";
+import { ROUTES } from "@/common/data/routes";
 
 
 

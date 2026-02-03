@@ -2,15 +2,16 @@ import "./App.css";
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { useState } from "react";
+import { queryClient } from "./lib/tanstack-query/query-client";
 import { ToastContainer } from "react-toastify";
 import { HomePage } from "./pages/home-page";
 import { SignUpPage } from "./pages/auth/sign-up-page";
 
 import { Header } from "./components/header/header";
-import { ROUTES } from "./data/routes";
+import { ROUTES } from "./common/data/routes";
 import { ConfirmAccountPage } from "./pages/auth/confirm-account-page";
 import { ResetPasswordPage } from "./pages/auth/reset-password-page";
 import { SignInPage } from "./pages/auth/sign-in-page";
@@ -22,7 +23,6 @@ import { GetOauthSessionPage } from "./pages/auth/get-oauth-session-page";
 //TODO : Avoir un tableau pour gérer ses candidatures et relances.
 
 function App() {
-  const queryClient = new QueryClient();
   const [isOpen, setIsOpen] = useState(false);
   return (
     <QueryClientProvider client={queryClient}>

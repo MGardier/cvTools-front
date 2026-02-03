@@ -8,14 +8,14 @@ import { toast } from "react-toastify";
 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/data/routes";
+import { ROUTES } from "@/common/data/routes";
 
-import { useCookieStore } from "@/store/cookie.store";
+import { useCookieStore } from "@/common/store/cookie.store";
 import type { UseLogoutReturn } from "../../types/hook";
 import { useAuthStore } from "../../auth.store";
 import type { LogoutResponse } from "../../types/api";
-import type { IApiErrors } from "@/types/api";
-import { authService } from "../../auth.service";
+import type { IApiErrors } from "@/common/types/api";
+import { authService } from "@/lib/api/auth/auth.service";
 
 export const useLogout = (): UseLogoutReturn => {
   const { t } = useTranslation("auth");

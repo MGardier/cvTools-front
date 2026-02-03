@@ -5,13 +5,13 @@ import { toast } from "react-toastify";
 
 
 import { useEffect } from "react";
-import { useCookieStore } from "@/store/cookie.store";
+import { useCookieStore } from "@/common/store/cookie.store";
 import type { UseCompleteOauthReturn } from "../../types/hook";
 import { useAuthStore } from "../../auth.store";
 import type { SignInResponse } from "../../types/api";
-import type { IApiErrors } from "@/types/api";
-import { authService } from "../../auth.service";
-import { ROUTES } from "@/data/routes";
+import type { IApiErrors } from "@/common/types/api";
+import { authService } from "@/lib/api/auth/auth.service";
+import { ROUTES } from "@/common/data/routes";
 
 //TODO: modifier les typages form par celui de zod
 export const useGetOauthSession = (sessionId : string , loginMethod: string): UseCompleteOauthReturn => {

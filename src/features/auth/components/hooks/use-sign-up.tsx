@@ -9,13 +9,13 @@ import { toast } from "react-toastify";
 
 
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/data/routes";
+import { ROUTES } from "@/common/data/routes";
 
-import type { IApiErrors } from "@/types/api";
+import type { IApiErrors } from "@/common/types/api";
 import type { UseSignUpReturn } from "../../types/hook";
 import { createSignUpSchema } from "../../schema/auth-schema";
 import type { SignUpResponse } from "../../types/api";
-import { authService } from "../../auth.service";
+import { authService } from "@/lib/api/auth/auth.service";
 
 
 

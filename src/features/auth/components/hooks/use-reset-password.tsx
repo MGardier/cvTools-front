@@ -6,12 +6,12 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import type z from "zod";
 
-import { ROUTES } from "@/data/routes";
+import { ROUTES } from "@/common/data/routes";
 import type { UseResetPasswordReturn } from "../../types/hook";
 import { createResetPasswordSchema } from "../../schema/auth-schema";
 import type { ResetPasswordResponse } from "../../types/api";
-import type { IApiErrors } from "@/types/api";
-import { authService } from "../../auth.service";
+import type { IApiErrors } from "@/common/types/api";
+import { authService } from "@/lib/api/auth/auth.service";
 
 
 export const useResetPassword = (token: string): UseResetPasswordReturn => {

@@ -1,5 +1,5 @@
 
-import type { User } from "@/types/entity";
+import type { User } from "@/common/types/entity";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

@@ -1,4 +1,4 @@
-import { ROUTES } from "@/data/routes";
+import { ROUTES } from "@/common/data/routes";
 import { AuthLayout } from "@/features/auth/components/auth-layout";
 import { GetOauthSession } from "@/features/auth/components/get-oauth-session";
 
