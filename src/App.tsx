@@ -7,16 +7,16 @@ import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { useState } from "react";
 import { queryClient } from "./lib/tanstack-query/query-client";
 import { ToastContainer } from "react-toastify";
-import { HomePage } from "./pages/home-page";
-import { SignUpPage } from "./pages/auth/sign-up-page";
+import { HomePage } from "./common/router/home-page";
 
 import { Header } from "./common/components/header/header";
 import { ROUTES } from "./common/data/routes";
-import { ConfirmAccountPage } from "./pages/auth/confirm-account-page";
-import { ResetPasswordPage } from "./pages/auth/reset-password-page";
-import { SignInPage } from "./pages/auth/sign-in-page";
-import { LogoutPage } from "./pages/auth/logout-page";
-import { GetOauthSessionPage } from "./pages/auth/get-oauth-session-page";
+import { SignIn } from "./modules/Auth/SignIn/sign-in";
+import { SignUp } from "./modules/Auth/SignUp/sign-up";
+import { ConfirmAccount } from "./modules/Auth/ConfirmAccount/confirm-account";
+import { ResetPassword } from "./modules/Auth/ResetPassword/reset-password";
+import { Logout } from "./modules/Auth/Logout/logout";
+import { GetOauthSession } from "./modules/Auth/Oauth/get-oauth-session";
 
 //TODO: Idée ajout un how it works pour montrer l'utilisation de la recherche, candidatures et relances
 //TODO: Idée ajout Avoir une recherche qui permettent de regrouper les jobs de plusieurs plateformes
@@ -39,42 +39,42 @@ function App() {
             <Route
               key="signUp"
               path={ROUTES.auth.signUp}
-              element={<SignUpPage />}
+              element={<SignUp />}
             />
 
             {/* CONFIRM ACCOUNT */}
             <Route
               key="confirmAccount"
               path={ROUTES.auth.confirmAccount}
-              element={<ConfirmAccountPage />}
+              element={<ConfirmAccount />}
             />
 
             {/*  RESET PASSWORD */}
             <Route
               key="resetPassword"
               path={ROUTES.auth.resetPassword}
-              element={<ResetPasswordPage />}
+              element={<ResetPassword />}
             />
 
             {/* SIGNIN */}
             <Route
               key="signIn"
               path={ROUTES.auth.signIn}
-              element={<SignInPage />}
+              element={<SignIn />}
             />
 
             {/* LOGOUT */}
             <Route
               key="logout"
               path={ROUTES.auth.logout}
-              element={<LogoutPage />}
+              element={<Logout />}
             />
 
             {/* GET OAUTH  SESSION */}
             <Route
               key="getOauthSession"
               path={ROUTES.auth.getOauthSession}
-              element={<GetOauthSessionPage />}
+              element={<GetOauthSession />}
             />
           </Routes>
         </BrowserRouter>

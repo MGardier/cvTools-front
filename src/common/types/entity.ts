@@ -1,23 +1,23 @@
 /****************************  USER **************************************************************************** */
 
-export type UserStatus =
+export type TUserStatus =
   "ALLOWED"
   | "PENDING"
   | "BANNED"
 
 
-export type UserRoles =
+export type TUserRoles =
   "ADMIN"
   | "USER"
 
 
 
 
-export interface User {
+export interface IUser {
   id: string;
   email: string;
-  status: UserStatus
-  roles: UserRoles;
+  status: TUserStatus
+  roles: TUserRoles;
   createdAt?: Date;
   updatedAt?: Date;
 

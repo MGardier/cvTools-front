@@ -1,6 +1,7 @@
 import { ROUTES } from '@/common/data/routes';
-import { useAuthStore } from '@/features/auth/auth.store';
+
 import { useCookieStore } from '@/common/store/cookie.store';
+import { useAuthStore } from '@/modules/Auth/store/auth.store';
 import axios, { AxiosError, type AxiosInstance } from 'axios';
 
 

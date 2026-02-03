@@ -1,0 +1,38 @@
+import { Card } from "@/common/components/ui/card";
+import { AuthCardHeader } from "../components/auth-card-header";
+import { AuthCardContent } from "../components/auth-card-content";
+import { AuthField } from "../components/auth-field";
+import { AuthLayout } from "../components/auth-layout";
+import type { IResetPasswordUiProps } from "./types";
+
+export const ResetPasswordUi = ({ form, onSubmit, isError, isPending, t }: IResetPasswordUiProps) => {
+    return (
+        <AuthLayout>
+            <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
+                <AuthCardHeader title={t("pages.resetPassword.title")}>
+                    {isError && (
+                        <div className="text-red-700 mt-4 flex items-center justify-center gap-2">
+                            <p>
+                                <b>{t("pages.resetPassword.errors.resetFailed")}</b>.
+                            </p>
+                        </div>
+                    )}
+                </AuthCardHeader>
+                <AuthCardContent
+                    {...{ onSubmit, form, labelButton: t("pages.resetPassword.form.button"), isLoading: isPending }}
+                >
+                    <div className="grid gap-6">
+                        <AuthField
+                            label={t("pages.resetPassword.form.password")}
+                            name="password"
+                            type="password"
+                            placeholder="••••••••••••"
+                            required
+                            {...{ form }}
+                        />
+                    </div>
+                </AuthCardContent>
+            </Card>
+        </AuthLayout>
+    );
+};
