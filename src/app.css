@@ -118,3 +118,34 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* ANIMATION */
+
+
+@keyframes pulse-interval {
+  0%, 20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  10% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+  20%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-pulse-interval {
+  animation: pulse-interval 5s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-interval 8s ease-in-out infinite;
+}
+
+.animate-pulse-frequent {
+  animation: pulse-interval 3s ease-in-out infinite;
+}

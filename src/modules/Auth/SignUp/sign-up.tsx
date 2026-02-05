@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/common/data/routes";
+import { ROUTES } from "@/common/constants/routes";
 import type { IApiErrors } from "@/common/types/api";
 import { createSignUpSchema } from "../schema/auth-schema";
 import type { ISignUpResponse } from "../types";

@@ -1,4 +1,4 @@
-import { ROUTES } from '@/common/data/routes'
+import { ROUTES } from '@/common/constants/routes'
 import { useAuthStore } from '@/modules/Auth/store/auth.store'
 import { Navigate, Outlet } from 'react-router-dom'
 

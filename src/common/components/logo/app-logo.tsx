@@ -1,4 +1,4 @@
-import { ROUTES } from "@/common/data/routes";
+import { ROUTES } from "@/common/constants/routes";
 import { cn } from "@/common/utils/utils";
 
 export interface AppLogoProps {
@@ -11,12 +11,17 @@ export const AppLogo = ({ className }: AppLogoProps) => {
       href={ROUTES.home}
       className={cn(
         "flex items-center space-x-1  font-bold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm",
-        className
+        className,
       )}
       aria-label="Retour à l'accueil CVTools"
     >
-      <span className="text-gray-800">CV</span>
-      <span className="text-blue-400">Tools</span>
+      <span className="text-[17px] font-semibold tracking-[-0.02em] text-gray-800">
+        CV
+      </span>
+
+      <span className="text-[17px] font-semibold tracking-[-0.02em] text-blue-400">
+        Tools
+      </span>
     </a>
   );
 };

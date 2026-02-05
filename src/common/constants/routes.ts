@@ -16,4 +16,4 @@ export const ROUTES = {
     /* RESET  PASSWORD */
     resetPassword :"reset-password",
   }
-};
+} as const ;

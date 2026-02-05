@@ -1,34 +1,21 @@
 
-export interface IApiResponse {
+export interface IApiResponse<T> {
 
   success: boolean;
   statusCode: number;
   message?: string;
   timestamp: string;
   path: string;
+  data: T
 
 }
 
 
 
-export interface IApiErrors extends IApiResponse {
+export interface IApiErrors extends IApiResponse<null> {
 
 }
 
 
-export interface IFilterParams<TFilter extends object> {
-  limit: number;
-  page : number;
-  sort?: string;
-  filters?: TFilter;
-}
 
-export interface IFilterDataResponse<Tdata> {
-  data :Tdata[],
-  count: number;
-  limit: number;
-  page: number;
-  maxPage: number;
-
-}
 

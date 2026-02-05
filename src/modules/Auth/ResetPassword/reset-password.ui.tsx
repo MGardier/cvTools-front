@@ -5,6 +5,8 @@ import { AuthField } from "../components/auth-field";
 import { AuthLayout } from "../components/auth-layout";
 import type { IResetPasswordUiProps } from "./types";
 
+
+
 export const ResetPasswordUi = ({ form, onSubmit, isError, isPending, t }: IResetPasswordUiProps) => {
     return (
         <AuthLayout>

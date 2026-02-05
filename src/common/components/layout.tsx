@@ -1,10 +1,16 @@
+import { Header } from "./header/header";
+import { Footer } from "./footer/Footer";
 
-interface MainLayoutProps {
-  children: React.ReactNode
+interface LayoutProps {
+  children: React.ReactNode;
 }
 
-export const Layout =({children} : MainLayoutProps)=> {
-   return (<div className="container mx-auto py-10 flex flex-col justify-center items-center">
-     {children}
-    </div>)
-}
+export const Layout = ({ children }: LayoutProps) => {
+  return (
+    <div className="min-h-screen bg-white text-gray-900 font-sans antialiased">
+      <Header />
+      <main className="pt-16">{children}</main>
+      <Footer />
+    </div>
+  );
+};

@@ -28,6 +28,16 @@ export interface ISignInResponse extends IApiResponse {
   }
 }
 
+
+export interface IDefaultResponse extends IApiResponse {
+  data: {
+    user: IUser
+  } 
+  
+}
+
+export type I = Pick<IDefaultResponse,'data'>
+
 /************************************************** LOGOUT ********************************/
 
 export interface ILogoutResponse extends IApiResponse {

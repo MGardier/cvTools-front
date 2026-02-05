@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ROUTES } from "@/common/data/routes";
+import { ROUTES } from "@/common/constants/routes";
 import type { IConfirmAccountResponse } from "../types";
 import type { IApiErrors } from "@/common/types/api";
 import type { IConfirmAccountData } from "./types";

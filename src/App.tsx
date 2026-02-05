@@ -1,4 +1,4 @@
-import "./App.css";
+import "./app.css";
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
@@ -9,27 +9,21 @@ import { queryClient } from "./lib/tanstack-query/query-client";
 import { ToastContainer } from "react-toastify";
 import { HomePage } from "./common/router/home-page";
 
-import { Header } from "./common/components/header/header";
-import { ROUTES } from "./common/data/routes";
+import { ROUTES } from "./common/constants/routes";
 import { SignIn } from "./modules/Auth/SignIn/sign-in";
 import { SignUp } from "./modules/Auth/SignUp/sign-up";
 import { ConfirmAccount } from "./modules/Auth/ConfirmAccount/confirm-account";
 import { ResetPassword } from "./modules/Auth/ResetPassword/reset-password";
 import { Logout } from "./modules/Auth/Logout/logout";
 import { GetOauthSession } from "./modules/Auth/Oauth/get-oauth-session";
-
-//TODO: Idée ajout un how it works pour montrer l'utilisation de la recherche, candidatures et relances
-//TODO: Idée ajout Avoir une recherche qui permettent de regrouper les jobs de plusieurs plateformes
-//TODO : Avoir un tableau pour gérer ses candidatures et relances.
+import { Layout } from "./common/components/layout";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <QueryClientProvider client={queryClient}>
-      <main className=" w-full  relative flex flex-col min-h-screen bg-white">
-        <Header />
-        <ToastContainer />
-        <BrowserRouter>
+      <BrowserRouter>
+        <Layout>
           <Routes>
             {/* HOME */}
             <Route key="home" path={ROUTES.home} element={<HomePage />} />
@@ -77,8 +71,9 @@ function App() {
               element={<GetOauthSession />}
             />
           </Routes>
-        </BrowserRouter>
-      </main>
+        </Layout>
+      </BrowserRouter>
+      <ToastContainer />
       <button onClick={() => setIsOpen(!isOpen)}>{`${
         isOpen ? "Close" : "Open"
       } Query Tanstack devtools`}</button>

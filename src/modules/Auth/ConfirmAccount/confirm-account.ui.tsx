@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/common/components/ui/card";
 import { Button } from "@/common/components/ui/button";
 import { AuthCardHeader } from "../components/auth-card-header";
 import { AuthLayout } from "../components/auth-layout";
-import { ROUTES } from "@/common/data/routes";
+import { ROUTES } from "@/common/constants/routes";
 import type { IConfirmAccountUiProps } from "./types";
 
 export const ConfirmAccountUi = ({ isSuccess, isError, isPending, t }: IConfirmAccountUiProps) => {

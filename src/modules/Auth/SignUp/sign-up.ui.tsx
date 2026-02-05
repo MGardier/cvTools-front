@@ -4,7 +4,7 @@ import { AuthCardContent } from "../components/auth-card-content";
 import { AuthSocialMedia } from "../components/auth-social-media";
 import { AuthField } from "../components/auth-field";
 import { AuthLayout } from "../components/auth-layout";
-import { ROUTES } from "@/common/data/routes";
+import { ROUTES } from "@/common/constants/routes";
 import type { ISignUpUiProps } from "./types";
 
 export const SignUpUi = ({ form, onSubmit, isError, isPending, error, t }: ISignUpUiProps) => {

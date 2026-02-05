@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import type z from "zod";
-import { ROUTES } from "@/common/data/routes";
+import { ROUTES } from "@/common/constants/routes";
 import { createSendForgotPasswordSchema } from "../schema/auth-schema";
 import type { ISendForgotPasswordResponse } from "../types";
 import type { IApiErrors } from "@/common/types/api";

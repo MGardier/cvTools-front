@@ -30,8 +30,6 @@ export const authApi = {
   },
 
 
-
-
   /****************  CONFIRM ACCOUNT *********************************************/
 
   async sendConfirmAccount(params: ISendConfirmAccountParams): Promise<ISendConfirmAccountResponse> {

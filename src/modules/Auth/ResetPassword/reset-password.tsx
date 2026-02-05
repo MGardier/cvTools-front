@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import type z from "zod";
-import { ROUTES } from "@/common/data/routes";
+import { ROUTES } from "@/common/constants/routes";
 import { createResetPasswordSchema } from "../schema/auth-schema";
 import type { IResetPasswordResponse } from "../types";
 import type { IApiErrors } from "@/common/types/api";
@@ -28,6 +28,7 @@ export const ResetPassword = () => {
         resolver: zodResolver(schema),
         defaultValues,
     });
+    
 
     const mutation = useMutation<IResetPasswordResponse, IApiErrors, z.infer<typeof schema>>({
         mutationFn: (formData: z.infer<typeof schema>) =>
