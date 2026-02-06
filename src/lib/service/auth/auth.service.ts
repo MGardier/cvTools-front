@@ -1,6 +1,6 @@
 
 
-import { authApi } from "../../api/Auth/auth.api";
+import { authApi } from "../../api/auth/auth.api";
 
 import type { IConfirmAccountResponse, ILogoutResponse, IResetPasswordParams, IResetPasswordResponse, ISendConfirmAccountResponse, ISendForgotPasswordResponse, ISignInResponse, ISignUpResponse } from "@/modules/auth/types";
 import type { IConfirmAccountData } from "@/modules/auth/confirm-account/types";

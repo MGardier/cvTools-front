@@ -1,4 +1,5 @@
 import "./app.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
@@ -73,7 +74,18 @@ function App() {
           </Routes>
         </Layout>
       </BrowserRouter>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <button onClick={() => setIsOpen(!isOpen)}>{`${
         isOpen ? "Close" : "Open"
       } Query Tanstack devtools`}</button>

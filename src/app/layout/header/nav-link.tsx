@@ -5,8 +5,8 @@ import { useState } from "react";
 type TNavLinkProps = {
   link?: string;
   children: React.ReactNode;
-  isDisabled: boolean;
-  isSoon: boolean;
+  isDisabled?: boolean ;
+  isSoon?: boolean;
   t: TFunction<"common", undefined>;
 }
 

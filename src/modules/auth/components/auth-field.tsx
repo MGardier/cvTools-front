@@ -35,7 +35,7 @@ export const AuthField = <TFormData extends FieldValues>  ({
           <FormItem>
               <FormLabel>{label}</FormLabel>
             <FormControl>
-              <Input {...{className: "h-8 md:h-12 lg:h-12 w-full max-w-full",placeholder,type,required,...field}}/>
+              <Input {...{className: "h-8 md:h-12 lg:h-12 w-full max-w-full",placeholder ,type ,required ,...field}}/>
             </FormControl>
             <FormMessage />
           </FormItem>
