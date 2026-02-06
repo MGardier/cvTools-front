@@ -1,6 +1,6 @@
-import { GitHubLogo } from "@/common/components/logo/github-logo";
-import { GoogleLogo } from "@/common/components/logo/google-logo";
-import { Button } from "@/common/components/ui/button";
+import { GitHubLogo } from "@/shared/components/logo/github-logo";
+import { GoogleLogo } from "@/shared/components/logo/google-logo";
+import { Button } from "@/shared/components/ui/button";
 import { useTranslation } from "react-i18next";
 
 // TODO : ajout d'un loader

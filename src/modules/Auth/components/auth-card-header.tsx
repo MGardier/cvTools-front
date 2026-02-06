@@ -2,7 +2,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/common/components/ui/card";
+} from "@/shared/components/ui/card";
 
 interface IAuthCardHeaderProps {
   title: string;

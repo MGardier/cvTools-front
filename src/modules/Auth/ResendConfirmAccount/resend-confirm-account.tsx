@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { createSendConfirmAccountSchema } from "../schema/auth-schema";
 import type { ISendConfirmAccountResponse } from "../types";
-import type { IApiErrors } from "@/common/types/api";
+import type { IApiErrors } from "@/shared/types/api";
 import { authService } from "@/lib/service/Auth/auth.service";
 import { ResendConfirmAccountUi } from "./resend-confirm-account.ui";
 import type { IResendConfirmAccountProps } from "./types";

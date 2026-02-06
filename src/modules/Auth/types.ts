@@ -1,5 +1,5 @@
-import type { IApiResponse } from "@/common/types/api";
-import type { IUser } from "@/common/types/entity";
+import type { IApiResponse } from "@/shared/types/api";
+import type { IUser } from "@/shared/types/entity";
 
 /************************************************** SIGNUP ********************************/
 

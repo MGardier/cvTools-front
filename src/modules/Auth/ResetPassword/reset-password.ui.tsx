@@ -1,4 +1,4 @@
-import { Card } from "@/common/components/ui/card";
+import { Card } from "@/shared/components/ui/card";
 import { AuthCardHeader } from "../components/auth-card-header";
 import { AuthCardContent } from "../components/auth-card-content";
 import { AuthField } from "../components/auth-field";

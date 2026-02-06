@@ -1,5 +1,5 @@
 
-import type { IUser } from "@/common/types/entity";
+import type { IUser } from "@/shared/types/entity";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

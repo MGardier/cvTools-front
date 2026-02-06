@@ -1,8 +1,8 @@
-import { Card, CardContent } from "@/common/components/ui/card";
-import { Button } from "@/common/components/ui/button";
+import { Card, CardContent } from "@/shared/components/ui/card";
+import { Button } from "@/shared/components/ui/button";
 import { AuthCardHeader } from "../components/auth-card-header";
 import { AuthLayout } from "../components/auth-layout";
-import { ROUTES } from "@/common/constants/routes";
+import { ROUTES } from "@/app/constants/routes";
 import type { TFunction } from "i18next";
 
 interface IConfirmAccountUiProps {

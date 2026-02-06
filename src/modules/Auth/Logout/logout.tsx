@@ -3,11 +3,11 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/common/constants/routes";
-import { useCookieStore } from "@/common/store/cookie.store";
+import { ROUTES } from "@/app/constants/routes";
+import { useCookieStore } from "@/app/store/cookie.store";
 import { useAuthStore } from "../store/auth.store";
 import type { ILogoutResponse } from "../types";
-import type { IApiErrors } from "@/common/types/api";
+import type { IApiErrors } from "@/shared/types/api";
 import { authService } from "@/lib/service/Auth/auth.service";
 import { LogoutUi } from "./logout.ui";
 

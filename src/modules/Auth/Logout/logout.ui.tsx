@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/common/components/ui/card";
+import { Card, CardContent } from "@/shared/components/ui/card";
 import { AuthCardHeader } from "../components/auth-card-header";
 import { AuthLayout } from "../components/auth-layout";
 import type { TFunction } from "i18next";

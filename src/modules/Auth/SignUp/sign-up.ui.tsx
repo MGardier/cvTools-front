@@ -1,14 +1,14 @@
-import { Card } from "@/common/components/ui/card";
+import { Card } from "@/shared/components/ui/card";
 import { AuthCardHeader } from "../components/auth-card-header";
 import { AuthCardContent } from "../components/auth-card-content";
 import { AuthSocialMedia } from "../components/auth-social-media";
 import { AuthField } from "../components/auth-field";
 import { AuthLayout } from "../components/auth-layout";
-import { ROUTES } from "@/common/constants/routes";
+import { ROUTES } from "@/app/constants/routes";
 import type { SubmitHandler, UseFormReturn } from "react-hook-form";
 import type { TFunction } from "i18next";
 import type { ISignUpData } from "./types";
-import type { IApiErrors } from "@/common/types/api";
+import type { IApiErrors } from "@/shared/types/api";
 
 interface ISignUpUiProps {
   onSubmit: SubmitHandler<ISignUpData>;

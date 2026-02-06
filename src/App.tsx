@@ -7,16 +7,16 @@ import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { useState } from "react";
 import { queryClient } from "./lib/tanstack-query/query-client";
 import { ToastContainer } from "react-toastify";
-import { HomePage } from "./common/router/home-page";
+import { HomePage } from "@/app/router/home-page";
 
-import { ROUTES } from "./common/constants/routes";
+import { ROUTES } from "@/app/constants/routes";
 import { SignIn } from "./modules/Auth/SignIn/sign-in";
 import { SignUp } from "./modules/Auth/SignUp/sign-up";
 import { ConfirmAccount } from "./modules/Auth/ConfirmAccount/confirm-account";
 import { ResetPassword } from "./modules/Auth/ResetPassword/reset-password";
 import { Logout } from "./modules/Auth/Logout/logout";
 import { GetOauthSession } from "./modules/Auth/Oauth/get-oauth-session";
-import { Layout } from "./common/components/layout";
+import { Layout } from "@/app/layout/layout";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);

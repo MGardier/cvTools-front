@@ -4,8 +4,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/common/components/ui/form";
-import { Input } from "@/common/components/ui/input";
+} from "@/shared/components/ui/form";
+import { Input } from "@/shared/components/ui/input";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 

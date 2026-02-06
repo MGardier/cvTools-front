@@ -1,6 +1,6 @@
 import type { SubmitHandler, UseFormReturn } from "react-hook-form";
 import type { TFunction } from "i18next";
-import type { IApiErrors } from "@/common/types/api";
+import type { IApiErrors } from "@/shared/types/api";
 
 export interface ISignUpData {
   email: string;
