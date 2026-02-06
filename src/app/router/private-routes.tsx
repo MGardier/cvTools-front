@@ -1,5 +1,5 @@
 import { ROUTES } from "@/app/constants/routes"
-import { useAuthStore } from '@/modules/Auth/store/auth.store'
+import { useAuthStore } from '@/modules/auth/store/auth.store'
 import { Navigate, Outlet } from 'react-router-dom'
 
 export const PrivateRoutes = () => {

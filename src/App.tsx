@@ -10,12 +10,12 @@ import { ToastContainer } from "react-toastify";
 import { HomePage } from "@/app/router/home-page";
 
 import { ROUTES } from "@/app/constants/routes";
-import { SignIn } from "./modules/Auth/SignIn/sign-in";
-import { SignUp } from "./modules/Auth/SignUp/sign-up";
-import { ConfirmAccount } from "./modules/Auth/ConfirmAccount/confirm-account";
-import { ResetPassword } from "./modules/Auth/ResetPassword/reset-password";
-import { Logout } from "./modules/Auth/Logout/logout";
-import { GetOauthSession } from "./modules/Auth/Oauth/get-oauth-session";
+import { SignIn } from "./modules/auth/sign-in/sign-in";
+import { SignUp } from "./modules/auth/sign-up/sign-up";
+import { ConfirmAccount } from "./modules/auth/confirm-account/confirm-account";
+import { ResetPassword } from "./modules/auth/reset-password/reset-password";
+import { Logout } from "./modules/auth/logout/logout";
+import { GetOauthSession } from "./modules/auth/oauth/get-oauth-session";
 import { Layout } from "@/app/layout/layout";
 
 function App() {

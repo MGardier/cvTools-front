@@ -1,6 +1,6 @@
 
 import { apiClient } from '@/lib/axios/axios';
-import type {  IConfirmAccountParams, IConfirmAccountResponse, ILogoutResponse, IResetPasswordParams, IResetPasswordResponse, ISendConfirmAccountParams, ISendConfirmAccountResponse, ISendForgotPasswordParams, ISendForgotPasswordResponse, ISignInParams, ISignInResponse, ISignUpParams, ISignUpResponse } from '@/modules/Auth/types';
+import type {  IConfirmAccountParams, IConfirmAccountResponse, ILogoutResponse, IResetPasswordParams, IResetPasswordResponse, ISendConfirmAccountParams, ISendConfirmAccountResponse, ISendForgotPasswordParams, ISendForgotPasswordResponse, ISignInParams, ISignInResponse, ISignUpParams, ISignUpResponse } from '@/modules/auth/types';
 
 
 
