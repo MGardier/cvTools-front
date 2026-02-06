@@ -9,7 +9,7 @@ import { ROUTES } from "@/app/constants/routes";
 import { createSendForgotPasswordSchema } from "../schema/auth-schema";
 import type { ISendForgotPasswordResponse } from "../types";
 import type { IApiErrors } from "@/shared/types/api";
-import { authService } from "@/lib/service/Auth/auth.service";
+import { authService } from "@/lib/service/auth/auth.service";
 import { SendForgotPasswordUi } from "./send-forgot-password.ui";
 import type { ISendForgotPasswordProps } from "./types";
 

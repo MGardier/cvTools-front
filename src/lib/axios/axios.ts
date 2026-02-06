@@ -1,7 +1,7 @@
 import { ROUTES } from "@/app/constants/routes";
 
 import { useCookieStore } from "@/app/store/cookie.store";
-import { useAuthStore } from '@/modules/Auth/store/auth.store';
+import { useAuthStore } from '@/modules/auth/store/auth.store';
 import axios, { AxiosError, type AxiosInstance } from 'axios';
 
 

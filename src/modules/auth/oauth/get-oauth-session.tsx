@@ -7,7 +7,7 @@ import { useCookieStore } from "@/app/store/cookie.store";
 import { useAuthStore } from "../store/auth.store";
 import type { ISignInResponse } from "../types";
 import type { IApiErrors } from "@/shared/types/api";
-import { authService } from "@/lib/service/Auth/auth.service";
+import { authService } from "@/lib/service/auth/auth.service";
 import { ROUTES } from "@/app/constants/routes";
 import { GetOauthSessionUi } from "./get-oauth-session.ui";
 

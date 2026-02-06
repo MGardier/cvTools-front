@@ -7,9 +7,9 @@ import { ROUTES } from "@/app/constants/routes";
 import type { IConfirmAccountResponse } from "../types";
 import type { IApiErrors } from "@/shared/types/api";
 import type { IConfirmAccountData } from "./types";
-import { authService } from "@/lib/service/Auth/auth.service";
+import { authService } from "@/lib/service/auth/auth.service";
 import { ConfirmAccountUi } from "./confirm-account.ui";
-import { ResendConfirmAccount } from "../ResendConfirmAccount/resend-confirm-account";
+import { ResendConfirmAccount } from "../resend-confirm-account/resend-confirm-account";
 
 export const ConfirmAccount = () => {
     const { t } = useTranslation("auth");

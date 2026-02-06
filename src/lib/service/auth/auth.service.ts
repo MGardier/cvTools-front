@@ -2,12 +2,12 @@
 
 import { authApi } from "../../api/Auth/auth.api";
 
-import type { IConfirmAccountResponse, ILogoutResponse, IResetPasswordParams, IResetPasswordResponse, ISendConfirmAccountResponse, ISendForgotPasswordResponse, ISignInResponse, ISignUpResponse } from "@/modules/Auth/types";
-import type { IConfirmAccountData } from "@/modules/Auth/ConfirmAccount/types";
-import type { ISendConfirmAccountData } from "@/modules/Auth/ResendConfirmAccount/types";
-import type { ISendForgotPasswordData } from "@/modules/Auth/SendForgotPassword/types";
-import type { ISignInData } from "@/modules/Auth/SignIn/types";
-import type { ISignUpData } from "@/modules/Auth/SignUp/types";
+import type { IConfirmAccountResponse, ILogoutResponse, IResetPasswordParams, IResetPasswordResponse, ISendConfirmAccountResponse, ISendForgotPasswordResponse, ISignInResponse, ISignUpResponse } from "@/modules/auth/types";
+import type { IConfirmAccountData } from "@/modules/auth/confirm-account/types";
+import type { ISendConfirmAccountData } from "@/modules/auth/resend-confirm-account/types";
+import type { ISendForgotPasswordData } from "@/modules/auth/send-forgot-password/types";
+import type { ISignInData } from "@/modules/auth/sign-in/types";
+import type { ISignUpData } from "@/modules/auth/sign-up/types";
 
 
 export const authService = {
