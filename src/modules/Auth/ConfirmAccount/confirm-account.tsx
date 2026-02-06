@@ -7,7 +7,7 @@ import { ROUTES } from "@/common/constants/routes";
 import type { IConfirmAccountResponse } from "../types";
 import type { IApiErrors } from "@/common/types/api";
 import type { IConfirmAccountData } from "./types";
-import { authService } from "@/lib/api/Auth/auth.service";
+import { authService } from "@/lib/service/Auth/auth.service";
 import { ConfirmAccountUi } from "./confirm-account.ui";
 import { ResendConfirmAccount } from "../ResendConfirmAccount/resend-confirm-account";
 

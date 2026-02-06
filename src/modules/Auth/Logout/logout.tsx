@@ -8,7 +8,7 @@ import { useCookieStore } from "@/common/store/cookie.store";
 import { useAuthStore } from "../store/auth.store";
 import type { ILogoutResponse } from "../types";
 import type { IApiErrors } from "@/common/types/api";
-import { authService } from "@/lib/api/Auth/auth.service";
+import { authService } from "@/lib/service/Auth/auth.service";
 import { LogoutUi } from "./logout.ui";
 
 export const Logout = () => {

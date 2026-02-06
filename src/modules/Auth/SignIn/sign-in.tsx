@@ -11,7 +11,7 @@ import { useAuthStore } from "../store/auth.store";
 import { createSignInSchema } from "../schema/auth-schema";
 import type { ISignInResponse } from "../types";
 import type { IApiErrors } from "@/common/types/api";
-import { authService } from "@/lib/api/Auth/auth.service";
+import { authService } from "@/lib/service/Auth/auth.service";
 import { SignInUi } from "./sign-in.ui";
 
 export const SignIn = () => {

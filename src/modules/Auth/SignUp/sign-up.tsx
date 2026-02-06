@@ -9,7 +9,7 @@ import { ROUTES } from "@/common/constants/routes";
 import type { IApiErrors } from "@/common/types/api";
 import { createSignUpSchema } from "../schema/auth-schema";
 import type { ISignUpResponse } from "../types";
-import { authService } from "@/lib/api/Auth/auth.service";
+import { authService } from "@/lib/service/Auth/auth.service";
 import { SignUpUi } from "./sign-up.ui";
 
 export const SignUp = () => {
