@@ -1,8 +1,11 @@
-interface MobileNavItemProps {
+import type { TFunction } from "i18next";
+
+type  TMobileNavItemProps =  {
   link?: string;
   children: React.ReactNode;
   isDisabled: boolean;
   isSoon: boolean;
+  t: TFunction<"common", undefined>;
 }
 
 export const MobileNavItem = ({
@@ -10,7 +13,9 @@ export const MobileNavItem = ({
   children,
   isDisabled = false,
   isSoon = false,
-}: MobileNavItemProps) => {
+  t
+}: TMobileNavItemProps) => {
+
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (isDisabled || isSoon) {
       e.preventDefault();
@@ -33,17 +38,17 @@ export const MobileNavItem = ({
       <span className="flex items-center gap-2">
         {children}
 
-        {/* Badge "Bientôt" - toujours visible sur mobile */}
+        {/* Soon badge*/}
         {isSoon && !isDisabled && (
           <span className="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full bg-gray-200 text-gray-700 whitespace-nowrap">
-            Bientôt
+            {t("layout.header.badges.soon")}
           </span>
         )}
 
-        {/* Badge "Non disponible" - style tooltip pour disabled */}
-        {isDisabled && !isSoon && (
+        {/* Disabled badge */}
+        {isDisabled && (
           <span className="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-lg bg-gray-900 text-white whitespace-nowrap">
-            Non disponible
+            {t("layout.header.badges.unavailable")}
           </span>
         )}
       </span>

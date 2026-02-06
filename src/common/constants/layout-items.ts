@@ -3,30 +3,30 @@ import type { TFooterItem, TNavbarItem } from "./types";
 
 export const NAVBAR_ITEMS : TNavbarItem[] = [
   {
-    label: "Offres",
+    label: "offers",
     key: "offers",
     isDisabled: false,
     isSoon : true,
   },
   {
-    label: "Candidatures",
+    label: "jobs",
     key: "jobs",
     isDisabled: false,
     isSoon : true,
   },
   {
-    label: "Aide",
+    label: "help",
     key: "help",
     isDisabled: false,
     isSoon : true,
   },
   {
-    label: "Statistiques",
+    label: "statistics",
     key: "statistics",
     isDisabled: true,
     isSoon : false,
   },
-    {
+  {
     label: "test",
     key: "test",
     link:"/",
@@ -40,46 +40,44 @@ export const NAVBAR_ITEMS : TNavbarItem[] = [
 export const FOOTER_ITEMS : TFooterItem[] = [
 
   {
-    label: "Offres",
+    label: "offers",
     key: "offers",
     links : [
-      { label: "About", link: "#" },
-      { label: "Blog", link: "#" },
-      { label: "Careers", link: "#" },
-      { label: "Customers", link: "#" },
+      { label: "about", link: "#" },
+      { label: "blog", link: "#" },
+      { label: "careers", link: "#" },
+      { label: "customers", link: "#" },
     ]
   },
   {
-    label: "Candidatures",
+    label: "jobs",
     key: "jobs",
     links: [
-      { label: "Contact", link: "#" },
-      { label: "Support", link: "#" },
-      { label: "Status", link: "#" },
-      { label: "Migrate", link: "#" },
+      { label: "contact", link: "#" },
+      { label: "support", link: "#" },
+      { label: "status", link: "#" },
+      { label: "migrate", link: "#" },
     ],
   },
-{
-    label: "Aides",
+  {
+    label: "help",
     key: "help",
     links: [
-      { label: "Contact", link: "#" },
-      { label: "Support", link: "#" },
-      { label: "Status", link: "#" },
-      { label: "Migrate", link: "#" },
+      { label: "contact", link: "#" },
+      { label: "support", link: "#" },
+      { label: "status", link: "#" },
+      { label: "migrate", link: "#" },
     ],
   },
-  
-{
-    label: "Mom compte",
+  {
+    label: "account",
     key: "account",
     links: [
-      { label: "Contact", link: "#" },
-      { label: "Support", link: "#" },
-      { label: "Status", link: "#" },
-      { label: "Migrate", link: "#" },
+      { label: "contact", link: "#" },
+      { label: "support", link: "#" },
+      { label: "status", link: "#" },
+      { label: "migrate", link: "#" },
     ],
   },
-  
 
  ] as const 

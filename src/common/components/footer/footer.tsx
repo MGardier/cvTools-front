@@ -1,9 +1,15 @@
 import  { EXTERNAL_LINKS } from "@/common/constants/constants";
 import { FOOTER_ITEMS } from "@/common/constants/layout-items";
+import type { TFunction } from "i18next";
 
 
 
-export const Footer = () => {
+type TFooterProps = {
+t: TFunction<"common", undefined>
+}
+
+export const Footer = ({t}: TFooterProps) => {
+ 
   return (
     <footer className="border-t border-zinc-200 bg-zinc-50">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-14 lg:py-16">
@@ -13,8 +19,8 @@ export const Footer = () => {
 
 
             <div className="flex items-center gap-1.5 text-[13px] text-zinc-500 mb-5">
-              <span>Créer par </span>
-              <span className="text-zinc-400 font-medium">Maxime Gardier</span>
+              <span>{t("layout.footer.createdBy")} </span>
+              <span className="text-zinc-400 font-medium">{t("layout.footer.author")}</span>
             </div>
 
             <div className="flex items-center gap-4 mb-5">
@@ -67,7 +73,7 @@ export const Footer = () => {
           {FOOTER_ITEMS.map((footerItem) => (
             <div key={footerItem.key}>
               <h3 className="text-[13px] font-medium text-gray-900 mb-3.5">
-                {footerItem.label}
+                {t(`layout.footer.sections.${footerItem.key}.title`)}
               </h3>
               <ul className="space-y-2.5">
                 {footerItem.links.map((link) => (
@@ -76,7 +82,7 @@ export const Footer = () => {
                       href={link.link}
                       className="text-[13px] text-zinc-500 hover:text-blue-400 transition-colors duration-200"
                     >
-                      {link.label}
+                      {t(`layout.footer.sections.${footerItem.key}.links.${link.label}`)}
                     </a>
                   </li>
                 ))}

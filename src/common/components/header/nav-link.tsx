@@ -1,3 +1,4 @@
+import type { TFunction } from "i18next";
 import { Lock } from "lucide-react";
 import { useState } from "react";
 
@@ -6,6 +7,7 @@ type TNavLinkProps = {
   children: React.ReactNode;
   isDisabled: boolean;
   isSoon: boolean;
+  t: TFunction<"common", undefined>;
 }
 
 export const NavLink = ({
@@ -13,10 +15,10 @@ export const NavLink = ({
   children,
   isDisabled = false,
   isSoon = false,
+  t
 }: TNavLinkProps) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
-  
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (isDisabled || isSoon) {
       e.preventDefault();
@@ -45,7 +47,7 @@ export const NavLink = ({
         {/* Soon badge  */}
         {isSoon && !isDisabled && (
           <span className="inline-flex items-center text-xs font-semibold rounded-full bg-gray-200 text-gray-700 whitespace-nowrap max-w-0 overflow-hidden opacity-0 group-hover:opacity-100 group-hover:max-w-[100px] group-hover:px-2.5 group-hover:py-1 group-hover:ml-2 transition-all duration-200">
-            Bientôt
+            {t("layout.header.badges.soon")}
           </span>
         )}
 
@@ -58,7 +60,7 @@ export const NavLink = ({
       {/* Tooltip  */}
       {isDisabled  && showTooltip && (
         <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-2 bg-gray-900 text-white text-[12px] rounded-lg whitespace-nowrap z-50 shadow-lg">
-          Non disponible
+          {t("layout.header.badges.unavailable")}
           <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45" />
         </div>
       )}

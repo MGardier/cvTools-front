@@ -1,0 +1,63 @@
+{
+  "layout": {
+    "header": {
+      "auth": {
+        "signIn": "Se connecter",
+        "signUp": "S'inscrire"
+      },
+      "navigation": {
+        "offers": "Offres",
+        "jobs": "Candidatures",
+        "help": "Aide",
+        "statistics": "Statistiques",
+        "test": "test"
+      },
+      "badges": {
+        "soon": "Bientôt",
+        "unavailable": "Non disponible"
+      }
+    },
+    "footer": {
+      "createdBy": "Créé par",
+      "author": "Maxime Gardier",
+      "sections": {
+        "offers": {
+          "title": "Offres",
+          "links": {
+            "about": "À propos",
+            "blog": "Blog",
+            "careers": "Carrières",
+            "customers": "Clients"
+          }
+        },
+        "jobs": {
+          "title": "Candidatures",
+          "links": {
+            "contact": "Contact",
+            "support": "Support",
+            "status": "Statut",
+            "migrate": "Migrer"
+          }
+        },
+        "help": {
+          "title": "Aide",
+          "links": {
+            "contact": "Contact",
+            "support": "Support",
+            "status": "Statut",
+            "migrate": "Migrer"
+          }
+        },
+        "account": {
+          "title": "Mon compte",
+          "links": {
+            "contact": "Contact",
+            "support": "Support",
+            "status": "Statut",
+            "migrate": "Migrer"
+          }
+        }
+      }
+    }
+  }
+}

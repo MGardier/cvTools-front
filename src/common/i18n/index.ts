@@ -29,8 +29,8 @@ i18n
     },
 
 
-    ns: ['errors'],
-    defaultNS: 'auth/errors',
+    ns: ['auth', 'common'],
+    defaultNS: 'auth',
 
     detection: {
       order: ['navigator','localStorage', ],
