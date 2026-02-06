@@ -18,14 +18,3 @@ export interface IUseSendConfirmReturn {
 export interface IResendConfirmAccountProps {
   defaultEmail: string | null;
 }
-
-export interface IResendConfirmAccountUiProps {
-  onSubmit: SubmitHandler<ISendConfirmAccountData>;
-  form: UseFormReturn<ISendConfirmAccountData>;
-  isPending: boolean;
-  isSuccess: boolean;
-  isError: boolean;
-  email: string | null;
-  defaultEmail: string | null;
-  t: TFunction<'auth', undefined>;
-}

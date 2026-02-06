@@ -10,10 +10,3 @@ export interface IUseConfirmReturn {
   isError: boolean;
   t: TFunction<'auth', undefined>;
 }
-
-export interface IConfirmAccountUiProps {
-  isPending: boolean;
-  isSuccess: boolean;
-  isError: boolean;
-  t: TFunction<'auth', undefined>;
-}

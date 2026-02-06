@@ -13,11 +13,3 @@ export interface IUseResetPasswordReturn {
   isError: boolean;
   t: TFunction<'auth', undefined>;
 }
-
-export interface IResetPasswordUiProps {
-  onSubmit: SubmitHandler<IResetPasswordData>;
-  form: UseFormReturn<IResetPasswordData>;
-  isPending: boolean;
-  isError: boolean;
-  t: TFunction<'auth', undefined>;
-}

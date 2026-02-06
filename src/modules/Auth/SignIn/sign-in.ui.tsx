@@ -5,7 +5,18 @@ import { AuthSocialMedia } from "../components/auth-social-media";
 import { AuthField } from "../components/auth-field";
 import { AuthLayout } from "../components/auth-layout";
 import { ROUTES } from "@/common/constants/routes";
-import type { ISignInUiProps } from "./types";
+import type { SubmitHandler, UseFormReturn } from "react-hook-form";
+import type { TFunction } from "i18next";
+import type { ISignInData } from "./types";
+
+interface ISignInUiProps {
+  onSubmit: SubmitHandler<ISignInData>;
+  form: UseFormReturn<ISignInData>;
+  isPending: boolean;
+  isError: boolean;
+  oauthErrorCode: string | null;
+  t: TFunction<'auth', undefined>;
+}
 
 export const SignInUi = ({ form, onSubmit, isError, isPending, oauthErrorCode, t }: ISignInUiProps) => {
     return (

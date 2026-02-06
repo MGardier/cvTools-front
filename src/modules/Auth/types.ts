@@ -8,9 +8,7 @@ export interface ISignUpParams {
   password: string;
 }
 
-export interface ISignUpResponse extends IApiResponse {
-  data: Pick<IUser, "id" | "email">
-}
+export interface ISignUpResponse extends IApiResponse<Pick<IUser, "id" | "email">> {}
 
 /************************************************** SIGN IN ********************************/
 
@@ -18,31 +16,24 @@ export interface ISignInParams extends ISignUpParams {
 
 }
 
-export interface ISignInResponse extends IApiResponse {
-  data: {
-    tokens: {
-      accessToken: string;
-      refreshToken: string;
-    }
-    user: IUser
-  }
-}
+export interface ISignInResponse extends IApiResponse<{
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  user: IUser;
+}> {}
 
 
-export interface IDefaultResponse extends IApiResponse {
-  data: {
-    user: IUser
-  } 
-  
-}
+export interface IDefaultResponse extends IApiResponse<{
+  user: IUser;
+}> {}
 
-export type I = Pick<IDefaultResponse,'data'>
+export type TDefaultResponseData = Pick<IDefaultResponse, 'data'>
 
 /************************************************** LOGOUT ********************************/
 
-export interface ILogoutResponse extends IApiResponse {
-  data: null
-}
+export interface ILogoutResponse extends IApiResponse<null> {}
 
 /**************************************************  CONFIRM ACCOUNT ********************************/
 
@@ -50,17 +41,13 @@ export interface ISendConfirmAccountParams {
   email: string;
 }
 
-export interface ISendConfirmAccountResponse extends IApiResponse {
-  data: Pick<IUser, "id" | "email" | "status">
-}
+export interface ISendConfirmAccountResponse extends IApiResponse<Pick<IUser, "id" | "email" | "status">> {}
 
 export interface IConfirmAccountParams {
   token: string;
 }
 
-export interface IConfirmAccountResponse extends IApiResponse {
-  data: Pick<IUser, "id" | "email" | "status">
-}
+export interface IConfirmAccountResponse extends IApiResponse<Pick<IUser, "id" | "email" | "status">> {}
 
 /************************************************** RESET PASSWORD ********************************/
 
@@ -68,15 +55,11 @@ export interface ISendForgotPasswordParams {
   email: string;
 }
 
-export interface ISendForgotPasswordResponse extends IApiResponse {
-  data: Pick<IUser, "id" | "email">
-}
+export interface ISendForgotPasswordResponse extends IApiResponse<Pick<IUser, "id" | "email">> {}
 
 export interface IResetPasswordParams {
   password: string;
   token: string;
 }
 
-export interface IResetPasswordResponse extends IApiResponse {
-  data: null
-}
+export interface IResetPasswordResponse extends IApiResponse<null> {}

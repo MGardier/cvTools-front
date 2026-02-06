@@ -1,7 +1,13 @@
 import { Card, CardContent } from "@/common/components/ui/card";
 import { AuthCardHeader } from "../components/auth-card-header";
 import { AuthLayout } from "../components/auth-layout";
-import type { ILogoutUiProps } from "./types";
+import type { TFunction } from "i18next";
+
+interface ILogoutUiProps {
+  isPending: boolean;
+  isError: boolean;
+  t: TFunction<'auth', undefined>;
+}
 
 export const LogoutUi = ({ isPending, isError, t }: ILogoutUiProps) => {
     return (

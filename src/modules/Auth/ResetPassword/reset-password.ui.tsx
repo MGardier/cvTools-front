@@ -3,9 +3,17 @@ import { AuthCardHeader } from "../components/auth-card-header";
 import { AuthCardContent } from "../components/auth-card-content";
 import { AuthField } from "../components/auth-field";
 import { AuthLayout } from "../components/auth-layout";
-import type { IResetPasswordUiProps } from "./types";
+import type { SubmitHandler, UseFormReturn } from "react-hook-form";
+import type { TFunction } from "i18next";
+import type { IResetPasswordData } from "./types";
 
-
+interface IResetPasswordUiProps {
+  onSubmit: SubmitHandler<IResetPasswordData>;
+  form: UseFormReturn<IResetPasswordData>;
+  isPending: boolean;
+  isError: boolean;
+  t: TFunction<'auth', undefined>;
+}
 
 export const ResetPasswordUi = ({ form, onSubmit, isError, isPending, t }: IResetPasswordUiProps) => {
     return (

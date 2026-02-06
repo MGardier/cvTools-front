@@ -16,12 +16,3 @@ export interface IUseSignUpReturn {
   error: IApiErrors | null;
   t: TFunction<'auth', undefined>;
 }
-
-export interface ISignUpUiProps {
-  onSubmit: SubmitHandler<ISignUpData>;
-  form: UseFormReturn<ISignUpData>;
-  isPending: boolean;
-  isError: boolean;
-  error: IApiErrors | null;
-  t: TFunction<'auth', undefined>;
-}

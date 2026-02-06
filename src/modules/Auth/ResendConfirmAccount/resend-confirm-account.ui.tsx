@@ -3,7 +3,20 @@ import { AuthCardHeader } from "../components/auth-card-header";
 import { AuthCardContent } from "../components/auth-card-content";
 import { AuthField } from "../components/auth-field";
 import { AuthLayout } from "../components/auth-layout";
-import type { IResendConfirmAccountUiProps } from "./types";
+import type { SubmitHandler, UseFormReturn } from "react-hook-form";
+import type { TFunction } from "i18next";
+import type { ISendConfirmAccountData } from "./types";
+
+interface IResendConfirmAccountUiProps {
+  onSubmit: SubmitHandler<ISendConfirmAccountData>;
+  form: UseFormReturn<ISendConfirmAccountData>;
+  isPending: boolean;
+  isSuccess: boolean;
+  isError: boolean;
+  email: string | null;
+  defaultEmail: string | null;
+  t: TFunction<'auth', undefined>;
+}
 
 export const ResendConfirmAccountUi = ({
     form, onSubmit, isSuccess, isPending, isError, email, defaultEmail, t

@@ -5,7 +5,19 @@ import { AuthSocialMedia } from "../components/auth-social-media";
 import { AuthField } from "../components/auth-field";
 import { AuthLayout } from "../components/auth-layout";
 import { ROUTES } from "@/common/constants/routes";
-import type { ISignUpUiProps } from "./types";
+import type { SubmitHandler, UseFormReturn } from "react-hook-form";
+import type { TFunction } from "i18next";
+import type { ISignUpData } from "./types";
+import type { IApiErrors } from "@/common/types/api";
+
+interface ISignUpUiProps {
+  onSubmit: SubmitHandler<ISignUpData>;
+  form: UseFormReturn<ISignUpData>;
+  isPending: boolean;
+  isError: boolean;
+  error: IApiErrors | null;
+  t: TFunction<'auth', undefined>;
+}
 
 export const SignUpUi = ({ form, onSubmit, isError, isPending, error, t }: ISignUpUiProps) => {
     return (

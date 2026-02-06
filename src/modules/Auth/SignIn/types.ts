@@ -13,12 +13,3 @@ export interface IUseSignInReturn {
   isError: boolean;
   t: TFunction<'auth', undefined>;
 }
-
-export interface ISignInUiProps {
-  onSubmit: SubmitHandler<ISignInData>;
-  form: UseFormReturn<ISignInData>;
-  isPending: boolean;
-  isError: boolean;
-  oauthErrorCode: string | null;
-  t: TFunction<'auth', undefined>;
-}

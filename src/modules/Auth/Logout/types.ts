@@ -5,9 +5,3 @@ export interface IUseLogoutReturn {
   isError: boolean;
   t: TFunction<'auth', undefined>;
 }
-
-export interface ILogoutUiProps {
-  isPending: boolean;
-  isError: boolean;
-  t: TFunction<'auth', undefined>;
-}

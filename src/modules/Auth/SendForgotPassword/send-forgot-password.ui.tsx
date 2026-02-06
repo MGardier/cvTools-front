@@ -3,7 +3,18 @@ import { AuthCardHeader } from "../components/auth-card-header";
 import { AuthCardContent } from "../components/auth-card-content";
 import { AuthField } from "../components/auth-field";
 import { AuthLayout } from "../components/auth-layout";
-import type { ISendForgotPasswordUiProps } from "./types";
+import type { SubmitHandler, UseFormReturn } from "react-hook-form";
+import type { TFunction } from "i18next";
+import type { ISendForgotPasswordData } from "./types";
+
+interface ISendForgotPasswordUiProps {
+  onSubmit: SubmitHandler<ISendForgotPasswordData>;
+  form: UseFormReturn<ISendForgotPasswordData>;
+  isPending: boolean;
+  isError: boolean;
+  defaultEmail: string | null;
+  t: TFunction<'auth', undefined>;
+}
 
 export const SendForgotPasswordUi = ({
     form, onSubmit, isError, isPending, defaultEmail, t

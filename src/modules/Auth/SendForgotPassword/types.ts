@@ -17,12 +17,3 @@ export interface IUseSendForgotPasswordReturn {
   isError: boolean;
   t: TFunction<'auth', undefined>;
 }
-
-export interface ISendForgotPasswordUiProps {
-  onSubmit: SubmitHandler<ISendForgotPasswordData>;
-  form: UseFormReturn<ISendForgotPasswordData>;
-  isPending: boolean;
-  isError: boolean;
-  defaultEmail: string | null;
-  t: TFunction<'auth', undefined>;
-}

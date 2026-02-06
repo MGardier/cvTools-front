@@ -1,7 +1,13 @@
 import { Card } from "@/common/components/ui/card";
 import { AuthCardHeader } from "../components/auth-card-header";
 import { AuthLayout } from "../components/auth-layout";
-import type { IGetOauthSessionUiProps } from "./types";
+import type { TFunction } from "i18next";
+
+interface IGetOauthSessionUiProps {
+  isPending: boolean;
+  loginMethod: string;
+  t: TFunction<'auth', undefined>;
+}
 
 export const GetOauthSessionUi = ({ isPending, loginMethod, t }: IGetOauthSessionUiProps) => {
     return (
