@@ -8,18 +8,14 @@ import { ROUTES } from "@/app/constants/routes";
 import type { SubmitHandler, UseFormReturn } from "react-hook-form";
 import type { TFunction } from "i18next";
 import type { ISignUpData } from "./types";
-import type { IApiErrors } from "@/shared/types/api";
-
 interface ISignUpUiProps {
   onSubmit: SubmitHandler<ISignUpData>;
   form: UseFormReturn<ISignUpData>;
   isPending: boolean;
-  isError: boolean;
-  error: IApiErrors | null;
   t: TFunction<'auth', undefined>;
 }
 
-export const SignUpUi = ({ form, onSubmit, isError, isPending, error, t }: ISignUpUiProps) => {
+export const SignUpUi = ({ form, onSubmit, isPending, t }: ISignUpUiProps) => {
     return (
         <AuthLayout>
             <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
@@ -28,18 +24,6 @@ export const SignUpUi = ({ form, onSubmit, isError, isPending, error, t }: ISign
                     <a className="font-semibold" href={ROUTES.auth.signIn}>
                         {t("pages.signUp.signInLink")}
                     </a>
-                    {isError && (
-                        <div className="text-red-600 mt-4 flex items-center justify-center gap-2">
-                            <p>
-                                <b>
-                                    {error?.message
-                                        ? t(`messages.errors.api.${error.message}.short`)
-                                        : t("messages.errors.fallback")}
-                                </b>
-                                .
-                            </p>
-                        </div>
-                    )}
                 </AuthCardHeader>
 
                 <AuthCardContent

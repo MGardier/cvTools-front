@@ -30,12 +30,12 @@ export const SignUp = () => {
 
     const mutation = useMutation<ISignUpResponse, IApiErrors, z.infer<typeof schema>>({
         mutationFn: authService.signUp,
-        onSuccess: (response) => {
-            toast.success(t("messages.success.signUp.short"))
-            navigate(`/${ROUTES.auth.confirmAccount}?email=${response.data.email}`)
+        onSuccess: () => {
+            toast.success(t("messages.success.signUp"))
+            navigate(ROUTES.auth.signIn)
         },
         onError: (error) => {
-            toast.error(t(`messages.errors.api.${error.message}.short`, t('messages.errors.fallback')))
+            toast.error(t(`messages.errors.api.${error.message}`, t('messages.errors.fallback')))
         }
     });
 
@@ -47,9 +47,7 @@ export const SignUp = () => {
         <SignUpUi
             form={form}
             onSubmit={onSubmit}
-            isError={mutation.isError}
             isPending={mutation.isPending}
-            error={mutation.error}
             t={t}
         />
     );
