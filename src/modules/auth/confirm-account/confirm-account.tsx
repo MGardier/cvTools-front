@@ -24,7 +24,7 @@ export const ConfirmAccount = () => {
             toast.success(t("api.success.confirmAccount"));
             navigate(`/${ROUTES.auth.signIn}`);
         },
-        onError: () => toast.error(t(`messages.errors.confirmAccount`)),
+        onError: (error) => toast.error(t(`messages.errors.api.${error.message}`, t('messages.errors.fallback'))),
     });
 
     useEffect(() => {
@@ -37,11 +37,15 @@ export const ConfirmAccount = () => {
         return <ResendConfirmAccount defaultEmail={email} />;
     }
 
+    const onRetry = () => {
+        if (token) mutation.mutate({ token });
+    };
+
     return (
         <ConfirmAccountUi
-            isSuccess={mutation.isSuccess}
             isPending={mutation.isPending}
             isError={mutation.isError}
+            onRetry={onRetry}
             t={t}
         />
     );
