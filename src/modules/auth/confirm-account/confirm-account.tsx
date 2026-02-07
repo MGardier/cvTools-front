@@ -21,7 +21,7 @@ export const ConfirmAccount = () => {
     const mutation = useMutation<IConfirmAccountResponse, IApiErrors, IConfirmAccountData>({
         mutationFn: authService.confirmAccount,
         onSuccess: () => {
-            toast.success(t("api.success.confirmAccount.short"));
+            toast.success(t("api.success.confirmAccount"));
             navigate(`/${ROUTES.auth.signIn}`);
         },
         onError: () => toast.error(t(`messages.errors.confirmAccount`)),

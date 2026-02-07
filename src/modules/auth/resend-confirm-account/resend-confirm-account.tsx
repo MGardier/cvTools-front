@@ -28,11 +28,11 @@ export const ResendConfirmAccount = ({ defaultEmail }: IResendConfirmAccountProp
     const mutation = useMutation<ISendConfirmAccountResponse, IApiErrors, z.infer<typeof schema>>({
         mutationFn: authService.sendConfirmAccount,
         onSuccess: (response) => {
-            toast.success(t("messages.success.sendConfirmAccount.short"))
+            toast.success(t("messages.success.sendConfirmAccount"))
             setEmail(response.data.email)
         },
-        onError: () => {
-            toast.error(t(`messages.errors.fallback`))
+        onError: (error) => {
+            toast.error(t(`messages.errors.api.${error.message}`, t('messages.errors.fallback')))
             setEmail(null)
         }
     });

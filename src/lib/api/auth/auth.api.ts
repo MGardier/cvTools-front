@@ -33,7 +33,7 @@ export const authApi = {
   /****************  CONFIRM ACCOUNT *********************************************/
 
   async sendConfirmAccount(params: ISendConfirmAccountParams): Promise<ISendConfirmAccountResponse> {
-    return await apiClient.post(`${ENDPOINT}/sendConfirmAccount`, params);
+    return await apiClient.post(`${ENDPOINT}/resendConfirmAccount`, params);
   },
 
   async confirmAccount(params: IConfirmAccountParams): Promise<IConfirmAccountResponse> {

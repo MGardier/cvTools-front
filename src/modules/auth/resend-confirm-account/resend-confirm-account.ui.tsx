@@ -25,27 +25,14 @@ export const ResendConfirmAccountUi = ({
         <AuthLayout>
             <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
                 <AuthCardHeader title={t("pages.confirmAccount.title")}>
-                    {defaultEmail && !isSuccess && !isError && (
+                    {defaultEmail || isSuccess && !isError && (
                         <div className="text-green-700 mt-4 flex items-center justify-center gap-2">
                             <p>
                                 {`${t("pages.confirmAccount.success.emailSendAt")} `}<b>{email}</b>.
                             </p>
                         </div>
                     )}
-                    {isError && (
-                        <div className="text-red-700 mt-4 flex items-center justify-center gap-2">
-                            <p>
-                                <b>{t("pages.confirmAccount.errors.sendingEmailFailed")}</b>.
-                            </p>
-                        </div>
-                    )}
-                    {isSuccess && (
-                        <div className="text-green-700 mt-4 flex items-center justify-center gap-2">
-                            <p>
-                                {`${t("pages.confirmAccount.success.emailResendAt")} `}<b>{email}</b>.
-                            </p>
-                        </div>
-                    )}
+
                 </AuthCardHeader>
                 <AuthCardContent
                     {...{ onSubmit, form, labelButton: t("pages.confirmAccount.form.button"), isLoading: isPending }}
