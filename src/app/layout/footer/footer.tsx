@@ -12,8 +12,8 @@ export const Footer = ({t}: TFooterProps) => {
  
   return (
     <footer className="border-t border-zinc-200 bg-zinc-50">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-14 lg:py-16">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 lg:py-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 lg:gap-8">
           {/* Logo & Info Column */}
           <div className="col-span-2 sm:col-span-3 lg:col-span-1 mb-4 lg:mb-0">
 
@@ -72,10 +72,10 @@ export const Footer = ({t}: TFooterProps) => {
           {/* Links Columns */}
           {FOOTER_ITEMS.map((footerItem) => (
             <div key={footerItem.key}>
-              <h3 className="text-[13px] font-medium text-gray-900 mb-3.5">
+              <h3 className="text-[13px] font-medium text-gray-900 mb-3">
                 {t(`layout.footer.sections.${footerItem.key}.title`)}
               </h3>
-              <ul className="space-y-2.5">
+              <ul className="space-y-1.5">
                 {footerItem.links.map((link) => (
                   <li key={link.label}>
                     <a
