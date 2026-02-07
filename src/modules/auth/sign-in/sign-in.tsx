@@ -44,7 +44,9 @@ export const SignIn = () => {
             cookieStore.setRefreshToken(response.data.tokens.refreshToken);
             navigate(`${ROUTES.home}`);
         },
-        onError: () => toast.error(t("messages.errors.fallback")),
+        onError: (error) => {
+            toast.error(t(`messages.errors.api.${error.message}.short`, t(`messages.errors.api.${error.message}`, t('messages.errors.fallback'))))
+        },
     });
 
     const onSubmit = (values: z.infer<typeof schema>) => {
@@ -58,6 +60,7 @@ export const SignIn = () => {
             isError={mutation.isError}
             isPending={mutation.isPending}
             oauthErrorCode={oauthErrorCode}
+            error={mutation.error}
             t={t}
         />
     );
