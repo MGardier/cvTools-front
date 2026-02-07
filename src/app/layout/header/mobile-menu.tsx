@@ -20,8 +20,8 @@ export const MobileMenu = ({ isOpen, navItems, t }: TMobileMenuProps) => {
       <div className="px-4 py-6 space-y-1">
         {navItems.map((navbarItem) => (
           <MobileNavItem
+            key={navbarItem.key}
             {...{
-              key: navbarItem.key,
               isDisabled: navbarItem.isDisabled,
               isSoon: navbarItem.isSoon,
               link: navbarItem.link,

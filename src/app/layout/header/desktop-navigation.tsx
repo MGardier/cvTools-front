@@ -16,8 +16,9 @@ export const DesktopNavigation = ({ navItems, t }: TDesktopNavigationProps) => {
       <div className="hidden md:flex items-center gap-0.5">
         {navItems.map((navbarItem) => (
           <NavLink
+          key={navbarItem.key}
             {...{
-              key: navbarItem.key,
+              
               isDisabled: navbarItem.isDisabled,
               isSoon: navbarItem.isSoon,
               link: navbarItem.link,
