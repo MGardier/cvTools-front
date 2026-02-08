@@ -3,7 +3,8 @@
     "header": {
       "auth": {
         "signIn": "Sign In",
-        "signUp": "Sign Up"
+        "signUp": "Sign Up",
+        "logout": "Sign Out"
       },
       "navigation": {
         "offers": "Offers",

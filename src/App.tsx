@@ -18,6 +18,7 @@ import { ResetPassword } from "./modules/auth/reset-password/reset-password";
 import { Logout } from "./modules/auth/logout/logout";
 import { GetOauthSession } from "./modules/auth/oauth/get-oauth-session";
 import { Layout } from "@/app/layout/layout";
+import { PrivateRoutes } from "@/app/router/private-routes";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,11 +60,13 @@ function App() {
             />
 
             {/* LOGOUT */}
-            <Route
-              key="logout"
-              path={ROUTES.auth.logout}
-              element={<Logout />}
-            />
+            <Route element={<PrivateRoutes />}>
+              <Route
+                key="logout"
+                path={ROUTES.auth.logout}
+                element={<Logout />}
+              />
+            </Route>
 
             {/* GET OAUTH  SESSION */}
             <Route

@@ -2,6 +2,7 @@ import { MobileNavItem } from "./mobile-nav-item";
 import { AuthButton } from "./auth-button";
 import type { TNavbarItem } from "@/app/constants/types";
 import { ROUTES } from "@/app/constants/routes";
+import { useAuthStore } from "@/modules/auth/store/auth.store";
 import type { TFunction } from "i18next";
 
 type TMobileMenuProps = {
@@ -11,6 +12,8 @@ type TMobileMenuProps = {
 };
 
 export const MobileMenu = ({ isOpen, navItems, t }: TMobileMenuProps) => {
+  const { accessToken } = useAuthStore();
+
   return (
     <div
       className={`md:hidden absolute top-16 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-zinc-200 transition-all duration-300 ${
@@ -32,20 +35,32 @@ export const MobileMenu = ({ isOpen, navItems, t }: TMobileMenuProps) => {
           </MobileNavItem>
         ))}
         <div className="pt-4 mt-4 border-t border-zinc-200 space-y-3">
-          <AuthButton
-            href={ROUTES.auth.signIn}
-            variant="outline"
-            display="mobile"
-          >
-            {t("layout.header.auth.signIn")}
-          </AuthButton>
-          <AuthButton
-            href={ROUTES.auth.signUp}
-            variant="primary"
-            display="mobile"
-          >
-            {t("layout.header.auth.signUp")}
-          </AuthButton>
+          {accessToken ? (
+            <AuthButton
+              href={ROUTES.auth.logout}
+              variant="primary"
+              display="mobile"
+            >
+              {t("layout.header.auth.logout")}
+            </AuthButton>
+          ) : (
+            <>
+              <AuthButton
+                href={ROUTES.auth.signIn}
+                variant="outline"
+                display="mobile"
+              >
+                {t("layout.header.auth.signIn")}
+              </AuthButton>
+              <AuthButton
+                href={ROUTES.auth.signUp}
+                variant="primary"
+                display="mobile"
+              >
+                {t("layout.header.auth.signUp")}
+              </AuthButton>
+            </>
+          )}
         </div>
       </div>
     </div>

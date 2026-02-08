@@ -23,10 +23,13 @@ export const Logout = () => {
             authStore.resetAuth();
             cookieStore.removeRefreshToken();
             toast.success(t("api.success.logout.short"));
-            navigate(`/${ROUTES.auth.signIn}`);
+            navigate(`${ROUTES.auth.signIn}`);
         },
         onError: () => {
-            toast.error(t("messages.errors.fallback"));
+            authStore.resetAuth();
+            cookieStore.removeRefreshToken();
+            toast.success(t("messages.success.logout.short"));
+            navigate(`${ROUTES.auth.signIn}`);
         },
     });
 
@@ -37,7 +40,6 @@ export const Logout = () => {
     return (
         <LogoutUi
             isPending={mutation.isPending}
-            isError={mutation.isError}
             t={t}
         />
     );

@@ -3,7 +3,8 @@
     "header": {
       "auth": {
         "signIn": "Se connecter",
-        "signUp": "S'inscrire"
+        "signUp": "S'inscrire",
+        "logout": "Se déconnecter"
       },
       "navigation": {
         "offers": "Offres",

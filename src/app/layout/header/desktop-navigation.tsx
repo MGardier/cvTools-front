@@ -2,6 +2,7 @@ import { NavLink } from "./nav-link";
 import { AuthButton } from "./auth-button";
 import type { TNavbarItem } from "@/app/constants/types";
 import { ROUTES } from "@/app/constants/routes";
+import { useAuthStore } from "@/modules/auth/store/auth.store";
 import type { TFunction } from "i18next";
 
 type TDesktopNavigationProps = {
@@ -10,6 +11,8 @@ type TDesktopNavigationProps = {
 };
 
 export const DesktopNavigation = ({ navItems, t }: TDesktopNavigationProps) => {
+  const { accessToken } = useAuthStore();
+
   return (
     <>
       {/* Navigation Links */}
@@ -18,7 +21,7 @@ export const DesktopNavigation = ({ navItems, t }: TDesktopNavigationProps) => {
           <NavLink
           key={navbarItem.key}
             {...{
-              
+
               isDisabled: navbarItem.isDisabled,
               isSoon: navbarItem.isSoon,
               link: navbarItem.link,
@@ -32,20 +35,32 @@ export const DesktopNavigation = ({ navItems, t }: TDesktopNavigationProps) => {
 
       {/* Auth Buttons */}
       <div className="hidden md:flex items-center gap-3">
-        <AuthButton
-          href={ROUTES.auth.signIn}
-          variant="outline"
-          display="desktop"
-        >
-          {t("layout.header.auth.signIn")}
-        </AuthButton>
-        <AuthButton
-          href={ROUTES.auth.signUp}
-          variant="primary"
-          display="desktop"
-        >
-          {t("layout.header.auth.signUp")}
-        </AuthButton>
+        {accessToken ? (
+          <AuthButton
+            href={ROUTES.auth.logout}
+            variant="primary"
+            display="desktop"
+          >
+            {t("layout.header.auth.logout")}
+          </AuthButton>
+        ) : (
+          <>
+            <AuthButton
+              href={ROUTES.auth.signIn}
+              variant="outline"
+              display="desktop"
+            >
+              {t("layout.header.auth.signIn")}
+            </AuthButton>
+            <AuthButton
+              href={ROUTES.auth.signUp}
+              variant="primary"
+              display="desktop"
+            >
+              {t("layout.header.auth.signUp")}
+            </AuthButton>
+          </>
+        )}
       </div>
     </>
   );
