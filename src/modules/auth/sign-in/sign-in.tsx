@@ -4,6 +4,7 @@ import type z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTES } from "@/app/constants/routes";
 import { useCookieStore } from "@/app/store/cookie.store";
@@ -18,9 +19,15 @@ export const SignIn = () => {
     const { t } = useTranslation("auth");
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const oauthErrorCode = searchParams.get('errorCode');
+    const errorCode = searchParams.get('errorCode');
     const authStore = useAuthStore();
     const cookieStore = useCookieStore();
+
+    useEffect(() => {
+        if (errorCode) {
+            toast.error(t(`messages.errors.api.${errorCode}.short`, t(`messages.errors.api.${errorCode}`, t('messages.errors.fallback'))));
+        }
+    }, []);
 
     const schema = createSignInSchema(t);
     const defaultValues = {
@@ -57,9 +64,7 @@ export const SignIn = () => {
         <SignInUi
             form={form}
             onSubmit={onSubmit}
-            isError={mutation.isError}
             isPending={mutation.isPending}
-            oauthErrorCode={oauthErrorCode}
             error={mutation.error}
             t={t}
         />

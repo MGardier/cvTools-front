@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useCookieStore } from "@/app/store/cookie.store";
@@ -20,31 +20,49 @@ export const GetOauthSession = () => {
     const authStore = useAuthStore();
     const cookieStore = useCookieStore();
 
-    const mutation = useMutation<ISignInResponse, IApiErrors, string>({
-        mutationFn: authService.getOauthSession,
-        onSuccess: (response) => {
-            authStore.setAuth({ accessToken: response.data.tokens.accessToken, user: response.data.user });
-            cookieStore.setRefreshToken(response.data.tokens.refreshToken);
-            toast.success(t("messages.success.signIn.short"));
-            navigate(`${ROUTES.home}`);
+    const { data, error, isPending } = useQuery<ISignInResponse, IApiErrors>({
+        queryKey: ['oauth-session', sessionId],
+        queryFn: () => {
+            if (!sessionId) {
+                toast.error(t('messages.errors.fallback'));
+                navigate(`${ROUTES.auth.signIn}`);
+                return Promise.reject();
+            }
+            return authService.getOauthSession(sessionId);
         },
-        onError: () => {
-            toast.error(t(`messages.errors.api.${loginMethod}_COMPLETED_OAUTH_FAILED.short`));
-            navigate(`${ROUTES.auth.signIn}?errorCode=${loginMethod}_COMPLETED_OAUTH_FAILED`);
-        }
+        enabled: Boolean(sessionId) && Boolean(loginMethod),
+        retry: false,
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: false,
+        staleTime: Infinity,
     });
 
     useEffect(() => {
         if (!sessionId || !loginMethod) {
-            navigate(`${ROUTES.auth.signIn}?errorCode=${loginMethod}_COMPLETED_OAUTH_FAILED`);
-            return;
+            toast.error(t('messages.errors.fallback'));
+            navigate(`${ROUTES.auth.signIn}`);
         }
-        mutation.mutate(sessionId);
     }, []);
+
+    useEffect(() => {
+        if (data) {
+            authStore.setAuth({ accessToken: data.data.tokens.accessToken, user: data.data.user });
+            cookieStore.setRefreshToken(data.data.tokens.refreshToken);
+            toast.success(t("messages.success.signIn.short"));
+            navigate(`${ROUTES.home}`);
+        }
+    }, [data]);
+
+    useEffect(() => {
+        if (error) {
+            toast.error(t(`messages.errors.api.${error.message}.short`, t(`messages.errors.api.${error.message}`, t('messages.errors.fallback'))));
+            navigate(`${ROUTES.auth.signIn}`);
+        }
+    }, [error]);
 
     return (
         <GetOauthSessionUi
-            isPending={mutation.isPending}
+            isPending={isPending}
             loginMethod={loginMethod || ""}
             t={t}
         />

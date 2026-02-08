@@ -14,13 +14,11 @@ interface ISignInUiProps {
   onSubmit: SubmitHandler<ISignInData>;
   form: UseFormReturn<ISignInData>;
   isPending: boolean;
-  isError: boolean;
-  oauthErrorCode: string | null;
   error: IApiErrors | null;
   t: TFunction<'auth', undefined>;
 }
 
-export const SignInUi = ({ form, onSubmit, isError, isPending, oauthErrorCode, error, t }: ISignInUiProps) => {
+export const SignInUi = ({ form, onSubmit, isPending, error, t }: ISignInUiProps) => {
     return (
         <AuthLayout>
             <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
@@ -29,13 +27,6 @@ export const SignInUi = ({ form, onSubmit, isError, isPending, oauthErrorCode, e
                     <a className="font-semibold" href={ROUTES.auth.signUp}>
                         {t("pages.signIn.signInLink")}
                     </a>
-                    {oauthErrorCode && !isPending && !isError && (
-                        <div className="text-red-600 mt-4 flex items-center justify-center gap-2">
-                            <p>
-                                <b>{t(`messages.errors.api.${oauthErrorCode}.long`)}</b>
-                            </p>
-                        </div>
-                    )}
                     {error?.message === 'ACCOUNT_PENDING' && (
                         <div className="text-red-600 mt-4 flex flex-col items-center justify-center gap-2">
                             <p><b>{t('messages.errors.api.ACCOUNT_PENDING.long')}</b></p>
