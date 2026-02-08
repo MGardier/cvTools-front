@@ -11,6 +11,7 @@ import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 interface IAuthFieldProps<TFormData extends FieldValues> {
   label?: string;
+  labelRight?: React.ReactNode;
   name: Path<TFormData>;
   type: string;
   placeholder?: string;
@@ -21,6 +22,7 @@ interface IAuthFieldProps<TFormData extends FieldValues> {
 export const AuthField = <TFormData extends FieldValues>  ({
   form,
   label,
+  labelRight,
   name,
   type,
   required = false,
@@ -33,7 +35,10 @@ export const AuthField = <TFormData extends FieldValues>  ({
         name={name}
         render={({ field }) => (
           <FormItem>
-              <FormLabel>{label}</FormLabel>
+              <div className="flex items-center justify-between">
+                <FormLabel>{label}</FormLabel>
+                {labelRight}
+              </div>
             <FormControl>
               <Input {...{className: "h-8 md:h-12 lg:h-12 w-full max-w-full",placeholder ,type ,required ,...field}}/>
             </FormControl>

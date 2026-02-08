@@ -19,6 +19,8 @@ interface ISignInUiProps {
 }
 
 export const SignInUi = ({ form, onSubmit, isPending, error, t }: ISignInUiProps) => {
+
+    
     return (
         <AuthLayout>
             <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
@@ -62,6 +64,14 @@ export const SignInUi = ({ form, onSubmit, isPending, error, t }: ISignInUiProps
                         />
                         <AuthField
                             label={t("pages.signIn.form.password")}
+                            labelRight={
+                                <a
+                                    className="font-semibold text-sm font-sans text-muted-foreground"
+                                    href={`${ROUTES.auth.resetPassword}${form.watch("email") ? `?email=${encodeURIComponent(form.watch("email"))}` : ""}`}
+                                >
+                                    {t("pages.signIn.form.forgotPassword")}
+                                </a>
+                            }
                             name="password"
                             type="password"
                             placeholder="••••••••••••"
