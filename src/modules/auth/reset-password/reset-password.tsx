@@ -35,10 +35,16 @@ export const ResetPassword = () => {
             authService.resetPassword({ ...formData, token: token! }),
         onSuccess: () => {
             toast.success(t("messages.success.resetPassword.short"));
-            navigate(`/${ROUTES.auth.signIn}`);
+            navigate(`${ROUTES.auth.signIn}`);
         },
-        onError: () =>
-            toast.error(t("messages.errors.resetPassword"))
+        onError: (error) => {
+            if (error.statusCode === 401) {
+                toast.error(t("messages.errors.resetPassword.tokenExpired"));
+                navigate(`${ROUTES.auth.signIn}`);
+            } else {
+                toast.error(t("messages.errors.resetPassword.default"));
+            }
+        }
     });
 
     const onSubmit = (values: z.infer<typeof schema>) => {
@@ -53,7 +59,6 @@ export const ResetPassword = () => {
         <ResetPasswordUi
             form={form}
             onSubmit={onSubmit}
-            isError={mutation.isError}
             isPending={mutation.isPending}
             t={t}
         />

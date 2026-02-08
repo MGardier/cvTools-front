@@ -11,23 +11,14 @@ interface IResetPasswordUiProps {
   onSubmit: SubmitHandler<IResetPasswordData>;
   form: UseFormReturn<IResetPasswordData>;
   isPending: boolean;
-  isError: boolean;
   t: TFunction<'auth', undefined>;
 }
 
-export const ResetPasswordUi = ({ form, onSubmit, isError, isPending, t }: IResetPasswordUiProps) => {
+export const ResetPasswordUi = ({ form, onSubmit, isPending, t }: IResetPasswordUiProps) => {
     return (
         <AuthLayout>
             <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
-                <AuthCardHeader title={t("pages.resetPassword.title")}>
-                    {isError && (
-                        <div className="text-red-700 mt-4 flex items-center justify-center gap-2">
-                            <p>
-                                <b>{t("pages.resetPassword.errors.resetFailed")}</b>.
-                            </p>
-                        </div>
-                    )}
-                </AuthCardHeader>
+                <AuthCardHeader title={t("pages.resetPassword.title")} />
                 <AuthCardContent
                     {...{ onSubmit, form, labelButton: t("pages.resetPassword.form.button"), isLoading: isPending }}
                 >

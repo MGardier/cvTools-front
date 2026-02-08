@@ -29,8 +29,8 @@ export const SendForgotPassword = ({ defaultEmail }: ISendForgotPasswordProps) =
     const mutation = useMutation<ISendForgotPasswordResponse, IApiErrors, z.infer<typeof schema>>({
         mutationFn: authService.sendForgotPassword,
         onSuccess: (response) => {
-            toast.success(t("messages.success.sendForgotPassword.short"));
-            navigate(`/${ROUTES.auth.resetPassword}?email=${response.data.email}`)
+            toast.success(t("messages.success.sendForgotPassword"));
+            navigate(`/${ROUTES.auth.resetPassword}?email=${encodeURIComponent(response.data.email)}`)
         },
         onError: () =>
             toast.error(t("messages.errors.sendForgotPassword"))
@@ -44,7 +44,6 @@ export const SendForgotPassword = ({ defaultEmail }: ISendForgotPasswordProps) =
         <SendForgotPasswordUi
             form={form}
             onSubmit={onSubmit}
-            isError={mutation.isError}
             isPending={mutation.isPending}
             defaultEmail={defaultEmail}
             t={t}
