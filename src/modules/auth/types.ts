@@ -1,5 +1,5 @@
 import type { IApiResponse } from "@/shared/types/api";
-import type { IUser } from "@/shared/types/entity";
+import type { IUserResponse } from "@/shared/types/entity";
 
 /************************************************** SIGNUP ********************************/
 
@@ -8,7 +8,7 @@ export interface ISignUpParams {
   password: string;
 }
 
-export interface ISignUpResponse extends IApiResponse<Pick<IUser, "id" | "email">> {}
+export interface ISignUpResponse extends IApiResponse<IUserResponse> {}
 
 /************************************************** SIGN IN ********************************/
 
@@ -21,15 +21,8 @@ export interface ISignInResponse extends IApiResponse<{
     accessToken: string;
     refreshToken: string;
   };
-  user: IUser;
+  user: IUserResponse;
 }> {}
-
-
-export interface IDefaultResponse extends IApiResponse<{
-  user: IUser;
-}> {}
-
-export type TDefaultResponseData = Pick<IDefaultResponse, 'data'>
 
 /************************************************** LOGOUT ********************************/
 
@@ -41,13 +34,13 @@ export interface ISendConfirmAccountParams {
   email: string;
 }
 
-export interface ISendConfirmAccountResponse extends IApiResponse<Pick<IUser, "id" | "email" | "status">> {}
+export interface ISendConfirmAccountResponse extends IApiResponse<IUserResponse> {}
 
 export interface IConfirmAccountParams {
   token: string;
 }
 
-export interface IConfirmAccountResponse extends IApiResponse<Pick<IUser, "id" | "email" | "status">> {}
+export interface IConfirmAccountResponse extends IApiResponse<null> {}
 
 /************************************************** RESET PASSWORD ********************************/
 
@@ -55,7 +48,7 @@ export interface ISendForgotPasswordParams {
   email: string;
 }
 
-export interface ISendForgotPasswordResponse extends IApiResponse<Pick<IUser, "id" | "email">> {}
+export interface ISendForgotPasswordResponse extends IApiResponse<IUserResponse> {}
 
 export interface IResetPasswordParams {
   password: string;

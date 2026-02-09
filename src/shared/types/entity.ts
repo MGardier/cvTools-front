@@ -13,12 +13,9 @@ export type TUserRoles =
 
 
 
-export interface IUser {
-  id: string;
+export interface IUserResponse {
+  id: number;
   email: string;
-  status: TUserStatus
+  status: TUserStatus;
   roles: TUserRoles;
-  createdAt?: Date;
-  updatedAt?: Date;
-
 }
