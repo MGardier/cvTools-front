@@ -2,7 +2,7 @@ import { MobileNavItem } from "./mobile-nav-item";
 import { AuthButton } from "./auth-button";
 import type { TNavbarItem } from "@/app/constants/types";
 import { ROUTES } from "@/app/constants/routes";
-import { useAuthStore } from "@/modules/auth/store/auth.store";
+import { useMe } from "@/shared/hooks/useMe";
 import type { TFunction } from "i18next";
 
 type TMobileMenuProps = {
@@ -12,7 +12,7 @@ type TMobileMenuProps = {
 };
 
 export const MobileMenu = ({ isOpen, navItems, t }: TMobileMenuProps) => {
-  const { accessToken } = useAuthStore();
+  const { user } = useMe();
 
   return (
     <div
@@ -35,7 +35,7 @@ export const MobileMenu = ({ isOpen, navItems, t }: TMobileMenuProps) => {
           </MobileNavItem>
         ))}
         <div className="pt-4 mt-4 border-t border-zinc-200 space-y-3">
-          {accessToken ? (
+          {user ? (
             <AuthButton
               href={ROUTES.auth.logout}
               variant="primary"

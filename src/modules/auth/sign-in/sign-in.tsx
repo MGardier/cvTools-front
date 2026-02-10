@@ -2,13 +2,12 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import type z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTES } from "@/app/constants/routes";
-import { useCookieStore } from "@/app/store/cookie.store";
-import { useAuthStore } from "../store/auth.store";
+import { ME_QUERY_KEY } from "@/shared/hooks/useMe";
 import { createSignInSchema } from "../schema/auth-schema";
 import type { ISignInResponse } from "../types";
 import type { IApiErrors } from "@/shared/types/api";
@@ -20,8 +19,7 @@ export const SignIn = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const errorCode = searchParams.get('errorCode');
-    const authStore = useAuthStore();
-    const cookieStore = useCookieStore();
+    const queryClient = useQueryClient();
 
     useEffect(() => {
         if (errorCode) {
@@ -44,11 +42,8 @@ export const SignIn = () => {
         mutationFn: authService.signIn,
         onSuccess: (response) => {
             toast.success(t("messages.success.signIn"));
-            authStore.setAuth({
-                accessToken: response.data.tokens.accessToken,
-                user: response.data.user,
-            });
-            cookieStore.setRefreshToken(response.data.tokens.refreshToken);
+            const meResponse = { ...response, data: response.data.user };
+            queryClient.setQueryData(ME_QUERY_KEY, meResponse);
             navigate(`${ROUTES.home}`);
         },
         onError: (error) => {

@@ -8,12 +8,12 @@ export const ROUTES = {
     logout: "/logout",
 
     /* OAUTH */
-    getOauthSession :"/get-oauth-session",
+    oauthCallback: "/oauth-callback",
 
     /* CONFIRM ACCOUNT */
-    confirmAccount :"confirm-account",
+    confirmAccount: "/confirm-account",
 
     /* RESET  PASSWORD */
-    resetPassword :"reset-password",
+    resetPassword: "/reset-password",
   }
 } as const ;

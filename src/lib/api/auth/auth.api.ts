@@ -1,6 +1,6 @@
 
 import { apiClient } from '@/lib/axios/axios';
-import type {  IConfirmAccountParams, IConfirmAccountResponse, ILogoutResponse, IResetPasswordParams, IResetPasswordResponse, ISendConfirmAccountParams, ISendConfirmAccountResponse, ISendForgotPasswordParams, ISendForgotPasswordResponse, ISignInParams, ISignInResponse, ISignUpParams, ISignUpResponse } from '@/modules/auth/types';
+import type {  IConfirmAccountParams, IConfirmAccountResponse, ILogoutResponse, IMeResponse, IResetPasswordParams, IResetPasswordResponse, ISendConfirmAccountParams, ISendConfirmAccountResponse, ISendForgotPasswordParams, ISendForgotPasswordResponse, ISignInParams, ISignInResponse, ISignUpParams, ISignUpResponse } from '@/modules/auth/types';
 
 
 
@@ -53,11 +53,10 @@ export const authApi = {
   },
 
 
-  /****************  OAUTH ************************************************************/
+  /**************** ME ************************************************************/
 
-
-    async getOauthSession(sessionId : string): Promise<ISignInResponse>{
-     return await apiClient.get(`${ENDPOINT}/oauthSession/${sessionId}`);
-  }
+  async me(): Promise<IMeResponse> {
+    return await apiClient.get(`${ENDPOINT}/me`);
+  },
 
 }

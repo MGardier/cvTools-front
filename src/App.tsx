@@ -16,7 +16,7 @@ import { SignUp } from "./modules/auth/sign-up/sign-up";
 import { ConfirmAccount } from "./modules/auth/confirm-account/confirm-account";
 import { ResetPassword } from "./modules/auth/reset-password/reset-password";
 import { Logout } from "./modules/auth/logout/logout";
-import { GetOauthSession } from "./modules/auth/oauth/get-oauth-session";
+import { OauthCallback } from "./modules/auth/oauth/oauth-callback";
 import { Layout } from "@/app/layout/layout";
 import { PrivateRoutes } from "@/app/router/private-routes";
 
@@ -68,11 +68,11 @@ function App() {
               />
             </Route>
 
-            {/* GET OAUTH  SESSION */}
+            {/* OAUTH CALLBACK */}
             <Route
-              key="getOauthSession"
-              path={ROUTES.auth.getOauthSession}
-              element={<GetOauthSession />}
+              key="oauthCallback"
+              path={ROUTES.auth.oauthCallback}
+              element={<OauthCallback />}
             />
           </Routes>
         </Layout>

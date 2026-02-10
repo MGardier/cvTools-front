@@ -1,11 +1,13 @@
 import { ROUTES } from "@/app/constants/routes"
-import { useAuthStore } from '@/modules/auth/store/auth.store'
+import { useMe } from "@/shared/hooks/useMe"
 import { Navigate, Outlet } from 'react-router-dom'
 
 export const PrivateRoutes = () => {
-    const {accessToken} = useAuthStore();
+    const { user, isPending } = useMe();
+
+    if (isPending) return null;
 
     return (
-        accessToken ? <Outlet/> : <Navigate to={ROUTES.auth.signIn}/>
+        user ? <Outlet/> : <Navigate to={ROUTES.auth.signIn}/>
     )
 }

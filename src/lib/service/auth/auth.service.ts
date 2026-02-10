@@ -2,7 +2,7 @@
 
 import { authApi } from "../../api/auth/auth.api";
 
-import type { IConfirmAccountResponse, ILogoutResponse, IResetPasswordParams, IResetPasswordResponse, ISendConfirmAccountResponse, ISendForgotPasswordResponse, ISignInResponse, ISignUpResponse } from "@/modules/auth/types";
+import type { IConfirmAccountResponse, ILogoutResponse, IMeResponse, IResetPasswordParams, IResetPasswordResponse, ISendConfirmAccountResponse, ISendForgotPasswordResponse, ISignInResponse, ISignUpResponse } from "@/modules/auth/types";
 import type { IConfirmAccountData } from "@/modules/auth/confirm-account/types";
 import type { ISendConfirmAccountData } from "@/modules/auth/resend-confirm-account/types";
 import type { ISendForgotPasswordData } from "@/modules/auth/send-forgot-password/types";
@@ -59,12 +59,10 @@ export const authService = {
     return await authApi.resetPassword(data);
   },
 
-    /**************** COMPLETE OAUTH ************************************************************/
+  /**************** ME ************************************************************/
 
-    async getOauthSession(sessionId: string): Promise<ISignInResponse>{
-      return await authApi.getOauthSession(sessionId);
-    },
-
-
+  async me(): Promise<IMeResponse> {
+    return await authApi.me();
+  },
 
 }

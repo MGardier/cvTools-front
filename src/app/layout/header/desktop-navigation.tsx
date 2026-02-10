@@ -2,7 +2,7 @@ import { NavLink } from "./nav-link";
 import { AuthButton } from "./auth-button";
 import type { TNavbarItem } from "@/app/constants/types";
 import { ROUTES } from "@/app/constants/routes";
-import { useAuthStore } from "@/modules/auth/store/auth.store";
+import { useMe } from "@/shared/hooks/useMe";
 import type { TFunction } from "i18next";
 
 type TDesktopNavigationProps = {
@@ -11,7 +11,7 @@ type TDesktopNavigationProps = {
 };
 
 export const DesktopNavigation = ({ navItems, t }: TDesktopNavigationProps) => {
-  const { accessToken } = useAuthStore();
+  const { user } = useMe();
 
   return (
     <>
@@ -35,7 +35,7 @@ export const DesktopNavigation = ({ navItems, t }: TDesktopNavigationProps) => {
 
       {/* Auth Buttons */}
       <div className="hidden md:flex items-center gap-3">
-        {accessToken ? (
+        {user ? (
           <AuthButton
             href={ROUTES.auth.logout}
             variant="primary"

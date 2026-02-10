@@ -17,10 +17,6 @@ export interface ISignInParams extends ISignUpParams {
 }
 
 export interface ISignInResponse extends IApiResponse<{
-  tokens: {
-    accessToken: string;
-    refreshToken: string;
-  };
   user: IUserResponse;
 }> {}
 
@@ -56,3 +52,7 @@ export interface IResetPasswordParams {
 }
 
 export interface IResetPasswordResponse extends IApiResponse<null> {}
+
+/************************************************** ME ********************************/
+
+export interface IMeResponse extends IApiResponse<IUserResponse> {}
