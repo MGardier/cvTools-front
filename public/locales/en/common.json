@@ -1,0 +1,64 @@
+{
+  "layout": {
+    "header": {
+      "auth": {
+        "signIn": "Sign In",
+        "signUp": "Sign Up",
+        "logout": "Sign Out"
+      },
+      "navigation": {
+        "offers": "Offers",
+        "jobs": "Applications",
+        "help": "Help",
+        "statistics": "Statistics",
+        "test": "test"
+      },
+      "badges": {
+        "soon": "Coming Soon",
+        "unavailable": "Not Available"
+      }
+    },
+    "footer": {
+      "createdBy": "Created by",
+      "author": "Maxime Gardier",
+      "sections": {
+        "offers": {
+          "title": "Offers",
+          "links": {
+            "about": "About",
+            "blog": "Blog",
+            "careers": "Careers",
+            "customers": "Customers"
+          }
+        },
+        "jobs": {
+          "title": "Applications",
+          "links": {
+            "contact": "Contact",
+            "support": "Support",
+            "status": "Status",
+            "migrate": "Migrate"
+          }
+        },
+        "help": {
+          "title": "Help",
+          "links": {
+            "contact": "Contact",
+            "support": "Support",
+            "status": "Status",
+            "migrate": "Migrate"
+          }
+        },
+        "account": {
+          "title": "My Account",
+          "links": {
+            "contact": "Contact",
+            "support": "Support",
+            "status": "Status",
+            "migrate": "Migrate"
+          }
+        }
+      }
+    }
+  }
+}

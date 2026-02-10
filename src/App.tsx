@@ -1,40 +1,31 @@
-import "./App.css";
+import "./app.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { useState } from "react";
+import { queryClient } from "./lib/tanstack-query/query-client";
 import { ToastContainer } from "react-toastify";
-import { HomePage } from "./pages/home-page";
-import { SignUpPage } from "./pages/auth/sign-up-page";
+import { HomePage } from "@/app/router/home-page";
 
-import { Header } from "./components/header/header";
-import { ROUTES } from "./data/routes";
-import { ConfirmAccountPage } from "./pages/auth/confirm-account-page";
-import { ResetPasswordPage } from "./pages/auth/reset-password-page";
-import { SignInPage } from "./pages/auth/sign-in-page";
-import { LogoutPage } from "./pages/auth/logout-page";
-import { GetOauthSessionPage } from "./pages/auth/get-oauth-session-page";
-import { FindAllJobsPage } from "./pages/job/find-all-jobs-page";
-import { PrivateRoutes } from "./pages/private-routes";
-import { FindOneJobPage } from "./pages/job/find-one-job-page";
-import { CreateJobPage } from "./pages/job/create-job-page";
-import { UpdateJobPage } from "./pages/job/update-job-page";
-
-//TODO: Idée ajout un how it works pour montrer l'utilisation de la recherche, candidatures et relances
-//TODO: Idée ajout Avoir une recherche qui permettent de regrouper les jobs de plusieurs plateformes
-//TODO : Avoir un tableau pour gérer ses candidatures et relances.
+import { ROUTES } from "@/app/constants/routes";
+import { SignIn } from "./modules/auth/sign-in/sign-in";
+import { SignUp } from "./modules/auth/sign-up/sign-up";
+import { ConfirmAccount } from "./modules/auth/confirm-account/confirm-account";
+import { ResetPassword } from "./modules/auth/reset-password/reset-password";
+import { Logout } from "./modules/auth/logout/logout";
+import { OauthCallback } from "./modules/auth/oauth/oauth-callback";
+import { Layout } from "@/app/layout/layout";
+import { PrivateRoutes } from "@/app/router/private-routes";
 
 function App() {
-  const queryClient = new QueryClient();
   const [isOpen, setIsOpen] = useState(false);
   return (
     <QueryClientProvider client={queryClient}>
-      <main className=" w-full  relative flex flex-col min-h-screen bg-white">
-        <Header />
-        <ToastContainer />
-        <BrowserRouter>
+      <BrowserRouter>
+        <Layout>
           <Routes>
             {/* HOME */}
             <Route key="home" path={ROUTES.home} element={<HomePage />} />
@@ -44,93 +35,60 @@ function App() {
             <Route
               key="signUp"
               path={ROUTES.auth.signUp}
-              element={<SignUpPage />}
+              element={<SignUp />}
             />
 
             {/* CONFIRM ACCOUNT */}
             <Route
               key="confirmAccount"
               path={ROUTES.auth.confirmAccount}
-              element={<ConfirmAccountPage />}
+              element={<ConfirmAccount />}
             />
 
             {/*  RESET PASSWORD */}
             <Route
               key="resetPassword"
               path={ROUTES.auth.resetPassword}
-              element={<ResetPasswordPage />}
+              element={<ResetPassword />}
             />
 
             {/* SIGNIN */}
             <Route
               key="signIn"
               path={ROUTES.auth.signIn}
-              element={<SignInPage />}
+              element={<SignIn />}
             />
 
             {/* LOGOUT */}
+            <Route element={<PrivateRoutes />}>
+              <Route
+                key="logout"
+                path={ROUTES.auth.logout}
+                element={<Logout />}
+              />
+            </Route>
+
+            {/* OAUTH CALLBACK */}
             <Route
-              key="logout"
-              path={ROUTES.auth.logout}
-              element={<LogoutPage />}
+              key="oauthCallback"
+              path={ROUTES.auth.oauthCallback}
+              element={<OauthCallback />}
             />
-
-            {/* GET OAUTH  SESSION */}
-            <Route
-              key="getOauthSession"
-              path={ROUTES.auth.getOauthSession}
-              element={<GetOauthSessionPage />}
-            />
-
-            {/************************* JOB *************************************** */}
-
-            {/* CREATE  */}
-            <Route element={<PrivateRoutes />}>
-              <Route
-                key="createJob"
-                path={ROUTES.job.create}
-                element={<CreateJobPage />}
-              />
-            </Route>
-
-            {/* UPDATE  */}
-            <Route element={<PrivateRoutes />}>
-              <Route
-                key="updateJob"
-                path={ROUTES.job.update}
-                element={<UpdateJobPage />}
-              />
-            </Route>
-
-            {/* FIND ALL JOBS  */}
-            <Route element={<PrivateRoutes />}>
-              <Route
-                key="findAllJobs"
-                path={ROUTES.job.findAll}
-                element={<FindAllJobsPage />}
-              />
-            </Route>
-
-            {/* FIND ALL JOBS */}
-            <Route element={<PrivateRoutes />}>
-              <Route
-                key="findAllJobs"
-                path={ROUTES.job.findAll}
-                element={<FindAllJobsPage />}
-              />
-            </Route>
-
-            {/* FIND ONE JOB */}
-            <Route element={<PrivateRoutes />}>
-              <Route
-                key="findOneJob"
-                path={ROUTES.job.findOne}
-                element={<FindOneJobPage />}
-              />
-            </Route>
           </Routes>
-        </BrowserRouter>
-      </main>
+        </Layout>
+      </BrowserRouter>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <button onClick={() => setIsOpen(!isOpen)}>{`${
         isOpen ? "Close" : "Open"
       } Query Tanstack devtools`}</button>
