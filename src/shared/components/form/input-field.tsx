@@ -8,8 +8,10 @@ import {
 import { Input } from "@/shared/components/ui/input";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
-interface InputFieldProps<TFormData extends FieldValues> {
+
+interface IInputFieldProps<TFormData extends FieldValues> {
   label?: string;
+  labelRight?: React.ReactNode;
   name: Path<TFormData>;
   type: string;
   placeholder?: string;
@@ -21,38 +23,28 @@ interface InputFieldProps<TFormData extends FieldValues> {
 export const InputField = <TFormData extends FieldValues>({
   form,
   label,
+  labelRight,
   name,
   type,
-  placeholder,
   required = false,
+  placeholder,
   step,
-}: InputFieldProps<TFormData>) => {
+}: IInputFieldProps<TFormData>) => {
   return (
-    <div className="space-y-3 ">
+    <div className="grid gap-3">
       <FormField
         control={form.control}
         name={name}
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="text-sm">
-              {label}{" "}
-              <p className="text-muted-foreground text-xs">
-                {required ? " (Requis)" : " (Optionnel)"}
-              </p>
-            </FormLabel>
-            <FormMessage />
+              <div className="flex items-center justify-between">
+                <FormLabel>{label}</FormLabel>
+                {labelRight}
+              </div>
             <FormControl>
-              <Input
-                {...{
-                  className: "h-8 md:h-12 lg:h-12 w-full max-w-full",
-                  placeholder,
-                  type,
-                  required,
-                  ...field,
-                  ...(type === "number" ? { step } : {}),
-                }}
-              />
+              <Input {...{className: "h-8 md:h-12 lg:h-12 w-full max-w-full",placeholder ,type ,required ,...field, ...(type === "number" ? { step } : {})}}/>
             </FormControl>
+            <FormMessage />
           </FormItem>
         )}
       />

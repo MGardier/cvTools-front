@@ -1,9 +1,9 @@
 import { Card } from "@/shared/components/ui/card";
-import { AuthCardHeader } from "../components/auth-card-header";
-import { AuthCardContent } from "../components/auth-card-content";
+import { FormCardHeader } from "@/shared/components/form/form-card-header";
+import { FormCardContent } from "@/shared/components/form/form-card-content";
 import { AuthSocialMedia } from "../components/auth-social-media";
-import { AuthField } from "../components/auth-field";
-import { AuthLayout } from "../components/auth-layout";
+import { InputField } from "@/shared/components/form/input-field";
+import { FormLayout } from "@/shared/components/form/form-layout";
 import { ROUTES } from "@/app/constants/routes";
 import type { SubmitHandler, UseFormReturn } from "react-hook-form";
 import type { TFunction } from "i18next";
@@ -22,9 +22,9 @@ export const SignInUi = ({ form, onSubmit, isPending, error, t }: ISignInUiProps
 
     
     return (
-        <AuthLayout>
+        <FormLayout>
             <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
-                <AuthCardHeader title={t("pages.signIn.title")}>
+                <FormCardHeader title={t("pages.signIn.title")}>
                     {`${t("pages.signIn.hasAccount")} `}
                     <a className="font-semibold" href={ROUTES.auth.signUp}>
                         {t("pages.signIn.signInLink")}
@@ -37,9 +37,9 @@ export const SignInUi = ({ form, onSubmit, isPending, error, t }: ISignInUiProps
                             </a>
                         </div>
                     )}
-                </AuthCardHeader>
+                </FormCardHeader>
 
-                <AuthCardContent
+                <FormCardContent
                     {...{
                         onSubmit,
                         form,
@@ -54,7 +54,7 @@ export const SignInUi = ({ form, onSubmit, isPending, error, t }: ISignInUiProps
                         </span>
                     </div>
                     <div className="grid gap-6">
-                        <AuthField
+                        <InputField
                             label={t("pages.signIn.form.email")}
                             name="email"
                             type="email"
@@ -62,7 +62,7 @@ export const SignInUi = ({ form, onSubmit, isPending, error, t }: ISignInUiProps
                             required
                             {...{ form }}
                         />
-                        <AuthField
+                        <InputField
                             label={t("pages.signIn.form.password")}
                             labelRight={
                                 <a
@@ -79,8 +79,8 @@ export const SignInUi = ({ form, onSubmit, isPending, error, t }: ISignInUiProps
                             {...{ form }}
                         />
                     </div>
-                </AuthCardContent>
+                </FormCardContent>
             </Card>
-        </AuthLayout>
+        </FormLayout>
     );
 };
