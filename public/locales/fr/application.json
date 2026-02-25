@@ -1,0 +1,92 @@
+{
+  "list": {
+    "title": "Mes candidatures",
+    "subtitle": "Suivez et gérez toutes vos candidatures",
+    "create": "Créer une candidature",
+    "createShort": "Créer",
+    "results": "{{count}} candidature",
+    "results_other": "{{count}} candidatures",
+    "empty": "Aucune candidature trouvée",
+    "emptySearch": "Aucun résultat pour votre recherche",
+    "columns": {
+      "title": "Titre du poste",
+      "company": "Entreprise",
+      "status": "Statut",
+      "contractType": "Contrat",
+      "jobboard": "Jobboard",
+      "createdAt": "Créé le"
+    },
+    "filters": {
+      "search": "Par mots clés",
+      "city": "Par ville ou code postal",
+      "status": "Statut",
+      "statusPlaceholder": "Par status",
+      "statusCount": "{{count}} statut sélectionné",
+      "statusCount_other": "{{count}} statuts sélectionnés",
+      "createdAtFrom": "Par date de création",
+      "searchButton": "Rechercher",
+      "clearFilters": "Réinitialiser",
+      "chips": {
+        "search": "Recherche : {{value}}",
+        "city": "Ville : {{value}}",
+        "createdAtFrom": "Depuis le : {{value}}"
+      }
+    },
+    "sort": {
+      "label": "Trier par",
+      "createdAtDesc": "Créer récemment",
+      "createdAtAsc": "Créer anciennement",
+      "publishedAtDesc": "Publication récente",
+      "publishedAtAsc": "Publication ancienne",
+      "status": "Status",
+      "jobboard": "Jobboard",
+      "appliedAtAsc": "Postuler récemment"
+    },
+    "pagination": {
+      "perPage": "par page",
+      "previous": "Précédent",
+      "next": "Suivant"
+    },
+    "card": {
+      "companyNotProvided": "Entreprise non précisée",
+      "cityNotProvided": "Ville non renseignée",
+      "salaryNotProvided": "Salaire non renseigné",
+      "view": "Voir le détail",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "published": "Publié",
+      "applied": "Postulé"
+    },
+    "loading": "Chargement des candidatures...",
+    "error": "Impossible de charger les candidatures"
+  },
+  "filter": {
+    "favorite": "Favoris"
+  },
+  "status": {
+    "NEED_TO_APPLY": "À postuler",
+    "APPLIED": "Postulé",
+    "IN_PROCESS": "En cours",
+    "COMPANY_OFFER_RECEIVED": "Offre reçue",
+    "ACCEPTED": "Accepté",
+    "REJECTED": "Refusé",
+    "GHOSTED": "Ghosté",
+    "WITHDRAWN": "Retiré"
+  },
+  "contractType": {
+    "CDI": "CDI",
+    "CDD": "CDD",
+    "FREELANCE": "Freelance",
+    "ALTERNANCE": "Alternance"
+  },
+  "remotePolicy": {
+    "FULL": "Full remote",
+    "HYBRID": "Hybride",
+    "ONSITE": "Sur site"
+  },
+  "experience": {
+    "JUNIOR": "Junior",
+    "MID": "Intermédiaire",
+    "SENIOR": "Senior"
+  }
+}

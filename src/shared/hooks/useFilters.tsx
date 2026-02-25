@@ -30,7 +30,10 @@ export const useFilters = <TFilters extends object>(
 
   const hasActiveFilters = useCallback((): boolean => {
     return Object.values(filters).some(
-      (value) =>   value !== undefined && value !== null 
+      (value) =>
+        value !== undefined &&
+        value !== null &&
+        !(Array.isArray(value) && value.length === 0)
     );
   }, [filters]);
 

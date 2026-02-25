@@ -15,5 +15,9 @@ export const ROUTES = {
 
     /* RESET  PASSWORD */
     resetPassword: "/reset-password",
-  }
+  },
+
+  application: {
+    list: "/applications",
+  },
 } as const ;

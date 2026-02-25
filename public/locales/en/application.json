@@ -1,0 +1,92 @@
+{
+  "list": {
+    "title": "My Applications",
+    "subtitle": "Track and manage all your job applications",
+    "create": "Create an application",
+    "createShort": "Create",
+    "results": "{{count}} application",
+    "results_other": "{{count}} applications",
+    "empty": "No applications found",
+    "emptySearch": "No results for your search",
+    "columns": {
+      "title": "Job Title",
+      "company": "Company",
+      "status": "Status",
+      "contractType": "Contract",
+      "jobboard": "Jobboard",
+      "createdAt": "Created at"
+    },
+    "filters": {
+      "search": "By keywords",
+      "city": "By city or postal code",
+      "status": "Status",
+      "statusPlaceholder": "By status",
+      "statusCount": "{{count}} status selected",
+      "statusCount_other": "{{count}} statuses selected",
+      "createdAtFrom": "By creation date",
+      "searchButton": "Search",
+      "clearFilters": "Reset filters",
+      "chips": {
+        "search": "Search: {{value}}",
+        "city": "City: {{value}}",
+        "createdAtFrom": "From: {{value}}"
+      }
+    },
+    "sort": {
+      "label": "Sort by",
+      "createdAtDesc": "Recently created",
+      "createdAtAsc": "Oldest created",
+      "publishedAtDesc": "Recently published",
+      "publishedAtAsc": "Oldest published",
+      "status": "Status",
+      "jobboard": "Jobboard",
+      "appliedAtAsc": "Recently applied"
+    },
+    "pagination": {
+      "perPage": "per page",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "card": {
+      "companyNotProvided": "Company not specified",
+      "cityNotProvided": "City not provided",
+      "salaryNotProvided": "Salary not provided",
+      "view": "View details",
+      "edit": "Edit",
+      "delete": "Delete",
+      "published": "Published",
+      "applied": "Applied"
+    },
+    "loading": "Loading applications...",
+    "error": "Unable to load applications"
+  },
+  "filter": {
+    "favorite": "Favorites"
+  },
+  "status": {
+    "NEED_TO_APPLY": "To apply",
+    "APPLIED": "Applied",
+    "IN_PROCESS": "In process",
+    "COMPANY_OFFER_RECEIVED": "Offer received",
+    "ACCEPTED": "Accepted",
+    "REJECTED": "Rejected",
+    "GHOSTED": "Ghosted",
+    "WITHDRAWN": "Withdrawn"
+  },
+  "contractType": {
+    "CDI": "Permanent",
+    "CDD": "Fixed-term",
+    "FREELANCE": "Freelance",
+    "ALTERNANCE": "Apprenticeship"
+  },
+  "remotePolicy": {
+    "FULL": "Full remote",
+    "HYBRID": "Hybrid",
+    "ONSITE": "On-site"
+  },
+  "experience": {
+    "JUNIOR": "Junior",
+    "MID": "Mid-level",
+    "SENIOR": "Senior"
+  }
+}

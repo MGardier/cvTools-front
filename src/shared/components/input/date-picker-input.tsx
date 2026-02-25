@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
 
-import { formatDate } from "@/shared/utils/utils";
+import { cn, formatDate } from "@/shared/utils/utils";
 
 interface DatePickerInputProps {
   value: Date | string
@@ -13,6 +13,8 @@ interface DatePickerInputProps {
   placeholder: string;
   required?: boolean;
   handleOnChange :(value: Date) => void
+  inputClassName?: string;
+  containerClassName?: string;
 }
 
 export const DatePickerInput = ({
@@ -20,7 +22,8 @@ export const DatePickerInput = ({
   label,
   placeholder,
   handleOnChange,
-
+  inputClassName,
+  containerClassName,
   required = false,
 }: DatePickerInputProps) => {
 
@@ -30,12 +33,12 @@ export const DatePickerInput = ({
   
   
   return (
-    <div className="relative flex gap-2" >
+    <div className={cn("relative flex gap-2", containerClassName)} >
       <Input
         id="date"
         value={value ? formatDate(value) : ""}
         placeholder={placeholder}
-        className="bg-background pr-10  h-8 md:h-12 lg:h-12 w-full max-w-full"
+        className={cn("bg-background pr-10 h-8 md:h-12 lg:h-12 w-full max-w-full", inputClassName)}
         required={required}
         type="text"
         disableDisabledStyles={true}

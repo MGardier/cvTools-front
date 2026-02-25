@@ -1,3 +1,6 @@
 export const ENDPOINTS = {
-  user: "/user"
+  user: "/user",
+  application: {
+    list: "/application",
+  },
 } as const;

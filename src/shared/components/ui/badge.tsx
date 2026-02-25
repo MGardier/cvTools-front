@@ -57,8 +57,10 @@ function Badge({
       className={cn(badgeVariants({ variant, size,className }))}
       {...props}
     />
+    
   );
 }
+
 
 
 export { Badge, badgeVariants };
