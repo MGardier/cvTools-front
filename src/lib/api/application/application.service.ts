@@ -4,7 +4,10 @@ import type {
   IGetApplicationsParams,
   IGetApplicationsResponse,
   IApplication,
+  ICreateApplicationParams,
 } from "@/modules/application/types";
+import type { TCreateApplicationForm } from "@/modules/application/schema/application-schema";
+import { applicationApi } from "@/lib/api/application/application.api";
 import { APPLICATION_MOCK_DATA } from "@/modules/application/application.mock";
 
 
@@ -28,7 +31,7 @@ export const applicationService = {
         (item) =>
           item.title.toLowerCase().includes(search) ||
           item.company?.toLowerCase().includes(search) ||
-          item.jobboard?.label.toLowerCase().includes(search)
+          item.jobboard?.toLowerCase().includes(search)
       );
     }
 
@@ -62,8 +65,8 @@ export const applicationService = {
         let bVal: string | number | null | undefined;
 
         if (field === "jobboard") {
-          aVal = a.jobboard?.label;
-          bVal = b.jobboard?.label;
+          aVal = a.jobboard;
+          bVal = b.jobboard;
         } else {
           aVal = a[field] as string | number | null | undefined;
           bVal = b[field] as string | number | null | undefined;
@@ -104,6 +107,24 @@ export const applicationService = {
         limit,
       },
     };
+  },
+
+  /**************** CREATE ************************************************************/
+
+  async create(formData: TCreateApplicationForm): Promise<IApiResponse<IApplication>> {
+    const { address, contacts, skills, salaryMin, salaryMax, publishedAt, ...fields } = formData;
+
+    const request: ICreateApplicationParams = {
+      ...fields,
+      ...(publishedAt && { publishedAt: new Date(publishedAt) }),
+      ...(salaryMin && !Number.isNaN(salaryMin) && { salaryMin }),
+      ...(salaryMax && !Number.isNaN(salaryMax) && { salaryMax }),
+      ...(address?.city && { address: { ...address, city: address.city, postalCode: address.postalCode ?? "" } }),
+      ...(contacts.length > 0 && { contacts }),
+      ...(skills.length > 0 && { skills }),
+    };
+
+    return applicationApi.create(request);
   },
 
 }
