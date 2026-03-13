@@ -4,7 +4,8 @@ import { apiClient } from '@/lib/axios/axios';
 
 
 import { ENDPOINTS } from '@/app/constants/endpoints';
-import type { IContactResponse, ICreateContactParams, IUpdateContactParams } from './types';
+import type {  TCreateContactParams, TUpdateContactParams } from './types';
+import type { IContact } from '@/shared/types/entity';
 
 
 
@@ -17,7 +18,7 @@ export const contactApi = {
   //                               CREATE
   // =============================================================================
 
-  async create(params: ICreateContactParams): Promise<IContactResponse> {
+  async create(params: TCreateContactParams): Promise<IContact> {
     return await apiClient.post(`${ENDPOINTS.contact}`, params);
   },
 
@@ -25,7 +26,7 @@ export const contactApi = {
   //                               UPDATE
   // =============================================================================
 
-  async update(params: IUpdateContactParams): Promise<IContactResponse> {
+  async update(params: TUpdateContactParams): Promise<IContact> {
     return await apiClient.patch(`${ENDPOINTS.contact}`, params);
   },
 
@@ -33,7 +34,7 @@ export const contactApi = {
   //                               DELETE
   // =============================================================================
 
-  async delete(contactId: number): Promise<IContactResponse> {
+  async delete(contactId: number): Promise<IContact> {
     return await apiClient.delete(`${ENDPOINTS.contact}/${contactId}`);
   },
 
@@ -41,15 +42,15 @@ export const contactApi = {
   //                              FIND 
   // =============================================================================
 
-  async findAll(): Promise<IContactResponse[]> {
+  async findAll(): Promise<IContact[]> {
     return await apiClient.get(`${ENDPOINTS.contact}`);
   },
 
-  async findAllByApplicationId(applicationId: number): Promise<IContactResponse[]> {
+  async findAllByApplicationId(applicationId: number): Promise<IContact[]> {
     return await apiClient.get(`${ENDPOINTS.contact}${ENDPOINTS.application}/${applicationId}`);
   },
 
-  async findOneById(contactId: number): Promise<IContactResponse> {
+  async findOneById(contactId: number): Promise<IContact> {
     return await apiClient.get(`${ENDPOINTS.contact}/${contactId}`);
   },
 
@@ -64,6 +65,5 @@ export const contactApi = {
   async unlinkToApplication(contactId: number, applicationId: number): Promise<void> {
     return await apiClient.delete(`${ENDPOINTS.contact}/${contactId}${ENDPOINTS.application}/${applicationId}`);
   },
-
 
 }

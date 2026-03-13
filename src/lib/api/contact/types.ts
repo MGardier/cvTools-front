@@ -1,22 +1,9 @@
+import type { IContact } from "@/shared/types/entity";
 
-export interface ICreateContactParams {
-  firstname: string;
-  lastname: string;
-  email: string;
-  profession: string;
-  phone?: string;
-}
+export type TCreateContactParams  =  Omit<IContact, 'id'>
 
-export interface IUpdateContactParams extends Partial<ICreateContactParams>{
-
-}
+export type TUpdateContactParams = Partial<TCreateContactParams>
 
 
-export interface IContactResponse {
-  id: number
-  firstname: string;
-  lastname: string;
-  email: string;
-  profession: string;
-  phone?: string;
-}
+
+

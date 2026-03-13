@@ -1,16 +1,6 @@
+import type { ISkill } from "@/shared/types/entity";
 
 
-export interface ICreateSkillParams {
-  label: string;
-}
+export type TCreateSkillParams = Pick<ISkill,'label'> ;
 
-export interface IUpdateSkillParams extends Partial<ICreateSkillParams>{
-
-}
-
-
-export interface ISkillResponse {
-  id: number;
-  label: string 
-  createdAt: Date;
-}
+export type TUpdateSkillParams  = Partial<TCreateSkillParams>;
