@@ -64,29 +64,181 @@
     "favorite": "Favoris"
   },
   "status": {
-    "NEED_TO_APPLY": "À postuler",
+    "TO_APPLY": "À postuler",
     "APPLIED": "Postulé",
-    "IN_PROCESS": "En cours",
-    "COMPANY_OFFER_RECEIVED": "Offre reçue",
+    "FIRST_CONTACT": "Premier contact",
+    "FIRST_INTERVIEW": "Premier entretien",
+    "FOLLOW_UP_INTERVIEW": "Entretien de suivi",
+    "OFFER_RECEIVED": "Offre reçue",
     "ACCEPTED": "Accepté",
     "REJECTED": "Refusé",
-    "GHOSTED": "Ghosté",
+    "GHOSTED": "Sans réponse",
     "WITHDRAWN": "Retiré"
   },
   "contractType": {
     "CDI": "CDI",
     "CDD": "CDD",
     "FREELANCE": "Freelance",
-    "ALTERNANCE": "Alternance"
+    "ALTERNANCE": "Alternance",
+    "STAGE": "Stage",
+    "INTERIM": "Intérim"
   },
   "remotePolicy": {
-    "FULL": "Full remote",
+    "ONSITE": "Sur site",
     "HYBRID": "Hybride",
-    "ONSITE": "Sur site"
+    "FULL": "Full remote"
   },
   "experience": {
     "JUNIOR": "Junior",
     "MID": "Intermédiaire",
-    "SENIOR": "Senior"
+    "SENIOR": "Senior",
+    "LEAD": "Lead"
+  },
+  "jobboard": {
+    "LINKEDIN": "LinkedIn",
+    "INDEED": "Indeed",
+    "WTTJ": "Welcome to the Jungle",
+    "FRANCE_TRAVAIL": "France Travail",
+    "GLASSDOOR": "Glassdoor",
+    "APEC": "Apec",
+    "HELLO_WORK": "HelloWork",
+    "METEO_JOB": "Météo Job",
+    "UNKNOW": "Autre"
+  },
+  "compatibility": {
+    "PERFECT": "Parfait",
+    "ATTAINABLE": "Atteignable",
+    "WHY_NOT": "Pourquoi pas"
+  },
+  "pages": {
+    "create": {
+      "title": "Nouvelle candidature",
+      "subtitle": "Remplissez les informations pour créer une candidature",
+      "steps": {
+        "general": "Général",
+        "classification": "Classification",
+        "salary": "Rémunération",
+        "address": "Localisation",
+        "contacts": "Contacts",
+        "skills": "Compétences"
+      },
+      "fields": {
+        "title": "Titre du poste",
+        "titlePlaceholder": "Ex : Développeur Full Stack",
+        "url": "URL de l'offre",
+        "urlPlaceholder": "https://...",
+        "company": "Entreprise",
+        "companyPlaceholder": "Ex : Google",
+        "jobboard": "Jobboard",
+        "jobboardPlaceholder": "Sélectionner un jobboard",
+        "publishedAt": "Date de publication",
+        "publishedAtPlaceholder": "Sélectionner une date",
+        "contractType": "Type de contrat",
+        "contractTypePlaceholder": "Sélectionner un contrat",
+        "currentStatus": "Statut",
+        "currentStatusPlaceholder": "Sélectionner un statut",
+        "experience": "Niveau d'expérience",
+        "experiencePlaceholder": "Sélectionner un niveau",
+        "remotePolicy": "Politique de télétravail",
+        "remotePolicyPlaceholder": "Sélectionner une politique",
+        "compatibility": "Compatibilité",
+        "compatibilityPlaceholder": "Sélectionner un niveau",
+        "salaryMin": "Salaire minimum",
+        "salaryMinPlaceholder": "Ex : 35000",
+        "salaryMax": "Salaire maximum",
+        "salaryMaxPlaceholder": "Ex : 45000",
+        "description": "Description",
+        "descriptionPlaceholder": "Description du poste...",
+        "city": "Ville",
+        "cityPlaceholder": "Ex : Paris",
+        "postalCode": "Code postal",
+        "postalCodePlaceholder": "Ex : 75001",
+        "street": "Rue",
+        "streetPlaceholder": "Ex : Rue de Rivoli",
+        "streetNumber": "Numéro",
+        "streetNumberPlaceholder": "Ex : 42",
+        "complement": "Complément",
+        "complementPlaceholder": "Ex : Bâtiment A"
+      },
+      "extract": {
+        "button": "Remplir depuis une URL",
+        "modal": {
+          "title": "Extraire une offre",
+          "subtitle": "Entrez l'URL de l'offre d'emploi pour pré-remplir le formulaire automatiquement",
+          "urlLabel": "URL de l'offre",
+          "urlPlaceholder": "https://...",
+          "submit": "Extraire",
+          "cancel": "Annuler",
+          "success": "Formulaire pré-rempli avec succès",
+          "error": "Impossible d'extraire les données de cette offre"
+        }
+      },
+      "contacts": {
+        "title": "Contacts",
+        "empty": "Aucun contact ajouté",
+        "add": "Ajouter un contact",
+        "modal": {
+          "title": "Nouveau contact",
+          "subtitle": "Ajoutez les informations du contact",
+          "firstname": "Prénom",
+          "firstnamePlaceholder": "Ex : Jean",
+          "lastname": "Nom",
+          "lastnamePlaceholder": "Ex : Dupont",
+          "email": "Email",
+          "emailPlaceholder": "Ex : jean.dupont@email.com",
+          "phone": "Téléphone",
+          "phonePlaceholder": "Ex : 06 12 34 56 78",
+          "profession": "Profession",
+          "professionPlaceholder": "Ex : Recruteur",
+          "submit": "Ajouter",
+          "cancel": "Annuler",
+          "error": "Erreur lors de la création du contact"
+        }
+      },
+      "skills": {
+        "title": "Compétences",
+        "empty": "Aucune compétence ajoutée",
+        "add": "Ajouter",
+        "inputPlaceholder": "Ex : React, TypeScript...",
+        "modal": {
+          "title": "Nouvelle compétence",
+          "subtitle": "Ajoutez une compétence à votre profil",
+          "label": "Compétence",
+          "labelPlaceholder": "Ex : React",
+          "submit": "Ajouter",
+          "cancel": "Annuler",
+          "error": "Erreur lors de la création de la compétence"
+        }
+      },
+      "navigation": {
+        "previous": "Précédent",
+        "next": "Suivant",
+        "submit": "Créer la candidature"
+      },
+      "messages": {
+        "success": "Candidature créée avec succès",
+        "error": "Erreur lors de la création de la candidature"
+      }
+    }
+  },
+  "validation": {
+    "title": "Le titre est requis",
+    "url": "L'URL est requise",
+    "urlInvalid": "L'URL n'est pas valide",
+    "jobboard": "Le jobboard est requis",
+    "currentStatus": "Le statut est requis",
+    "salaryMin": "Le salaire minimum doit être supérieur à 10 000",
+    "salaryMax": "Le salaire maximum doit être supérieur au salaire minimum",
+    "salaryBoth": "Les deux salaires doivent être renseignés ensemble",
+    "contact": {
+      "firstname": "Le prénom est requis",
+      "lastname": "Le nom est requis",
+      "email": "L'email n'est pas valide",
+      "profession": "La profession est requise"
+    },
+    "skill": {
+      "label": "La compétence ne peut pas être vide"
+    },
+    "max": "Ce champ ne peut pas dépasser {{max}} caractères"
   }
 }

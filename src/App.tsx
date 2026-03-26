@@ -20,6 +20,7 @@ import { OauthCallback } from "./modules/auth/oauth/oauth-callback";
 import { Layout } from "@/app/router/layout/layout";
 import { PrivateRoutes } from "@/app/router/private-routes";
 import { ApplicationList } from "@/modules/application/list/application-list";
+import { CreateApplication } from "@/modules/application/create/create-application";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,6 +76,13 @@ function App() {
                 key="applicationList"
                 path={ROUTES.application.list}
                 element={<ApplicationList />}
+              />
+
+              {/* APPLICATION CREATE */}
+              <Route
+                key="applicationCreate"
+                path={ROUTES.application.create}
+                element={<CreateApplication />}
               />
             </Route>
 

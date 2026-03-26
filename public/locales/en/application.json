@@ -64,10 +64,12 @@
     "favorite": "Favorites"
   },
   "status": {
-    "NEED_TO_APPLY": "To apply",
+    "TO_APPLY": "To apply",
     "APPLIED": "Applied",
-    "IN_PROCESS": "In process",
-    "COMPANY_OFFER_RECEIVED": "Offer received",
+    "FIRST_CONTACT": "First contact",
+    "FIRST_INTERVIEW": "First interview",
+    "FOLLOW_UP_INTERVIEW": "Follow-up interview",
+    "OFFER_RECEIVED": "Offer received",
     "ACCEPTED": "Accepted",
     "REJECTED": "Rejected",
     "GHOSTED": "Ghosted",
@@ -77,16 +79,166 @@
     "CDI": "Permanent",
     "CDD": "Fixed-term",
     "FREELANCE": "Freelance",
-    "ALTERNANCE": "Apprenticeship"
+    "ALTERNANCE": "Apprenticeship",
+    "STAGE": "Internship",
+    "INTERIM": "Temporary"
   },
   "remotePolicy": {
-    "FULL": "Full remote",
+    "ONSITE": "On-site",
     "HYBRID": "Hybrid",
-    "ONSITE": "On-site"
+    "FULL": "Full remote"
   },
   "experience": {
     "JUNIOR": "Junior",
     "MID": "Mid-level",
-    "SENIOR": "Senior"
+    "SENIOR": "Senior",
+    "LEAD": "Lead"
+  },
+  "jobboard": {
+    "LINKEDIN": "LinkedIn",
+    "INDEED": "Indeed",
+    "WTTJ": "Welcome to the Jungle",
+    "FRANCE_TRAVAIL": "France Travail",
+    "GLASSDOOR": "Glassdoor",
+    "APEC": "Apec",
+    "HELLO_WORK": "HelloWork",
+    "METEO_JOB": "Meteo Job",
+    "UNKNOW": "Other"
+  },
+  "compatibility": {
+    "PERFECT": "Perfect",
+    "ATTAINABLE": "Attainable",
+    "WHY_NOT": "Why not"
+  },
+  "pages": {
+    "create": {
+      "title": "New application",
+      "subtitle": "Fill in the information to create an application",
+      "steps": {
+        "general": "General",
+        "classification": "Classification",
+        "salary": "Salary",
+        "address": "Location",
+        "contacts": "Contacts",
+        "skills": "Skills"
+      },
+      "fields": {
+        "title": "Job title",
+        "titlePlaceholder": "E.g.: Full Stack Developer",
+        "url": "Job offer URL",
+        "urlPlaceholder": "https://...",
+        "company": "Company",
+        "companyPlaceholder": "E.g.: Google",
+        "jobboard": "Jobboard",
+        "jobboardPlaceholder": "Select a jobboard",
+        "publishedAt": "Publication date",
+        "publishedAtPlaceholder": "Select a date",
+        "contractType": "Contract type",
+        "contractTypePlaceholder": "Select a contract",
+        "currentStatus": "Status",
+        "currentStatusPlaceholder": "Select a status",
+        "experience": "Experience level",
+        "experiencePlaceholder": "Select a level",
+        "remotePolicy": "Remote policy",
+        "remotePolicyPlaceholder": "Select a policy",
+        "compatibility": "Compatibility",
+        "compatibilityPlaceholder": "Select a level",
+        "salaryMin": "Minimum salary",
+        "salaryMinPlaceholder": "E.g.: 35000",
+        "salaryMax": "Maximum salary",
+        "salaryMaxPlaceholder": "E.g.: 45000",
+        "description": "Description",
+        "descriptionPlaceholder": "Job description...",
+        "city": "City",
+        "cityPlaceholder": "E.g.: Paris",
+        "postalCode": "Postal code",
+        "postalCodePlaceholder": "E.g.: 75001",
+        "street": "Street",
+        "streetPlaceholder": "E.g.: Main Street",
+        "streetNumber": "Number",
+        "streetNumberPlaceholder": "E.g.: 42",
+        "complement": "Additional info",
+        "complementPlaceholder": "E.g.: Building A"
+      },
+      "contacts": {
+        "title": "Contacts",
+        "empty": "No contacts added",
+        "add": "Add a contact",
+        "modal": {
+          "title": "New contact",
+          "subtitle": "Add the contact information",
+          "firstname": "First name",
+          "firstnamePlaceholder": "E.g.: John",
+          "lastname": "Last name",
+          "lastnamePlaceholder": "E.g.: Doe",
+          "email": "Email",
+          "emailPlaceholder": "E.g.: john.doe@email.com",
+          "phone": "Phone",
+          "phonePlaceholder": "E.g.: +1 234 567 890",
+          "profession": "Profession",
+          "professionPlaceholder": "E.g.: Recruiter",
+          "submit": "Add",
+          "cancel": "Cancel",
+          "error": "Error creating contact"
+        }
+      },
+      "skills": {
+        "title": "Skills",
+        "empty": "No skills added",
+        "add": "Add",
+        "inputPlaceholder": "E.g.: React, TypeScript...",
+        "modal": {
+          "title": "New skill",
+          "subtitle": "Add a skill to your profile",
+          "label": "Skill",
+          "labelPlaceholder": "E.g.: React",
+          "submit": "Add",
+          "cancel": "Cancel",
+          "error": "Error creating skill"
+        }
+      },
+      "extract": {
+        "button": "Fill from URL",
+        "modal": {
+          "title": "Extract an offer",
+          "subtitle": "Enter the job offer URL to pre-fill the form automatically",
+          "urlLabel": "Job offer URL",
+          "urlPlaceholder": "https://...",
+          "submit": "Extract",
+          "cancel": "Cancel",
+          "success": "Form pre-filled successfully",
+          "error": "Unable to extract data from this offer"
+        }
+      },
+      "navigation": {
+        "previous": "Previous",
+        "next": "Next",
+        "submit": "Create application"
+      },
+      "messages": {
+        "success": "Application created successfully",
+        "error": "Error creating application"
+      }
+    }
+  },
+  "validation": {
+    "title": "Title is required",
+    "url": "URL is required",
+    "urlInvalid": "URL is not valid",
+    "jobboard": "Jobboard is required",
+    "currentStatus": "Status is required",
+    "salaryMin": "Minimum salary must be greater than 10,000",
+    "salaryMax": "Maximum salary must be greater than minimum salary",
+    "salaryBoth": "Both salaries must be provided together",
+    "contact": {
+      "firstname": "First name is required",
+      "lastname": "Last name is required",
+      "email": "Email is not valid",
+      "profession": "Profession is required"
+    },
+    "skill": {
+      "label": "Skill cannot be empty"
+    },
+    "max": "This field cannot exceed {{max}} characters"
   }
 }

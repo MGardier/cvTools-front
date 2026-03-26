@@ -19,5 +19,6 @@ export const ROUTES = {
 
   application: {
     list: "/applications",
+    create: "/applications/create",
   },
 } as const ;

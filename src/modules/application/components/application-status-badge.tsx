@@ -9,22 +9,26 @@ interface IApplicationStatusBadgeProps {
 }
 
 const STATUS_STYLES: Record<TApplicationStatus, string> = {
-  [EApplicationStatus.NEED_TO_APPLY]:
+  [EApplicationStatus.TO_APPLY]:
     "bg-blue-100 text-blue-700 border border-blue-200",
   [EApplicationStatus.APPLIED]:
     "bg-indigo-100 text-indigo-700 border border-indigo-200",
-  [EApplicationStatus.IN_PROCESS]:
+  [EApplicationStatus.FIRST_CONTACT]:
+    "bg-cyan-100 text-cyan-700 border border-cyan-200",
+  [EApplicationStatus.FIRST_INTERVIEW]:
     "bg-amber-100 text-amber-700 border border-amber-200",
-  [EApplicationStatus.COMPANY_OFFER_RECEIVED]:
+  [EApplicationStatus.FOLLOW_UP_INTERVIEW]:
     "bg-orange-100 text-orange-700 border border-orange-200",
+  [EApplicationStatus.OFFER_RECEIVED]:
+    "bg-purple-100 text-purple-700 border border-purple-200",
   [EApplicationStatus.ACCEPTED]:
     "bg-emerald-100 text-emerald-700 border border-emerald-200",
   [EApplicationStatus.REJECTED]:
     "bg-red-100 text-red-700 border border-red-200",
   [EApplicationStatus.GHOSTED]:
-    "bg-muted text-muted-foreground border border-border",
+    "bg-gray-100 text-gray-700 border border-gray-200",
   [EApplicationStatus.WITHDRAWN]:
-    "bg-muted text-muted-foreground border border-border",
+    "bg-slate-100 text-slate-700 border border-slate-200",
 };
 
 export const ApplicationStatusBadge = ({

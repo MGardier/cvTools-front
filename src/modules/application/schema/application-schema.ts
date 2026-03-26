@@ -16,9 +16,7 @@ import {
   type TCompatibilityJob,
 } from "@/modules/application/types";
 import { createAddressSchema } from "./address-schema";
-import { createContactSchema } from "./contact-schema";
-import { createSkillSchema } from "./skill-schema";
-import { enumValues, optDate, optEnum, optNumber, optString, optUrl, reqEnum, reqString } from "@/shared/utils/zod-helpers";
+import { enumValues, optDate, optEnum, optNumber, optString, reqEnum, reqString, reqUrl } from "@/shared/utils/zod-helpers";
 
 
 /**
@@ -31,13 +29,13 @@ export const createApplicationSchema = (t: TFunction) =>
     .object({
       // Step 1 — General
       title: reqString(t, { max: 100, error: t("validation.title") }),
-      url: optUrl(t),
+      url: reqUrl(t, {error: t("validation.title") }),
       company: optString(t, {max: 100}),
       jobboard:  reqEnum<TJobboard>(enumValues(EJobboard), t("validation.jobboard")),
       publishedAt: optDate(t),
 
       // Step 2 — Classification
-      contractType: optEnum<TContractType>(enumValues(EContractType) , t("validation.contractType")),
+      contractType: reqEnum<TContractType>(enumValues(EContractType) , t("validation.contractType")),
       currentStatus:  reqEnum<TApplicationStatus>(enumValues(EApplicationStatus), t("validation.currentStatus")),
       experience: optEnum<TExperienceLevel>(enumValues(EExperienceLevel),t("validation.experience")),
       remotePolicy: optEnum<TRemotePolicy>(enumValues(ERemotePolicy),t("validation.remotePolicy")),
@@ -51,11 +49,25 @@ export const createApplicationSchema = (t: TFunction) =>
       // Step 4 — Address
       address: createAddressSchema(t),
 
-      // Step 5 — Contacts
-      contacts: z.array(createContactSchema(t)),
+      // Step 5 — Contacts (stored as full objects with id from backend)
+      contacts: z.array(
+        z.object({
+          id: z.number(),
+          firstname: z.string(),
+          lastname: z.string(),
+          email: z.string(),
+          phone: z.string().optional(),
+          profession: z.string(),
+        })
+      ),
 
-      // Step 6 — Skills
-      skills: z.array(createSkillSchema(t)),
+      // Step 6 — Skills (stored as full objects with id from backend)
+      skills: z.array(
+        z.object({
+          id: z.number(),
+          label: z.string(),
+        })
+      ),
     })
     .refine(
       (data) => {
@@ -73,4 +85,9 @@ export const createApplicationSchema = (t: TFunction) =>
       }
     );
 
-export type TCreateApplicationForm = z.infer<ReturnType<typeof createApplicationSchema>>;
+export type TCreateApplicationFormInput = z.input<ReturnType<typeof createApplicationSchema>>;
+export type TCreateApplicationFormOutput = z.output<ReturnType<typeof createApplicationSchema>>;
+
+export type { UseFormReturn } from "react-hook-form";
+import type { UseFormReturn } from "react-hook-form";
+export type TCreateApplicationFormReturn = UseFormReturn<TCreateApplicationFormInput, unknown, TCreateApplicationFormOutput>;

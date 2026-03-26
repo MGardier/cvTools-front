@@ -1,6 +1,7 @@
+import { z } from "zod/v4";
 import { reqString } from "@/shared/utils/zod-helpers";
 import type { TFunction } from "i18next";
-import z from "zod/v4";
+import type { UseFormReturn } from "react-hook-form";
 
 
 /**
@@ -9,5 +10,9 @@ import z from "zod/v4";
 
 export const createSkillSchema = (t: TFunction) =>
   z.object({
-    label: reqString(t,{max: 100, error: t("validation.skill.label")}),
+    label: reqString(t, { max: 100, error: t("validation.skill.label") }),
   });
+
+export type TCreateSkillInput = z.input<ReturnType<typeof createSkillSchema>>;
+export type TCreateSkillOutput = z.output<ReturnType<typeof createSkillSchema>>;
+export type TCreateSkillFormReturn = UseFormReturn<TCreateSkillInput, unknown, TCreateSkillOutput>;

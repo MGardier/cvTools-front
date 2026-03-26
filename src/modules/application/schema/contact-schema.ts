@@ -1,5 +1,7 @@
-import { conditionalObject, optString, reqEmail, reqString } from "@/shared/utils/zod-helpers";
+import { z } from "zod/v4";
+import { optString, reqEmail, reqString } from "@/shared/utils/zod-helpers";
 import type { TFunction } from "i18next";
+import type { UseFormReturn } from "react-hook-form";
 
 
 /**
@@ -7,24 +9,14 @@ import type { TFunction } from "i18next";
  */
 
 export const createContactSchema = (t: TFunction) =>
- conditionalObject(
-      {
-        firstname:   reqString(t, { max: 100 ,error: t("validation.contact.firstname") }),
-        lastname:   reqString(t, { max: 100 , error : t("validation.contact.lastname")}),
-        email:   reqEmail(t, { max: 100 , error: t("validation.contact.email")}),
-        phone:       optString(t, { max: 20 }),
-        profession: reqString(t, { max: 50 }),
-        complement:   optString(t, { max: 100 , error:  t("validation.contact.profession")}),
-      },
-      {
-        requiredIfPresent: {
-          firstname:  t("validation.contact.firstname"),
-          lastname:  t("validation.contact.lastname"),
-          email: t("validation.contact.email"),
-          profession: t("validation.contact.profession"),
-        },
-      },
-    );
-  
+  z.object({
+    firstname: reqString(t, { max: 100, error: t("validation.contact.firstname") }),
+    lastname: reqString(t, { max: 100, error: t("validation.contact.lastname") }),
+    email: reqEmail(t, { max: 100, error: t("validation.contact.email") }),
+    phone: optString(t, { max: 20 }),
+    profession: reqString(t, { max: 50 }),
+  });
 
-  
+export type TCreateContactInput = z.input<ReturnType<typeof createContactSchema>>;
+export type TCreateContactOutput = z.output<ReturnType<typeof createContactSchema>>;
+export type TCreateContactFormReturn = UseFormReturn<TCreateContactInput, unknown, TCreateContactOutput>;

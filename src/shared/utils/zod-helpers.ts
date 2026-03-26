@@ -347,10 +347,6 @@ type TEnumValues<T extends string> = [T, ...T[]];
  * Input:  "" | "CDI" | "invalid_value"
  * Output: T
  *
- * ""              → rejected
- * "invalid_value" → rejected (not in enum)
- * "CDI"           → "CDI" (typed as T)
- *
  * @example
  * jobboard: reqEnum<TJobboard>(enumValues(EJobboard), t("validation.jobboard")),
  * status: reqEnum<TApplicationStatus>(enumValues(EApplicationStatus), t("validation.status")),
@@ -359,9 +355,10 @@ export const reqEnum = <T extends string>(values: TEnumValues<T>, error: string)
   z
     .string()
     .refine(
-      (val): val is T => val.trim() !== "" && (values as string[]).includes(val),
+      (val) => val.trim() !== "" && (values as string[]).includes(val),
       { error },
-    );
+    )
+    .transform((val) => val as T);
 
 
 /**

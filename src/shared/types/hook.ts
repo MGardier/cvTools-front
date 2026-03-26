@@ -45,6 +45,15 @@ export interface IUsePaginationReturn {
 }
 
 
+/**************************  MULTI-STEP FORM  ***********************************************************/
+
+export interface IStep {
+  id: string;
+  label: string;
+  fields: string[];
+}
+
+
 /**************************  FILTERS  ***********************************************************/
 
 export interface IUseFiltersReturn<TFilters extends object> {
