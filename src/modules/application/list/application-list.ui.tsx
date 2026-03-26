@@ -33,8 +33,9 @@ import { cn } from "@/shared/utils/utils";
 
 import type { IApplication, IApplicationFilters } from "@/modules/application/types";
 import type { IPaginationItem } from "@/shared/types/hook";
+import { ROUTES } from "@/app/constants/routes";
 
-const SKELETON_ROWS = 5;
+const SKELETON_ROWS = 10;
 
 interface IApplicationListUiProps {
   items: IApplication[];
@@ -77,9 +78,9 @@ interface IApplicationCardProps {
 }
 
 const ApplicationCard = ({ item, t, onToggleFavorite }: IApplicationCardProps) => {
-  const sortedSkills = [...item.applicationSkills]
-    .sort((a, b) => a.skill.createdAt.localeCompare(b.skill.createdAt))
-    .slice(0, 5);
+  const sortedSkills = item.skills ? [...item.skills]
+    .sort((a, b) => (String(a.createdAt) < String(b.createdAt) ? -1 : 1))
+    .slice(0, 5) : [];
 
   return (
     <article className="transition border border-offgreen-medium rounded-xl hover:border-sky-600 hover:shadow-lg hover:shadow-sky-600/20 px-3 pt-2 pb-4 md:px-8 md:py-4">
@@ -102,7 +103,7 @@ const ApplicationCard = ({ item, t, onToggleFavorite }: IApplicationCardProps) =
                 className="p-1 rounded-md hover:bg-muted transition-colors"
               >
                 <Bookmark
-                  className={cn("w-5",
+                  className={cn(
                     "w-5 h-5 transition-colors",
                     item.isFavorite ? "text-blue-400 fill-current" : "text-blue-400"
                   )}
@@ -199,48 +200,46 @@ const ApplicationCard = ({ item, t, onToggleFavorite }: IApplicationCardProps) =
           {/* Row 4: Skills | Menu button */}
           <div className="flex items-center justify-between gap-2 md:gap-3 mt-1 md:mt-0">
             <div className="flex flex-wrap gap-1.5 md:gap-2 min-w-0">
-              {sortedSkills.map((as, index) => (
+              {sortedSkills.map((skill, index) => (
                 <span
-                  key={as.skillId}
+                  key={skill.id}
                   className={cn(
                     "rounded-full bg-gray-100 text-gray-500 text-xs px-2.5 py-px",
                     index >= 3 && "hidden md:inline"
                   )}
                 >
-                  {as.skill.label}
+                  {skill.label}
                 </span>
               ))}
             </div>
-            <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button
-                    type="button"
-                    onClick={(e) => e.stopPropagation()}
-                    className="p-1 rounded-md hover:bg-muted transition-colors shrink-0"
-                  >
-                    <Ellipsis className="w-5 h-5 text-gray-500" />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="shadow-lg border border-gray-200 p-2">
-                  <DropdownMenuItem asChild className="py-2.5">
-                    <a href={item.url} target="_blank" rel="noopener noreferrer">
-                      <Eye className="w-4 h-4" />
-                      {t("list.card.view")}
-                    </a>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="py-2.5">
-                    <Pencil className="w-4 h-4" />
-                    {t("list.card.edit")}
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem variant="destructive" className="py-2.5">
-                    <Trash2 className="w-4 h-4" />
-                    {t("list.card.delete")}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  onClick={(e) => e.stopPropagation()}
+                  className="p-1 rounded-md hover:bg-muted transition-colors shrink-0"
+                >
+                  <Ellipsis className="w-5 h-5 text-gray-500" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="shadow-lg border border-gray-200 p-2">
+                <DropdownMenuItem asChild className="py-2.5">
+                  <a href={item.url} target="_blank" rel="noopener noreferrer">
+                    <Eye className="w-4 h-4" />
+                    {t("list.card.view")}
+                  </a>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="py-2.5">
+                  <Pencil className="w-4 h-4" />
+                  {t("list.card.edit")}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem variant="destructive" className="py-2.5">
+                  <Trash2 className="w-4 h-4" />
+                  {t("list.card.delete")}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
@@ -357,14 +356,14 @@ export const ApplicationListUi = ({
         {/* ── Sort bar ── */}
         <div className="flex justify-between items-center mt-16 mb-6">
           <div className="flex items-center gap-8 pl-3">
-            <button
+            <a href={ROUTES.application.create}
               type="button"
               className="inline-flex items-center gap-1.5 text-[14px] font-medium rounded-lg bg-blue-400 text-white hover:bg-blue-500 px-4 py-2 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
               <Plus className="w-4 h-4" />
               <span className="md:hidden">{t("list.createShort")}</span>
               <span className="hidden md:inline">{t("list.create")}</span>
-            </button>
+            </a>
             <span className="hidden md:inline text-sm text-offgreen-dark">
               {isLoading ? t("list.loading") : t("list.results", { count: total })}
             </span>

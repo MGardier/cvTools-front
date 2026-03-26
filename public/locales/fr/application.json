@@ -162,6 +162,7 @@
       },
       "extract": {
         "button": "Remplir depuis une URL",
+        "hint": "Collez un lien d'offre d'emploi pour pré-remplir le formulaire via l'IA",
         "modal": {
           "title": "Extraire une offre",
           "subtitle": "Entrez l'URL de l'offre d'emploi pour pré-remplir le formulaire automatiquement",

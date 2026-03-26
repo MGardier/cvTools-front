@@ -199,6 +199,7 @@
       },
       "extract": {
         "button": "Fill from URL",
+        "hint": "Paste a job offer link to auto-fill the form with AI",
         "modal": {
           "title": "Extract an offer",
           "subtitle": "Enter the job offer URL to pre-fill the form automatically",
