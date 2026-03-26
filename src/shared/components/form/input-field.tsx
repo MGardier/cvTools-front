@@ -16,7 +16,7 @@ interface IInputFieldProps<TFormData extends FieldValues> {
   type: string;
   placeholder?: string;
   required?: boolean;
-  form: UseFormReturn<TFormData>;
+  form: UseFormReturn<TFormData, any, any>;
   step?: number;
 }
 

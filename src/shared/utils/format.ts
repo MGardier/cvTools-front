@@ -38,9 +38,10 @@ export const formatRelativeDate = (
 };
 
 export const formatRelativePublishedDate = (
-  dateString: string,
+  dateString: Date | string,
   locale: string = "fr"
 ): string => {
+  if (dateString instanceof Date) dateString = dateString.toISOString();
   const date = new Date(dateString);
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();

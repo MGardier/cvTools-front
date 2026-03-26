@@ -8,7 +8,7 @@ interface TextAreaFieldProps<TFormData extends FieldValues> {
 
   placeholder?: string;
   required?: boolean;
-  form: UseFormReturn<TFormData>;
+  form: UseFormReturn<TFormData, any, any>;
 }
 
 

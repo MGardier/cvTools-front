@@ -21,7 +21,7 @@ interface RatingFieldProps<TFormData extends FieldValues> {
   min: number;
   max: number;
   required?: boolean;
-  form: UseFormReturn<TFormData>;
+  form: UseFormReturn<TFormData, any, any>;
 }
 
 export const RatingField = <TFormData extends FieldValues>({

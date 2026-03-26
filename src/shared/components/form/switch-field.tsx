@@ -11,7 +11,7 @@ import { Switch } from "../ui/switch";
 interface SwitchFieldProps<TFormData extends FieldValues> {
   label?: string;
   name: Path<TFormData>;
-  form: UseFormReturn<TFormData>;
+  form: UseFormReturn<TFormData, any, any>;
 }
 
 export const SwitchField = <TFormData extends FieldValues>({

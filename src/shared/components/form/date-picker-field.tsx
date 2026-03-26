@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
@@ -13,7 +13,7 @@ interface DatePickerFieldProps<TFormData extends FieldValues> {
   placeholder: string;
   selectLabel: string;
   name: Path<TFormData>;
-  form: UseFormReturn<TFormData>;
+  form: UseFormReturn<TFormData, any, any>;
   required?: boolean;
 }
 
@@ -26,10 +26,22 @@ export const DatePickerField = <TFormData extends FieldValues>({
   required = false,
 }: DatePickerFieldProps<TFormData>) => {
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState<Date | undefined>(new Date());
-  const [month, setMonth] = useState<Date | undefined>(date);
+  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [month, setMonth] = useState<Date | undefined>(undefined);
 
-
+  const fieldValue = form.watch(name);
+  useEffect(() => {
+    if (fieldValue) {
+      const parsed = new Date(fieldValue);
+      if (!isNaN(parsed.getTime())) {
+        setDate(parsed);
+        setMonth(parsed);
+      }
+    } else {
+      setDate(undefined);
+      setMonth(undefined);
+    }
+  }, [fieldValue]);
 
   return (
     <div className="grid gap-3">

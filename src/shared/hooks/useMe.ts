@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { authService } from "@/lib/service/auth/auth.service";
+import { authService } from "@/lib/api/auth/auth.service";
 import type { IMeResponse } from "@/modules/auth/types";
 import type { IApiErrors } from "@/shared/types/api";
 

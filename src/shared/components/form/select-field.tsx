@@ -16,7 +16,7 @@ interface SelectFieldProps<TFormData extends FieldValues> {
     label: string;
   }[];
   placeholder: string;
-  form: UseFormReturn<TFormData>;
+  form: UseFormReturn<TFormData, any, any>;
   required ?: boolean;
 }
 
