@@ -7,7 +7,7 @@ import { ROUTES } from "@/app/constants/routes";
 import { ME_QUERY_KEY } from "@/shared/hooks/useMe";
 import type { ILogoutResponse } from "../types";
 import type { IApiErrors } from "@/shared/types/api";
-import { authService } from "@/lib/service/auth/auth.service";
+import { authService } from "@/lib/api/auth/auth.service";
 import { LogoutUi } from "./logout.ui";
 
 export const Logout = () => {

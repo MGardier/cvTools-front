@@ -11,7 +11,7 @@ import { ME_QUERY_KEY } from "@/shared/hooks/useMe";
 import { createSignInSchema } from "../schema/auth-schema";
 import type { ISignInResponse } from "../types";
 import type { IApiErrors } from "@/shared/types/api";
-import { authService } from "@/lib/service/auth/auth.service";
+import { authService } from "@/lib/api/auth/auth.service";
 import { SignInUi } from "./sign-in.ui";
 
 export const SignIn = () => {
