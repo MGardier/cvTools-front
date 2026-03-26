@@ -1,8 +1,7 @@
 import type { TFunction } from "i18next";
-import { Link2 } from "lucide-react";
+import { Sparkles, Globe } from "lucide-react";
 
 import { Card, CardContent } from "@/shared/components/ui/card";
-import { Button } from "@/shared/components/ui/button";
 import { Form } from "@/shared/components/ui/form";
 import { FormLayout } from "@/shared/components/form/form-layout";
 import { FormCardHeader } from "@/shared/components/form/form-card-header";
@@ -59,18 +58,28 @@ export const CreateApplicationUi = ({
           {t("pages.create.subtitle")}
         </FormCardHeader>
         <CardContent className="grid gap-6">
-          <div className="flex justify-end">
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => onExtractModalOpen(true)}
-              className="gap-2"
-            >
-              <Link2 className="w-4 h-4" />
-              {t("pages.create.extract.button")}
-            </Button>
-          </div>
+          <button
+            type="button"
+            onClick={() => onExtractModalOpen(true)}
+            className="group w-full cursor-pointer rounded-lg border-2 border-dashed border-sky-200 px-4 py-3 transition-all hover:border-sky-400 hover:bg-sky-50"
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sky-600 transition-colors group-hover:bg-sky-200">
+                <Sparkles className="h-5 w-5" />
+              </div>
+              <div className="flex-1 text-left">
+                <div className="flex items-center gap-1.5">
+                  <p className="text-sm font-medium text-sky-900 dark:text-sky-100">
+                    {t("pages.create.extract.button")}
+                  </p>
+                  <Globe className="h-3.5 w-3.5 text-sky-400 dark:text-sky-500" />
+                </div>
+                <p className="text-xs text-sky-600/80 dark:text-sky-400/70">
+                  {t("pages.create.extract.hint")}
+                </p>
+              </div>
+            </div>
+          </button>
 
           <FormStepper
             steps={steps}

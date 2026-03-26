@@ -53,7 +53,7 @@ export const UrlExtractModal = ({ open, onOpenChange, onExtracted }: IUrlExtract
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md flex">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>{t("pages.create.extract.modal.title")}</DialogTitle>
           <DialogDescription>{t("pages.create.extract.modal.subtitle")}</DialogDescription>
