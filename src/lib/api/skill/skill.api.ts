@@ -5,8 +5,7 @@ import { apiClient } from '@/lib/axios/axios';
 import type { TCreateSkillParams, TUpdateSkillParams } from './types';
 import { ENDPOINTS } from '@/app/constants/endpoints';
 import type { ISkill } from '@/shared/types/entity';
-
-
+import type { IApiResponse } from '@/shared/types/api';
 
 
 
@@ -18,7 +17,7 @@ export const skillApi = {
   //                               CREATE
   // =============================================================================
 
-  async create(params: TCreateSkillParams): Promise<ISkill> {
+  async create(params: TCreateSkillParams): Promise<IApiResponse<ISkill>> {
     return await apiClient.post(`${ENDPOINTS.skill}`, params);
   },
 
@@ -26,38 +25,38 @@ export const skillApi = {
   //                               UPDATE
   // =============================================================================
 
-  async update(params: TUpdateSkillParams): Promise<ISkill> {
-    return await apiClient.patch(`${ENDPOINTS.skill}`, params);
+  async update(id: number, params: TUpdateSkillParams): Promise<IApiResponse<ISkill>> {
+    return await apiClient.patch(`${ENDPOINTS.skill}/${id}`, params);
   },
 
   // =============================================================================
   //                               DELETE
   // =============================================================================
 
-  async delete(skillId: number): Promise<ISkill> {
+  async delete(skillId: number): Promise<IApiResponse<void>> {
     return await apiClient.delete(`${ENDPOINTS.skill}/${skillId}`);
   },
 
 
   // =============================================================================
-  //                              FIND 
+  //                              FIND
   // =============================================================================
 
-  async findAll(): Promise<ISkill[]> {
+  async findAll(): Promise<IApiResponse<ISkill[]>> {
     return await apiClient.get(`${ENDPOINTS.skill}`);
   },
 
-  async findAllByApplicationId(applicationId: number): Promise<ISkill[]> {
+  async findAllByApplicationId(applicationId: number): Promise<IApiResponse<ISkill[]>> {
     return await apiClient.get(`${ENDPOINTS.skill}${ENDPOINTS.application}/${applicationId}`);
   },
 
-  async findOneById(skillId: number): Promise<ISkill> {
+  async findOneById(skillId: number): Promise<IApiResponse<ISkill>> {
     return await apiClient.get(`${ENDPOINTS.skill}/${skillId}`);
   },
 
 
   // =============================================================================
-  //                            RELATION 
+  //                            RELATION
   // =============================================================================
 
   async linkToApplication(skillId: number, applicationId: number): Promise<void> {

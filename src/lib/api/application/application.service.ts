@@ -1,130 +1,88 @@
-
 import type { IApiResponse } from "@/shared/types/api";
+import type { IApplication } from "@/shared/types/entity";
 import type {
   IGetApplicationsParams,
   IGetApplicationsResponse,
-  IApplication,
-  ICreateApplicationParams,
 } from "@/modules/application/types";
-import type { TCreateApplicationForm } from "@/modules/application/schema/application-schema";
+import type { TCreateApplicationFormOutput } from "@/modules/application/schema/application-schema";
 import { applicationApi } from "@/lib/api/application/application.api";
-import { APPLICATION_MOCK_DATA } from "@/modules/application/application.mock";
-
+import type { ICreateApplicationParams } from "@/lib/api/application/types";
 
 export const applicationService = {
 
-  /**************** FIND ALL BY USER ID ************************************************************/
 
-  async findAllByUserId(params: IGetApplicationsParams): Promise<IApiResponse<IGetApplicationsResponse>> {
+  // =============================================================================
+  //                               CREATE
+  // =============================================================================
 
-    // Simulate network latency
-    await new Promise((resolve) => setTimeout(resolve, 300));
-
-    let items: IApplication[] = [...APPLICATION_MOCK_DATA];
-
-    // ── Filtering ──────────────────────────────────────────────
-    const { filters } = params;
-
-    if (filters?.search) {
-      const search = filters.search.toLowerCase();
-      items = items.filter(
-        (item) =>
-          item.title.toLowerCase().includes(search) ||
-          item.company?.toLowerCase().includes(search) ||
-          item.jobboard?.toLowerCase().includes(search)
-      );
-    }
-
-    if (filters?.isFavorite) {
-      items = items.filter((item) => item.isFavorite);
-    }
-
-    if (filters?.status && filters.status.length > 0) {
-      items = items.filter((item) => filters.status!.includes(item.currentStatus));
-    }
-
-    if (filters?.createdAtFrom) {
-      const from = new Date(filters.createdAtFrom).getTime();
-      items = items.filter((item) => new Date(item.createdAt).getTime() >= from);
-    }
-
-    if (filters?.city) {
-      const city = filters.city.toLowerCase();
-      items = items.filter(
-        (item) => item.address?.city.toLowerCase().includes(city)
-      );
-    }
-
-    // ── Sorting ────────────────────────────────────────────────
-    if (params.sortField) {
-      const field = params.sortField;
-      const order = params.sortOrder ?? "asc";
-
-      items = [...items].sort((a, b) => {
-        let aVal: string | number | null | undefined;
-        let bVal: string | number | null | undefined;
-
-        if (field === "jobboard") {
-          aVal = a.jobboard;
-          bVal = b.jobboard;
-        } else {
-          aVal = a[field] as string | number | null | undefined;
-          bVal = b[field] as string | number | null | undefined;
-        }
-
-        if (aVal === null || aVal === undefined) return order === "asc" ? 1 : -1;
-        if (bVal === null || bVal === undefined) return order === "asc" ? -1 : 1;
-
-        if (typeof aVal === "string" && typeof bVal === "string") {
-          return order === "asc"
-            ? aVal.localeCompare(bVal)
-            : bVal.localeCompare(aVal);
-        }
-
-        if (typeof aVal === "number" && typeof bVal === "number") {
-          return order === "asc" ? aVal - bVal : bVal - aVal;
-        }
-
-        return 0;
-      });
-    }
-
-    // ── Pagination ─────────────────────────────────────────────
-    const total = items.length;
-    const { page, limit } = params;
-    const start = (page - 1) * limit;
-    const paginatedItems = items.slice(start, start + limit);
-
-    return {
-      success: true,
-      statusCode: 200,
-      timestamp: new Date().toISOString(),
-      path: "/application",
-      data: {
-        items: paginatedItems,
-        total,
-        page,
-        limit,
-      },
-    };
-  },
-
-  /**************** CREATE ************************************************************/
-
-  async create(formData: TCreateApplicationForm): Promise<IApiResponse<IApplication>> {
-    const { address, contacts, skills, salaryMin, salaryMax, publishedAt, ...fields } = formData;
-
-    const request: ICreateApplicationParams = {
-      ...fields,
-      ...(publishedAt && { publishedAt: new Date(publishedAt) }),
-      ...(salaryMin && !Number.isNaN(salaryMin) && { salaryMin }),
-      ...(salaryMax && !Number.isNaN(salaryMax) && { salaryMax }),
-      ...(address?.city && { address: { ...address, city: address.city, postalCode: address.postalCode ?? "" } }),
-      ...(contacts.length > 0 && { contacts }),
-      ...(skills.length > 0 && { skills }),
+  async create(
+    formData: TCreateApplicationFormOutput
+  ): Promise<IApiResponse<IApplication>> {
+    
+    const params: ICreateApplicationParams = {
+      title: formData.title,
+      url: formData.url,
+      jobboard: formData.jobboard,
+      contractType: formData.contractType,
+      currentStatus: formData.currentStatus,
+      ...(formData.company && { company: formData.company }),
+      ...(formData.description && { description: formData.description }),
+      ...(formData.publishedAt && { publishedAt: formData.publishedAt }),
+      ...(formData.salaryMin !== undefined && { salaryMin: formData.salaryMin }),
+      ...(formData.salaryMax !== undefined && { salaryMax: formData.salaryMax }),
+      ...(formData.experience && { experience: formData.experience }),
+      ...(formData.remotePolicy && { remotePolicy: formData.remotePolicy }),
+      ...(formData.compatibility && { compatibility: formData.compatibility }),
+      ...(formData.address?.city && {
+        address: {
+          city: formData.address.city,
+          postalCode: formData.address.postalCode ?? "",
+          ...(formData.address.street && { street: formData.address.street }),
+          ...(formData.address.streetNumber && { streetNumber: formData.address.streetNumber }),
+          ...(formData.address.complement && { complement: formData.address.complement }),
+        },
+      }),
+      ...(formData.contacts.length > 0 && {
+        contactIds: formData.contacts.map((c) => c.id),
+      }),
+      ...(formData.skills.length > 0 && {
+        skillIds: formData.skills.map((s) => s.id),
+      }),
     };
 
-    return applicationApi.create(request);
+    return applicationApi.create(params);
   },
 
-}
+
+  // =============================================================================
+  //                               FIND
+  // =============================================================================
+
+  async findAllByUserId(
+    params: IGetApplicationsParams
+  ): Promise<IApiResponse<IGetApplicationsResponse>> {
+    const { page, limit, sortField, sortDirection, filters } = params;
+
+    return applicationApi.findAllByUserId({
+      page,
+      limit,
+
+      //Sort
+      ...(sortField && { sortField: sortField }),
+      ...(sortDirection && { sortDirection }),
+
+      //Filters
+      ...(filters?.keyword && { keyword: filters.keyword }),
+      ...(filters?.city && { city: filters.city }),
+      ...(filters?.currentStatus && { currentStatus: filters.currentStatus }),
+      ...(filters?.isFavorite && {
+        isFavorite: filters.isFavorite,
+      }),
+      ...(filters?.createdAt && { createdAt: filters.createdAt }),
+      ...(filters?.company && { company: filters.company }),
+      ...(filters?.jobboard && { jobboard: filters.jobboard }),
+    });
+  },
+
+
+};
