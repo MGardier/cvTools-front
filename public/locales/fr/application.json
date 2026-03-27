@@ -223,23 +223,101 @@
     }
   },
   "validation": {
-    "title": "Le titre est requis",
-    "url": "L'URL est requise",
+    "required": "Ce champ est requis",
+    "max": "Ce champ ne peut pas dépasser {{max}} caractères",
+    "min": "La valeur doit être supérieure à {{min}}",
+    "email": "L'adresse email n'est pas valide",
     "urlInvalid": "L'URL n'est pas valide",
-    "jobboard": "Le jobboard est requis",
-    "currentStatus": "Le statut est requis",
-    "salaryMin": "Le salaire minimum doit être supérieur à 10 000",
-    "salaryMax": "Le salaire maximum doit être supérieur au salaire minimum",
+    "invalidDate": "La date n'est pas valide",
+
+    "title": {
+      "required": "Le titre est requis",
+      "invalid": "Le titre n'est pas valide"
+    },
+    "url": {
+      "required": "L'URL est requise",
+      "invalid": "L'URL n'est pas valide"
+    },
+    "company": {
+      "invalid": "Le nom de l'entreprise n'est pas valide"
+    },
+    "jobboard": {
+      "required": "Le jobboard est requis",
+      "invalid": "Le jobboard sélectionné n'est pas valide"
+    },
+    "publishedAt": {
+      "invalid": "La date de publication n'est pas valide"
+    },
+    "contractType": {
+      "required": "Le type de contrat est requis",
+      "invalid": "Le type de contrat sélectionné n'est pas valide"
+    },
+    "currentStatus": {
+      "required": "Le statut est requis",
+      "invalid": "Le statut sélectionné n'est pas valide"
+    },
+    "experience": {
+      "invalid": "Le niveau d'expérience sélectionné n'est pas valide"
+    },
+    "remotePolicy": {
+      "invalid": "La politique de télétravail sélectionnée n'est pas valide"
+    },
+    "compatibility": {
+      "invalid": "Le niveau de compatibilité sélectionné n'est pas valide"
+    },
+    "salaryMin": {
+      "invalid": "Le salaire minimum doit être supérieur à 10 000"
+    },
+    "salaryMax": {
+      "invalid": "Le salaire maximum n'est pas valide"
+    },
     "salaryBoth": "Les deux salaires doivent être renseignés ensemble",
+
     "contact": {
-      "firstname": "Le prénom est requis",
-      "lastname": "Le nom est requis",
-      "email": "L'email n'est pas valide",
-      "profession": "La profession est requise"
+      "firstname": {
+        "required": "Le prénom est requis",
+        "invalid": "Le prénom n'est pas valide"
+      },
+      "lastname": {
+        "required": "Le nom est requis",
+        "invalid": "Le nom n'est pas valide"
+      },
+      "email": {
+        "required": "L'email est requis",
+        "invalid": "L'adresse email n'est pas valide"
+      },
+      "phone": {
+        "invalid": "Le numéro de téléphone n'est pas valide"
+      },
+      "profession": {
+        "required": "La profession est requise",
+        "invalid": "La profession n'est pas valide"
+      }
     },
     "skill": {
-      "label": "La compétence ne peut pas être vide"
+      "label": {
+        "required": "La compétence ne peut pas être vide",
+        "invalid": "La compétence n'est pas valide"
+      }
     },
-    "max": "Ce champ ne peut pas dépasser {{max}} caractères"
+    "address": {
+      "city": {
+        "required": "La ville est requise",
+        "invalid": "La ville n'est pas valide"
+      },
+      "postalCode": {
+        "required": "Le code postal est requis",
+        "invalid": "Le code postal n'est pas valide"
+      },
+      "street": {
+        "invalid": "La rue n'est pas valide"
+      },
+      "streetNumber": {
+        "invalid": "Le numéro n'est pas valide"
+      },
+      "complement": {
+        "invalid": "Le complément n'est pas valide"
+      }
+    }
   }
 }

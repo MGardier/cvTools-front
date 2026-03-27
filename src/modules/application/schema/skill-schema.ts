@@ -10,7 +10,7 @@ import type { UseFormReturn } from "react-hook-form";
 
 export const createSkillSchema = (t: TFunction) =>
   z.object({
-    label: reqString(t, { max: 100, error: t("validation.skill.label") }),
+    label: reqString(t, { max: 100, required: t("validation.skill.label.required"), invalid: t("validation.skill.label.invalid") }),
   });
 
 export type TCreateSkillInput = z.input<ReturnType<typeof createSkillSchema>>;

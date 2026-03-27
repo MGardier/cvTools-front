@@ -8,5 +8,5 @@ import z from "zod/v4";
 
 export const extractUrlSchema = (t: TFunction) =>
   z.object({
-    url: reqUrl(t, {error: t("validation.url")}),
+    url: reqUrl(t, { required: t("validation.url.required"), invalid: t("validation.url.invalid") }),
   });

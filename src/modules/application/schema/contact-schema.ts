@@ -10,11 +10,11 @@ import type { UseFormReturn } from "react-hook-form";
 
 export const createContactSchema = (t: TFunction) =>
   z.object({
-    firstname: reqString(t, { max: 100, error: t("validation.contact.firstname") }),
-    lastname: reqString(t, { max: 100, error: t("validation.contact.lastname") }),
-    email: reqEmail(t, { max: 100, error: t("validation.contact.email") }),
-    phone: optString(t, { max: 20 }),
-    profession: reqString(t, { max: 50 }),
+    firstname: reqString(t, { max: 100, required: t("validation.contact.firstname.required"), invalid: t("validation.contact.firstname.invalid") }),
+    lastname: reqString(t, { max: 100, required: t("validation.contact.lastname.required"), invalid: t("validation.contact.lastname.invalid") }),
+    email: reqEmail(t, { max: 100, required: t("validation.contact.email.required"), invalid: t("validation.contact.email.invalid") }),
+    phone: optString(t, { max: 20, invalid: t("validation.contact.phone.invalid") }),
+    profession: reqString(t, { max: 50, required: t("validation.contact.profession.required"), invalid: t("validation.contact.profession.invalid") }),
   });
 
 export type TCreateContactInput = z.input<ReturnType<typeof createContactSchema>>;

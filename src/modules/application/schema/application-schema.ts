@@ -28,22 +28,22 @@ export const createApplicationSchema = (t: TFunction) =>
   z
     .object({
       // Step 1 — General
-      title: reqString(t, { max: 100, error: t("validation.title") }),
-      url: reqUrl(t, {error: t("validation.title") }),
-      company: optString(t, {max: 100}),
-      jobboard:  reqEnum<TJobboard>(enumValues(EJobboard), t("validation.jobboard")),
-      publishedAt: optDate(t),
+      title: reqString(t, { max: 100, required: t("validation.title.required"), invalid: t("validation.title.invalid") }),
+      url: reqUrl(t, { required: t("validation.url.required"), invalid: t("validation.url.invalid") }),
+      company: optString(t, { max: 100, invalid: t("validation.company.invalid") }),
+      jobboard: reqEnum<TJobboard>(enumValues(EJobboard), { required: t("validation.jobboard.required"), invalid: t("validation.jobboard.invalid") }),
+      publishedAt: optDate(t, { invalid: t("validation.publishedAt.invalid") }),
 
       // Step 2 — Classification
-      contractType: reqEnum<TContractType>(enumValues(EContractType) , t("validation.contractType")),
-      currentStatus:  reqEnum<TApplicationStatus>(enumValues(EApplicationStatus), t("validation.currentStatus")),
-      experience: optEnum<TExperienceLevel>(enumValues(EExperienceLevel),t("validation.experience")),
-      remotePolicy: optEnum<TRemotePolicy>(enumValues(ERemotePolicy),t("validation.remotePolicy")),
-      compatibility: optEnum<TCompatibilityJob>(enumValues(ECompatibilityJob),t("validation.compatibility")),
+      contractType: reqEnum<TContractType>(enumValues(EContractType), { required: t("validation.contractType.required"), invalid: t("validation.contractType.invalid") }),
+      currentStatus: reqEnum<TApplicationStatus>(enumValues(EApplicationStatus), { required: t("validation.currentStatus.required"), invalid: t("validation.currentStatus.invalid") }),
+      experience: optEnum<TExperienceLevel>(enumValues(EExperienceLevel), { invalid: t("validation.experience.invalid") }),
+      remotePolicy: optEnum<TRemotePolicy>(enumValues(ERemotePolicy), { invalid: t("validation.remotePolicy.invalid") }),
+      compatibility: optEnum<TCompatibilityJob>(enumValues(ECompatibilityJob), { invalid: t("validation.compatibility.invalid") }),
 
       // Step 3 — Salary & Description
-      salaryMin: optNumber(t , {min:10000, minError : t("validation.salaryMin")}),
-      salaryMax: optNumber(t),
+      salaryMin: optNumber(t, { min: 10000, invalid: t("validation.salaryMin.invalid") }),
+      salaryMax: optNumber(t, { invalid: t("validation.salaryMax.invalid") }),
       description: optString(t),
 
       // Step 4 — Address

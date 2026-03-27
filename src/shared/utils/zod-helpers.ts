@@ -5,22 +5,30 @@ import type { TFunction } from "i18next";
   Reusable helpers for Zod schemas + React Hook Form.
 
   React Hook Form convention: the default values are always '' (string), [] (array), false (boolean). Never undefined.
-   
+
   Helpers pattern:   string in → transform → pipe(validation output)
+
+  Error messages:
+  - Required fields: `required` (field is missing/empty) + `invalid` (value doesn't meet conditions)
+  - Optional fields: `invalid` only (value is provided but doesn't meet conditions)
 
 ══════════════════════════════════════════════════════════════════ */
 
 
 // =============================================================================
+//                            SHARED TYPES
+// =============================================================================
+
+type TReqMessages = { required?: string; invalid?: string };
+type TOptMessages = Pick<TReqMessages, 'invalid'>;
+type TBounds = { min?: number; max?: number };
+
+// =============================================================================
 //                               STRING
 // =============================================================================
 
-
-type TStringFieldOptions = {
-  max?: number;
-  min?: number;
-  error?: string;
-}
+type TReqStringOptions = TReqMessages & TBounds;
+type TOptStringOptions = TOptMessages & Pick<TBounds, 'max'>;
 
 /**
  * Required string field.
@@ -29,18 +37,18 @@ type TStringFieldOptions = {
  * Output: string
  *
  * @example
- * title: reqString(t, { max: 100, error: t("validation.title") }),
+ * title: reqString(t, { max: 100, required: t("validation.title.required"), invalid: t("validation.title.invalid") }),
  */
-export const reqString = (t: TFunction, opts: TStringFieldOptions = {}) => {
-  const { min = 1, max = 255, error } = opts;
+export const reqString = (t: TFunction, opts: TReqStringOptions = {}) => {
+  const { min = 1, max = 255, required, invalid } = opts;
 
   return z
     .string()
-    .min(min, error ?? t("validation.required"))
-    .max(max, t("validation.max", { max }))
+    .min(min, required ?? t("validation.required"))
+    .max(max, invalid ?? t("validation.max", { max }))
     .refine(
       (val) => val.trim().length >= min,
-      { error: error ?? t("validation.required") },
+      { error: required ?? t("validation.required") },
     );
 };
 
@@ -52,14 +60,14 @@ export const reqString = (t: TFunction, opts: TStringFieldOptions = {}) => {
  * Output: string | undefined
  *
  * @example
- * company: optString(t, { max: 100 }),
+ * company: optString(t, { max: 100, invalid: t("validation.company.invalid") }),
  */
-export const optString = (t: TFunction, opts: Omit<TStringFieldOptions, 'min'> = {}) => {
-  const { max = 255, error } = opts;
+export const optString = (t: TFunction, opts: TOptStringOptions = {}) => {
+  const { max = 255, invalid } = opts;
 
   return z
     .string()
-    .max(max, error ?? t("validation.max", { max }))
+    .max(max, invalid ?? t("validation.max", { max }))
     .transform((val) => (val === "" ? undefined : val))
     .pipe(z.string().optional());
 };
@@ -68,6 +76,9 @@ export const optString = (t: TFunction, opts: Omit<TStringFieldOptions, 'min'> =
 //                               EMAIL
 // =============================================================================
 
+type TReqEmailOptions = TReqMessages & Pick<TBounds, 'max'>;
+type TOptEmailOptions = TOptMessages & Pick<TBounds, 'max'>;
+
 /**
  * Required email field.
  *
@@ -75,26 +86,26 @@ export const optString = (t: TFunction, opts: Omit<TStringFieldOptions, 'min'> =
  * Output: string (validated email)
  *
  * @example
- * email: reqEmail(t, { error: t("validation.contact.email") }),
+ * email: reqEmail(t, { required: t("validation.contact.email.required"), invalid: t("validation.contact.email.invalid") }),
  */
-export const reqEmail = (t: TFunction, opts: { error?: string; max?: number } = {}) => {
-  const { error, max } = opts;
+export const reqEmail = (t: TFunction, opts: TReqEmailOptions = {}) => {
+  const { required, invalid, max } = opts;
 
   let base = z
     .string()
     .refine(
       (val) => val.trim() !== "",
-      { error: error ?? t("validation.required") },
+      { error: required ?? t("validation.required") },
     );
 
   if (max !== undefined) {
     base = base.refine(
       (val) => val.length <= max,
-      { error: t("validation.max", { max }) },
+      { error: invalid ?? t("validation.max", { max }) },
     );
   }
 
-  return base.pipe(z.email({ error: error ?? t("validation.email") }));
+  return base.pipe(z.email({ error: invalid ?? t("validation.email") }));
 };
 
 /**
@@ -104,18 +115,18 @@ export const reqEmail = (t: TFunction, opts: { error?: string; max?: number } = 
  * Output: string | undefined
  *
  * @example
- * email: optEmail(t, { max: 100 }),
+ * email: optEmail(t, { max: 100, invalid: t("validation.email.invalid") }),
  */
-export const optEmail = (t: TFunction, opts: { error?: string; max?: number } = {}) => {
-  const { error, max } = opts;
+export const optEmail = (t: TFunction, opts: TOptEmailOptions = {}) => {
+  const { invalid, max } = opts;
 
   let base = z
-    .email({ error: error ?? t("validation.email") });
+    .email({ error: invalid ?? t("validation.email") });
 
   if (max !== undefined) {
     base = base.refine(
       (val) => val.length <= max,
-      { error: t("validation.max", { max }) },
+      { error: invalid ?? t("validation.max", { max }) },
     );
   }
 
@@ -130,6 +141,9 @@ export const optEmail = (t: TFunction, opts: { error?: string; max?: number } = 
 // =============================================================================
 
 
+type TReqUrlOptions = TReqMessages & Pick<TBounds, 'max'>;
+type TOptUrlOptions = TOptMessages & Pick<TBounds, 'max'>;
+
 /**
  * Required URL field.
  *
@@ -137,26 +151,26 @@ export const optEmail = (t: TFunction, opts: { error?: string; max?: number } = 
  * Output: string (validated URL)
  *
  * @example
- * url: reqUrl(t, { error: t("validation.urlInvalid") }),
+ * url: reqUrl(t, { required: t("validation.url.required"), invalid: t("validation.url.invalid") }),
  */
-export const reqUrl = (t: TFunction, opts: { error?: string; max?: number } = {}) => {
-  const { error, max } = opts;
+export const reqUrl = (t: TFunction, opts: TReqUrlOptions = {}) => {
+  const { required, invalid, max } = opts;
 
   let base = z
     .string()
     .refine(
       (val) => val.trim() !== "",
-      { error: error ?? t("validation.required") },
+      { error: required ?? t("validation.required") },
     );
 
   if (max !== undefined) {
     base = base.refine(
       (val) => val.length <= max,
-      { error: t("validation.max", { max }) },
+      { error: invalid ?? t("validation.max", { max }) },
     );
   }
 
-  return base.pipe(z.url({ error: error ?? t("validation.urlInvalid") }));
+  return base.pipe(z.url({ error: invalid ?? t("validation.urlInvalid") }));
 };
 
 /**
@@ -166,18 +180,18 @@ export const reqUrl = (t: TFunction, opts: { error?: string; max?: number } = {}
  * Output: string | undefined
  *
  * @example
- * website: optUrl(t, { max: 500 }),
+ * website: optUrl(t, { max: 500, invalid: t("validation.url.invalid") }),
  */
-export const optUrl = (t: TFunction, opts: { error?: string; max?: number } = {}) => {
-  const { error, max } = opts;
+export const optUrl = (t: TFunction, opts: TOptUrlOptions = {}) => {
+  const { invalid, max } = opts;
 
   let base = z
-    .url({ error: error ?? t("validation.urlInvalid") });
+    .url({ error: invalid ?? t("validation.urlInvalid") });
 
   if (max !== undefined) {
     base = base.refine(
       (val) => val.length <= max,
-      { error: t("validation.max", { max }) },
+      { error: invalid ?? t("validation.max", { max }) },
     );
   }
 
@@ -192,13 +206,8 @@ export const optUrl = (t: TFunction, opts: { error?: string; max?: number } = {}
 //                               NUMBER
 // =============================================================================
 
-type TNumberFieldOptions = {
-  min?: number;
-  max?: number;
-  minError?: string;
-  maxError?: string;
-  error?: string;
-};
+type TReqNumberOptions = TReqMessages & TBounds;
+type TOptNumberOptions = TOptMessages & TBounds;
 
 /**
  * Required number field (from a string input).
@@ -207,20 +216,20 @@ type TNumberFieldOptions = {
  * Output: number
  *
  * @example
- * quantity: reqNumber(t, { min: 1, minError: t("validation.minQuantity") }),
+ * quantity: reqNumber(t, { min: 1, required: t("validation.quantity.required"), invalid: t("validation.quantity.invalid") }),
  */
-export const reqNumber = (t: TFunction, opts: TNumberFieldOptions = {}) => {
-  const { min, max, minError, maxError, error } = opts;
+export const reqNumber = (t: TFunction, opts: TReqNumberOptions = {}) => {
+  const { min, max, required, invalid } = opts;
 
   let schema = z.number();
-  if (min !== undefined) schema = schema.min(min, minError ?? t("validation.min", { min }));
-  if (max !== undefined) schema = schema.max(max, maxError ?? t("validation.max", { max }));
+  if (min !== undefined) schema = schema.min(min, invalid ?? t("validation.min", { min }));
+  if (max !== undefined) schema = schema.max(max, invalid ?? t("validation.max", { max }));
 
   return z
     .string()
     .refine(
       (val) => val.trim() !== "",
-      { error: error ?? t("validation.required") },
+      { error: required ?? t("validation.required") },
     )
     .transform((val): number | undefined => {
       const trimmed = val.trim();
@@ -240,14 +249,14 @@ export const reqNumber = (t: TFunction, opts: TNumberFieldOptions = {}) => {
  *
 
  * @example
- * salaryMin: optNumber(t, { min: 10000, minError: t("validation.salaryMin") }),
+ * salaryMin: optNumber(t, { min: 10000, invalid: t("validation.salaryMin.invalid") }),
  */
-export const optNumber = (t: TFunction, opts: TNumberFieldOptions = {}) => {
-  const { min, max, minError, maxError } = opts;
+export const optNumber = (t: TFunction, opts: TOptNumberOptions = {}) => {
+  const { min, max, invalid } = opts;
 
   let schema = z.number();
-  if (min !== undefined) schema = schema.min(min, minError ?? t("validation.min", { min }));
-  if (max !== undefined) schema = schema.max(max, maxError ?? t("validation.max", { max }));
+  if (min !== undefined) schema = schema.min(min, invalid ?? t("validation.min", { min }));
+  if (max !== undefined) schema = schema.max(max, invalid ?? t("validation.max", { max }));
 
   return z
     .string()
@@ -264,10 +273,8 @@ export const optNumber = (t: TFunction, opts: TNumberFieldOptions = {}) => {
 //                               DATE
 // =============================================================================
 
-type TDateFieldOptions = {
-  error?: string;
-  formatError?: string;
-};
+type TReqDateOptions = TReqMessages;
+type TOptDateOptions = TOptMessages;
 
 /**
  * Required date field (from <input type="date">).
@@ -276,20 +283,20 @@ type TDateFieldOptions = {
  * Output: string (validated ISO date)
  *
  * @example
- * deadline: reqDate(t, { error: t("validation.deadlineRequired") }),
+ * deadline: reqDate(t, { required: t("validation.deadline.required"), invalid: t("validation.deadline.invalid") }),
  */
-export const reqDate = (t: TFunction, opts: TDateFieldOptions = {}) => {
-  const { error, formatError } = opts;
+export const reqDate = (t: TFunction, opts: TReqDateOptions = {}) => {
+  const { required, invalid } = opts;
 
   return z
     .string()
     .refine(
       (val) => val.trim() !== "",
-      { error: error ?? t("validation.required") },
+      { error: required ?? t("validation.required") },
     )
     .refine(
       (val) => !Number.isNaN(new Date(val).getTime()),
-      { error: formatError ?? t("validation.invalidDate") },
+      { error: invalid ?? t("validation.invalidDate") },
     );
 };
 
@@ -300,10 +307,10 @@ export const reqDate = (t: TFunction, opts: TDateFieldOptions = {}) => {
  * Output: string | undefined
  *
  * @example
- * expiresAt: optDate(t, { formatError: t("validation.dateFormat") }),
+ * expiresAt: optDate(t, { invalid: t("validation.date.invalid") }),
  */
-export const optDate = (t: TFunction, opts: TDateFieldOptions = {}) => {
-  const { formatError } = opts;
+export const optDate = (t: TFunction, opts: TOptDateOptions = {}) => {
+  const { invalid } = opts;
 
   return z
     .string()
@@ -313,7 +320,7 @@ export const optDate = (t: TFunction, opts: TDateFieldOptions = {}) => {
         .string()
         .refine(
           (val) => !Number.isNaN(new Date(val).getTime()),
-          { error: formatError ?? t("validation.invalidDate") },
+          { error: invalid ?? t("validation.invalidDate") },
         )
         .optional()
     );
@@ -338,6 +345,9 @@ export const enumValues = <T extends string>(e: Record<string, T>) =>
 
 type TEnumValues<T extends string> = [T, ...T[]];
 
+type TReqEnumOptions = TReqMessages;
+type TOptEnumOptions = TOptMessages;
+
 /**
  * Required enum field.
  *
@@ -348,15 +358,21 @@ type TEnumValues<T extends string> = [T, ...T[]];
  * Output: T
  *
  * @example
- * jobboard: reqEnum<TJobboard>(enumValues(EJobboard), t("validation.jobboard")),
- * status: reqEnum<TApplicationStatus>(enumValues(EApplicationStatus), t("validation.status")),
+ * jobboard: reqEnum<TJobboard>(enumValues(EJobboard), {
+ *   required: t("validation.jobboard.required"),
+ *   invalid: t("validation.jobboard.invalid"),
+ * }),
  */
-export const reqEnum = <T extends string>(values: TEnumValues<T>, error: string) =>
+export const reqEnum = <T extends string>(values: TEnumValues<T>, opts: TReqEnumOptions) =>
   z
     .string()
     .refine(
-      (val) => val.trim() !== "" && (values as string[]).includes(val),
-      { error },
+      (val) => val.trim() !== "",
+      { error: opts.required ?? "" },
+    )
+    .refine(
+      (val) => val.trim() === "" || (values as string[]).includes(val),
+      { error: opts.invalid ?? "" },
     )
     .transform((val) => val as T);
 
@@ -368,14 +384,16 @@ export const reqEnum = <T extends string>(values: TEnumValues<T>, error: string)
  * Output: T | undefined
  *
  * @example
- * contractType: optEnum<TContractType>(enumValues(EContractType)),
+ * contractType: optEnum<TContractType>(enumValues(EContractType), {
+ *   invalid: t("validation.contractType.invalid"),
+ * }),
  */
-export const optEnum = <T extends string>(values: TEnumValues<T>, error: string) =>
+export const optEnum = <T extends string>(values: TEnumValues<T>, opts: TOptEnumOptions) =>
   z
     .string()
     .refine(
       (val): val is T | "" => val.trim() === "" || (values as string[]).includes(val),
-      { error},
+      { error: opts.invalid ?? "" },
     )
     .transform((val): T | undefined => (val === "" ? undefined : val as T));
 

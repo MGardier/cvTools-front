@@ -223,23 +223,101 @@
     }
   },
   "validation": {
-    "title": "Title is required",
-    "url": "URL is required",
+    "required": "This field is required",
+    "max": "This field cannot exceed {{max}} characters",
+    "min": "Value must be greater than {{min}}",
+    "email": "Email address is not valid",
     "urlInvalid": "URL is not valid",
-    "jobboard": "Jobboard is required",
-    "currentStatus": "Status is required",
-    "salaryMin": "Minimum salary must be greater than 10,000",
-    "salaryMax": "Maximum salary must be greater than minimum salary",
+    "invalidDate": "Date is not valid",
+
+    "title": {
+      "required": "Title is required",
+      "invalid": "Title is not valid"
+    },
+    "url": {
+      "required": "URL is required",
+      "invalid": "URL is not valid"
+    },
+    "company": {
+      "invalid": "Company name is not valid"
+    },
+    "jobboard": {
+      "required": "Jobboard is required",
+      "invalid": "Selected jobboard is not valid"
+    },
+    "publishedAt": {
+      "invalid": "Publication date is not valid"
+    },
+    "contractType": {
+      "required": "Contract type is required",
+      "invalid": "Selected contract type is not valid"
+    },
+    "currentStatus": {
+      "required": "Status is required",
+      "invalid": "Selected status is not valid"
+    },
+    "experience": {
+      "invalid": "Selected experience level is not valid"
+    },
+    "remotePolicy": {
+      "invalid": "Selected remote policy is not valid"
+    },
+    "compatibility": {
+      "invalid": "Selected compatibility level is not valid"
+    },
+    "salaryMin": {
+      "invalid": "Minimum salary must be greater than 10,000"
+    },
+    "salaryMax": {
+      "invalid": "Maximum salary is not valid"
+    },
     "salaryBoth": "Both salaries must be provided together",
+
     "contact": {
-      "firstname": "First name is required",
-      "lastname": "Last name is required",
-      "email": "Email is not valid",
-      "profession": "Profession is required"
+      "firstname": {
+        "required": "First name is required",
+        "invalid": "First name is not valid"
+      },
+      "lastname": {
+        "required": "Last name is required",
+        "invalid": "Last name is not valid"
+      },
+      "email": {
+        "required": "Email is required",
+        "invalid": "Email address is not valid"
+      },
+      "phone": {
+        "invalid": "Phone number is not valid"
+      },
+      "profession": {
+        "required": "Profession is required",
+        "invalid": "Profession is not valid"
+      }
     },
     "skill": {
-      "label": "Skill cannot be empty"
+      "label": {
+        "required": "Skill cannot be empty",
+        "invalid": "Skill is not valid"
+      }
     },
-    "max": "This field cannot exceed {{max}} characters"
+    "address": {
+      "city": {
+        "required": "City is required",
+        "invalid": "City is not valid"
+      },
+      "postalCode": {
+        "required": "Postal code is required",
+        "invalid": "Postal code is not valid"
+      },
+      "street": {
+        "invalid": "Street is not valid"
+      },
+      "streetNumber": {
+        "invalid": "Street number is not valid"
+      },
+      "complement": {
+        "invalid": "Additional info is not valid"
+      }
+    }
   }
 }
