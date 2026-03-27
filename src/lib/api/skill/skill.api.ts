@@ -21,6 +21,10 @@ export const skillApi = {
     return await apiClient.post(`${ENDPOINTS.skill}`, params);
   },
 
+  async findOrCreate(params: TCreateSkillParams): Promise<IApiResponse<ISkill>> {
+    return await apiClient.post(`${ENDPOINTS.skill}/find-or-create`, params);
+  },
+
   // =============================================================================
   //                               UPDATE
   // =============================================================================

@@ -7,6 +7,10 @@ export const skillService = {
     return (await skillApi.create(data)).data;
   },
 
+  async findOrCreate(data: TCreateSkillParams): Promise<ISkill> {
+    return (await skillApi.findOrCreate(data)).data;
+  },
+
   async update(id: number, data: TUpdateSkillParams): Promise<ISkill> {
     return (await skillApi.update(id, data)).data;
   },
