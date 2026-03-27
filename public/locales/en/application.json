@@ -228,6 +228,7 @@
     "min": "Value must be greater than {{min}}",
     "email": "Email address is not valid",
     "urlInvalid": "URL is not valid",
+    "invalidNumber": "Value must be a valid number",
     "invalidDate": "Date is not valid",
 
     "title": {

@@ -231,11 +231,18 @@ export const reqNumber = (t: TFunction, opts: TReqNumberOptions = {}) => {
       (val) => val.trim() !== "",
       { error: required ?? t("validation.required") },
     )
+    .refine(
+      (val) => {
+        const trimmed = val.trim();
+        if (trimmed === "") return true;
+        return !Number.isNaN(Number(trimmed));
+      },
+      { error: invalid ?? t("validation.invalidNumber") },
+    )
     .transform((val): number | undefined => {
       const trimmed = val.trim();
       if (trimmed === "") return undefined;
-      const num = Number(trimmed);
-      return Number.isNaN(num) ? undefined : num;
+      return Number(trimmed);
     })
     .pipe(schema);
 };
@@ -260,11 +267,18 @@ export const optNumber = (t: TFunction, opts: TOptNumberOptions = {}) => {
 
   return z
     .string()
+    .refine(
+      (val) => {
+        const trimmed = val.trim();
+        if (trimmed === "") return true;
+        return !Number.isNaN(Number(trimmed));
+      },
+      { error: invalid ?? t("validation.invalidNumber") },
+    )
     .transform((val): number | undefined => {
       const trimmed = val.trim();
       if (trimmed === "") return undefined;
-      const num = Number(trimmed);
-      return Number.isNaN(num) ? undefined : num;
+      return Number(trimmed);
     })
     .pipe(schema.optional());
 };

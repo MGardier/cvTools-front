@@ -33,6 +33,8 @@ export const applicationService = {
       ...(formData.experience && { experience: formData.experience }),
       ...(formData.remotePolicy && { remotePolicy: formData.remotePolicy }),
       ...(formData.compatibility && { compatibility: formData.compatibility }),
+
+      //Address
       ...(formData.address?.city && {
         address: {
           city: formData.address.city,
@@ -42,9 +44,13 @@ export const applicationService = {
           ...(formData.address.complement && { complement: formData.address.complement }),
         },
       }),
+      
+      //Contacts
       ...(formData.contacts.length > 0 && {
         contactIds: formData.contacts.map((c) => c.id),
       }),
+
+      //Skills
       ...(formData.skills.length > 0 && {
         skillIds: formData.skills.map((s) => s.id),
       }),

@@ -71,7 +71,7 @@ export const ContactModal = ({ open, onOpenChange, onAdd, t }: IContactModalProp
           <DialogDescription>{t("pages.create.contacts.modal.subtitle")}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit((data) => mutate(data))} className="grid gap-4">
+          <form onSubmit={(e) => { e.stopPropagation(); form.handleSubmit((data) => mutate(data))(e); }} className="grid gap-4">
             <div className="grid grid-cols-2 gap-4">
               <InputField
                 form={form}

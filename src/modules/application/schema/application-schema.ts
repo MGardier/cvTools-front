@@ -43,7 +43,7 @@ export const createApplicationSchema = (t: TFunction) =>
 
       // Step 3 — Salary & Description
       salaryMin: optNumber(t, { min: 10000, invalid: t("validation.salaryMin.invalid") }),
-      salaryMax: optNumber(t, { invalid: t("validation.salaryMax.invalid") }),
+      salaryMax: optNumber(t, { min: 10000, invalid: t("validation.salaryMax.invalid") }),
       description: optString(t),
 
       // Step 4 — Address
@@ -69,21 +69,18 @@ export const createApplicationSchema = (t: TFunction) =>
         })
       ),
     })
-    .refine(
-      (data) => {
-        const hasMin = data.salaryMin !== undefined && !Number.isNaN(data.salaryMin);
-        const hasMax = data.salaryMax !== undefined && !Number.isNaN(data.salaryMax);
-        // Both must be defined or both undefined
-        if (hasMin !== hasMax) return false;
-        // If both defined, min <= max
-        if (hasMin && hasMax) return data.salaryMin! <= data.salaryMax!;
-        return true;
-      },
-      {
-        message: t("validation.salaryBoth"),
-        path: ["salaryMax"],
+    .superRefine((data, ctx) => {
+      const hasMin = data.salaryMin !== undefined && !Number.isNaN(data.salaryMin);
+      const hasMax = data.salaryMax !== undefined && !Number.isNaN(data.salaryMax);
+      const invalid = hasMin !== hasMax || (hasMin && hasMax && data.salaryMin! > data.salaryMax!);
+      if (invalid) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["salaryMax"],
+          message: t("validation.salaryBoth"),
+        });
       }
-    );
+    });
 
 export type TCreateApplicationFormInput = z.input<ReturnType<typeof createApplicationSchema>>;
 export type TCreateApplicationFormOutput = z.output<ReturnType<typeof createApplicationSchema>>;

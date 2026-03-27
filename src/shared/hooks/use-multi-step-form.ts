@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import type { IStep } from "@/shared/types/hook";
 
@@ -24,33 +24,45 @@ export const useMultiStepForm = <
   const isLastStep = currentStep === totalSteps - 1;
   const step = steps[currentStep];
 
-  const nextStep = async () => {
+  /**
+   * Validate only the specified fields for the current step.
+   */
+  const validateStepFields = useCallback(
+    async (fields: Path<TInput>[]) => {
+      await form.trigger(fields);
+      return !fields.some(
+        (field) => form.getFieldState(field).error,
+      );
+    },
+    [form],
+  );
+
+  const nextStep = useCallback(async () => {
     const fields = step.fields as Path<TInput>[];
-    const isValid = await form.trigger(fields);
+    const isValid = await validateStepFields(fields);
     if (isValid) {
       setCurrentStep((prev) => Math.min(prev + 1, totalSteps - 1));
     }
     return isValid;
-  };
+  }, [step, totalSteps, validateStepFields]);
 
-  const prevStep = () => {
+  const prevStep = useCallback(() => {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
-  };
+  }, []);
 
-  const goToStep = async (index: number) => {
+  const goToStep = useCallback(async (index: number) => {
     if (index < currentStep) {
       setCurrentStep(index);
       return true;
     }
 
-    // Validate current step before going forward
     const fields = step.fields as Path<TInput>[];
-    const isValid = await form.trigger(fields);
+    const isValid = await validateStepFields(fields);
     if (isValid && index <= currentStep + 1) {
       setCurrentStep(index);
     }
     return isValid;
-  };
+  }, [currentStep, step, validateStepFields]);
 
   return {
     currentStep,

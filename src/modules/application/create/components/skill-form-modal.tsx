@@ -59,7 +59,7 @@ export const SkillFormModal = ({ open, onOpenChange, onAdd, t }: ISkillFormModal
           <DialogDescription>{t("pages.create.skills.modal.subtitle")}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit((data) => mutate(data))} className="grid gap-4">
+          <form onSubmit={(e) => { e.stopPropagation(); form.handleSubmit((data) => mutate(data))(e); }} className="grid gap-4">
             <InputField
               form={form}
               name="label"

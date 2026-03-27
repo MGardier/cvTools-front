@@ -38,7 +38,7 @@ export const InputField = <TFormData extends FieldValues>({
         render={({ field }) => (
           <FormItem>
               <div className="flex items-center justify-between">
-                <FormLabel>{label}</FormLabel>
+                <FormLabel>{label} <span className="text-muted-foreground text-xs">{required ? ' (Requis)' : ' (Optionnel)'}</span></FormLabel>
                 {labelRight}
               </div>
             <FormControl>

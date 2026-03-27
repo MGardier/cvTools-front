@@ -49,6 +49,7 @@ export const StepClassification = ({ form, t }: IStepClassificationProps) => {
         label={t("pages.create.fields.contractType")}
         placeholder={t("pages.create.fields.contractTypePlaceholder")}
         objectValues={contractTypeOptions}
+        required
       />
       <SelectField
         form={form}
