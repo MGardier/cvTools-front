@@ -26,10 +26,10 @@ type TExtractUrlOutput = z.output<ReturnType<typeof extractUrlSchema>>;
 interface IUrlExtractModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onExtracted: (data: IExtractedApplication, sourceUrl: string) => void;
+  fillForm: (data: IExtractedApplication, sourceUrl: string) => void;
 }
 
-export const UrlExtractModal = ({ open, onOpenChange, onExtracted }: IUrlExtractModalProps) => {
+export const UrlExtractModal = ({ open, onOpenChange, fillForm }: IUrlExtractModalProps) => {
   const { t } = useTranslation("application");
   const schema = extractUrlSchema(t);
 
@@ -42,7 +42,7 @@ export const UrlExtractModal = ({ open, onOpenChange, onExtracted }: IUrlExtract
     mutationFn: (data: TExtractUrlOutput) => scraperService.extractOffer(data.url),
     onSuccess: (data, variables) => {
       toast.success(t("pages.create.extract.modal.success"));
-      onExtracted(data, variables.url);
+      fillForm(data, variables.url);
       form.reset();
       onOpenChange(false);
     },

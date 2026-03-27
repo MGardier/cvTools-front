@@ -37,7 +37,7 @@ interface ICreateApplicationUiProps {
   t: TFunction;
   extractModalOpen: boolean;
   onExtractModalOpen: (open: boolean) => void;
-  onExtracted: (data: IExtractedApplication, sourceUrl: string) => void;
+  fillForm: (data: IExtractedApplication, sourceUrl: string) => void;
 }
 
 export const CreateApplicationUi = ({
@@ -49,7 +49,7 @@ export const CreateApplicationUi = ({
   t,
   extractModalOpen,
   onExtractModalOpen,
-  onExtracted,
+  fillForm,
 }: ICreateApplicationUiProps) => {
   return (
     <FormLayout>
@@ -128,7 +128,7 @@ export const CreateApplicationUi = ({
       <UrlExtractModal
         open={extractModalOpen}
         onOpenChange={onExtractModalOpen}
-        onExtracted={onExtracted}
+        fillForm={fillForm}
       />
     </FormLayout>
   );
