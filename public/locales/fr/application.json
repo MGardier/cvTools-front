@@ -178,6 +178,9 @@
         "title": "Contacts",
         "empty": "Aucun contact ajouté",
         "add": "Ajouter un contact",
+        "createNew": "Nouveau contact",
+        "searchPlaceholder": "Rechercher un contact...",
+        "noResults": "Aucun contact trouvé",
         "modal": {
           "title": "Nouveau contact",
           "subtitle": "Ajoutez les informations du contact",
@@ -192,21 +195,29 @@
           "profession": "Profession",
           "professionPlaceholder": "Ex : Recruteur",
           "submit": "Ajouter",
+          "save": "Enregistrer",
           "cancel": "Annuler",
-          "error": "Erreur lors de la création du contact"
+          "error": "Erreur lors de la création du contact",
+          "editTitle": "Modifier le contact",
+          "editSubtitle": "Modifiez les informations du contact"
         }
       },
       "skills": {
         "title": "Compétences",
         "empty": "Aucune compétence ajoutée",
         "add": "Ajouter",
+        "searchPlaceholder": "Rechercher une compétence...",
+        "createNew": "Créer « {{label}} »",
         "inputPlaceholder": "Ex : React, TypeScript...",
         "modal": {
           "title": "Nouvelle compétence",
           "subtitle": "Ajoutez une compétence à votre profil",
+          "editTitle": "Modifier la compétence",
+          "editSubtitle": "Modifiez le nom de la compétence",
           "label": "Compétence",
           "labelPlaceholder": "Ex : React",
           "submit": "Ajouter",
+          "save": "Enregistrer",
           "cancel": "Annuler",
           "error": "Erreur lors de la création de la compétence"
         }

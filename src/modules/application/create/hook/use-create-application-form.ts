@@ -15,14 +15,50 @@ import {
   type TCreateApplicationFormOutput,
 } from "@/modules/application/schema/application-schema";
 import { EApplicationStatus } from "@/modules/application/types";
-import { getCreateApplicationSteps } from "../types";
+import type { IStep } from "@/shared/types/hook";
 
 export const useCreateApplicationForm = () => {
+  
+ 
   const { t } = useTranslation("application");
   const navigate = useNavigate();
 
   const schema = useMemo(() => createApplicationSchema(t), [t]);
-  const steps = useMemo(() => getCreateApplicationSteps(t), [t]);
+
+  const steps: IStep[] =  [
+  {
+    id: "general",
+    label: t("pages.create.steps.general"),
+    fields: ["title", "url", "company", "jobboard", "publishedAt"],
+  },
+  {
+    id: "classification",
+    label: t("pages.create.steps.classification"),
+    fields: ["contractType", "currentStatus", "experience", "remotePolicy", "compatibility"],
+  },
+  {
+    id: "salary",
+    label: t("pages.create.steps.salary"),
+    fields: ["salaryMin", "salaryMax", "description"],
+  },
+  {
+    id: "address",
+    label: t("pages.create.steps.address"),
+    fields: ["address.city", "address.postalCode", "address.street", "address.streetNumber", "address.complement"],
+  },
+  {
+    id: "contacts",
+    label: t("pages.create.steps.contacts"),
+    fields: ["contacts"],
+  },
+  {
+    id: "skills",
+    label: t("pages.create.steps.skills"),
+    fields: ["skills"],
+  },
+];
+  
+  
 
   const form = useForm<TCreateApplicationFormInput, unknown, TCreateApplicationFormOutput>({
 

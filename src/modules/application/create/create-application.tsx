@@ -4,7 +4,7 @@ import { CreateApplicationUi } from "./create-application.ui";
 import { useState } from "react";
 
 export const CreateApplication = () => {
-    const [extractModalOpen, setExtractModalOpen] = useState(false);
+  const [extractModalOpen, setExtractModalOpen] = useState(false);
   const { form, onSubmit, isPending, multiStep, steps, t } = useCreateApplicationForm();
   const { fillForm } = useApplicationFormFill(form);
 

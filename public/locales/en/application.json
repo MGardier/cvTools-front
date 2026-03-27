@@ -164,6 +164,9 @@
         "title": "Contacts",
         "empty": "No contacts added",
         "add": "Add a contact",
+        "createNew": "New contact",
+        "searchPlaceholder": "Search a contact...",
+        "noResults": "No contacts found",
         "modal": {
           "title": "New contact",
           "subtitle": "Add the contact information",
@@ -178,21 +181,29 @@
           "profession": "Profession",
           "professionPlaceholder": "E.g.: Recruiter",
           "submit": "Add",
+          "save": "Save",
           "cancel": "Cancel",
-          "error": "Error creating contact"
+          "error": "Error creating contact",
+          "editTitle": "Edit contact",
+          "editSubtitle": "Edit the contact information"
         }
       },
       "skills": {
         "title": "Skills",
         "empty": "No skills added",
         "add": "Add",
+        "searchPlaceholder": "Search a skill...",
+        "createNew": "Create \"{{label}}\"",
         "inputPlaceholder": "E.g.: React, TypeScript...",
         "modal": {
           "title": "New skill",
           "subtitle": "Add a skill to your profile",
+          "editTitle": "Edit skill",
+          "editSubtitle": "Edit the skill name",
           "label": "Skill",
           "labelPlaceholder": "E.g.: React",
           "submit": "Add",
+          "save": "Save",
           "cancel": "Cancel",
           "error": "Error creating skill"
         }

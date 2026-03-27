@@ -42,6 +42,7 @@ export const FormStepNavigation = ({
       {/* Next / Submit button */}
       {isLastStep ? (
         <Button
+         key= "btn-submit"
           type="submit"
           variant="blue"
           size="form"
@@ -53,6 +54,7 @@ export const FormStepNavigation = ({
         </Button>
       ) : (
         <Button
+          key= "btn-next"
           type="button"
           variant="blue"
           onClick={onNext}

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -27,11 +28,14 @@ interface IContactModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onAdd: (contact: IContact) => void;
+  onEdit?: (contact: IContact) => void;
+  editContact?: { id: number; firstname: string; lastname: string; email: string; phone?: string; profession: string } | null;
   t: TFunction;
 }
 
-export const ContactModal = ({ open, onOpenChange, onAdd, t }: IContactModalProps) => {
+export const ContactModal = ({ open, onOpenChange, onAdd, onEdit, editContact, t }: IContactModalProps) => {
   const schema = createContactSchema(t);
+  const isEditing = !!editContact;
 
   const form = useForm<TCreateContactInput, unknown, TCreateContactOutput>({
     resolver: zodResolver(schema),
@@ -44,7 +48,27 @@ export const ContactModal = ({ open, onOpenChange, onAdd, t }: IContactModalProp
     },
   });
 
-  const { mutate, isPending } = useMutation({
+  useEffect(() => {
+    if (open && editContact) {
+      form.reset({
+        firstname: editContact.firstname,
+        lastname: editContact.lastname,
+        email: editContact.email,
+        phone: editContact.phone ?? "",
+        profession: editContact.profession,
+      });
+    } else if (open) {
+      form.reset({
+        firstname: "",
+        lastname: "",
+        email: "",
+        phone: "",
+        profession: "",
+      });
+    }
+  }, [open, editContact]);
+
+  const { mutate: createMutate, isPending: isCreating } = useMutation({
     mutationFn: (data: TCreateContactOutput) =>
       contactService.create({
         firstname: data.firstname,
@@ -63,15 +87,48 @@ export const ContactModal = ({ open, onOpenChange, onAdd, t }: IContactModalProp
     },
   });
 
+  const { mutate: updateMutate, isPending: isUpdating } = useMutation({
+    mutationFn: (data: TCreateContactOutput) =>
+      contactService.update(editContact!.id, {
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        profession: data.profession,
+        phone: data.phone,
+      }),
+    onSuccess: (contact) => {
+      onEdit?.(contact);
+      form.reset();
+      onOpenChange(false);
+    },
+    onError: () => {
+      toast.error(t("pages.create.contacts.modal.error"));
+    },
+  });
+
+  const isPending = isCreating || isUpdating;
+
+  const handleSubmit = (data: TCreateContactOutput) => {
+    if (isEditing) {
+      updateMutate(data);
+    } else {
+      createMutate(data);
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{t("pages.create.contacts.modal.title")}</DialogTitle>
-          <DialogDescription>{t("pages.create.contacts.modal.subtitle")}</DialogDescription>
+          <DialogTitle>
+            {isEditing ? t("pages.create.contacts.modal.editTitle") : t("pages.create.contacts.modal.title")}
+          </DialogTitle>
+          <DialogDescription>
+            {isEditing ? t("pages.create.contacts.modal.editSubtitle") : t("pages.create.contacts.modal.subtitle")}
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={(e) => { e.stopPropagation(); form.handleSubmit((data) => mutate(data))(e); }} className="grid gap-4">
+          <form onSubmit={(e) => { e.stopPropagation(); form.handleSubmit(handleSubmit)(e); }} className="grid gap-4">
             <div className="grid grid-cols-2 gap-4">
               <InputField
                 form={form}
@@ -118,7 +175,7 @@ export const ContactModal = ({ open, onOpenChange, onAdd, t }: IContactModalProp
                 {t("pages.create.contacts.modal.cancel")}
               </Button>
               <Button type="submit" disabled={isPending} className="bg-sky-600 hover:bg-sky-700">
-                {t("pages.create.contacts.modal.submit")}
+                {isEditing ? t("pages.create.contacts.modal.save") : t("pages.create.contacts.modal.submit")}
               </Button>
             </DialogFooter>
           </form>
