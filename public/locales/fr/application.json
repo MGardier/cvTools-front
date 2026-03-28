@@ -110,6 +110,29 @@
     "ATTAINABLE": "Atteignable",
     "WHY_NOT": "Pourquoi pas"
   },
+  "detail": {
+    "back": "Retour aux candidatures",
+    "description": "Description du poste",
+    "skills": "Compétences requises",
+    "contacts": "Contacts",
+    "address": "Adresse",
+    "applyNow": "Voir l'offre",
+    "sidebar": {
+      "title": "Informations",
+      "company": "Entreprise",
+      "status": "Statut",
+      "contractType": "Type de contrat",
+      "location": "Localisation",
+      "jobboard": "Source",
+      "remotePolicy": "Télétravail",
+      "experience": "Expérience",
+      "compatibility": "Compatibilité",
+      "salary": "Salaire",
+      "publishedAt": "Date de publication",
+      "createdAt": "Ajoutée le",
+      "salaryNotProvided": "Non renseigné"
+    }
+  },
   "pages": {
     "create": {
       "title": "Nouvelle candidature",

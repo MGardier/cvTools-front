@@ -21,6 +21,7 @@ import { Layout } from "@/app/router/layout/layout";
 import { PrivateRoutes } from "@/app/router/private-routes";
 import { ApplicationList } from "@/modules/application/list/application-list";
 import { CreateApplication } from "@/modules/application/create/create-application";
+import { ApplicationDetail } from "@/modules/application/detail/application-detail";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,6 +84,13 @@ function App() {
                 key="applicationCreate"
                 path={ROUTES.application.create}
                 element={<CreateApplication />}
+              />
+
+              {/* APPLICATION DETAIL */}
+              <Route
+                key="applicationDetail"
+                path={ROUTES.application.detailPattern}
+                element={<ApplicationDetail />}
               />
             </Route>
 

@@ -110,6 +110,29 @@
     "ATTAINABLE": "Attainable",
     "WHY_NOT": "Why not"
   },
+  "detail": {
+    "back": "Back to applications",
+    "description": "Job Description",
+    "skills": "Required Skills",
+    "contacts": "Contacts",
+    "address": "Address",
+    "applyNow": "View Offer",
+    "sidebar": {
+      "title": "Job Information",
+      "company": "Company",
+      "status": "Status",
+      "contractType": "Contract Type",
+      "location": "Location",
+      "jobboard": "Source",
+      "remotePolicy": "Remote Policy",
+      "experience": "Experience",
+      "compatibility": "Compatibility",
+      "salary": "Salary",
+      "publishedAt": "Date Posted",
+      "createdAt": "Added on",
+      "salaryNotProvided": "Not provided"
+    }
+  },
   "pages": {
     "create": {
       "title": "New application",

@@ -64,6 +64,10 @@ export const applicationService = {
   //                               FIND
   // =============================================================================
 
+  async findOneById(id: number): Promise<IApiResponse<IApplication>> {
+    return applicationApi.findOneById(id);
+  },
+
   async findAllByUserId(
     params: IGetApplicationsParams
   ): Promise<IApiResponse<IGetApplicationsResponse>> {

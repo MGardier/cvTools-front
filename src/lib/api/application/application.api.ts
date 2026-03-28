@@ -28,4 +28,8 @@ export const applicationApi = {
   ): Promise<IApiResponse<IGetApplicationsResponse>> {
     return await apiClient.get(ENDPOINTS.application, { params });
   },
+
+  async findOneById(id: number): Promise<IApiResponse<IApplication>> {
+    return await apiClient.get(`${ENDPOINTS.application}/${id}`);
+  },
 };

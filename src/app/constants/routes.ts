@@ -20,5 +20,7 @@ export const ROUTES = {
   application: {
     list: "/applications",
     create: "/applications/create",
+    detail: (id: number | string) => `/applications/${id}`,
+    detailPattern: "/applications/:id",
   },
 } as const ;
