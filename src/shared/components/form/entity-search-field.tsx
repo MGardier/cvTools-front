@@ -185,12 +185,13 @@ export const EntitySearchField = <T,>({
 
         {/* Dropdown */}
         {showDropdown && (
-          <div className="relative">
+          <div className="relative" onMouseDown={(e) => e.preventDefault()}>
             <CommandList className="absolute top-1 left-0 right-0 z-50 rounded-lg border bg-popover shadow-md">
               <CommandGroup>
                 {filtered.map((item) => (
                   <CommandItem
                     key={getItemId(item)}
+                    value={String(getItemId(item))}
                     onSelect={() => handleSelect(item)}
                     className="cursor-pointer"
                   >
