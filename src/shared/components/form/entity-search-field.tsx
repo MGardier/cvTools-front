@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, type ReactNode } from "react";
 import { Command as CommandPrimitive } from "cmdk";
-import { Pencil, Plus, Search, X } from "lucide-react";
+import { Pencil, Plus, Search, Trash2, X } from "lucide-react";
 
 import {
   Command,
@@ -21,7 +21,7 @@ interface IEntitySearchFieldProps<T> {
   /** Called when an item is selected from dropdown */
   onAdd: (item: T) => void;
 
-  /** Called when remove button is clicked */
+  /** Called when remove button (X) is clicked — removes from form selection only */
   onRemove: (index: number) => void;
 
   /** Called when edit button is clicked */
@@ -41,7 +41,7 @@ interface IEntitySearchFieldProps<T> {
 
   /** Render an item's content in the grid card */
   renderItem: (item: T) => ReactNode;
-  
+
   /** Search input placeholder */
   placeholder: string;
 
@@ -56,9 +56,24 @@ interface IEntitySearchFieldProps<T> {
 
   /** Label for the inline create option in dropdown */
   createInlineLabel?: (search: string) => string;
-  
+
   /** Whether an inline creation is in progress */
   isCreatingInline?: boolean;
+
+  /** Called when the delete (trash) button is clicked — deletes from DB via API */
+  onDeleteEntity?: (item: T) => void;
+
+  /** Whether to show the edit button for a given item (defaults to true) */
+  canEdit?: (item: T) => boolean;
+
+  /** Whether to show the delete button for a given item (defaults to false if onDeleteEntity not set) */
+  canDelete?: (item: T) => boolean;
+
+  /** Called when search input changes — allows parent to react (e.g. for server-side search) */
+  onSearchChange?: (search: string) => void;
+
+  /** If true, filtering is handled externally (server-side) — skip client-side filter */
+  isServerFiltered?: boolean;
 }
 
 export const EntitySearchField = <T,>({
@@ -78,6 +93,11 @@ export const EntitySearchField = <T,>({
   onCreateInline,
   createInlineLabel,
   isCreatingInline = false,
+  onDeleteEntity,
+  canEdit,
+  canDelete,
+  onSearchChange,
+  isServerFiltered = false,
 }: IEntitySearchFieldProps<T>) => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -90,12 +110,12 @@ export const EntitySearchField = <T,>({
 
   const filtered = useMemo(() => {
     const available = options.filter((o) => !selectedIds.has(getItemId(o)));
-    if (!search.trim()) return available;
+    if (isServerFiltered || !search.trim()) return available;
     const lower = search.trim().toLowerCase();
     return available.filter((o) =>
       getSearchValue(o).toLowerCase().includes(lower)
     );
-  }, [options, selectedIds, search, getItemId, getSearchValue]);
+  }, [options, selectedIds, search, getItemId, getSearchValue, isServerFiltered]);
 
   const showInlineCreate =
     onCreateInline &&
@@ -131,6 +151,11 @@ export const EntitySearchField = <T,>({
     blurTimeout.current = setTimeout(() => setOpen(false), 150);
   };
 
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    onSearchChange?.(value);
+  };
+
   return (
     <div className="grid gap-4">
       {/* Search bar + create button */}
@@ -141,7 +166,7 @@ export const EntitySearchField = <T,>({
             <CommandPrimitive.Input
               placeholder={placeholder}
               value={search}
-              onValueChange={setSearch}
+              onValueChange={handleSearchChange}
               onFocus={handleFocus}
               onBlur={handleBlur}
               className="flex h-full w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
@@ -195,30 +220,46 @@ export const EntitySearchField = <T,>({
         </p>
       ) : (
         <div className={cn("grid gap-2", gridClassName)}>
-          {items.map((item, index) => (
-            <div
-              key={getItemId(item)}
-              className="flex items-start justify-between gap-2 rounded-lg border px-3 py-2"
-            >
-              <div className="min-w-0 flex-1">{renderItem(item)}</div>
-              <div className="flex items-center gap-0.5 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => onEdit(item)}
-                  className="p-1 rounded-md text-muted-foreground hover:text-sky-600 hover:bg-muted transition-colors"
-                >
-                  <Pencil className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onRemove(index)}
-                  className="p-1 rounded-md text-muted-foreground hover:text-destructive hover:bg-muted transition-colors"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
+          {items.map((item, index) => {
+            const showEdit = canEdit ? canEdit(item) : true;
+            const showDelete = canDelete ? canDelete(item) : !!onDeleteEntity;
+
+            return (
+              <div
+                key={getItemId(item)}
+                className="flex items-start justify-between gap-2 rounded-lg border px-3 py-2"
+              >
+                <div className="min-w-0 flex-1">{renderItem(item)}</div>
+                <div className="flex items-center gap-0.5 shrink-0">
+                  {showEdit && (
+                    <button
+                      type="button"
+                      onClick={() => onEdit(item)}
+                      className="p-1 rounded-md text-muted-foreground hover:text-sky-600 hover:bg-muted transition-colors"
+                    >
+                      <Pencil className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                  {showDelete && onDeleteEntity && (
+                    <button
+                      type="button"
+                      onClick={() => onDeleteEntity(item)}
+                      className="p-1 rounded-md text-muted-foreground hover:text-destructive hover:bg-muted transition-colors"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => onRemove(index)}
+                    className="p-1 rounded-md text-muted-foreground hover:text-destructive hover:bg-muted transition-colors"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

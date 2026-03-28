@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Mail, Phone } from "lucide-react";
+import { toast } from "react-toastify";
 import type { TFunction } from "i18next";
+import { AxiosError } from "axios";
 
 import { EntitySearchField } from "@/shared/components/form/entity-search-field";
 import { ContactModal } from "./contact-modal";
 import { contactService } from "@/lib/api/contact/contact.service";
 import type { TCreateApplicationFormReturn } from "@/modules/application/schema/application-schema";
 import type { TFormContact } from "../types";
+import type { IApiErrors } from "@/shared/types/api";
 
 
 
@@ -20,10 +23,32 @@ export const StepContacts = ({ form, t }: IStepContactsProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editContact, setEditContact] = useState<TFormContact | null>(null);
   const contacts = form.watch("contacts") ?? [];
+  const queryClient = useQueryClient();
 
   const { data: allContacts = [] } = useQuery({
     queryKey: ["contacts"],
     queryFn: () => contactService.findAll(),
+  });
+
+  const { mutate: deleteContact } = useMutation({
+    mutationFn: (id: number) => contactService.delete(id),
+    onSuccess: (_data, id) => {
+      form.setValue(
+        "contacts",
+        contacts.filter((c: TFormContact) => c.id !== id),
+        { shouldValidate: true }
+      );
+      queryClient.invalidateQueries({ queryKey: ["contacts"] });
+      toast.success(t("pages.create.contacts.deleteSuccess"));
+    },
+    onError: (error: AxiosError<IApiErrors>) => {
+      const code = error.response?.data?.message;
+      if (code === "CONTACT_DELETE_CONFLICT") {
+        toast.error(t("pages.create.contacts.deleteConflict"));
+      } else {
+        toast.error(t("pages.create.contacts.deleteError"));
+      }
+    },
   });
 
   const handleAdd = (contact: TFormContact) => {
@@ -60,6 +85,10 @@ export const StepContacts = ({ form, t }: IStepContactsProps) => {
     setEditContact(null);
   };
 
+  const handleDeleteEntity = (contact: TFormContact) => {
+    deleteContact(contact.id);
+  };
+
   return (
     <div className="grid gap-4">
       <h3 className="text-sm font-medium">{t("pages.create.contacts.title")}</h3>
@@ -71,10 +100,10 @@ export const StepContacts = ({ form, t }: IStepContactsProps) => {
         onRemove={handleRemove}
         onEdit={(contact) => { setEditContact(contact); setModalOpen(true); }}
         onCreateClick={() => { setEditContact(null); setModalOpen(true); }}
+        onDeleteEntity={handleDeleteEntity}
         getItemId={(c) => c.id}
         getSearchValue={(c) => `${c.firstname} ${c.lastname} ${c.email} ${c.profession}`}
-        
-        //Auto complete render
+
         renderOption={(c) => (
           <div className="flex flex-col gap-0.5">
             <span className="text-sm font-medium">
@@ -86,7 +115,7 @@ export const StepContacts = ({ form, t }: IStepContactsProps) => {
           </div>
         )}
 
-        
+
         renderItem={(c) => (
           <>
             <p className="text-sm font-medium truncate">

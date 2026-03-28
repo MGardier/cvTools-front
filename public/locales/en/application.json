@@ -186,7 +186,10 @@
           "error": "Error creating contact",
           "editTitle": "Edit contact",
           "editSubtitle": "Edit the contact information"
-        }
+        },
+        "deleteSuccess": "Contact deleted",
+        "deleteError": "Error deleting contact",
+        "deleteConflict": "This contact is linked to an application and cannot be deleted"
       },
       "skills": {
         "title": "Skills",
@@ -206,7 +209,10 @@
           "save": "Save",
           "cancel": "Cancel",
           "error": "Error creating skill"
-        }
+        },
+        "deleteSuccess": "Skill deleted",
+        "deleteError": "Error deleting skill",
+        "deleteConflict": "This skill is in use and cannot be deleted"
       },
       "extract": {
         "button": "Fill from URL",

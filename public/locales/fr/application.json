@@ -200,7 +200,10 @@
           "error": "Erreur lors de la création du contact",
           "editTitle": "Modifier le contact",
           "editSubtitle": "Modifiez les informations du contact"
-        }
+        },
+        "deleteSuccess": "Contact supprimé",
+        "deleteError": "Erreur lors de la suppression du contact",
+        "deleteConflict": "Ce contact est associé à une candidature et ne peut pas être supprimé"
       },
       "skills": {
         "title": "Compétences",
@@ -220,7 +223,10 @@
           "save": "Enregistrer",
           "cancel": "Annuler",
           "error": "Erreur lors de la création de la compétence"
-        }
+        },
+        "deleteSuccess": "Compétence supprimée",
+        "deleteError": "Erreur lors de la suppression de la compétence",
+        "deleteConflict": "Cette compétence est utilisée et ne peut pas être supprimée"
       },
       "navigation": {
         "previous": "Précédent",

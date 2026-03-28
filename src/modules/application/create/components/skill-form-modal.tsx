@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import type { TFunction } from "i18next";
 
@@ -36,6 +36,7 @@ interface ISkillFormModalProps {
 export const SkillFormModal = ({ open, onOpenChange, onAdd, onEdit, editSkill, t }: ISkillFormModalProps) => {
   const schema = createSkillSchema(t);
   const isEditing = !!editSkill;
+  const queryClient = useQueryClient();
 
   const form = useForm<TCreateSkillInput, unknown, TCreateSkillOutput>({
     resolver: zodResolver(schema),
@@ -55,6 +56,7 @@ export const SkillFormModal = ({ open, onOpenChange, onAdd, onEdit, editSkill, t
       skillService.create({ label: data.label }),
     onSuccess: (skill) => {
       onAdd(skill);
+      queryClient.invalidateQueries({ queryKey: ["skills"] });
       form.reset();
       onOpenChange(false);
     },
@@ -68,6 +70,7 @@ export const SkillFormModal = ({ open, onOpenChange, onAdd, onEdit, editSkill, t
       skillService.update(editSkill!.id, { label: data.label }),
     onSuccess: (skill) => {
       onEdit?.(skill);
+      queryClient.invalidateQueries({ queryKey: ["skills"] });
       form.reset();
       onOpenChange(false);
     },

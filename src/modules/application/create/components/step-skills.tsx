@@ -1,14 +1,16 @@
-import { useState } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useState, useEffect, useCallback } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import type { TFunction } from "i18next";
+import { AxiosError } from "axios";
 
 import { EntitySearchField } from "@/shared/components/form/entity-search-field";
 import { SkillFormModal } from "./skill-form-modal";
 import { skillService } from "@/lib/api/skill/skill.service";
 import type { TCreateApplicationFormReturn } from "@/modules/application/schema/application-schema";
+import type { IApiErrors } from "@/shared/types/api";
 
-type TFormSkill = { id: number; label: string };
+type TFormSkill = { id: number; label: string; isOwner?: boolean; isUsed?: boolean };
 
 interface IStepSkillsProps {
   form: TCreateApplicationFormReturn;
@@ -19,24 +21,69 @@ export const StepSkills = ({ form, t }: IStepSkillsProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editSkill, setEditSkill] = useState<TFormSkill | null>(null);
   const skills = form.watch("skills") ?? [];
+  const queryClient = useQueryClient();
 
-  const { data: allSkills = [] } = useQuery({
-    queryKey: ["skills"],
-    queryFn: () => skillService.findAll(),
+  // ── Debounced server-side search ──
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchInput);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  const { data: searchResults = [] } = useQuery({
+    queryKey: ["skills", "search", debouncedSearch],
+    queryFn: () =>
+      debouncedSearch.trim()
+        ? skillService.search(debouncedSearch.trim())
+        : skillService.findAll(),
   });
 
   const { mutate: findOrCreate, isPending } = useMutation({
     mutationFn: (label: string) => skillService.findOrCreate({ label }),
     onSuccess: (skill) => {
-      handleAdd({ id: skill.id, label: skill.label });
+      handleAdd({
+        id: skill.id,
+        label: skill.label,
+        isOwner: skill.isOwner,
+        isUsed: skill.isUsed,
+      });
     },
     onError: () => {
       toast.error(t("pages.create.skills.modal.error"));
     },
   });
 
+  const { mutate: deleteSkill } = useMutation({
+    mutationFn: (id: number) => skillService.delete(id),
+    onSuccess: (_data, id) => {
+      form.setValue(
+        "skills",
+        skills.filter((s: TFormSkill) => s.id !== id),
+        { shouldValidate: true }
+      );
+      queryClient.invalidateQueries({ queryKey: ["skills"] });
+      toast.success(t("pages.create.skills.deleteSuccess"));
+    },
+    onError: (error: AxiosError<IApiErrors>) => {
+      const code = error.response?.data?.message;
+      if (code === "SKILL_DELETE_CONFLICT" || code === "SKILL_UPDATE_CONFLICT") {
+        toast.error(t("pages.create.skills.deleteConflict"));
+      } else {
+        toast.error(t("pages.create.skills.deleteError"));
+      }
+    },
+  });
+
   const handleAdd = (skill: TFormSkill) => {
-    form.setValue("skills", [...skills, { id: skill.id, label: skill.label }], { shouldValidate: true });
+    form.setValue(
+      "skills",
+      [...skills, { id: skill.id, label: skill.label, isOwner: skill.isOwner, isUsed: skill.isUsed }],
+      { shouldValidate: true }
+    );
   };
 
   const handleRemove = (index: number) => {
@@ -49,11 +96,24 @@ export const StepSkills = ({ form, t }: IStepSkillsProps) => {
 
   const handleEdit = (skill: TFormSkill) => {
     const updated = skills.map((s: TFormSkill) =>
-      s.id === skill.id ? { id: skill.id, label: skill.label } : s
+      s.id === skill.id
+        ? { id: skill.id, label: skill.label, isOwner: skill.isOwner, isUsed: skill.isUsed }
+        : s
     );
     form.setValue("skills", updated, { shouldValidate: true });
     setEditSkill(null);
   };
+
+  const handleDeleteEntity = (skill: TFormSkill) => {
+    deleteSkill(skill.id);
+  };
+
+  const handleSearchChange = useCallback((value: string) => {
+    setSearchInput(value);
+  }, []);
+
+  const canEditSkill = (skill: TFormSkill) => !!skill.isOwner && !skill.isUsed;
+  const canDeleteSkill = (skill: TFormSkill) => !!skill.isOwner && !skill.isUsed;
 
   return (
     <div className="grid gap-4">
@@ -61,11 +121,16 @@ export const StepSkills = ({ form, t }: IStepSkillsProps) => {
 
       <EntitySearchField<TFormSkill>
         items={skills}
-        options={allSkills}
+        options={searchResults}
         onAdd={handleAdd}
         onRemove={handleRemove}
         onEdit={(skill) => { setEditSkill(skill); setModalOpen(true); }}
         onCreateClick={() => { setEditSkill(null); setModalOpen(true); }}
+        onDeleteEntity={handleDeleteEntity}
+        canEdit={canEditSkill}
+        canDelete={canDeleteSkill}
+        onSearchChange={handleSearchChange}
+        isServerFiltered
         getItemId={(s) => s.id}
         getSearchValue={(s) => s.label}
         renderOption={(s) => s.label}

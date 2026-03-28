@@ -66,6 +66,8 @@ export const createApplicationSchema = (t: TFunction) =>
         z.object({
           id: z.number(),
           label: z.string(),
+          isOwner: z.boolean().optional(),
+          isUsed: z.boolean().optional(),
         })
       ),
     })

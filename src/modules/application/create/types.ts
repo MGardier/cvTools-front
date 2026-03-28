@@ -7,3 +7,10 @@ export type TFormContact = {
   phone?: string;
   profession: string;
 };
+
+export type TFormSkill = {
+  id: number;
+  label: string;
+  isOwner?: boolean;
+  isUsed?: boolean;
+};

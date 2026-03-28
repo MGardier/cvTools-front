@@ -23,6 +23,10 @@ export const skillService = {
     return (await skillApi.findAll()).data;
   },
 
+  async search(query: string): Promise<ISkill[]> {
+    return (await skillApi.search(query)).data;
+  },
+
   async findAllByApplicationId(applicationId: number): Promise<ISkill[]> {
     return (await skillApi.findAllByApplicationId(applicationId)).data;
   },

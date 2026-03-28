@@ -184,4 +184,6 @@ export interface ISkill {
   id: number
   label: string;
   createdAt: Date;
+  isOwner?: boolean;
+  isUsed?: boolean;
 }

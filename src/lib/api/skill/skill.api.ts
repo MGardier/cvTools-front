@@ -50,6 +50,12 @@ export const skillApi = {
     return await apiClient.get(`${ENDPOINTS.skill}`);
   },
 
+  async search(query: string): Promise<IApiResponse<ISkill[]>> {
+    return await apiClient.get(`${ENDPOINTS.skill}`, {
+      params: { search: query },
+    });
+  },
+
   async findAllByApplicationId(applicationId: number): Promise<IApiResponse<ISkill[]>> {
     return await apiClient.get(`${ENDPOINTS.skill}${ENDPOINTS.application}/${applicationId}`);
   },

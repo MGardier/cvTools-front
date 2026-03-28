@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import type { TFunction } from "i18next";
 
@@ -36,6 +36,7 @@ interface IContactModalProps {
 export const ContactModal = ({ open, onOpenChange, onAdd, onEdit, editContact, t }: IContactModalProps) => {
   const schema = createContactSchema(t);
   const isEditing = !!editContact;
+  const queryClient = useQueryClient();
 
   const form = useForm<TCreateContactInput, unknown, TCreateContactOutput>({
     resolver: zodResolver(schema),
@@ -79,6 +80,7 @@ export const ContactModal = ({ open, onOpenChange, onAdd, onEdit, editContact, t
       }),
     onSuccess: (contact) => {
       onAdd(contact);
+      queryClient.invalidateQueries({ queryKey: ["contacts"] });
       form.reset();
       onOpenChange(false);
     },
@@ -98,6 +100,7 @@ export const ContactModal = ({ open, onOpenChange, onAdd, onEdit, editContact, t
       }),
     onSuccess: (contact) => {
       onEdit?.(contact);
+      queryClient.invalidateQueries({ queryKey: ["contacts"] });
       form.reset();
       onOpenChange(false);
     },
