@@ -23,13 +23,14 @@ import {
 } from "@/modules/application/schema/skill-schema";
 import { skillService } from "@/lib/api/skill/skill.service";
 import type { ISkill } from "@/shared/types/entity";
+import type { TFormSkill } from "../types";
 
 interface ISkillFormModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onAdd: (skill: ISkill) => void;
   onEdit?: (skill: ISkill) => void;
-  editSkill?: { id: number; label: string } | null;
+  editSkill?: TFormSkill | null;
   t: TFunction;
 }
 
@@ -114,7 +115,7 @@ export const SkillFormModal = ({ open, onOpenChange, onAdd, onEdit, editSkill, t
               <Button type="button" variant="outline" onClick={() => { form.reset(); onOpenChange(false); }}>
                 {t("pages.create.skills.modal.cancel")}
               </Button>
-              <Button type="submit" disabled={isPending} className="bg-sky-600 hover:bg-sky-700">
+              <Button type="submit" disabled={isPending} variant="blue">
                 {isEditing ? t("pages.create.skills.modal.save") : t("pages.create.skills.modal.submit")}
               </Button>
             </DialogFooter>

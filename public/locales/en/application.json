@@ -208,6 +208,12 @@
         "createNew": "New contact",
         "searchPlaceholder": "Search a contact...",
         "noResults": "No contacts found",
+        "confirmDelete": {
+          "title": "Delete contact",
+          "description": "Are you sure you want to delete {{name}}?",
+          "confirm": "Delete",
+          "cancel": "Cancel"
+        },
         "modal": {
           "title": "New contact",
           "subtitle": "Add the contact information",
@@ -239,6 +245,12 @@
         "searchPlaceholder": "Search a skill...",
         "createNew": "Create \"{{label}}\"",
         "inputPlaceholder": "E.g.: React, TypeScript...",
+        "confirmDelete": {
+          "title": "Delete skill",
+          "description": "Are you sure you want to delete \"{{name}}\"?",
+          "confirm": "Delete",
+          "cancel": "Cancel"
+        },
         "modal": {
           "title": "New skill",
           "subtitle": "Add a skill to your profile",
@@ -265,10 +277,13 @@
           "urlPlaceholder": "https://...",
           "submit": "Extract",
           "cancel": "Cancel",
+          "loading": "Extracting...",
           "success": "Form pre-filled successfully",
           "error": "Unable to extract data from this offer"
         }
       },
+      "skillImportWarning": "{{count}} skill could not be imported",
+      "skillImportWarning_other": "{{count}} skills could not be imported",
       "navigation": {
         "previous": "Previous",
         "next": "Next",
@@ -331,6 +346,7 @@
       "invalid": "Maximum salary is not valid"
     },
     "salaryBoth": "Both salaries must be provided together",
+    "salaryMinGreaterThanMax": "Minimum salary cannot be greater than maximum salary",
 
     "contact": {
       "firstname": {

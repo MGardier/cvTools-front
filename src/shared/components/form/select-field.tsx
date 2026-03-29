@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import {
@@ -10,14 +11,14 @@ import {
 
 interface SelectFieldProps<TFormData extends FieldValues> {
   label: string;
-  name:Path<TFormData>;
+  name: Path<TFormData>;
   objectValues: {
     value: string;
     label: string;
   }[];
   placeholder: string;
   form: UseFormReturn<TFormData, any, any>;
-  required ?: boolean;
+  required?: boolean;
 }
 
 export const SelectField = <TFormData extends FieldValues>({
@@ -26,8 +27,10 @@ export const SelectField = <TFormData extends FieldValues>({
   form,
   objectValues,
   placeholder,
-  required = false
+  required = false,
 }: SelectFieldProps<TFormData>) => {
+  const { t } = useTranslation("common");
+
   return (
     <div className="grid gap-3">
       <FormField
@@ -35,9 +38,10 @@ export const SelectField = <TFormData extends FieldValues>({
         name={name}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{label} <p className="text-muted-foreground text-xs">{required ? ' (Requis)' : ' (Optionnel)'}</p></FormLabel>
-            <FormMessage />
-            <Select key={field.value} required={required} onValueChange={field.onChange} defaultValue={field.value} >
+            <FormLabel>
+              {label} <span className="text-muted-foreground text-xs">{required ? ` (${t("form.required")})` : ` (${t("form.optional")})`}</span>
+            </FormLabel>
+            <Select required={required} onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder={placeholder} />
@@ -49,6 +53,7 @@ export const SelectField = <TFormData extends FieldValues>({
                 ))}
               </SelectContent>
             </Select>
+            <FormMessage />
           </FormItem>
         )}
       />

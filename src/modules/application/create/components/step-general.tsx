@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import type { TFunction } from "i18next";
 
 import { InputField } from "@/shared/components/form/input-field";
@@ -12,10 +13,10 @@ interface IStepGeneralProps {
 }
 
 export const StepGeneral = ({ form, t }: IStepGeneralProps) => {
-  const jobboardOptions = Object.values(EJobboard).map((value) => ({
-    value,
-    label: t(`jobboard.${value}`),
-  }));
+  const jobboardOptions = useMemo(
+    () => Object.values(EJobboard).map((value) => ({ value, label: t(`jobboard.${value}`) })),
+    [t],
+  );
 
   return (
     <div className="grid gap-4">

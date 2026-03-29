@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import type { TFunction } from "i18next";
 
 import { SelectField } from "@/shared/components/form/select-field";
@@ -16,30 +17,26 @@ interface IStepClassificationProps {
 }
 
 export const StepClassification = ({ form, t }: IStepClassificationProps) => {
-  const contractTypeOptions = Object.values(EContractType).map((value) => ({
-    value,
-    label: t(`contractType.${value}`),
-  }));
-
-  const statusOptions = Object.values(EApplicationStatus).map((value) => ({
-    value,
-    label: t(`status.${value}`),
-  }));
-
-  const experienceOptions = Object.values(EExperienceLevel).map((value) => ({
-    value,
-    label: t(`experience.${value}`),
-  }));
-
-  const remotePolicyOptions = Object.values(ERemotePolicy).map((value) => ({
-    value,
-    label: t(`remotePolicy.${value}`),
-  }));
-
-  const compatibilityOptions = Object.values(ECompatibilityJob).map((value) => ({
-    value,
-    label: t(`compatibility.${value}`),
-  }));
+  const contractTypeOptions = useMemo(
+    () => Object.values(EContractType).map((value) => ({ value, label: t(`contractType.${value}`) })),
+    [t],
+  );
+  const statusOptions = useMemo(
+    () => Object.values(EApplicationStatus).map((value) => ({ value, label: t(`status.${value}`) })),
+    [t],
+  );
+  const experienceOptions = useMemo(
+    () => Object.values(EExperienceLevel).map((value) => ({ value, label: t(`experience.${value}`) })),
+    [t],
+  );
+  const remotePolicyOptions = useMemo(
+    () => Object.values(ERemotePolicy).map((value) => ({ value, label: t(`remotePolicy.${value}`) })),
+    [t],
+  );
+  const compatibilityOptions = useMemo(
+    () => Object.values(ECompatibilityJob).map((value) => ({ value, label: t(`compatibility.${value}`) })),
+    [t],
+  );
 
   return (
     <div className="grid gap-4">

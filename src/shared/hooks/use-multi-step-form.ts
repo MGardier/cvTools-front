@@ -25,16 +25,29 @@ export const useMultiStepForm = <
   const step = steps[currentStep];
 
   /**
-   * Validate only the specified fields for the current step.
+   * Validate current step fields including root-level refinements (superRefine).
+   * Triggers full schema validation to catch cross-field rules,
+   * then checks only the current step's fields for errors and clears the rest.
    */
   const validateStepFields = useCallback(
     async (fields: Path<TInput>[]) => {
+      // Field-level validation
       await form.trigger(fields);
-      return !fields.some(
+      // Root-level validation (superRefine) for cross-field rules
+      await form.trigger();
+      // Only check current step fields
+      const valid = !fields.some(
         (field) => form.getFieldState(field).error,
       );
+      // Clean up errors triggered on other steps
+      const fieldSet = new Set<string>(fields);
+      const otherFields = steps
+        .flatMap((s) => s.fields)
+        .filter((f) => !fieldSet.has(f)) as Path<TInput>[];
+      if (otherFields.length) form.clearErrors(otherFields);
+      return valid;
     },
-    [form],
+    [form, steps],
   );
 
   const nextStep = useCallback(async () => {
@@ -75,3 +88,5 @@ export const useMultiStepForm = <
     goToStep,
   };
 };
+
+export type TMultiStepFormReturn = ReturnType<typeof useMultiStepForm>;

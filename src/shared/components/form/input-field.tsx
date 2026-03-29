@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   FormControl,
   FormField,
@@ -30,6 +31,8 @@ export const InputField = <TFormData extends FieldValues>({
   placeholder,
   step,
 }: IInputFieldProps<TFormData>) => {
+  const { t } = useTranslation("common");
+
   return (
     <div className="grid gap-3">
       <FormField
@@ -38,7 +41,7 @@ export const InputField = <TFormData extends FieldValues>({
         render={({ field }) => (
           <FormItem>
               <div className="flex items-center justify-between">
-                <FormLabel>{label} <span className="text-muted-foreground text-xs">{required ? ' (Requis)' : ' (Optionnel)'}</span></FormLabel>
+                <FormLabel>{label} <span className="text-muted-foreground text-xs">{required ? ` (${t("form.required")})` : ` (${t("form.optional")})`}</span></FormLabel>
                 {labelRight}
               </div>
             <FormControl>

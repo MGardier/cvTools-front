@@ -211,10 +211,13 @@
           "urlPlaceholder": "https://...",
           "submit": "Extraire",
           "cancel": "Annuler",
+          "loading": "Extraction en cours...",
           "success": "Formulaire pré-rempli avec succès",
           "error": "Impossible d'extraire les données de cette offre"
         }
       },
+      "skillImportWarning": "{{count}} compétence n'a pas pu être importée",
+      "skillImportWarning_other": "{{count}} compétences n'ont pas pu être importées",
       "contacts": {
         "title": "Contacts",
         "empty": "Aucun contact ajouté",
@@ -222,6 +225,12 @@
         "createNew": "Nouveau contact",
         "searchPlaceholder": "Rechercher un contact...",
         "noResults": "Aucun contact trouvé",
+        "confirmDelete": {
+          "title": "Supprimer le contact",
+          "description": "Voulez-vous vraiment supprimer {{name}} ?",
+          "confirm": "Supprimer",
+          "cancel": "Annuler"
+        },
         "modal": {
           "title": "Nouveau contact",
           "subtitle": "Ajoutez les informations du contact",
@@ -253,6 +262,12 @@
         "searchPlaceholder": "Rechercher une compétence...",
         "createNew": "Créer « {{label}} »",
         "inputPlaceholder": "Ex : React, TypeScript...",
+        "confirmDelete": {
+          "title": "Supprimer la compétence",
+          "description": "Voulez-vous vraiment supprimer « {{name}} » ?",
+          "confirm": "Supprimer",
+          "cancel": "Annuler"
+        },
         "modal": {
           "title": "Nouvelle compétence",
           "subtitle": "Ajoutez une compétence à votre profil",
@@ -331,6 +346,7 @@
       "invalid": "Le salaire maximum n'est pas valide"
     },
     "salaryBoth": "Les deux salaires doivent être renseignés ensemble",
+    "salaryMinGreaterThanMax": "Le salaire minimum ne peut pas être supérieur au salaire maximum",
 
     "contact": {
       "firstname": {

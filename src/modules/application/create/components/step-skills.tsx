@@ -1,16 +1,17 @@
 import { useState, useEffect, useCallback } from "react";
+import { useWatch } from "react-hook-form";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import type { TFunction } from "i18next";
 import { AxiosError } from "axios";
 
 import { EntitySearchField } from "@/shared/components/form/entity-search-field";
+import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog";
 import { SkillFormModal } from "./skill-form-modal";
 import { skillService } from "@/lib/api/skill/skill.service";
 import type { TCreateApplicationFormReturn } from "@/modules/application/schema/application-schema";
+import type { TFormSkill } from "../types";
 import type { IApiErrors } from "@/shared/types/api";
-
-type TFormSkill = { id: number; label: string; isOwner?: boolean; isUsed?: boolean };
 
 interface IStepSkillsProps {
   form: TCreateApplicationFormReturn;
@@ -20,7 +21,8 @@ interface IStepSkillsProps {
 export const StepSkills = ({ form, t }: IStepSkillsProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editSkill, setEditSkill] = useState<TFormSkill | null>(null);
-  const skills = form.watch("skills") ?? [];
+  const [deleteTarget, setDeleteTarget] = useState<TFormSkill | null>(null);
+  const skills = useWatch({ control: form.control, name: "skills" }) ?? [];
   const queryClient = useQueryClient();
 
   // ── Debounced server-side search ──
@@ -105,7 +107,14 @@ export const StepSkills = ({ form, t }: IStepSkillsProps) => {
   };
 
   const handleDeleteEntity = (skill: TFormSkill) => {
-    deleteSkill(skill.id);
+    setDeleteTarget(skill);
+  };
+
+  const confirmDelete = () => {
+    if (deleteTarget) {
+      deleteSkill(deleteTarget.id);
+      setDeleteTarget(null);
+    }
   };
 
   const handleSearchChange = useCallback((value: string) => {
@@ -150,6 +159,18 @@ export const StepSkills = ({ form, t }: IStepSkillsProps) => {
         onEdit={handleEdit}
         editSkill={editSkill}
         t={t}
+      />
+
+      <ConfirmDialog
+        open={!!deleteTarget}
+        onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}
+        title={t("pages.create.skills.confirmDelete.title")}
+        description={deleteTarget ? t("pages.create.skills.confirmDelete.description", {
+          name: deleteTarget.label,
+        }) : ""}
+        confirmLabel={t("pages.create.skills.confirmDelete.confirm")}
+        cancelLabel={t("pages.create.skills.confirmDelete.cancel")}
+        onConfirm={confirmDelete}
       />
     </div>
   );

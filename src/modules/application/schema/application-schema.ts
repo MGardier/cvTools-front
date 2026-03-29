@@ -74,12 +74,17 @@ export const createApplicationSchema = (t: TFunction) =>
     .superRefine((data, ctx) => {
       const hasMin = data.salaryMin !== undefined && !Number.isNaN(data.salaryMin);
       const hasMax = data.salaryMax !== undefined && !Number.isNaN(data.salaryMax);
-      const invalid = hasMin !== hasMax || (hasMin && hasMax && data.salaryMin! > data.salaryMax!);
-      if (invalid) {
+      if (hasMin !== hasMax) {
         ctx.addIssue({
           code: "custom",
           path: ["salaryMax"],
           message: t("validation.salaryBoth"),
+        });
+      } else if (hasMin && hasMax && data.salaryMin! > data.salaryMax!) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["salaryMax"],
+          message: t("validation.salaryMinGreaterThanMax"),
         });
       }
     });
@@ -87,6 +92,5 @@ export const createApplicationSchema = (t: TFunction) =>
 export type TCreateApplicationFormInput = z.input<ReturnType<typeof createApplicationSchema>>;
 export type TCreateApplicationFormOutput = z.output<ReturnType<typeof createApplicationSchema>>;
 
-export type { UseFormReturn } from "react-hook-form";
 import type { UseFormReturn } from "react-hook-form";
 export type TCreateApplicationFormReturn = UseFormReturn<TCreateApplicationFormInput, unknown, TCreateApplicationFormOutput>;

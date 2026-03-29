@@ -13,6 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/shared/components/ui/dialog";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import { Form } from "@/shared/components/ui/form";
 import { InputField } from "@/shared/components/form/input-field";
@@ -60,19 +61,29 @@ export const UrlExtractModal = ({ open, onOpenChange, fillForm }: IUrlExtractMod
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={(e) => { e.stopPropagation(); form.handleSubmit((data) => mutate(data))(e); }} className="grid gap-4">
-            <InputField
-              form={form}
-              name="url"
-              label={t("pages.create.extract.modal.urlLabel")}
-              placeholder={t("pages.create.extract.modal.urlPlaceholder")}
-              type="url"
-              required
-            />
+            {isPending ? (
+              <div className="flex flex-col items-center justify-center gap-3 py-8">
+                <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
+                <p className="text-sm text-muted-foreground">
+                  {t("pages.create.extract.modal.loading")}
+                </p>
+              </div>
+            ) : (
+              <InputField
+                form={form}
+                name="url"
+                label={t("pages.create.extract.modal.urlLabel")}
+                placeholder={t("pages.create.extract.modal.urlPlaceholder")}
+                type="url"
+                required
+              />
+            )}
             <DialogFooter className="gap-2">
-              <Button type="button" variant="outline" onClick={() => { form.reset(); onOpenChange(false); }}>
+              <Button type="button" variant="outline" disabled={isPending} onClick={() => { form.reset(); onOpenChange(false); }}>
                 {t("pages.create.extract.modal.cancel")}
               </Button>
-              <Button type="submit" disabled={isPending} className="bg-sky-600 hover:bg-sky-700">
+              <Button type="submit" disabled={isPending} variant="blue">
+                {isPending && <Loader2 className="h-4 w-4 animate-spin" />}
                 {t("pages.create.extract.modal.submit")}
               </Button>
             </DialogFooter>

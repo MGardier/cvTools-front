@@ -8,6 +8,7 @@ import { FormCardHeader } from "@/shared/components/form/form-card-header";
 import { FormStepper } from "@/shared/components/form/form-stepper";
 import { FormStepNavigation } from "@/shared/components/form/form-step-navigation";
 import type { IStep } from "@/shared/types/hook";
+import type { TMultiStepFormReturn } from "@/shared/hooks/use-multi-step-form";
 import type { TCreateApplicationFormReturn, TCreateApplicationFormOutput } from "@/modules/application/schema/application-schema";
 import type { IExtractedApplication } from "@/lib/api/scraper/types";
 
@@ -23,16 +24,7 @@ interface ICreateApplicationUiProps {
   form: TCreateApplicationFormReturn;
   onSubmit: (data: TCreateApplicationFormOutput) => void;
   isPending: boolean;
-  multiStep: {
-    currentStep: number;
-    totalSteps: number;
-    isFirstStep: boolean;
-    isLastStep: boolean;
-    step: IStep;
-    nextStep: () => Promise<boolean>;
-    prevStep: () => void;
-    goToStep: (index: number) => Promise<boolean>;
-  };
+  multiStep: TMultiStepFormReturn;
   steps: IStep[];
   t: TFunction;
   extractModalOpen: boolean;

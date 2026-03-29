@@ -60,5 +60,9 @@
         }
       }
     }
+  },
+  "form": {
+    "required": "Requis",
+    "optional": "Optionnel"
   }
 }

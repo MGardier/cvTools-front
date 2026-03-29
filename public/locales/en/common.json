@@ -60,5 +60,9 @@
         }
       }
     }
+  },
+  "form": {
+    "required": "Required",
+    "optional": "Optional"
   }
 }

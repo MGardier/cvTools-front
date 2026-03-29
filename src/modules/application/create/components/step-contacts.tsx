@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useWatch } from "react-hook-form";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Mail, Phone } from "lucide-react";
 import { toast } from "react-toastify";
@@ -6,6 +7,7 @@ import type { TFunction } from "i18next";
 import { AxiosError } from "axios";
 
 import { EntitySearchField } from "@/shared/components/form/entity-search-field";
+import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog";
 import { ContactModal } from "./contact-modal";
 import { contactService } from "@/lib/api/contact/contact.service";
 import type { TCreateApplicationFormReturn } from "@/modules/application/schema/application-schema";
@@ -22,7 +24,8 @@ interface IStepContactsProps {
 export const StepContacts = ({ form, t }: IStepContactsProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editContact, setEditContact] = useState<TFormContact | null>(null);
-  const contacts = form.watch("contacts") ?? [];
+  const [deleteTarget, setDeleteTarget] = useState<TFormContact | null>(null);
+  const contacts = useWatch({ control: form.control, name: "contacts" }) ?? [];
   const queryClient = useQueryClient();
 
   const { data: allContacts = [] } = useQuery({
@@ -86,7 +89,14 @@ export const StepContacts = ({ form, t }: IStepContactsProps) => {
   };
 
   const handleDeleteEntity = (contact: TFormContact) => {
-    deleteContact(contact.id);
+    setDeleteTarget(contact);
+  };
+
+  const confirmDelete = () => {
+    if (deleteTarget) {
+      deleteContact(deleteTarget.id);
+      setDeleteTarget(null);
+    }
   };
 
   return (
@@ -150,6 +160,18 @@ export const StepContacts = ({ form, t }: IStepContactsProps) => {
         onEdit={handleEdit}
         editContact={editContact}
         t={t}
+      />
+
+      <ConfirmDialog
+        open={!!deleteTarget}
+        onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}
+        title={t("pages.create.contacts.confirmDelete.title")}
+        description={deleteTarget ? t("pages.create.contacts.confirmDelete.description", {
+          name: `${deleteTarget.firstname} ${deleteTarget.lastname}`,
+        }) : ""}
+        confirmLabel={t("pages.create.contacts.confirmDelete.confirm")}
+        cancelLabel={t("pages.create.contacts.confirmDelete.cancel")}
+        onConfirm={confirmDelete}
       />
     </div>
   );

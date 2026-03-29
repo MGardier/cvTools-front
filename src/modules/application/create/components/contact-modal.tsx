@@ -23,13 +23,14 @@ import {
 } from "@/modules/application/schema/contact-schema";
 import { contactService } from "@/lib/api/contact/contact.service";
 import type { IContact } from "@/shared/types/entity";
+import type { TFormContact } from "../types";
 
 interface IContactModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onAdd: (contact: IContact) => void;
   onEdit?: (contact: IContact) => void;
-  editContact?: { id: number; firstname: string; lastname: string; email: string; phone?: string; profession: string } | null;
+  editContact?: TFormContact | null;
   t: TFunction;
 }
 
@@ -177,7 +178,7 @@ export const ContactModal = ({ open, onOpenChange, onAdd, onEdit, editContact, t
               <Button type="button" variant="outline" onClick={() => { form.reset(); onOpenChange(false); }}>
                 {t("pages.create.contacts.modal.cancel")}
               </Button>
-              <Button type="submit" disabled={isPending} className="bg-sky-600 hover:bg-sky-700">
+              <Button type="submit" disabled={isPending} variant="blue">
                 {isEditing ? t("pages.create.contacts.modal.save") : t("pages.create.contacts.modal.submit")}
               </Button>
             </DialogFooter>
