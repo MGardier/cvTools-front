@@ -29,6 +29,7 @@ export const ApplicationDetail = () => {
     enabled: !!user && !Number.isNaN(applicationId),
   });
 
+  // ── Application actions ──
   const deleteMutation = useMutation({
     mutationFn: () => applicationService.delete(applicationId),
     onSuccess: () => {
@@ -97,6 +98,7 @@ export const ApplicationDetail = () => {
     <>
       <ApplicationDetailUi
         application={data.data}
+        applicationId={applicationId}
         activeTab={activeTab}
         onTabChange={setActiveTab}
         onBack={handleBack}

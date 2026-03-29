@@ -2,6 +2,7 @@ import { apiClient } from "@/lib/axios/axios";
 import { ENDPOINTS } from "@/app/constants/endpoints";
 import type { IApiResponse } from "@/shared/types/api";
 import type { ITodo } from "@/shared/types/entity";
+import type { TStatusTodo } from "@/shared/types/entity";
 import type { ICreateTodoParams, IUpdateTodoParams } from "./types";
 
 export const todoApi = {
@@ -12,8 +13,17 @@ export const todoApi = {
     return await apiClient.post(ENDPOINTS.todo(applicationId), data);
   },
 
-  async findAll(applicationId: number): Promise<IApiResponse<ITodo[]>> {
-    return await apiClient.get(ENDPOINTS.todo(applicationId));
+  async findAll(
+    applicationId: number,
+    sort?: 'asc' | 'desc',
+    status?: TStatusTodo,
+  ): Promise<IApiResponse<ITodo[]>> {
+    return await apiClient.get(ENDPOINTS.todo(applicationId), {
+      params: {
+        ...(sort && { sort }),
+        ...(status && { status }),
+      },
+    });
   },
 
   async update(

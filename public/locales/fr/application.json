@@ -145,9 +145,12 @@
     "notes": {
       "placeholder": "Ajouter une note...",
       "add": "Ajouter",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
       "oldest": "Plus anciennes",
       "newest": "Plus récentes",
-      "empty": "Aucune note"
+      "empty": "Aucune note",
+      "error": "Erreur lors de l'opération sur la note"
     },
     "tasks": {
       "placeholder": "Ajouter une tâche...",
@@ -156,7 +159,16 @@
       "filterAll": "Toutes",
       "filterTodo": "À faire",
       "filterDone": "Faites",
-      "empty": "Aucune tâche"
+      "empty": "Aucune tâche",
+      "error": "Erreur lors de l'opération sur la tâche"
+    },
+    "history": {
+      "add": "Ajouter un événement",
+      "placeholder": "Description de l'événement...",
+      "save": "Ajouter",
+      "cancel": "Annuler",
+      "empty": "Aucun historique",
+      "error": "Erreur lors de l'opération sur l'historique"
     }
   },
   "pages": {

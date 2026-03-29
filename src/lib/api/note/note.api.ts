@@ -12,8 +12,10 @@ export const noteApi = {
     return await apiClient.post(ENDPOINTS.note(applicationId), data);
   },
 
-  async findAll(applicationId: number): Promise<IApiResponse<INote[]>> {
-    return await apiClient.get(ENDPOINTS.note(applicationId));
+  async findAll(applicationId: number, sort?: 'asc' | 'desc'): Promise<IApiResponse<INote[]>> {
+    return await apiClient.get(ENDPOINTS.note(applicationId), {
+      params: sort ? { sort } : undefined,
+    });
   },
 
   async update(

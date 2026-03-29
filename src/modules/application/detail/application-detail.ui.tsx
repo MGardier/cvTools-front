@@ -5,12 +5,10 @@ import {
   ExternalLink,
   Pencil,
   Trash2,
-  FileText,
 } from "lucide-react";
 
 import { formatSalary, formatRelativePublishedDate } from "@/shared/utils/format";
 import { cn } from "@/shared/utils/utils";
-
 
 import { HeroCard } from "./components/hero-card";
 import { MetadataStrip } from "./components/metadata-strip";
@@ -21,10 +19,11 @@ import { TasksTab } from "./components/tasks-tab";
 import { ContactSection } from "./components/contact-section";
 
 import type { IApplication } from "@/shared/types/entity";
-import type { TDetailTab, IDetailTab, IMetaItem, INote, IHistoryEvent, ITask } from "./types";
+import type { TDetailTab, IDetailTab, IMetaItem } from "./types";
 
 interface IApplicationDetailUiProps {
   application: IApplication;
+  applicationId: number;
   activeTab: TDetailTab;
   onTabChange: (tab: TDetailTab) => void;
   onBack: () => void;
@@ -43,16 +42,6 @@ const TABS: IDetailTab[] = [
   { id: "notes", labelKey: "detail.tabs.notes" },
   { id: "historique", labelKey: "detail.tabs.history" },
   { id: "taches", labelKey: "detail.tabs.tasks" },
-];
-
-// =============================================================================
-//                    MOCK DATA (future: from backend)
-// =============================================================================
-
-const MOCK_NOTES: INote[] = [];
-const MOCK_TASKS: ITask[] = [];
-const MOCK_HISTORY: IHistoryEvent[] = [
-  { id: 1, action: "Candidature créée", detail: "Ajoutée manuellement", date: "", time: "", icon: FileText, iconColor: "text-purple-600", iconBg: "bg-purple-50 border-purple-200" },
 ];
 
 // =============================================================================
@@ -116,6 +105,7 @@ const Skeleton = () => (
 
 export const ApplicationDetailUi = ({
   application,
+  applicationId,
   activeTab,
   onTabChange,
   onBack,
@@ -157,24 +147,13 @@ export const ApplicationDetailUi = ({
     },
   ];
 
-  // Enrich the first history event with real creation date
-  const history: IHistoryEvent[] = MOCK_HISTORY.map((event) =>
-    event.id === 1
-      ? {
-          ...event,
-          date: new Intl.DateTimeFormat("fr", { day: "numeric", month: "long", year: "numeric" }).format(new Date(application.createdAt)),
-          time: new Intl.DateTimeFormat("fr", { hour: "2-digit", minute: "2-digit" }).format(new Date(application.createdAt)),
-        }
-      : event
-  );
-
   const skills = application.skills ?? [];
   const contacts = application.contacts ?? [];
 
   return (
     <div className="bg-white min-h-screen">
 
-      {/* ── 1. Breadcrumb ── */}
+      {/* -- 1. Breadcrumb -- */}
       <nav className="w-full max-w-screen-xl mx-auto px-5 pt-6 pb-2">
         <div className="flex items-center gap-1.5 text-sm text-slate-500">
           <button
@@ -194,15 +173,15 @@ export const ApplicationDetailUi = ({
 
       <div className="w-full max-w-screen-xl mx-auto px-5">
 
-        {/* ── 2. Hero card ── */}
+        {/* -- 2. Hero card -- */}
         <div className="mt-4">
           <HeroCard application={application} salary={salary} t={t} />
         </div>
 
-        {/* ── 3. Metadata strip ── */}
+        {/* -- 3. Metadata strip -- */}
         <MetadataStrip items={metaItems} t={t} />
 
-        {/* ── 4. Skills + Actions ── */}
+        {/* -- 4. Skills + Actions -- */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-5">
           <div className="flex flex-wrap gap-2">
             {skills.length > 0 ? (
@@ -251,7 +230,7 @@ export const ApplicationDetailUi = ({
           </div>
         </div>
 
-        {/* ── 5. Tabs ── */}
+        {/* -- 5. Tabs -- */}
         <div className="mt-8">
           <div className="sticky top-0 z-10 bg-white pb-px">
             <div className="flex gap-6 border-b border-slate-200">
@@ -281,15 +260,21 @@ export const ApplicationDetailUi = ({
                 description={application.description ?? t("detail.noDescription")}
               />
             )}
-            {activeTab === "notes" && <NotesTab notes={MOCK_NOTES} t={t} />}
-            {activeTab === "historique" && <HistoryTab events={history} />}
-            {activeTab === "taches" && <TasksTab initialTasks={MOCK_TASKS} t={t} />}
+            {activeTab === "notes" && (
+              <NotesTab applicationId={applicationId} />
+            )}
+            {activeTab === "historique" && (
+              <HistoryTab applicationId={applicationId} />
+            )}
+            {activeTab === "taches" && (
+              <TasksTab applicationId={applicationId} />
+            )}
           </div>
         </div>
 
-        {/* ── 6. Contacts ── */}
-        {  contacts.length > 0 &&       <ContactSection contacts={contacts} t={t} />}
-  
+        {/* -- 6. Contacts -- */}
+        {contacts.length > 0 && <ContactSection contacts={contacts} t={t} />}
+
       </div>
     </div>
   );

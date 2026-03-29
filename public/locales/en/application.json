@@ -145,9 +145,12 @@
     "notes": {
       "placeholder": "Add a note...",
       "add": "Add",
+      "save": "Save",
+      "cancel": "Cancel",
       "oldest": "Oldest first",
       "newest": "Newest first",
-      "empty": "No notes"
+      "empty": "No notes",
+      "error": "Error with note operation"
     },
     "tasks": {
       "placeholder": "Add a task...",
@@ -156,7 +159,16 @@
       "filterAll": "All",
       "filterTodo": "To do",
       "filterDone": "Done",
-      "empty": "No tasks"
+      "empty": "No tasks",
+      "error": "Error with task operation"
+    },
+    "history": {
+      "add": "Add event",
+      "placeholder": "Event description...",
+      "save": "Add",
+      "cancel": "Cancel",
+      "empty": "No history",
+      "error": "Error with history operation"
     }
   },
   "pages": {

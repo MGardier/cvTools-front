@@ -11,8 +11,8 @@ export const noteService = {
     return noteApi.create(applicationId, data);
   },
 
-  async findAll(applicationId: number): Promise<IApiResponse<INote[]>> {
-    return noteApi.findAll(applicationId);
+  async findAll(applicationId: number, sort?: 'asc' | 'desc'): Promise<IApiResponse<INote[]>> {
+    return noteApi.findAll(applicationId, sort);
   },
 
   async update(

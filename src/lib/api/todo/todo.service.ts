@@ -1,5 +1,5 @@
 import type { IApiResponse } from "@/shared/types/api";
-import type { ITodo } from "@/shared/types/entity";
+import type { ITodo, TStatusTodo } from "@/shared/types/entity";
 import { todoApi } from "./todo.api";
 import type { ICreateTodoParams, IUpdateTodoParams } from "./types";
 
@@ -11,8 +11,12 @@ export const todoService = {
     return todoApi.create(applicationId, data);
   },
 
-  async findAll(applicationId: number): Promise<IApiResponse<ITodo[]>> {
-    return todoApi.findAll(applicationId);
+  async findAll(
+    applicationId: number,
+    sort?: 'asc' | 'desc',
+    status?: TStatusTodo,
+  ): Promise<IApiResponse<ITodo[]>> {
+    return todoApi.findAll(applicationId, sort, status);
   },
 
   async update(
