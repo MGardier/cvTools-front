@@ -188,3 +188,53 @@ export interface ISkill {
   isOwner?: boolean;
   isUsed?: boolean;
 }
+
+
+// =============================================================================
+//                               NOTE
+// =============================================================================
+
+export interface INote {
+  id: number;
+  description: string;
+  createdAt: Date;
+  updatedAt: Date | null;
+  applicationId: number;
+}
+
+
+// =============================================================================
+//                               TODO
+// =============================================================================
+
+export const EStatusTodo = {
+  TO_MAKE: "TO_MAKE",
+  IN_PROGRESS: "IN_PROGRESS",
+  DONE: "DONE",
+  ARCHIVED: "ARCHIVED",
+} as const;
+export type TStatusTodo = (typeof EStatusTodo)[keyof typeof EStatusTodo];
+
+export interface ITodo {
+  id: number;
+  description: string;
+  status: TStatusTodo;
+  createdAt: Date;
+  updatedAt: Date | null;
+  applicationId: number;
+}
+
+
+// =============================================================================
+//                               APPLICATION HISTORY
+// =============================================================================
+
+export interface IApplicationHistory {
+  id: number;
+  description: string;
+  status: TApplicationStatus;
+  doneAt: Date | null;
+  createdAt: Date;
+  updatedAt: Date | null;
+  applicationId: number;
+}
