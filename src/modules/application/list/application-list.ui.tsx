@@ -224,7 +224,7 @@ const ApplicationCard = ({ item, t, onToggleFavorite }: IApplicationCardProps) =
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="shadow-lg border border-gray-200 p-2">
                 <DropdownMenuItem asChild className="py-2.5">
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  <a href={ROUTES.application.detail(item.id)}>
                     <Eye className="w-4 h-4" />
                     {t("list.card.view")}
                   </a>

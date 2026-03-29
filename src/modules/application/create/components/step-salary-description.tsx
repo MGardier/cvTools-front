@@ -1,7 +1,7 @@
 import type { TFunction } from "i18next";
 
 import { InputField } from "@/shared/components/form/input-field";
-import { TextAreaField } from "@/shared/components/form/text-area-field";
+import { RichEditorField } from "@/shared/components/form/rich-editor-field";
 import type { TCreateApplicationFormReturn } from "@/modules/application/schema/application-schema";
 
 interface IStepSalaryDescriptionProps {
@@ -30,7 +30,7 @@ export const StepSalaryDescription = ({ form, t }: IStepSalaryDescriptionProps) 
           step={1000}
         />
       </div>
-      <TextAreaField
+      <RichEditorField
         form={form}
         name="description"
         label={t("pages.create.fields.description")}

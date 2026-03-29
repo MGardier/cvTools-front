@@ -44,7 +44,7 @@ export const createApplicationSchema = (t: TFunction) =>
       // Step 3 — Salary & Description
       salaryMin: optNumber(t, { min: 10000, invalid: t("validation.salaryMin.invalid") }),
       salaryMax: optNumber(t, { min: 10000, invalid: t("validation.salaryMax.invalid") }),
-      description: optString(t),
+      description: optString(t, { max: 50000 }),
 
       // Step 4 — Address
       address: createAddressSchema(t),

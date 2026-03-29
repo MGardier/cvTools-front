@@ -51,7 +51,7 @@
       "companyNotProvided": "Entreprise non précisée",
       "cityNotProvided": "Ville non renseignée",
       "salaryNotProvided": "Salaire non renseigné",
-      "view": "Voir le détail",
+      "view": "Voir la candidature",
       "edit": "Modifier",
       "delete": "Supprimer",
       "published": "Publié",
@@ -111,26 +111,44 @@
     "WHY_NOT": "Pourquoi pas"
   },
   "detail": {
-    "back": "Retour aux candidatures",
-    "description": "Description du poste",
-    "skills": "Compétences requises",
-    "contacts": "Contacts",
-    "address": "Adresse",
     "applyNow": "Voir l'offre",
-    "sidebar": {
-      "title": "Informations",
-      "company": "Entreprise",
-      "status": "Statut",
-      "contractType": "Type de contrat",
-      "location": "Localisation",
-      "jobboard": "Source",
-      "remotePolicy": "Télétravail",
+    "contacts": "Contacts",
+    "noSkills": "Aucune compétence",
+    "noDescription": "Aucune description renseignée",
+    "breadcrumb": {
+      "list": "Candidatures"
+    },
+    "tabs": {
+      "description": "Description",
+      "notes": "Notes",
+      "history": "Historique",
+      "tasks": "Tâches"
+    },
+    "companyNotProvided": "Entreprise non précisée",
+    "locationNotProvided": "Ville non renseignée",
+    "notProvided": "Non renseigné",
+    "meta": {
       "experience": "Expérience",
+      "contract": "Contrat",
+      "remote": "Remote",
       "compatibility": "Compatibilité",
-      "salary": "Salaire",
-      "publishedAt": "Date de publication",
-      "createdAt": "Ajoutée le",
-      "salaryNotProvided": "Non renseigné"
+      "published": "Publié"
+    },
+    "notes": {
+      "placeholder": "Ajouter une note...",
+      "add": "Ajouter",
+      "oldest": "Plus anciennes",
+      "newest": "Plus récentes",
+      "empty": "Aucune note"
+    },
+    "tasks": {
+      "placeholder": "Ajouter une tâche...",
+      "add": "Ajouter",
+      "completed": "terminées",
+      "filterAll": "Toutes",
+      "filterTodo": "À faire",
+      "filterDone": "Faites",
+      "empty": "Aucune tâche"
     }
   },
   "pages": {

@@ -51,7 +51,7 @@
       "companyNotProvided": "Company not specified",
       "cityNotProvided": "City not provided",
       "salaryNotProvided": "Salary not provided",
-      "view": "View details",
+      "view": "View application",
       "edit": "Edit",
       "delete": "Delete",
       "published": "Published",
@@ -111,26 +111,44 @@
     "WHY_NOT": "Why not"
   },
   "detail": {
-    "back": "Back to applications",
-    "description": "Job Description",
-    "skills": "Required Skills",
-    "contacts": "Contacts",
-    "address": "Address",
     "applyNow": "View Offer",
-    "sidebar": {
-      "title": "Job Information",
-      "company": "Company",
-      "status": "Status",
-      "contractType": "Contract Type",
-      "location": "Location",
-      "jobboard": "Source",
-      "remotePolicy": "Remote Policy",
+    "contacts": "Contacts",
+    "noSkills": "No skills",
+    "noDescription": "No description provided",
+    "breadcrumb": {
+      "list": "Applications"
+    },
+    "tabs": {
+      "description": "Description",
+      "notes": "Notes",
+      "history": "History",
+      "tasks": "Tasks"
+    },
+    "companyNotProvided": "Company not specified",
+    "locationNotProvided": "Location not provided",
+    "notProvided": "Not provided",
+    "meta": {
       "experience": "Experience",
+      "contract": "Contract",
+      "remote": "Remote",
       "compatibility": "Compatibility",
-      "salary": "Salary",
-      "publishedAt": "Date Posted",
-      "createdAt": "Added on",
-      "salaryNotProvided": "Not provided"
+      "published": "Published"
+    },
+    "notes": {
+      "placeholder": "Add a note...",
+      "add": "Add",
+      "oldest": "Oldest first",
+      "newest": "Newest first",
+      "empty": "No notes"
+    },
+    "tasks": {
+      "placeholder": "Add a task...",
+      "add": "Add",
+      "completed": "completed",
+      "filterAll": "All",
+      "filterTodo": "To do",
+      "filterDone": "Done",
+      "empty": "No tasks"
     }
   },
   "pages": {
