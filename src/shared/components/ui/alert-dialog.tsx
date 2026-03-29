@@ -41,6 +41,7 @@ function AlertDialogOverlay({
 
 function AlertDialogContent({
   className,
+  onCloseAutoFocus,
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Content>) {
   return (
@@ -48,6 +49,10 @@ function AlertDialogContent({
       <AlertDialogOverlay />
       <AlertDialogPrimitive.Content
         data-slot="alert-dialog-content"
+        onCloseAutoFocus={(e) => {
+          document.body.style.pointerEvents = "auto";
+          onCloseAutoFocus?.(e);
+        }}
         className={cn(
           "bg-background",
           "data-[state=open]:animate-in",

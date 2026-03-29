@@ -57,6 +57,14 @@
       "published": "Publié",
       "applied": "Postulé"
     },
+    "confirmDelete": {
+      "title": "Supprimer cette candidature ?",
+      "description": "La candidature \"{{title}}\" sera définitivement supprimée. Cette action est irréversible.",
+      "confirm": "Supprimer",
+      "cancel": "Annuler"
+    },
+    "deleteSuccess": "Candidature supprimée",
+    "deleteError": "Erreur lors de la suppression de la candidature",
     "loading": "Chargement des candidatures...",
     "error": "Impossible de charger les candidatures"
   },

@@ -1,27 +1,44 @@
 import { useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 import { useMe } from "@/shared/hooks/useMe";
 import { applicationService } from "@/lib/api/application/application.service";
 import { ROUTES } from "@/app/constants/routes";
 
 import { ApplicationDetailUi } from "./application-detail.ui";
+import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog";
 import type { TDetailTab } from "./types";
 
 export const ApplicationDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const { t } = useTranslation("application");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { user } = useMe();
 
   const applicationId = Number(id);
   const [activeTab, setActiveTab] = useState<TDetailTab>("description");
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["application", applicationId],
     queryFn: () => applicationService.findOneById(applicationId),
     enabled: !!user && !Number.isNaN(applicationId),
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: () => applicationService.delete(applicationId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["applications"] });
+      toast.success(t("list.deleteSuccess"));
+      navigate(ROUTES.application.list);
+    },
+    onError: () => {
+      toast.error(t("list.deleteError"));
+    },
   });
 
   const handleBack = useCallback(() => {
@@ -39,8 +56,13 @@ export const ApplicationDetail = () => {
   }, [navigate, applicationId]);
 
   const handleDelete = useCallback(() => {
-    // TODO: implement delete with confirmation
+    setDeleteDialogOpen(true);
   }, []);
+
+  const confirmDelete = useCallback(() => {
+    deleteMutation.mutate();
+    setDeleteDialogOpen(false);
+  }, [deleteMutation]);
 
   const toggleFavoriteMutation = useMutation({
     mutationFn: ({ id, isFavorite }: { id: number; isFavorite: boolean }) =>
@@ -72,15 +94,27 @@ export const ApplicationDetail = () => {
   }
 
   return (
-    <ApplicationDetailUi
-      application={data.data}
-      activeTab={activeTab}
-      onTabChange={setActiveTab}
-      onBack={handleBack}
-      onApply={handleApply}
-      onEdit={handleEdit}
-      onDelete={handleDelete}
-      onToggleFavorite={handleToggleFavorite}
-    />
+    <>
+      <ApplicationDetailUi
+        application={data.data}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onBack={handleBack}
+        onApply={handleApply}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onToggleFavorite={handleToggleFavorite}
+      />
+
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        title={t("list.confirmDelete.title")}
+        description={t("list.confirmDelete.description", { title: data.data.title })}
+        confirmLabel={t("list.confirmDelete.confirm")}
+        cancelLabel={t("list.confirmDelete.cancel")}
+        onConfirm={confirmDelete}
+      />
+    </>
   );
 };

@@ -1,6 +1,8 @@
 
-import { useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 import { usePagination } from "@/shared/hooks/usePagination";
 import { useSorting } from "@/shared/hooks/useSorting";
@@ -10,11 +12,13 @@ import { applicationService } from "@/lib/api/application/application.service";
 
 import type { IApplication, IApplicationFilters } from "@/modules/application/types";
 import { ApplicationListUi } from "./application-list.ui";
+import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog";
 
 const APPLICATIONS_QUERY_KEY = "applications" as const;
 const DEFAULT_PAGE_SIZE = 10;
 
 export const ApplicationList = () => {
+  const { t } = useTranslation("application");
   const queryClient = useQueryClient();
   const { user } = useMe();
 
@@ -29,10 +33,10 @@ export const ApplicationList = () => {
   const sortField = sorting[0]?.field;
   const sortDirection = sorting[0]?.order;
 
-  // Computed value for the "Sort by" select: "field_direction" or ""
   const sortValue = sortField ? `${String(sortField)}_${sortDirection ?? "asc"}` : "";
 
-  // Handler for the "Sort by" select — parses "field_order" and updates sorting hook
+  const [deleteTarget, setDeleteTarget] = useState<{ id: number; title: string } | null>(null);
+
   const handleSortValueChange = useCallback(
     (value: string) => {
       clearSorting();
@@ -40,7 +44,6 @@ export const ApplicationList = () => {
       const lastUnderscore = value.lastIndexOf("_");
       const field = value.slice(0, lastUnderscore) as keyof IApplication;
       const order = value.slice(lastUnderscore + 1) as "asc" | "desc";
-      // updateSorting adds with "asc" by default; call twice to reach "desc" if needed
       updateSorting(field);
       if (order === "desc") updateSorting(field);
       setPage(1);
@@ -88,6 +91,17 @@ export const ApplicationList = () => {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => applicationService.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [APPLICATIONS_QUERY_KEY] });
+      toast.success(t("list.deleteSuccess"));
+    },
+    onError: () => {
+      toast.error(t("list.deleteError"));
+    },
+  });
+
   const handleToggleFavorite = useCallback(
     (id: number) => {
       const item = data?.data?.items?.find((app) => app.id === id);
@@ -97,24 +111,53 @@ export const ApplicationList = () => {
     [data?.data?.items, toggleFavoriteMutation]
   );
 
+  const handleDelete = useCallback(
+    (id: number) => {
+      const item = data?.data?.items?.find((app) => app.id === id);
+      if (!item) return;
+      setDeleteTarget({ id: item.id, title: item.title });
+    },
+    [data?.data?.items]
+  );
+
+  const confirmDelete = useCallback(() => {
+    if (deleteTarget) {
+      deleteMutation.mutate(deleteTarget.id);
+      setDeleteTarget(null);
+    }
+  }, [deleteTarget, deleteMutation]);
+
   return (
-    <ApplicationListUi
-      items={data?.data?.items ?? []}
-      total={data?.data?.total ?? 0}
-      isLoading={isLoading}
-      isError={isError}
-      pagination={pagination}
-      onPageChange={setPage}
-      canGoNext={canGoNext}
-      canGoPrev={canGoPrev}
-      getTotalPages={getTotalPages}
-      sortValue={sortValue}
-      onSortValueChange={handleSortValueChange}
-      filters={filters}
-      onFiltersChange={handleFiltersChange}
-      onClearFilters={handleClearFilters}
-      hasActiveFilters={hasActiveFilters}
-      onToggleFavorite={handleToggleFavorite}
-    />
+    <>
+      <ApplicationListUi
+        items={data?.data?.items ?? []}
+        total={data?.data?.total ?? 0}
+        isLoading={isLoading}
+        isError={isError}
+        pagination={pagination}
+        onPageChange={setPage}
+        canGoNext={canGoNext}
+        canGoPrev={canGoPrev}
+        getTotalPages={getTotalPages}
+        sortValue={sortValue}
+        onSortValueChange={handleSortValueChange}
+        filters={filters}
+        onFiltersChange={handleFiltersChange}
+        onClearFilters={handleClearFilters}
+        hasActiveFilters={hasActiveFilters}
+        onToggleFavorite={handleToggleFavorite}
+        onDelete={handleDelete}
+      />
+
+      <ConfirmDialog
+        open={!!deleteTarget}
+        onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}
+        title={t("list.confirmDelete.title")}
+        description={deleteTarget ? t("list.confirmDelete.description", { title: deleteTarget.title }) : ""}
+        confirmLabel={t("list.confirmDelete.confirm")}
+        cancelLabel={t("list.confirmDelete.cancel")}
+        onConfirm={confirmDelete}
+      />
+    </>
   );
 };

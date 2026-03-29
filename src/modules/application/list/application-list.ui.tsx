@@ -54,6 +54,7 @@ interface IApplicationListUiProps {
   onClearFilters: () => void;
   hasActiveFilters: () => boolean;
   onToggleFavorite: (id: number) => void;
+  onDelete: (id: number) => void;
 }
 
 /* ── Page number builder ── */
@@ -75,9 +76,10 @@ interface IApplicationCardProps {
   item: IApplication;
   t: (key: string, options?: Record<string, unknown>) => string;
   onToggleFavorite: (id: number) => void;
+  onDelete: (id: number) => void;
 }
 
-const ApplicationCard = ({ item, t, onToggleFavorite }: IApplicationCardProps) => {
+const ApplicationCard = ({ item, t, onToggleFavorite, onDelete }: IApplicationCardProps) => {
   const sortedSkills = item.skills ? [...item.skills]
     .sort((a, b) => (String(a.createdAt) < String(b.createdAt) ? -1 : 1))
     .slice(0, 5) : [];
@@ -236,7 +238,7 @@ const ApplicationCard = ({ item, t, onToggleFavorite }: IApplicationCardProps) =
                   </a>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem variant="destructive" className="py-2.5">
+                <DropdownMenuItem variant="destructive" className="py-2.5" onClick={() => onDelete(item.id)}>
                   <Trash2 className="w-4 h-4" />
                   {t("list.card.delete")}
                 </DropdownMenuItem>
@@ -328,6 +330,7 @@ export const ApplicationListUi = ({
   onClearFilters,
   hasActiveFilters,
   onToggleFavorite,
+  onDelete,
 }: IApplicationListUiProps) => {
   const { t } = useTranslation("application");
 
@@ -415,7 +418,7 @@ export const ApplicationListUi = ({
           {!isLoading &&
             !isError &&
             items.map((item) => (
-              <ApplicationCard key={item.id} item={item} t={t} onToggleFavorite={onToggleFavorite} />
+              <ApplicationCard key={item.id} item={item} t={t} onToggleFavorite={onToggleFavorite} onDelete={onDelete} />
             ))}
 
         </div>

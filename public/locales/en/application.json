@@ -57,6 +57,14 @@
       "published": "Published",
       "applied": "Applied"
     },
+    "confirmDelete": {
+      "title": "Delete this application?",
+      "description": "The application \"{{title}}\" will be permanently deleted. This action cannot be undone.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    },
+    "deleteSuccess": "Application deleted",
+    "deleteError": "Error deleting application",
     "loading": "Loading applications...",
     "error": "Unable to load applications"
   },
