@@ -22,6 +22,7 @@ import { PrivateRoutes } from "@/app/router/private-routes";
 import { ApplicationList } from "@/modules/application/list/application-list";
 import { CreateApplication } from "@/modules/application/create/create-application";
 import { ApplicationDetail } from "@/modules/application/detail/application-detail";
+import { EditApplication } from "@/modules/application/edit/edit-application";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,6 +85,13 @@ function App() {
                 key="applicationCreate"
                 path={ROUTES.application.create}
                 element={<CreateApplication />}
+              />
+
+              {/* APPLICATION EDIT */}
+              <Route
+                key="applicationEdit"
+                path={ROUTES.application.editPattern}
+                element={<EditApplication />}
               />
 
               {/* APPLICATION DETAIL */}

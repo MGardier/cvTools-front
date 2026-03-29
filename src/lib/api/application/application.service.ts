@@ -6,7 +6,7 @@ import type {
 } from "@/modules/application/types";
 import type { TCreateApplicationFormOutput } from "@/modules/application/schema/application-schema";
 import { applicationApi } from "@/lib/api/application/application.api";
-import type { ICreateApplicationParams } from "@/lib/api/application/types";
+import type { ICreateApplicationParams, IUpdateApplicationParams } from "@/lib/api/application/types";
 
 export const applicationService = {
 
@@ -98,6 +98,44 @@ export const applicationService = {
   // =============================================================================
   //                               UPDATE
   // =============================================================================
+
+  async update(
+    id: number,
+    formData: TCreateApplicationFormOutput,
+  ): Promise<IApiResponse<IApplication>> {
+    const hasAddress = !!formData.address?.city;
+
+    const params: IUpdateApplicationParams = {
+      title: formData.title,
+      url: formData.url,
+      jobboard: formData.jobboard,
+      contractType: formData.contractType,
+      currentStatus: formData.currentStatus,
+      ...(formData.company && { company: formData.company }),
+      ...(formData.description && { description: formData.description }),
+      ...(formData.publishedAt && { publishedAt: formData.publishedAt }),
+      ...(formData.salaryMin !== undefined && { salaryMin: formData.salaryMin }),
+      ...(formData.salaryMax !== undefined && { salaryMax: formData.salaryMax }),
+      ...(formData.experience && { experience: formData.experience }),
+      ...(formData.remotePolicy && { remotePolicy: formData.remotePolicy }),
+      ...(formData.compatibility && { compatibility: formData.compatibility }),
+
+      // Address: send data or disconnect
+      ...(hasAddress
+        ? {
+            address: {
+              city: formData.address!.city!,
+              postalCode: formData.address!.postalCode ?? "",
+              ...(formData.address!.street && { street: formData.address!.street }),
+              ...(formData.address!.streetNumber && { streetNumber: formData.address!.streetNumber }),
+              ...(formData.address!.complement && { complement: formData.address!.complement }),
+            },
+          }
+        : { disconnectAddress: true }),
+    };
+
+    return applicationApi.update(id, params);
+  },
 
   async toggleFavorite(
     id: number,

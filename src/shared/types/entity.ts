@@ -174,6 +174,7 @@ export interface IContact {
   email: string;
   profession: string;
   phone?: string;
+  isUsed?: boolean;
 }
 
 // =============================================================================

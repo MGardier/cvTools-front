@@ -5,6 +5,7 @@ import type { IApplication } from "@/shared/types/entity";
 import type { IGetApplicationsResponse } from "@/modules/application/types";
 import type {
   ICreateApplicationParams,
+  IUpdateApplicationParams,
   IFlatApplicationQueryParams,
 } from "./types";
 
@@ -36,6 +37,13 @@ export const applicationApi = {
   // =============================================================================
   //                               UPDATE
   // =============================================================================
+  async update(
+    id: number,
+    data: IUpdateApplicationParams
+  ): Promise<IApiResponse<IApplication>> {
+    return await apiClient.patch(`${ENDPOINTS.application}/${id}`, data);
+  },
+
   async toggleFavorite(
     id: number,
     isFavorite: boolean

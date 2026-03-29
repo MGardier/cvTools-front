@@ -45,7 +45,6 @@ export const FormStepNavigation = ({
          key= "btn-submit"
           type="submit"
           variant="blue"
-          size="form"
           disabled={isPending}
           className="gap-2 text-white"
         >

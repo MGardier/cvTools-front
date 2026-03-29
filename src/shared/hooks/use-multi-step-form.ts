@@ -8,6 +8,7 @@ interface IUseMultiStepFormParams<
 > {
   steps: IStep[];
   form: UseFormReturn<TInput, unknown, TOutput>;
+  freeNavigation?: boolean;
 }
 
 export const useMultiStepForm = <
@@ -16,7 +17,9 @@ export const useMultiStepForm = <
 >({
   steps,
   form,
+  freeNavigation,
 }: IUseMultiStepFormParams<TInput, TOutput>) => {
+  const freeNav = freeNavigation ?? false;
   const [currentStep, setCurrentStep] = useState(0);
 
   const totalSteps = steps.length;
@@ -64,6 +67,11 @@ export const useMultiStepForm = <
   }, []);
 
   const goToStep = useCallback(async (index: number) => {
+    if (freeNav) {
+      setCurrentStep(index);
+      return true;
+    }
+
     if (index < currentStep) {
       setCurrentStep(index);
       return true;
@@ -75,7 +83,7 @@ export const useMultiStepForm = <
       setCurrentStep(index);
     }
     return isValid;
-  }, [currentStep, step, validateStepFields]);
+  }, [currentStep, step, validateStepFields, freeNav]);
 
   return {
     currentStep,

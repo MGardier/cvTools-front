@@ -35,8 +35,8 @@ export const ApplicationDetail = () => {
   }, [data]);
 
   const handleEdit = useCallback(() => {
-    // TODO: navigate to edit page when implemented
-  }, []);
+    navigate(ROUTES.application.edit(applicationId));
+  }, [navigate, applicationId]);
 
   const handleDelete = useCallback(() => {
     // TODO: implement delete with confirmation

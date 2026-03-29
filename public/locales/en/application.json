@@ -236,7 +236,9 @@
         },
         "deleteSuccess": "Contact deleted",
         "deleteError": "Error deleting contact",
-        "deleteConflict": "This contact is linked to an application and cannot be deleted"
+        "deleteConflict": "This contact is linked to an application and cannot be deleted",
+        "linkError": "Error linking contact",
+        "unlinkError": "Error unlinking contact"
       },
       "skills": {
         "title": "Skills",
@@ -265,7 +267,9 @@
         },
         "deleteSuccess": "Skill deleted",
         "deleteError": "Error deleting skill",
-        "deleteConflict": "This skill is in use and cannot be deleted"
+        "deleteConflict": "This skill is in use and cannot be deleted",
+        "linkError": "Error linking skill",
+        "unlinkError": "Error unlinking skill"
       },
       "extract": {
         "button": "Fill from URL",
@@ -292,6 +296,17 @@
       "messages": {
         "success": "Application created successfully",
         "error": "Error creating application"
+      }
+    },
+    "edit": {
+      "title": "Edit application",
+      "subtitle": "Update your application details",
+      "navigation": {
+        "submit": "Save changes"
+      },
+      "messages": {
+        "success": "Application updated successfully",
+        "error": "Error updating application"
       }
     }
   },

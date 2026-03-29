@@ -229,9 +229,11 @@ const ApplicationCard = ({ item, t, onToggleFavorite }: IApplicationCardProps) =
                     {t("list.card.view")}
                   </a>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="py-2.5">
-                  <Pencil className="w-4 h-4" />
-                  {t("list.card.edit")}
+                <DropdownMenuItem asChild className="py-2.5">
+                  <a href={ROUTES.application.edit(item.id)}>
+                    <Pencil className="w-4 h-4" />
+                    {t("list.card.edit")}
+                  </a>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem variant="destructive" className="py-2.5">
