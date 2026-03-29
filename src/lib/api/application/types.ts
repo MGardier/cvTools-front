@@ -1,59 +1,36 @@
-import type {
-  TApplicationStatus,
-  TJobboard,
-  TContractType,
-  TExperienceLevel,
-  TRemotePolicy,
-  TCompatibilityJob,
-  IApplication,
-} from "@/shared/types/entity";
+import type { IApplication, IAddress } from "@/shared/types/entity";
 
-export interface ICreateApplicationParams {
-  title: string;
-  url: string;
-  company?: string;
-  description?: string;
-  salaryMin?: number;
-  salaryMax?: number;
-  publishedAt?: string;
-  jobboard: TJobboard;
-  contractType: TContractType;
-  currentStatus: TApplicationStatus;
-  experience?: TExperienceLevel;
-  remotePolicy?: TRemotePolicy;
-  compatibility?: TCompatibilityJob;
-  address?: {
-    city: string;
-    postalCode: string;
-    street?: string;
-    streetNumber?: string;
-    complement?: string;
+export type IApplicationAddress = Pick<IAddress, "city" | "postalCode"> &
+  Partial<Pick<IAddress, "street" | "streetNumber" | "complement">>;
+
+type TApplicationBaseFields = Pick<
+  IApplication,
+  "title" | "url" | "contractType" | "currentStatus"
+> &
+  Partial<
+    Pick<
+      IApplication,
+      | "company"
+      | "description"
+      | "salaryMin"
+      | "salaryMax"
+      | "experience"
+      | "remotePolicy"
+      | "compatibility"
+      | "jobboard"
+    >
+  > & {
+    publishedAt?: string;
   };
+
+export interface ICreateApplicationParams extends TApplicationBaseFields {
+  address?: IApplicationAddress;
   contactIds?: number[];
   skillIds?: number[];
 }
 
-export interface IUpdateApplicationParams {
-  title?: string;
-  url?: string;
-  company?: string;
-  description?: string;
-  salaryMin?: number;
-  salaryMax?: number;
-  publishedAt?: string;
-  jobboard?: TJobboard;
-  contractType?: TContractType;
-  currentStatus?: TApplicationStatus;
-  experience?: TExperienceLevel;
-  remotePolicy?: TRemotePolicy;
-  compatibility?: TCompatibilityJob;
-  address?: {
-    city: string;
-    postalCode: string;
-    street?: string;
-    streetNumber?: string;
-    complement?: string;
-  };
+export interface IUpdateApplicationParams extends Partial<TApplicationBaseFields> {
+  address?: IApplicationAddress;
   disconnectAddress?: boolean;
 }
 
@@ -64,9 +41,9 @@ export interface IFlatApplicationQueryParams {
   sortDirection?: "asc" | "desc";
   keyword?: string;
   city?: string;
-  currentStatus?: TApplicationStatus;
+  currentStatus?: IApplication["currentStatus"];
   isFavorite?: boolean;
   createdAt?: string;
   company?: string;
-  jobboard?: TJobboard;
+  jobboard?: IApplication["jobboard"];
 }

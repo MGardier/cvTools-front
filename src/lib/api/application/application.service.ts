@@ -6,7 +6,8 @@ import type {
 } from "@/modules/application/types";
 import type { TCreateApplicationFormOutput } from "@/modules/application/schema/application-schema";
 import { applicationApi } from "@/lib/api/application/application.api";
-import type { ICreateApplicationParams, IUpdateApplicationParams } from "@/lib/api/application/types";
+import type { IApplicationAddress, ICreateApplicationParams, IUpdateApplicationParams } from "@/lib/api/application/types";
+
 
 export const applicationService = {
 
@@ -18,39 +19,14 @@ export const applicationService = {
   async create(
     formData: TCreateApplicationFormOutput
   ): Promise<IApiResponse<IApplication>> {
-    
-    const params: ICreateApplicationParams = {
-      title: formData.title,
-      url: formData.url,
-      jobboard: formData.jobboard,
-      contractType: formData.contractType,
-      currentStatus: formData.currentStatus,
-      ...(formData.company && { company: formData.company }),
-      ...(formData.description && { description: formData.description }),
-      ...(formData.publishedAt && { publishedAt: formData.publishedAt }),
-      ...(formData.salaryMin !== undefined && { salaryMin: formData.salaryMin }),
-      ...(formData.salaryMax !== undefined && { salaryMax: formData.salaryMax }),
-      ...(formData.experience && { experience: formData.experience }),
-      ...(formData.remotePolicy && { remotePolicy: formData.remotePolicy }),
-      ...(formData.compatibility && { compatibility: formData.compatibility }),
+    const address = __mapAddress(formData.address);
 
-      //Address
-      ...(formData.address?.city && {
-        address: {
-          city: formData.address.city,
-          postalCode: formData.address.postalCode ?? "",
-          ...(formData.address.street && { street: formData.address.street }),
-          ...(formData.address.streetNumber && { streetNumber: formData.address.streetNumber }),
-          ...(formData.address.complement && { complement: formData.address.complement }),
-        },
-      }),
-      
-      //Contacts
+    const params: ICreateApplicationParams = {
+      ...__mapBaseFields(formData),
+      ...(address && { address }),
       ...(formData.contacts.length > 0 && {
         contactIds: formData.contacts.map((c) => c.id),
       }),
-
-      //Skills
       ...(formData.skills.length > 0 && {
         skillIds: formData.skills.map((s) => s.id),
       }),
@@ -76,18 +52,12 @@ export const applicationService = {
     return applicationApi.findAllByUserId({
       page,
       limit,
-
-      //Sort
-      ...(sortField && { sortField: sortField }),
+      ...(sortField && { sortField }),
       ...(sortDirection && { sortDirection }),
-
-      //Filters
       ...(filters?.keyword && { keyword: filters.keyword }),
       ...(filters?.city && { city: filters.city }),
       ...(filters?.currentStatus && { currentStatus: filters.currentStatus }),
-      ...(filters?.isFavorite && {
-        isFavorite: filters.isFavorite,
-      }),
+      ...(filters?.isFavorite && { isFavorite: filters.isFavorite }),
       ...(filters?.createdAt && { createdAt: filters.createdAt }),
       ...(filters?.company && { company: filters.company }),
       ...(filters?.jobboard && { jobboard: filters.jobboard }),
@@ -103,38 +73,22 @@ export const applicationService = {
     id: number,
     formData: TCreateApplicationFormOutput,
   ): Promise<IApiResponse<IApplication>> {
-    const hasAddress = !!formData.address?.city;
+    const address = __mapAddress(formData.address);
 
     const params: IUpdateApplicationParams = {
-      title: formData.title,
-      url: formData.url,
-      jobboard: formData.jobboard,
-      contractType: formData.contractType,
-      currentStatus: formData.currentStatus,
-      ...(formData.company && { company: formData.company }),
-      ...(formData.description && { description: formData.description }),
-      ...(formData.publishedAt && { publishedAt: formData.publishedAt }),
-      ...(formData.salaryMin !== undefined && { salaryMin: formData.salaryMin }),
-      ...(formData.salaryMax !== undefined && { salaryMax: formData.salaryMax }),
-      ...(formData.experience && { experience: formData.experience }),
-      ...(formData.remotePolicy && { remotePolicy: formData.remotePolicy }),
-      ...(formData.compatibility && { compatibility: formData.compatibility }),
-
-      // Address: send data or disconnect
-      ...(hasAddress
-        ? {
-            address: {
-              city: formData.address!.city!,
-              postalCode: formData.address!.postalCode ?? "",
-              ...(formData.address!.street && { street: formData.address!.street }),
-              ...(formData.address!.streetNumber && { streetNumber: formData.address!.streetNumber }),
-              ...(formData.address!.complement && { complement: formData.address!.complement }),
-            },
-          }
-        : { disconnectAddress: true }),
+      ...__mapBaseFields(formData),
+      ...(address ? { address } : { disconnectAddress: true }),
     };
 
     return applicationApi.update(id, params);
+  },
+
+  // =============================================================================
+  //                               DELETE
+  // =============================================================================
+
+  async delete(id: number): Promise<void> {
+    return applicationApi.delete(id);
   },
 
   async toggleFavorite(
@@ -144,3 +98,34 @@ export const applicationService = {
     return applicationApi.toggleFavorite(id, isFavorite);
   },
 };
+
+  // =============================================================================
+  //                               MAPPING
+  // =============================================================================
+
+const __mapAddress = (address: TCreateApplicationFormOutput["address"]): IApplicationAddress | undefined => {
+  if (!address?.city) return undefined;
+  return {
+    city: address.city,
+    postalCode: address.postalCode ?? "",
+    ...(address.street && { street: address.street }),
+    ...(address.streetNumber && { streetNumber: address.streetNumber }),
+    ...(address.complement && { complement: address.complement }),
+  };
+};
+
+const __mapBaseFields = (formData: TCreateApplicationFormOutput) => ({
+  title: formData.title,
+  url: formData.url,
+  jobboard: formData.jobboard,
+  contractType: formData.contractType,
+  currentStatus: formData.currentStatus,
+  ...(formData.company && { company: formData.company }),
+  ...(formData.description && { description: formData.description }),
+  ...(formData.publishedAt && { publishedAt: formData.publishedAt }),
+  ...(formData.salaryMin !== undefined && { salaryMin: formData.salaryMin }),
+  ...(formData.salaryMax !== undefined && { salaryMax: formData.salaryMax }),
+  ...(formData.experience && { experience: formData.experience }),
+  ...(formData.remotePolicy && { remotePolicy: formData.remotePolicy }),
+  ...(formData.compatibility && { compatibility: formData.compatibility }),
+});

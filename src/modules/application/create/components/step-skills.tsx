@@ -5,9 +5,7 @@ import { toast } from "react-toastify";
 import type { TFunction } from "i18next";
 import { AxiosError } from "axios";
 
-import { EntitySearchField } from "@/shared/components/form/entity-search-field";
-import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog";
-import { SkillFormModal } from "./skill-form-modal";
+import { StepSkillsUi } from "./step-skills.ui";
 import { skillService } from "@/lib/api/skill/skill.service";
 import type { TCreateApplicationFormReturn } from "@/modules/application/schema/application-schema";
 import type { TFormSkill } from "../types";
@@ -16,9 +14,10 @@ import type { IApiErrors } from "@/shared/types/api";
 interface IStepSkillsProps {
   form: TCreateApplicationFormReturn;
   t: TFunction;
+  applicationId?: number;
 }
 
-export const StepSkills = ({ form, t }: IStepSkillsProps) => {
+export const StepSkills = ({ form, t, applicationId }: IStepSkillsProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editSkill, setEditSkill] = useState<TFormSkill | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<TFormSkill | null>(null);
@@ -62,12 +61,16 @@ export const StepSkills = ({ form, t }: IStepSkillsProps) => {
   const { mutate: deleteSkill } = useMutation({
     mutationFn: (id: number) => skillService.delete(id),
     onSuccess: (_data, id) => {
+      const current = form.getValues("skills");
       form.setValue(
         "skills",
-        skills.filter((s: TFormSkill) => s.id !== id),
+        current.filter((s) => s.id !== id),
         { shouldValidate: true }
       );
       queryClient.invalidateQueries({ queryKey: ["skills"] });
+      if (applicationId) {
+        queryClient.invalidateQueries({ queryKey: ["application", applicationId] });
+      }
       toast.success(t("pages.create.skills.deleteSuccess"));
     },
     onError: (error: AxiosError<IApiErrors>) => {
@@ -80,20 +83,67 @@ export const StepSkills = ({ form, t }: IStepSkillsProps) => {
     },
   });
 
+  const { mutate: linkToApplication } = useMutation({
+    mutationFn: ({ skillId, appId }: { skillId: number; appId: number }) =>
+      skillService.linkToApplication(skillId, appId),
+    onSuccess: () => {
+      if (applicationId) {
+        queryClient.invalidateQueries({ queryKey: ["application", applicationId] });
+      }
+    },
+    onError: (_error, variables) => {
+      const current = form.getValues("skills");
+      form.setValue(
+        "skills",
+        current.filter((s) => s.id !== variables.skillId),
+        { shouldValidate: true },
+      );
+      toast.error(t("pages.create.skills.linkError"));
+    },
+  });
+
+  const { mutate: unlinkFromApplication } = useMutation({
+    mutationFn: ({ skillId, appId }: { skillId: number; appId: number; rollback: TFormSkill }) =>
+      skillService.unlinkFromApplication(skillId, appId),
+    onSuccess: () => {
+      if (applicationId) {
+        queryClient.invalidateQueries({ queryKey: ["application", applicationId] });
+      }
+    },
+    onError: (_error, variables) => {
+      const current = form.getValues("skills");
+      form.setValue("skills", [...current, variables.rollback], { shouldValidate: true });
+      toast.error(t("pages.create.skills.unlinkError"));
+    },
+  });
+
   const handleAdd = (skill: TFormSkill) => {
-    form.setValue(
-      "skills",
-      [...skills, { id: skill.id, label: skill.label, isOwner: skill.isOwner, isUsed: skill.isUsed }],
-      { shouldValidate: true }
-    );
+    const formSkill: TFormSkill = {
+      id: skill.id,
+      label: skill.label,
+      isOwner: skill.isOwner,
+      isUsed: skill.isUsed,
+    };
+    form.setValue("skills", [...skills, formSkill], { shouldValidate: true });
+
+    if (applicationId) {
+      linkToApplication({ skillId: skill.id, appId: applicationId });
+    }
   };
 
   const handleRemove = (index: number) => {
+    const skill = skills[index];
+    if (!skill) return;
+
     form.setValue(
       "skills",
       skills.filter((_: TFormSkill, i: number) => i !== index),
       { shouldValidate: true }
     );
+
+    if (applicationId) {
+      unlinkFromApplication({ skillId: skill.id, appId: applicationId, rollback: skill });
+    }
   };
 
   const handleEdit = (skill: TFormSkill) => {
@@ -104,10 +154,6 @@ export const StepSkills = ({ form, t }: IStepSkillsProps) => {
     );
     form.setValue("skills", updated, { shouldValidate: true });
     setEditSkill(null);
-  };
-
-  const handleDeleteEntity = (skill: TFormSkill) => {
-    setDeleteTarget(skill);
   };
 
   const confirmDelete = () => {
@@ -125,53 +171,27 @@ export const StepSkills = ({ form, t }: IStepSkillsProps) => {
   const canDeleteSkill = (skill: TFormSkill) => !!skill.isOwner && !skill.isUsed;
 
   return (
-    <div className="grid gap-4">
-      <h3 className="text-sm font-medium">{t("pages.create.skills.title")}</h3>
-
-      <EntitySearchField<TFormSkill>
-        items={skills}
-        options={searchResults}
-        onAdd={handleAdd}
-        onRemove={handleRemove}
-        onEdit={(skill) => { setEditSkill(skill); setModalOpen(true); }}
-        onCreateClick={() => { setEditSkill(null); setModalOpen(true); }}
-        onDeleteEntity={handleDeleteEntity}
-        canEdit={canEditSkill}
-        canDelete={canDeleteSkill}
-        onSearchChange={handleSearchChange}
-        isServerFiltered
-        getItemId={(s) => s.id}
-        getSearchValue={(s) => s.label}
-        renderOption={(s) => s.label}
-        renderItem={(s) => <span className="text-sm truncate">{s.label}</span>}
-        placeholder={t("pages.create.skills.searchPlaceholder")}
-        emptyText={t("pages.create.skills.empty")}
-        gridClassName="grid-cols-2 sm:grid-cols-3"
-        onCreateInline={(label) => findOrCreate(label)}
-        createInlineLabel={(label) => t("pages.create.skills.createNew", { label })}
-        isCreatingInline={isPending}
-      />
-
-      <SkillFormModal
-        open={modalOpen}
-        onOpenChange={(v) => { setModalOpen(v); if (!v) setEditSkill(null); }}
-        onAdd={handleAdd}
-        onEdit={handleEdit}
-        editSkill={editSkill}
-        t={t}
-      />
-
-      <ConfirmDialog
-        open={!!deleteTarget}
-        onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}
-        title={t("pages.create.skills.confirmDelete.title")}
-        description={deleteTarget ? t("pages.create.skills.confirmDelete.description", {
-          name: deleteTarget.label,
-        }) : ""}
-        confirmLabel={t("pages.create.skills.confirmDelete.confirm")}
-        cancelLabel={t("pages.create.skills.confirmDelete.cancel")}
-        onConfirm={confirmDelete}
-      />
-    </div>
+    <StepSkillsUi
+      skills={skills}
+      searchResults={searchResults}
+      modalOpen={modalOpen}
+      editSkill={editSkill}
+      deleteTarget={deleteTarget}
+      isCreatingInline={isPending}
+      t={t}
+      onAdd={handleAdd}
+      onRemove={handleRemove}
+      onEdit={(skill) => { setEditSkill(skill); setModalOpen(true); }}
+      onSaveEdit={handleEdit}
+      onDeleteEntity={(skill) => setDeleteTarget(skill)}
+      onConfirmDelete={confirmDelete}
+      onModalOpenChange={(v) => { setModalOpen(v); if (!v) setEditSkill(null); }}
+      onCreateClick={() => { setEditSkill(null); setModalOpen(true); }}
+      onCreateInline={(label) => findOrCreate(label)}
+      onDeleteTargetClear={() => setDeleteTarget(null)}
+      onSearchChange={handleSearchChange}
+      canEdit={canEditSkill}
+      canDelete={canDeleteSkill}
+    />
   );
 };

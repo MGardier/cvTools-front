@@ -19,6 +19,10 @@ export const contactService = {
     return (await contactApi.findAll()).data;
   },
 
+  async search(query: string): Promise<IContact[]> {
+    return (await contactApi.findAll(query)).data;
+  },
+
   async findAllByApplicationId(applicationId: number): Promise<IContact[]> {
     return (await contactApi.findAllByApplicationId(applicationId)).data;
   },

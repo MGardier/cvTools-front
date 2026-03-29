@@ -38,8 +38,10 @@ export const contactApi = {
   //                              FIND
   // =============================================================================
 
-  async findAll(): Promise<IApiResponse<IContact[]>> {
-    return await apiClient.get(`${ENDPOINTS.contact}`);
+  async findAll(search?: string): Promise<IApiResponse<IContact[]>> {
+    return await apiClient.get(`${ENDPOINTS.contact}`, {
+      ...(search && { params: { search } }),
+    });
   },
 
   async findAllByApplicationId(applicationId: number): Promise<IApiResponse<IContact[]>> {

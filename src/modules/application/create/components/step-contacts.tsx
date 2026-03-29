@@ -1,47 +1,61 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useWatch } from "react-hook-form";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Mail, Phone } from "lucide-react";
 import { toast } from "react-toastify";
 import type { TFunction } from "i18next";
 import { AxiosError } from "axios";
 
-import { EntitySearchField } from "@/shared/components/form/entity-search-field";
-import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog";
-import { ContactModal } from "./contact-modal";
+import { StepContactsUi } from "./step-contacts.ui";
 import { contactService } from "@/lib/api/contact/contact.service";
 import type { TCreateApplicationFormReturn } from "@/modules/application/schema/application-schema";
 import type { TFormContact } from "../types";
 import type { IApiErrors } from "@/shared/types/api";
 
-
-
 interface IStepContactsProps {
   form: TCreateApplicationFormReturn;
   t: TFunction;
+  applicationId?: number;
 }
 
-export const StepContacts = ({ form, t }: IStepContactsProps) => {
+export const StepContacts = ({ form, t, applicationId }: IStepContactsProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editContact, setEditContact] = useState<TFormContact | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<TFormContact | null>(null);
   const contacts = useWatch({ control: form.control, name: "contacts" }) ?? [];
   const queryClient = useQueryClient();
 
-  const { data: allContacts = [] } = useQuery({
-    queryKey: ["contacts"],
-    queryFn: () => contactService.findAll(),
+  // ── Debounced server-side search ──
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchInput);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  const { data: searchResults = [] } = useQuery({
+    queryKey: ["contacts", "search", debouncedSearch],
+    queryFn: () =>
+      debouncedSearch.trim()
+        ? contactService.search(debouncedSearch.trim())
+        : contactService.findAll(),
   });
 
   const { mutate: deleteContact } = useMutation({
     mutationFn: (id: number) => contactService.delete(id),
     onSuccess: (_data, id) => {
+      const current = form.getValues("contacts");
       form.setValue(
         "contacts",
-        contacts.filter((c: TFormContact) => c.id !== id),
+        current.filter((c) => c.id !== id),
         { shouldValidate: true }
       );
       queryClient.invalidateQueries({ queryKey: ["contacts"] });
+      if (applicationId) {
+        queryClient.invalidateQueries({ queryKey: ["application", applicationId] });
+      }
       toast.success(t("pages.create.contacts.deleteSuccess"));
     },
     onError: (error: AxiosError<IApiErrors>) => {
@@ -54,23 +68,69 @@ export const StepContacts = ({ form, t }: IStepContactsProps) => {
     },
   });
 
+  const { mutate: linkToApplication } = useMutation({
+    mutationFn: ({ contactId, appId }: { contactId: number; appId: number }) =>
+      contactService.linkToApplication(contactId, appId),
+    onSuccess: () => {
+      if (applicationId) {
+        queryClient.invalidateQueries({ queryKey: ["application", applicationId] });
+      }
+    },
+    onError: (_error, variables) => {
+      const current = form.getValues("contacts");
+      form.setValue(
+        "contacts",
+        current.filter((c) => c.id !== variables.contactId),
+        { shouldValidate: true },
+      );
+      toast.error(t("pages.create.contacts.linkError"));
+    },
+  });
+
+  const { mutate: unlinkFromApplication } = useMutation({
+    mutationFn: ({ contactId, appId }: { contactId: number; appId: number; rollback: TFormContact }) =>
+      contactService.unlinkFromApplication(contactId, appId),
+    onSuccess: () => {
+      if (applicationId) {
+        queryClient.invalidateQueries({ queryKey: ["application", applicationId] });
+      }
+    },
+    onError: (_error, variables) => {
+      const current = form.getValues("contacts");
+      form.setValue("contacts", [...current, variables.rollback], { shouldValidate: true });
+      toast.error(t("pages.create.contacts.unlinkError"));
+    },
+  });
+
   const handleAdd = (contact: TFormContact) => {
-    form.setValue("contacts", [...contacts, {
+    const formContact: TFormContact = {
       id: contact.id,
       firstname: contact.firstname,
       lastname: contact.lastname,
       email: contact.email,
       phone: contact.phone,
       profession: contact.profession,
-    }], { shouldValidate: true });
+    };
+    form.setValue("contacts", [...contacts, formContact], { shouldValidate: true });
+
+    if (applicationId) {
+      linkToApplication({ contactId: contact.id, appId: applicationId });
+    }
   };
 
   const handleRemove = (index: number) => {
+    const contact = contacts[index];
+    if (!contact) return;
+
     form.setValue(
       "contacts",
       contacts.filter((_: TFormContact, i: number) => i !== index),
       { shouldValidate: true }
     );
+
+    if (applicationId) {
+      unlinkFromApplication({ contactId: contact.id, appId: applicationId, rollback: contact });
+    }
   };
 
   const handleEdit = (contact: TFormContact) => {
@@ -88,10 +148,6 @@ export const StepContacts = ({ form, t }: IStepContactsProps) => {
     setEditContact(null);
   };
 
-  const handleDeleteEntity = (contact: TFormContact) => {
-    setDeleteTarget(contact);
-  };
-
   const confirmDelete = () => {
     if (deleteTarget) {
       deleteContact(deleteTarget.id);
@@ -99,80 +155,35 @@ export const StepContacts = ({ form, t }: IStepContactsProps) => {
     }
   };
 
+  const canDeleteContact = (contact: TFormContact) => {
+    const full = searchResults.find((c) => c.id === contact.id);
+    return full ? !full.isUsed : false;
+  };
+
+  const handleSearchChange = useCallback((value: string) => {
+    setSearchInput(value);
+  }, []);
+
   return (
-    <div className="grid gap-4">
-      <h3 className="text-sm font-medium">{t("pages.create.contacts.title")}</h3>
-
-      <EntitySearchField<TFormContact>
-        items={contacts}
-        options={allContacts}
-        onAdd={handleAdd}
-        onRemove={handleRemove}
-        onEdit={(contact) => { setEditContact(contact); setModalOpen(true); }}
-        onCreateClick={() => { setEditContact(null); setModalOpen(true); }}
-        onDeleteEntity={handleDeleteEntity}
-        getItemId={(c) => c.id}
-        getSearchValue={(c) => `${c.firstname} ${c.lastname} ${c.email} ${c.profession}`}
-
-        renderOption={(c) => (
-          <div className="flex flex-col gap-0.5">
-            <span className="text-sm font-medium">
-              {c.firstname} {c.lastname}
-            </span>
-            <span className="text-xs text-muted-foreground">
-              {c.profession} · {c.email}
-            </span>
-          </div>
-        )}
-
-
-        renderItem={(c) => (
-          <>
-            <p className="text-sm font-medium truncate">
-              {c.firstname} {c.lastname}
-            </p>
-            <p className="text-xs text-muted-foreground mt-0.5 truncate">
-              {c.profession}
-            </p>
-            <div className="flex items-center gap-3 mt-1">
-              <span className="flex items-center gap-1 text-xs text-muted-foreground truncate">
-                <Mail className="w-3 h-3 shrink-0" />
-                {c.email}
-              </span>
-              {c.phone && (
-                <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <Phone className="w-3 h-3 shrink-0" />
-                  {c.phone}
-                </span>
-              )}
-            </div>
-          </>
-        )}
-        placeholder={t("pages.create.contacts.searchPlaceholder")}
-        emptyText={t("pages.create.contacts.empty")}
-        gridClassName="grid-cols-1 sm:grid-cols-2"
-      />
-
-      <ContactModal
-        open={modalOpen}
-        onOpenChange={(v) => { setModalOpen(v); if (!v) setEditContact(null); }}
-        onAdd={handleAdd}
-        onEdit={handleEdit}
-        editContact={editContact}
-        t={t}
-      />
-
-      <ConfirmDialog
-        open={!!deleteTarget}
-        onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}
-        title={t("pages.create.contacts.confirmDelete.title")}
-        description={deleteTarget ? t("pages.create.contacts.confirmDelete.description", {
-          name: `${deleteTarget.firstname} ${deleteTarget.lastname}`,
-        }) : ""}
-        confirmLabel={t("pages.create.contacts.confirmDelete.confirm")}
-        cancelLabel={t("pages.create.contacts.confirmDelete.cancel")}
-        onConfirm={confirmDelete}
-      />
-    </div>
+    <StepContactsUi
+      contacts={contacts}
+      searchResults={searchResults}
+      modalOpen={modalOpen}
+      editContact={editContact}
+      deleteTarget={deleteTarget}
+      isServerFiltered
+      t={t}
+      onAdd={handleAdd}
+      onRemove={handleRemove}
+      onEdit={(contact) => { setEditContact(contact); setModalOpen(true); }}
+      onSaveEdit={handleEdit}
+      onDeleteEntity={(contact) => setDeleteTarget(contact)}
+      onConfirmDelete={confirmDelete}
+      onModalOpenChange={(v) => { setModalOpen(v); if (!v) setEditContact(null); }}
+      onCreateClick={() => { setEditContact(null); setModalOpen(true); }}
+      onDeleteTargetClear={() => setDeleteTarget(null)}
+      onSearchChange={handleSearchChange}
+      canDelete={canDeleteContact}
+    />
   );
 };

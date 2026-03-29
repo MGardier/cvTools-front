@@ -44,6 +44,13 @@ export const applicationApi = {
     return await apiClient.patch(`${ENDPOINTS.application}/${id}`, data);
   },
 
+  // =============================================================================
+  //                               DELETE
+  // =============================================================================
+  async delete(id: number): Promise<void> {
+    await apiClient.delete(`${ENDPOINTS.application}/${id}`);
+  },
+
   async toggleFavorite(
     id: number,
     isFavorite: boolean
