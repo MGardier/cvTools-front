@@ -95,4 +95,14 @@ export const applicationService = {
   },
 
 
+  // =============================================================================
+  //                               UPDATE
+  // =============================================================================
+
+  async toggleFavorite(
+    id: number,
+    isFavorite: boolean
+  ): Promise<IApiResponse<IApplication>> {
+    return applicationApi.toggleFavorite(id, isFavorite);
+  },
 };

@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useMe } from "@/shared/hooks/useMe";
 import { applicationService } from "@/lib/api/application/application.service";
@@ -12,6 +12,7 @@ import type { TDetailTab } from "./types";
 export const ApplicationDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { user } = useMe();
 
   const applicationId = Number(id);
@@ -41,9 +42,22 @@ export const ApplicationDetail = () => {
     // TODO: implement delete with confirmation
   }, []);
 
+  const toggleFavoriteMutation = useMutation({
+    mutationFn: ({ id, isFavorite }: { id: number; isFavorite: boolean }) =>
+      applicationService.toggleFavorite(id, isFavorite),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["application", applicationId] });
+      queryClient.invalidateQueries({ queryKey: ["applications"] });
+    },
+  });
+
   const handleToggleFavorite = useCallback(() => {
-    // TODO: implement toggle favorite mutation
-  }, []);
+    if (!data?.data) return;
+    toggleFavoriteMutation.mutate({
+      id: applicationId,
+      isFavorite: !data.data.isFavorite,
+    });
+  }, [data?.data, applicationId, toggleFavoriteMutation]);
 
   if (isLoading) return <ApplicationDetailUi.Skeleton />;
 

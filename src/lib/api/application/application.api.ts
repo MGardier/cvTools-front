@@ -32,4 +32,14 @@ export const applicationApi = {
   async findOneById(id: number): Promise<IApiResponse<IApplication>> {
     return await apiClient.get(`${ENDPOINTS.application}/${id}`);
   },
+
+  // =============================================================================
+  //                               UPDATE
+  // =============================================================================
+  async toggleFavorite(
+    id: number,
+    isFavorite: boolean
+  ): Promise<IApiResponse<IApplication>> {
+    return await apiClient.patch(`${ENDPOINTS.application}/${id}`, { isFavorite });
+  },
 };

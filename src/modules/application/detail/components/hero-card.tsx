@@ -21,7 +21,7 @@ export const HeroCard = ({ application, salary, t }: IHeroCardProps) => {
         <div className="flex gap-4 md:gap-5 min-w-0">
           <JobboardIcon
             jobboard={application.jobboard}
-            className="shrink-0 w-14 h-14 md:w-[72px] md:h-[72px] rounded-xl bg-slate-100"
+            className="shrink-0 w-18 h-18 md:w-20 md:h-20 rounded-xl"
           />
           <div className="min-w-0">
             <h1 className="text-lg md:text-xl font-semibold text-slate-800 leading-tight">

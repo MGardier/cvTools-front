@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Heart, Search, MapPin, X } from "lucide-react";
+import { Bookmark, Search, MapPin, X } from "lucide-react";
 
 import { Input } from "@/shared/components/ui/input";
 import {
@@ -138,11 +138,11 @@ export const ApplicationTableFilters = ({
             onClick={() => onFiltersChange({ isFavorite: filters.isFavorite ? undefined : true })}
             className={cn(
               "shrink-0 transition-colors",
-              filters.isFavorite ? "text-red-500" : "text-muted-foreground hover:text-foreground"
+              filters.isFavorite ? "text-blue-400" : "text-muted-foreground hover:text-foreground"
             )}
             title={t("filter.favorite")}
           >
-            <Heart
+            <Bookmark
               className={cn("w-5 h-5", filters.isFavorite && "fill-current")}
             />
           </button>

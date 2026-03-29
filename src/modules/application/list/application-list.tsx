@@ -1,6 +1,6 @@
 
 import { useCallback, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { usePagination } from "@/shared/hooks/usePagination";
 import { useSorting } from "@/shared/hooks/useSorting";
@@ -15,6 +15,7 @@ const APPLICATIONS_QUERY_KEY = "applications" as const;
 const DEFAULT_PAGE_SIZE = 10;
 
 export const ApplicationList = () => {
+  const queryClient = useQueryClient();
   const { user } = useMe();
 
   const { pagination, setPage, setTotalItems, canGoNext, canGoPrev, getTotalPages } =
@@ -79,10 +80,22 @@ export const ApplicationList = () => {
     }
   }, [data?.data?.total, setTotalItems]);
 
-  // TODO: replace with mutation API call
-  const handleToggleFavorite = useCallback((_id: number) => { // eslint-disable-line @typescript-eslint/no-unused-vars
-    // placeholder — will call API to toggle favorite
-  }, []);
+  const toggleFavoriteMutation = useMutation({
+    mutationFn: ({ id, isFavorite }: { id: number; isFavorite: boolean }) =>
+      applicationService.toggleFavorite(id, isFavorite),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [APPLICATIONS_QUERY_KEY] });
+    },
+  });
+
+  const handleToggleFavorite = useCallback(
+    (id: number) => {
+      const item = data?.data?.items?.find((app) => app.id === id);
+      if (!item) return;
+      toggleFavoriteMutation.mutate({ id, isFavorite: !item.isFavorite });
+    },
+    [data?.data?.items, toggleFavoriteMutation]
+  );
 
   return (
     <ApplicationListUi
