@@ -288,7 +288,7 @@ export const ApplicationDetailUi = ({
         </div>
 
         {/* ── 6. Contacts ── */}
-        {  contacts.length === 0 &&       <ContactSection contacts={contacts} t={t} />}
+        {  contacts.length > 0 &&       <ContactSection contacts={contacts} t={t} />}
   
       </div>
     </div>
