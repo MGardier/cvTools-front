@@ -1,6 +1,7 @@
-import type { TContractType, TExperienceLevel, TRemotePolicy } from '@/shared/types/entity';
+import type { TContractType, TExperienceLevel, TJobboard, TRemotePolicy } from '@/shared/types/entity';
 
 export interface IExtractedApplication {
+  isSuccess: boolean;
   title: string;
   company?: string;
   description?: string;
@@ -11,6 +12,7 @@ export interface IExtractedApplication {
   remotePolicy?: TRemotePolicy;
   publishedAt?: string;
   skills?: string[];
+  jobboard?: TJobboard;
   address?: {
     city?: string;
     postalCode?: string;
@@ -18,15 +20,9 @@ export interface IExtractedApplication {
     complement?: string;
     streetNumber?: string;
   };
-  contacts?: Array<{
-    firstname?: string;
-    lastname?: string;
-    email?: string;
-    phone?: string;
-    profession?: string;
-  }>;
 }
 
-export interface IExtractUrlParams {
-  url: string;
+export interface IExtractOfferParams {
+  url?: string;
+  rawContent?: string;
 }

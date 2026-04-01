@@ -2,7 +2,7 @@ import { Trash2, Plus, Clock } from "lucide-react";
 
 import { EApplicationStatus } from "@/shared/types/entity";
 import type { IApplicationHistory, TApplicationStatus } from "@/shared/types/entity";
-import type { TTranslationFn } from "../types";
+import type { TTranslationFn } from "../../types";
 
 interface IHistoryTabUiProps {
   events: IApplicationHistory[];

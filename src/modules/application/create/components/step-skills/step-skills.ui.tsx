@@ -2,9 +2,10 @@ import type { TFunction } from "i18next";
 
 import { EntitySearchField } from "@/shared/components/form/entity-search-field";
 import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog";
-import { SkillFormModal } from "./skill-form-modal";
-import type { TFormSkill } from "../types";
+
 import type { ISkill } from "@/shared/types/entity";
+import type { TFormSkill } from "../../types";
+import { SkillFormModal } from "../skill-form-modal";
 
 interface IStepSkillsUiProps {
   skills: TFormSkill[];

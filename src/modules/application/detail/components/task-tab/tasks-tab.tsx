@@ -7,7 +7,7 @@ import { todoService } from "@/lib/api/todo/todo.service";
 import { useMe } from "@/shared/hooks/useMe";
 import { EStatusTodo } from "@/shared/types/entity";
 import type { ITodo, TStatusTodo } from "@/shared/types/entity";
-import type { TTaskFilter } from "../types";
+import type { TTaskFilter } from "../../types";
 
 const FILTER_TO_STATUS: Record<TTaskFilter, TStatusTodo | undefined> = {
   all: undefined,
@@ -56,7 +56,7 @@ export const TasksTab = ({ applicationId }: ITasksTabProps) => {
   });
 
   const updateTodoMutation = useMutation({
-    mutationFn: ({ id, ...data }: { id: number; description?: string; status?: string }) =>
+    mutationFn: ({ id, ...data }: { id: number; description?: string; status?: TStatusTodo }) =>
       todoService.update(applicationId, id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos", applicationId] });
@@ -130,7 +130,6 @@ export const TasksTab = ({ applicationId }: ITasksTabProps) => {
     <TasksTabUi
       t={t}
       filter={filter}
-      sortOrder={sortOrder}
       newTaskValue={newTaskValue}
       editingId={editingId}
       editValue={editValue}

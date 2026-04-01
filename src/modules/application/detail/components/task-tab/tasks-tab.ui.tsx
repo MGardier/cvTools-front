@@ -2,12 +2,11 @@ import { Plus, ArrowUpDown, Pencil, Trash2, CheckCircle2, Circle } from "lucide-
 
 import { EStatusTodo } from "@/shared/types/entity";
 import type { ITodo } from "@/shared/types/entity";
-import type { TTaskFilter, TTranslationFn } from "../types";
+import type { TTaskFilter, TTranslationFn } from "../../types";
 
 interface ITasksTabUiProps {
   t: TTranslationFn;
   filter: TTaskFilter;
-  sortOrder: 'asc' | 'desc';
   newTaskValue: string;
   editingId: number | null;
   editValue: string;
@@ -37,7 +36,6 @@ const FILTERS: { key: TTaskFilter; labelKey: string }[] = [
 export const TasksTabUi = ({
   t,
   filter,
-  sortOrder,
   newTaskValue,
   editingId,
   editValue,

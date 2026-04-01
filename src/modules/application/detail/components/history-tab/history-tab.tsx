@@ -7,8 +7,9 @@ import { applicationHistoryService } from "@/lib/api/application-history/applica
 import { useMe } from "@/shared/hooks/useMe";
 import { EApplicationStatus } from "@/shared/types/entity";
 import type { TApplicationStatus } from "@/shared/types/entity";
-
 import { HistoryTabUi } from "./history-tab.ui";
+
+
 
 interface IHistoryTabProps {
   applicationId: number;

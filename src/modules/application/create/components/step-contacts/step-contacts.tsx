@@ -5,11 +5,12 @@ import { toast } from "react-toastify";
 import type { TFunction } from "i18next";
 import { AxiosError } from "axios";
 
-import { StepContactsUi } from "./step-contacts.ui";
+
 import { contactService } from "@/lib/api/contact/contact.service";
 import type { TCreateApplicationFormReturn } from "@/modules/application/schema/application-schema";
-import type { TFormContact } from "../types";
+import type { TFormContact } from "../../types";
 import type { IApiErrors } from "@/shared/types/api";
+import { StepContactsUi } from "./step-contacts.ui";
 
 interface IStepContactsProps {
   form: TCreateApplicationFormReturn;

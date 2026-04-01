@@ -4,7 +4,7 @@ import { MinimalTiptapEditor } from "@/components/ui/minimal-tiptap";
 import { TooltipProvider } from "@/shared/components/ui/tooltip";
 import type { Content } from "@tiptap/react";
 import type { INote } from "@/shared/types/entity";
-import type { TTranslationFn } from "../types";
+import type { TTranslationFn } from "../../types";
 
 interface INotesTabUiProps {
   notes: INote[];

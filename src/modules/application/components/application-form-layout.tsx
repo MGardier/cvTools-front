@@ -17,8 +17,8 @@ import { StepGeneral } from "@/modules/application/create/components/step-genera
 import { StepClassification } from "@/modules/application/create/components/step-classification";
 import { StepSalaryDescription } from "@/modules/application/create/components/step-salary-description";
 import { StepAddress } from "@/modules/application/create/components/step-address";
-import { StepContacts } from "@/modules/application/create/components/step-contacts";
-import { StepSkills } from "@/modules/application/create/components/step-skills";
+import { StepContacts } from "@/modules/application/create/components/step-contacts/step-contacts";
+import { StepSkills } from "@/modules/application/create/components/step-skills/step-skills";
 
 interface IApplicationFormLayoutProps {
   form: TCreateApplicationFormReturn;

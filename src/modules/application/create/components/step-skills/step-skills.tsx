@@ -4,12 +4,11 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import type { TFunction } from "i18next";
 import { AxiosError } from "axios";
-
-import { StepSkillsUi } from "./step-skills.ui";
 import { skillService } from "@/lib/api/skill/skill.service";
 import type { TCreateApplicationFormReturn } from "@/modules/application/schema/application-schema";
-import type { TFormSkill } from "../types";
+import type { TFormSkill } from "../../types";
 import type { IApiErrors } from "@/shared/types/api";
+import { StepSkillsUi } from "./step-skills.ui";
 
 interface IStepSkillsProps {
   form: TCreateApplicationFormReturn;

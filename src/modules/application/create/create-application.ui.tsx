@@ -7,7 +7,7 @@ import type { TCreateApplicationFormReturn, TCreateApplicationFormOutput } from 
 import type { IExtractedApplication } from "@/lib/api/scraper/types";
 
 import { ApplicationFormLayout } from "@/modules/application/components/application-form-layout";
-import { UrlExtractModal } from "./components/url-extract-modal";
+import { UrlExtractModal } from "./components/url-extract-modal/url-extract-modal";
 
 interface ICreateApplicationUiProps {
   form: TCreateApplicationFormReturn;

@@ -222,18 +222,25 @@
         "complementPlaceholder": "Ex : Bâtiment A"
       },
       "extract": {
-        "button": "Remplir depuis une URL",
-        "hint": "Collez un lien d'offre d'emploi pour pré-remplir le formulaire via l'IA",
+        "button": "Remplir depuis une offre",
+        "hint": "Collez un lien ou le contenu d'une offre d'emploi pour pré-remplir le formulaire via l'IA",
         "modal": {
           "title": "Extraire une offre",
-          "subtitle": "Entrez l'URL de l'offre d'emploi pour pré-remplir le formulaire automatiquement",
+          "subtitle": "Pré-remplissez le formulaire à partir d'un lien ou du contenu copié depuis une offre d'emploi",
+          "tabUrl": "Lien URL",
+          "tabPaste": "Copier-coller",
           "urlLabel": "URL de l'offre",
           "urlPlaceholder": "https://...",
+          "rawContentLabel": "Contenu de l'offre",
+          "rawContentPlaceholder": "Collez ici le contenu copié depuis une offre d'emploi...",
           "submit": "Extraire",
           "cancel": "Annuler",
           "loading": "Extraction en cours...",
           "success": "Formulaire pré-rempli avec succès",
-          "error": "Impossible d'extraire les données de cette offre"
+          "error": "Impossible d'extraire les données de cette offre",
+          "errorExtractionFailed": "L'extraction a échoué. Essayez de copier-coller le contenu de l'offre directement.",
+          "errorUrlInvalid": "L'URL saisie n'est pas valide",
+          "errorDomainNotSupported": "Ce site n'est pas supporté pour l'extraction automatique"
         }
       },
       "skillImportWarning": "{{count}} compétence n'a pas pu être importée",
@@ -338,6 +345,10 @@
     "urlInvalid": "L'URL n'est pas valide",
     "invalidNumber": "La valeur doit être un nombre valide",
     "invalidDate": "La date n'est pas valide",
+
+    "extractOffer": {
+      "onlyOne": "Veuillez renseigner soit une URL, soit un contenu, pas les deux"
+    },
 
     "title": {
       "required": "Le titre est requis",

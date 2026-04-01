@@ -3,9 +3,10 @@ import type { TFunction } from "i18next";
 
 import { EntitySearchField } from "@/shared/components/form/entity-search-field";
 import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog";
-import { ContactModal } from "./contact-modal";
-import type { TFormContact } from "../types";
+
+import type { TFormContact } from "../../types";
 import type { IContact } from "@/shared/types/entity";
+import { ContactModal } from "../contact-modal";
 
 interface IStepContactsUiProps {
   contacts: TFormContact[];

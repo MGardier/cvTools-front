@@ -13,13 +13,13 @@ import { cn } from "@/shared/utils/utils";
 import { HeroCard } from "./components/hero-card";
 import { MetadataStrip } from "./components/metadata-strip";
 import { DescriptionTab } from "./components/description-tab";
-import { NotesTab } from "./components/notes-tab";
-import { HistoryTab } from "./components/history-tab";
-import { TasksTab } from "./components/tasks-tab";
 import { ContactSection } from "./components/contact-section";
 
 import type { IApplication } from "@/shared/types/entity";
 import type { TDetailTab, IDetailTab, IMetaItem } from "./types";
+import { TasksTab } from "./components/task-tab/tasks-tab";
+import { HistoryTab } from "./components/history-tab/history-tab";
+import { NotesTab } from "./components/notes-tab/notes-tab";
 
 interface IApplicationDetailUiProps {
   application: IApplication;

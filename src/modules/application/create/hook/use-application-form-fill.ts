@@ -43,7 +43,7 @@ export const useApplicationFormFill = (
 
       // Application primary fields — use setValue to preserve dirty/touched state
       if (data.title) form.setValue("title", data.title);
-      if (sourceUrl) form.setValue("url", sourceUrl);
+      if (sourceUrl?.trim()) form.setValue("url", sourceUrl);
       if (data.company) form.setValue("company", data.company);
       if (data.description) form.setValue("description", data.description);
       if (data.contractType) form.setValue("contractType", data.contractType);
