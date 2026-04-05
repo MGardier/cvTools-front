@@ -9,7 +9,7 @@ import { ROUTES } from "@/app/constants/routes";
 import { createResetPasswordSchema } from "../schema/auth-schema";
 import type { IResetPasswordResponse } from "../types";
 import type { IApiErrors } from "@/shared/types/api";
-import { authService } from "@/lib/service/auth/auth.service";
+import { authService } from "@/lib/api/auth/auth.service";
 import { ResetPasswordUi } from "./reset-password.ui";
 import { SendForgotPassword } from "../send-forgot-password/send-forgot-password";
 

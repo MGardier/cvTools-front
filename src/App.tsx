@@ -17,8 +17,12 @@ import { ConfirmAccount } from "./modules/auth/confirm-account/confirm-account";
 import { ResetPassword } from "./modules/auth/reset-password/reset-password";
 import { Logout } from "./modules/auth/logout/logout";
 import { OauthCallback } from "./modules/auth/oauth/oauth-callback";
-import { Layout } from "@/app/layout/layout";
+import { Layout } from "@/app/router/layout/layout";
 import { PrivateRoutes } from "@/app/router/private-routes";
+import { ApplicationList } from "@/modules/application/list/application-list";
+import { CreateApplication } from "@/modules/application/create/create-application";
+import { ApplicationDetail } from "@/modules/application/detail/application-detail";
+import { EditApplication } from "@/modules/application/edit/edit-application";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,12 +63,42 @@ function App() {
               element={<SignIn />}
             />
 
-            {/* LOGOUT */}
+            {/* LOGOUT + PROTECTED ROUTES */}
             <Route element={<PrivateRoutes />}>
               <Route
                 key="logout"
                 path={ROUTES.auth.logout}
                 element={<Logout />}
+              />
+
+              {/************************* APPLICATION *************************************** */}
+              
+              {/* APPLICATION LIST */}
+              <Route
+                key="applicationList"
+                path={ROUTES.application.list}
+                element={<ApplicationList />}
+              />
+
+              {/* APPLICATION CREATE */}
+              <Route
+                key="applicationCreate"
+                path={ROUTES.application.create}
+                element={<CreateApplication />}
+              />
+
+              {/* APPLICATION EDIT */}
+              <Route
+                key="applicationEdit"
+                path={ROUTES.application.editPattern}
+                element={<EditApplication />}
+              />
+
+              {/* APPLICATION DETAIL */}
+              <Route
+                key="applicationDetail"
+                path={ROUTES.application.detailPattern}
+                element={<ApplicationDetail />}
               />
             </Route>
 

@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/shared/components/ui/card";
 import { Button } from "@/shared/components/ui/button";
-import { AuthCardHeader } from "../components/auth-card-header";
-import { AuthLayout } from "../components/auth-layout";
+import { FormCardHeader } from "@/shared/components/form/form-card-header";
+import { FormLayout } from "@/shared/components/form/form-layout";
 import { Loader2 } from "lucide-react";
 import type { TFunction } from "i18next";
 
@@ -14,9 +14,9 @@ interface IConfirmAccountUiProps {
 
 export const ConfirmAccountUi = ({ isError, isPending, onRetry, t }: IConfirmAccountUiProps) => {
     return (
-        <AuthLayout>
+        <FormLayout>
             <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
-                <AuthCardHeader title={t("pages.confirmAccount.title")} />
+                <FormCardHeader title={t("pages.confirmAccount.title")} />
                 <CardContent>
                     <Button
                         className="w-full flex gap-2 text-white"
@@ -33,6 +33,6 @@ export const ConfirmAccountUi = ({ isError, isPending, onRetry, t }: IConfirmAcc
                     </Button>
                 </CardContent>
             </Card>
-        </AuthLayout>
+        </FormLayout>
     );
 };

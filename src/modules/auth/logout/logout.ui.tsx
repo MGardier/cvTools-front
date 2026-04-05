@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/shared/components/ui/card";
 import { Button } from "@/shared/components/ui/button";
-import { AuthCardHeader } from "../components/auth-card-header";
-import { AuthLayout } from "../components/auth-layout";
+import { FormCardHeader } from "@/shared/components/form/form-card-header";
+import { FormLayout } from "@/shared/components/form/form-layout";
 import { Loader2 } from "lucide-react";
 import type { TFunction } from "i18next";
 
@@ -12,9 +12,9 @@ interface ILogoutUiProps {
 
 export const LogoutUi = ({ isPending, t }: ILogoutUiProps) => {
     return (
-        <AuthLayout>
+        <FormLayout>
             <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
-                <AuthCardHeader title={t("pages.logout.title")} />
+                <FormCardHeader title={t("pages.logout.title")} />
                 {isPending && (
                     <CardContent>
                         <Button
@@ -29,6 +29,6 @@ export const LogoutUi = ({ isPending, t }: ILogoutUiProps) => {
                     </CardContent>
                 )}
             </Card>
-        </AuthLayout>
+        </FormLayout>
     );
 };

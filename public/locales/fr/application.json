@@ -1,0 +1,444 @@
+{
+  "list": {
+    "title": "Mes candidatures",
+    "subtitle": "Suivez et gérez toutes vos candidatures",
+    "create": "Créer une candidature",
+    "createShort": "Créer",
+    "results": "{{count}} candidature",
+    "results_other": "{{count}} candidatures",
+    "empty": "Aucune candidature trouvée",
+    "emptySearch": "Aucun résultat pour votre recherche",
+    "columns": {
+      "title": "Titre du poste",
+      "company": "Entreprise",
+      "status": "Statut",
+      "contractType": "Contrat",
+      "jobboard": "Jobboard",
+      "createdAt": "Créé le"
+    },
+    "filters": {
+      "search": "Par mots clés",
+      "city": "Par ville ou code postal",
+      "status": "Statut",
+      "statusPlaceholder": "Par status",
+      "statusCount": "{{count}} statut sélectionné",
+      "statusCount_other": "{{count}} statuts sélectionnés",
+      "createdAtFrom": "Par date de création",
+      "searchButton": "Rechercher",
+      "clearFilters": "Réinitialiser",
+      "chips": {
+        "search": "Recherche : {{value}}",
+        "city": "Ville : {{value}}",
+        "createdAtFrom": "Depuis le : {{value}}"
+      }
+    },
+    "sort": {
+      "label": "Trier par",
+      "createdAtDesc": "Créer récemment",
+      "createdAtAsc": "Créer anciennement",
+      "publishedAtDesc": "Publication récente",
+      "publishedAtAsc": "Publication ancienne",
+      "status": "Status",
+      "jobboard": "Jobboard",
+      "appliedAtAsc": "Postuler récemment"
+    },
+    "pagination": {
+      "perPage": "par page",
+      "previous": "Précédent",
+      "next": "Suivant"
+    },
+    "card": {
+      "companyNotProvided": "Entreprise non précisée",
+      "cityNotProvided": "Ville non renseignée",
+      "salaryNotProvided": "Salaire non renseigné",
+      "view": "Voir la candidature",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "published": "Publié",
+      "applied": "Postulé"
+    },
+    "confirmDelete": {
+      "title": "Supprimer cette candidature ?",
+      "description": "La candidature \"{{title}}\" sera définitivement supprimée. Cette action est irréversible.",
+      "confirm": "Supprimer",
+      "cancel": "Annuler"
+    },
+    "deleteSuccess": "Candidature supprimée",
+    "deleteError": "Erreur lors de la suppression de la candidature",
+    "loading": "Chargement des candidatures...",
+    "error": "Impossible de charger les candidatures"
+  },
+  "filter": {
+    "favorite": "Favoris"
+  },
+  "status": {
+    "TO_APPLY": "À postuler",
+    "APPLIED": "Postulé",
+    "FIRST_CONTACT": "Premier contact",
+    "FIRST_INTERVIEW": "Premier entretien",
+    "FOLLOW_UP_INTERVIEW": "Entretien de suivi",
+    "OFFER_RECEIVED": "Offre reçue",
+    "ACCEPTED": "Accepté",
+    "REJECTED": "Refusé",
+    "GHOSTED": "Sans réponse",
+    "WITHDRAWN": "Retiré"
+  },
+  "contractType": {
+    "CDI": "CDI",
+    "CDD": "CDD",
+    "FREELANCE": "Freelance",
+    "ALTERNANCE": "Alternance",
+    "STAGE": "Stage",
+    "INTERIM": "Intérim"
+  },
+  "remotePolicy": {
+    "ONSITE": "Sur site",
+    "HYBRID": "Hybride",
+    "FULL": "Full remote"
+  },
+  "experience": {
+    "JUNIOR": "Junior",
+    "MID": "Intermédiaire",
+    "SENIOR": "Senior",
+    "LEAD": "Lead"
+  },
+  "jobboard": {
+    "LINKEDIN": "LinkedIn",
+    "INDEED": "Indeed",
+    "WTTJ": "Welcome to the Jungle",
+    "FRANCE_TRAVAIL": "France Travail",
+    "GLASSDOOR": "Glassdoor",
+    "APEC": "Apec",
+    "HELLO_WORK": "HelloWork",
+    "METEO_JOB": "Météo Job",
+    "UNKNOW": "Autre"
+  },
+  "compatibility": {
+    "PERFECT": "Parfait",
+    "ATTAINABLE": "Atteignable",
+    "WHY_NOT": "Pourquoi pas"
+  },
+  "detail": {
+    "applyNow": "Voir l'offre",
+    "contacts": "Contacts",
+    "noSkills": "Aucune compétence",
+    "noDescription": "Aucune description renseignée",
+    "breadcrumb": {
+      "list": "Candidatures"
+    },
+    "tabs": {
+      "description": "Description",
+      "notes": "Notes",
+      "history": "Historique",
+      "tasks": "Tâches"
+    },
+    "companyNotProvided": "Entreprise non précisée",
+    "locationNotProvided": "Ville non renseignée",
+    "notProvided": "Non renseigné",
+    "meta": {
+      "experience": "Expérience",
+      "contract": "Contrat",
+      "remote": "Remote",
+      "compatibility": "Compatibilité",
+      "published": "Publié"
+    },
+    "notes": {
+      "placeholder": "Ajouter une note...",
+      "add": "Ajouter",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "oldest": "Plus anciennes",
+      "newest": "Plus récentes",
+      "empty": "Aucune note",
+      "error": "Erreur lors de l'opération sur la note"
+    },
+    "tasks": {
+      "placeholder": "Ajouter une tâche...",
+      "add": "Ajouter",
+      "completed": "terminées",
+      "filterAll": "Toutes",
+      "filterTodo": "À faire",
+      "filterDone": "Faites",
+      "empty": "Aucune tâche",
+      "error": "Erreur lors de l'opération sur la tâche"
+    },
+    "history": {
+      "add": "Ajouter un événement",
+      "placeholder": "Description de l'événement...",
+      "save": "Ajouter",
+      "cancel": "Annuler",
+      "empty": "Aucun historique",
+      "error": "Erreur lors de l'opération sur l'historique"
+    }
+  },
+  "pages": {
+    "create": {
+      "title": "Nouvelle candidature",
+      "subtitle": "Remplissez les informations pour créer une candidature",
+      "steps": {
+        "general": "Général",
+        "classification": "Classification",
+        "salary": "Rémunération",
+        "address": "Localisation",
+        "contacts": "Contacts",
+        "skills": "Compétences"
+      },
+      "fields": {
+        "title": "Titre du poste",
+        "titlePlaceholder": "Ex : Développeur Full Stack",
+        "url": "URL de l'offre",
+        "urlPlaceholder": "https://...",
+        "company": "Entreprise",
+        "companyPlaceholder": "Ex : Google",
+        "jobboard": "Jobboard",
+        "jobboardPlaceholder": "Sélectionner un jobboard",
+        "publishedAt": "Date de publication",
+        "publishedAtPlaceholder": "Sélectionner une date",
+        "contractType": "Type de contrat",
+        "contractTypePlaceholder": "Sélectionner un contrat",
+        "currentStatus": "Statut",
+        "currentStatusPlaceholder": "Sélectionner un statut",
+        "experience": "Niveau d'expérience",
+        "experiencePlaceholder": "Sélectionner un niveau",
+        "remotePolicy": "Politique de télétravail",
+        "remotePolicyPlaceholder": "Sélectionner une politique",
+        "compatibility": "Compatibilité",
+        "compatibilityPlaceholder": "Sélectionner un niveau",
+        "salaryMin": "Salaire minimum",
+        "salaryMinPlaceholder": "Ex : 35000",
+        "salaryMax": "Salaire maximum",
+        "salaryMaxPlaceholder": "Ex : 45000",
+        "description": "Description",
+        "descriptionPlaceholder": "Description du poste...",
+        "city": "Ville",
+        "cityPlaceholder": "Ex : Paris",
+        "postalCode": "Code postal",
+        "postalCodePlaceholder": "Ex : 75001",
+        "street": "Rue",
+        "streetPlaceholder": "Ex : Rue de Rivoli",
+        "streetNumber": "Numéro",
+        "streetNumberPlaceholder": "Ex : 42",
+        "complement": "Complément",
+        "complementPlaceholder": "Ex : Bâtiment A"
+      },
+      "extract": {
+        "button": "Remplir depuis une offre",
+        "hint": "Collez un lien ou le contenu d'une offre d'emploi pour pré-remplir le formulaire via l'IA",
+        "modal": {
+          "title": "Extraire une offre",
+          "subtitle": "Pré-remplissez le formulaire à partir d'un lien ou du contenu copié depuis une offre d'emploi",
+          "tabUrl": "Lien URL",
+          "tabPaste": "Copier-coller",
+          "urlLabel": "URL de l'offre",
+          "urlPlaceholder": "https://...",
+          "rawContentLabel": "Contenu de l'offre",
+          "rawContentPlaceholder": "Collez ici le contenu copié depuis une offre d'emploi...",
+          "submit": "Extraire",
+          "cancel": "Annuler",
+          "loading": "Extraction en cours...",
+          "success": "Formulaire pré-rempli avec succès",
+          "error": "Impossible d'extraire les données de cette offre",
+          "errorExtractionFailed": "L'extraction a échoué. Essayez de copier-coller le contenu de l'offre directement.",
+          "errorUrlInvalid": "L'URL saisie n'est pas valide",
+          "errorDomainNotSupported": "Ce site n'est pas supporté pour l'extraction automatique"
+        }
+      },
+      "skillImportWarning": "{{count}} compétence n'a pas pu être importée",
+      "skillImportWarning_other": "{{count}} compétences n'ont pas pu être importées",
+      "contacts": {
+        "title": "Contacts",
+        "empty": "Aucun contact ajouté",
+        "add": "Ajouter un contact",
+        "createNew": "Nouveau contact",
+        "searchPlaceholder": "Rechercher un contact...",
+        "noResults": "Aucun contact trouvé",
+        "confirmDelete": {
+          "title": "Supprimer le contact",
+          "description": "Voulez-vous vraiment supprimer {{name}} ?",
+          "confirm": "Supprimer",
+          "cancel": "Annuler"
+        },
+        "modal": {
+          "title": "Nouveau contact",
+          "subtitle": "Ajoutez les informations du contact",
+          "firstname": "Prénom",
+          "firstnamePlaceholder": "Ex : Jean",
+          "lastname": "Nom",
+          "lastnamePlaceholder": "Ex : Dupont",
+          "email": "Email",
+          "emailPlaceholder": "Ex : jean.dupont@email.com",
+          "phone": "Téléphone",
+          "phonePlaceholder": "Ex : 06 12 34 56 78",
+          "profession": "Profession",
+          "professionPlaceholder": "Ex : Recruteur",
+          "submit": "Ajouter",
+          "save": "Enregistrer",
+          "cancel": "Annuler",
+          "error": "Erreur lors de la création du contact",
+          "editTitle": "Modifier le contact",
+          "editSubtitle": "Modifiez les informations du contact"
+        },
+        "deleteSuccess": "Contact supprimé",
+        "deleteError": "Erreur lors de la suppression du contact",
+        "deleteConflict": "Ce contact est associé à une candidature et ne peut pas être supprimé",
+        "linkError": "Erreur lors de l'association du contact",
+        "unlinkError": "Erreur lors de la dissociation du contact"
+      },
+      "skills": {
+        "title": "Compétences",
+        "empty": "Aucune compétence ajoutée",
+        "add": "Ajouter",
+        "searchPlaceholder": "Rechercher une compétence...",
+        "createNew": "Créer « {{label}} »",
+        "inputPlaceholder": "Ex : React, TypeScript...",
+        "confirmDelete": {
+          "title": "Supprimer la compétence",
+          "description": "Voulez-vous vraiment supprimer « {{name}} » ?",
+          "confirm": "Supprimer",
+          "cancel": "Annuler"
+        },
+        "modal": {
+          "title": "Nouvelle compétence",
+          "subtitle": "Ajoutez une compétence à votre profil",
+          "editTitle": "Modifier la compétence",
+          "editSubtitle": "Modifiez le nom de la compétence",
+          "label": "Compétence",
+          "labelPlaceholder": "Ex : React",
+          "submit": "Ajouter",
+          "save": "Enregistrer",
+          "cancel": "Annuler",
+          "error": "Erreur lors de la création de la compétence"
+        },
+        "deleteSuccess": "Compétence supprimée",
+        "deleteError": "Erreur lors de la suppression de la compétence",
+        "deleteConflict": "Cette compétence est utilisée et ne peut pas être supprimée",
+        "linkError": "Erreur lors de l'association de la compétence",
+        "unlinkError": "Erreur lors de la dissociation de la compétence"
+      },
+      "navigation": {
+        "previous": "Précédent",
+        "next": "Suivant",
+        "submit": "Créer la candidature"
+      },
+      "messages": {
+        "success": "Candidature créée avec succès",
+        "error": "Erreur lors de la création de la candidature"
+      }
+    },
+    "edit": {
+      "title": "Modifier la candidature",
+      "subtitle": "Modifiez les informations de votre candidature",
+      "navigation": {
+        "submit": "Enregistrer les modifications"
+      },
+      "messages": {
+        "success": "Candidature modifiée avec succès",
+        "error": "Erreur lors de la modification de la candidature"
+      }
+    }
+  },
+  "validation": {
+    "required": "Ce champ est requis",
+    "max": "Ce champ ne peut pas dépasser {{max}} caractères",
+    "min": "La valeur doit être supérieure à {{min}}",
+    "email": "L'adresse email n'est pas valide",
+    "urlInvalid": "L'URL n'est pas valide",
+    "invalidNumber": "La valeur doit être un nombre valide",
+    "invalidDate": "La date n'est pas valide",
+
+    "extractOffer": {
+      "onlyOne": "Veuillez renseigner soit une URL, soit un contenu, pas les deux"
+    },
+
+    "title": {
+      "required": "Le titre est requis",
+      "invalid": "Le titre n'est pas valide"
+    },
+    "url": {
+      "required": "L'URL est requise",
+      "invalid": "L'URL n'est pas valide"
+    },
+    "company": {
+      "invalid": "Le nom de l'entreprise n'est pas valide"
+    },
+    "jobboard": {
+      "required": "Le jobboard est requis",
+      "invalid": "Le jobboard sélectionné n'est pas valide"
+    },
+    "publishedAt": {
+      "invalid": "La date de publication n'est pas valide"
+    },
+    "contractType": {
+      "required": "Le type de contrat est requis",
+      "invalid": "Le type de contrat sélectionné n'est pas valide"
+    },
+    "currentStatus": {
+      "required": "Le statut est requis",
+      "invalid": "Le statut sélectionné n'est pas valide"
+    },
+    "experience": {
+      "invalid": "Le niveau d'expérience sélectionné n'est pas valide"
+    },
+    "remotePolicy": {
+      "invalid": "La politique de télétravail sélectionnée n'est pas valide"
+    },
+    "compatibility": {
+      "invalid": "Le niveau de compatibilité sélectionné n'est pas valide"
+    },
+    "salaryMin": {
+      "invalid": "Le salaire minimum doit être supérieur à 10 000"
+    },
+    "salaryMax": {
+      "invalid": "Le salaire maximum n'est pas valide"
+    },
+    "salaryBoth": "Les deux salaires doivent être renseignés ensemble",
+    "salaryMinGreaterThanMax": "Le salaire minimum ne peut pas être supérieur au salaire maximum",
+
+    "contact": {
+      "firstname": {
+        "required": "Le prénom est requis",
+        "invalid": "Le prénom n'est pas valide"
+      },
+      "lastname": {
+        "required": "Le nom est requis",
+        "invalid": "Le nom n'est pas valide"
+      },
+      "email": {
+        "required": "L'email est requis",
+        "invalid": "L'adresse email n'est pas valide"
+      },
+      "phone": {
+        "invalid": "Le numéro de téléphone n'est pas valide"
+      },
+      "profession": {
+        "required": "La profession est requise",
+        "invalid": "La profession n'est pas valide"
+      }
+    },
+    "skill": {
+      "label": {
+        "required": "La compétence ne peut pas être vide",
+        "invalid": "La compétence n'est pas valide"
+      }
+    },
+    "address": {
+      "city": {
+        "required": "La ville est requise",
+        "invalid": "La ville n'est pas valide"
+      },
+      "postalCode": {
+        "required": "Le code postal est requis",
+        "invalid": "Le code postal n'est pas valide"
+      },
+      "street": {
+        "invalid": "La rue n'est pas valide"
+      },
+      "streetNumber": {
+        "invalid": "Le numéro n'est pas valide"
+      },
+      "complement": {
+        "invalid": "Le complément n'est pas valide"
+      }
+    }
+  }
+}

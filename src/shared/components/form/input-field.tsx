@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   FormControl,
   FormField,
@@ -8,51 +9,45 @@ import {
 import { Input } from "@/shared/components/ui/input";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
-interface InputFieldProps<TFormData extends FieldValues> {
+
+interface IInputFieldProps<TFormData extends FieldValues> {
   label?: string;
+  labelRight?: React.ReactNode;
   name: Path<TFormData>;
   type: string;
   placeholder?: string;
   required?: boolean;
-  form: UseFormReturn<TFormData>;
+  form: UseFormReturn<TFormData, any, any>;
   step?: number;
 }
 
 export const InputField = <TFormData extends FieldValues>({
   form,
   label,
+  labelRight,
   name,
   type,
-  placeholder,
   required = false,
+  placeholder,
   step,
-}: InputFieldProps<TFormData>) => {
+}: IInputFieldProps<TFormData>) => {
+  const { t } = useTranslation("common");
+
   return (
-    <div className="space-y-3 ">
+    <div className="grid gap-3">
       <FormField
         control={form.control}
         name={name}
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="text-sm">
-              {label}{" "}
-              <p className="text-muted-foreground text-xs">
-                {required ? " (Requis)" : " (Optionnel)"}
-              </p>
-            </FormLabel>
-            <FormMessage />
+              <div className="flex items-center justify-between">
+                <FormLabel>{label} <span className="text-muted-foreground text-xs">{required ? ` (${t("form.required")})` : ` (${t("form.optional")})`}</span></FormLabel>
+                {labelRight}
+              </div>
             <FormControl>
-              <Input
-                {...{
-                  className: "h-8 md:h-12 lg:h-12 w-full max-w-full",
-                  placeholder,
-                  type,
-                  required,
-                  ...field,
-                  ...(type === "number" ? { step } : {}),
-                }}
-              />
+              <Input {...{className: "h-8 md:h-12 lg:h-12 w-full max-w-full",placeholder ,type ,required ,...field, ...(type === "number" ? { step } : {})}}/>
             </FormControl>
+            <FormMessage />
           </FormItem>
         )}
       />

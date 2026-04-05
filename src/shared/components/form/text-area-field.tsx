@@ -8,7 +8,8 @@ interface TextAreaFieldProps<TFormData extends FieldValues> {
 
   placeholder?: string;
   required?: boolean;
-  form: UseFormReturn<TFormData>;
+  className?: string;
+  form: UseFormReturn<TFormData, any, any>;
 }
 
 
@@ -18,7 +19,7 @@ export const TextAreaField = <TFormData extends FieldValues>({
   name,
   placeholder,
   required = false,
-
+  className,
 }: TextAreaFieldProps<TFormData> )=> {
 
   return (
@@ -40,6 +41,7 @@ export const TextAreaField = <TFormData extends FieldValues>({
                 {...{
                   placeholder,
                   required,
+                  className,
                   ...field,
                 }}
               />

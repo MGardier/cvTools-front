@@ -1,3 +1,4 @@
+import { ROUTES } from "./routes";
 import type { TFooterItem, TNavbarItem } from "./types";
 
 
@@ -9,10 +10,11 @@ export const NAVBAR_ITEMS : TNavbarItem[] = [
     isSoon : true,
   },
   {
-    label: "jobs",
-    key: "jobs",
+    label: "applications",
+    key: "applications",
+    link: ROUTES.application.list,
     isDisabled: false,
-    isSoon : true,
+    isSoon : false,
   },
   {
     label: "help",
@@ -26,13 +28,7 @@ export const NAVBAR_ITEMS : TNavbarItem[] = [
     isDisabled: true,
     isSoon : false,
   },
-  {
-    label: "test",
-    key: "test",
-    link:"/",
-    isDisabled: false,
-    isSoon : false,
-  },
+
 
 ] as const;
 
@@ -50,8 +46,8 @@ export const FOOTER_ITEMS : TFooterItem[] = [
     ]
   },
   {
-    label: "jobs",
-    key: "jobs",
+    label: "applications",
+    key: "applications",
     links: [
       { label: "contact", link: "#" },
       { label: "support", link: "#" },

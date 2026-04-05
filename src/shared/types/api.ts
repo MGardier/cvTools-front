@@ -12,9 +12,7 @@ export interface IApiResponse<T> {
 
 
 
-export interface IApiErrors extends IApiResponse<null> {
-
-}
+export type IApiErrors = IApiResponse<null>;
 
 
 

@@ -1,0 +1,433 @@
+{
+  "list": {
+    "title": "My Applications",
+    "subtitle": "Track and manage all your job applications",
+    "create": "Create an application",
+    "createShort": "Create",
+    "results": "{{count}} application",
+    "results_other": "{{count}} applications",
+    "empty": "No applications found",
+    "emptySearch": "No results for your search",
+    "columns": {
+      "title": "Job Title",
+      "company": "Company",
+      "status": "Status",
+      "contractType": "Contract",
+      "jobboard": "Jobboard",
+      "createdAt": "Created at"
+    },
+    "filters": {
+      "search": "By keywords",
+      "city": "By city or postal code",
+      "status": "Status",
+      "statusPlaceholder": "By status",
+      "statusCount": "{{count}} status selected",
+      "statusCount_other": "{{count}} statuses selected",
+      "createdAtFrom": "By creation date",
+      "searchButton": "Search",
+      "clearFilters": "Reset filters",
+      "chips": {
+        "search": "Search: {{value}}",
+        "city": "City: {{value}}",
+        "createdAtFrom": "From: {{value}}"
+      }
+    },
+    "sort": {
+      "label": "Sort by",
+      "createdAtDesc": "Recently created",
+      "createdAtAsc": "Oldest created",
+      "publishedAtDesc": "Recently published",
+      "publishedAtAsc": "Oldest published",
+      "status": "Status",
+      "jobboard": "Jobboard",
+      "appliedAtAsc": "Recently applied"
+    },
+    "pagination": {
+      "perPage": "per page",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "card": {
+      "companyNotProvided": "Company not specified",
+      "cityNotProvided": "City not provided",
+      "salaryNotProvided": "Salary not provided",
+      "view": "View application",
+      "edit": "Edit",
+      "delete": "Delete",
+      "published": "Published",
+      "applied": "Applied"
+    },
+    "confirmDelete": {
+      "title": "Delete this application?",
+      "description": "The application \"{{title}}\" will be permanently deleted. This action cannot be undone.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    },
+    "deleteSuccess": "Application deleted",
+    "deleteError": "Error deleting application",
+    "loading": "Loading applications...",
+    "error": "Unable to load applications"
+  },
+  "filter": {
+    "favorite": "Favorites"
+  },
+  "status": {
+    "TO_APPLY": "To apply",
+    "APPLIED": "Applied",
+    "FIRST_CONTACT": "First contact",
+    "FIRST_INTERVIEW": "First interview",
+    "FOLLOW_UP_INTERVIEW": "Follow-up interview",
+    "OFFER_RECEIVED": "Offer received",
+    "ACCEPTED": "Accepted",
+    "REJECTED": "Rejected",
+    "GHOSTED": "Ghosted",
+    "WITHDRAWN": "Withdrawn"
+  },
+  "contractType": {
+    "CDI": "Permanent",
+    "CDD": "Fixed-term",
+    "FREELANCE": "Freelance",
+    "ALTERNANCE": "Apprenticeship",
+    "STAGE": "Internship",
+    "INTERIM": "Temporary"
+  },
+  "remotePolicy": {
+    "ONSITE": "On-site",
+    "HYBRID": "Hybrid",
+    "FULL": "Full remote"
+  },
+  "experience": {
+    "JUNIOR": "Junior",
+    "MID": "Mid-level",
+    "SENIOR": "Senior",
+    "LEAD": "Lead"
+  },
+  "jobboard": {
+    "LINKEDIN": "LinkedIn",
+    "INDEED": "Indeed",
+    "WTTJ": "Welcome to the Jungle",
+    "FRANCE_TRAVAIL": "France Travail",
+    "GLASSDOOR": "Glassdoor",
+    "APEC": "Apec",
+    "HELLO_WORK": "HelloWork",
+    "METEO_JOB": "Meteo Job",
+    "UNKNOW": "Other"
+  },
+  "compatibility": {
+    "PERFECT": "Perfect",
+    "ATTAINABLE": "Attainable",
+    "WHY_NOT": "Why not"
+  },
+  "detail": {
+    "applyNow": "View Offer",
+    "contacts": "Contacts",
+    "noSkills": "No skills",
+    "noDescription": "No description provided",
+    "breadcrumb": {
+      "list": "Applications"
+    },
+    "tabs": {
+      "description": "Description",
+      "notes": "Notes",
+      "history": "History",
+      "tasks": "Tasks"
+    },
+    "companyNotProvided": "Company not specified",
+    "locationNotProvided": "Location not provided",
+    "notProvided": "Not provided",
+    "meta": {
+      "experience": "Experience",
+      "contract": "Contract",
+      "remote": "Remote",
+      "compatibility": "Compatibility",
+      "published": "Published"
+    },
+    "notes": {
+      "placeholder": "Add a note...",
+      "add": "Add",
+      "save": "Save",
+      "cancel": "Cancel",
+      "oldest": "Oldest first",
+      "newest": "Newest first",
+      "empty": "No notes",
+      "error": "Error with note operation"
+    },
+    "tasks": {
+      "placeholder": "Add a task...",
+      "add": "Add",
+      "completed": "completed",
+      "filterAll": "All",
+      "filterTodo": "To do",
+      "filterDone": "Done",
+      "empty": "No tasks",
+      "error": "Error with task operation"
+    },
+    "history": {
+      "add": "Add event",
+      "placeholder": "Event description...",
+      "save": "Add",
+      "cancel": "Cancel",
+      "empty": "No history",
+      "error": "Error with history operation"
+    }
+  },
+  "pages": {
+    "create": {
+      "title": "New application",
+      "subtitle": "Fill in the information to create an application",
+      "steps": {
+        "general": "General",
+        "classification": "Classification",
+        "salary": "Salary",
+        "address": "Location",
+        "contacts": "Contacts",
+        "skills": "Skills"
+      },
+      "fields": {
+        "title": "Job title",
+        "titlePlaceholder": "E.g.: Full Stack Developer",
+        "url": "Job offer URL",
+        "urlPlaceholder": "https://...",
+        "company": "Company",
+        "companyPlaceholder": "E.g.: Google",
+        "jobboard": "Jobboard",
+        "jobboardPlaceholder": "Select a jobboard",
+        "publishedAt": "Publication date",
+        "publishedAtPlaceholder": "Select a date",
+        "contractType": "Contract type",
+        "contractTypePlaceholder": "Select a contract",
+        "currentStatus": "Status",
+        "currentStatusPlaceholder": "Select a status",
+        "experience": "Experience level",
+        "experiencePlaceholder": "Select a level",
+        "remotePolicy": "Remote policy",
+        "remotePolicyPlaceholder": "Select a policy",
+        "compatibility": "Compatibility",
+        "compatibilityPlaceholder": "Select a level",
+        "salaryMin": "Minimum salary",
+        "salaryMinPlaceholder": "E.g.: 35000",
+        "salaryMax": "Maximum salary",
+        "salaryMaxPlaceholder": "E.g.: 45000",
+        "description": "Description",
+        "descriptionPlaceholder": "Job description...",
+        "city": "City",
+        "cityPlaceholder": "E.g.: Paris",
+        "postalCode": "Postal code",
+        "postalCodePlaceholder": "E.g.: 75001",
+        "street": "Street",
+        "streetPlaceholder": "E.g.: Main Street",
+        "streetNumber": "Number",
+        "streetNumberPlaceholder": "E.g.: 42",
+        "complement": "Additional info",
+        "complementPlaceholder": "E.g.: Building A"
+      },
+      "contacts": {
+        "title": "Contacts",
+        "empty": "No contacts added",
+        "add": "Add a contact",
+        "createNew": "New contact",
+        "searchPlaceholder": "Search a contact...",
+        "noResults": "No contacts found",
+        "confirmDelete": {
+          "title": "Delete contact",
+          "description": "Are you sure you want to delete {{name}}?",
+          "confirm": "Delete",
+          "cancel": "Cancel"
+        },
+        "modal": {
+          "title": "New contact",
+          "subtitle": "Add the contact information",
+          "firstname": "First name",
+          "firstnamePlaceholder": "E.g.: John",
+          "lastname": "Last name",
+          "lastnamePlaceholder": "E.g.: Doe",
+          "email": "Email",
+          "emailPlaceholder": "E.g.: john.doe@email.com",
+          "phone": "Phone",
+          "phonePlaceholder": "E.g.: +1 234 567 890",
+          "profession": "Profession",
+          "professionPlaceholder": "E.g.: Recruiter",
+          "submit": "Add",
+          "save": "Save",
+          "cancel": "Cancel",
+          "error": "Error creating contact",
+          "editTitle": "Edit contact",
+          "editSubtitle": "Edit the contact information"
+        },
+        "deleteSuccess": "Contact deleted",
+        "deleteError": "Error deleting contact",
+        "deleteConflict": "This contact is linked to an application and cannot be deleted",
+        "linkError": "Error linking contact",
+        "unlinkError": "Error unlinking contact"
+      },
+      "skills": {
+        "title": "Skills",
+        "empty": "No skills added",
+        "add": "Add",
+        "searchPlaceholder": "Search a skill...",
+        "createNew": "Create \"{{label}}\"",
+        "inputPlaceholder": "E.g.: React, TypeScript...",
+        "confirmDelete": {
+          "title": "Delete skill",
+          "description": "Are you sure you want to delete \"{{name}}\"?",
+          "confirm": "Delete",
+          "cancel": "Cancel"
+        },
+        "modal": {
+          "title": "New skill",
+          "subtitle": "Add a skill to your profile",
+          "editTitle": "Edit skill",
+          "editSubtitle": "Edit the skill name",
+          "label": "Skill",
+          "labelPlaceholder": "E.g.: React",
+          "submit": "Add",
+          "save": "Save",
+          "cancel": "Cancel",
+          "error": "Error creating skill"
+        },
+        "deleteSuccess": "Skill deleted",
+        "deleteError": "Error deleting skill",
+        "deleteConflict": "This skill is in use and cannot be deleted",
+        "linkError": "Error linking skill",
+        "unlinkError": "Error unlinking skill"
+      },
+      "extract": {
+        "button": "Fill from URL",
+        "hint": "Paste a job offer link to auto-fill the form with AI",
+        "modal": {
+          "title": "Extract an offer",
+          "subtitle": "Enter the job offer URL to pre-fill the form automatically",
+          "urlLabel": "Job offer URL",
+          "urlPlaceholder": "https://...",
+          "submit": "Extract",
+          "cancel": "Cancel",
+          "loading": "Extracting...",
+          "success": "Form pre-filled successfully",
+          "error": "Unable to extract data from this offer"
+        }
+      },
+      "skillImportWarning": "{{count}} skill could not be imported",
+      "skillImportWarning_other": "{{count}} skills could not be imported",
+      "navigation": {
+        "previous": "Previous",
+        "next": "Next",
+        "submit": "Create application"
+      },
+      "messages": {
+        "success": "Application created successfully",
+        "error": "Error creating application"
+      }
+    },
+    "edit": {
+      "title": "Edit application",
+      "subtitle": "Update your application details",
+      "navigation": {
+        "submit": "Save changes"
+      },
+      "messages": {
+        "success": "Application updated successfully",
+        "error": "Error updating application"
+      }
+    }
+  },
+  "validation": {
+    "required": "This field is required",
+    "max": "This field cannot exceed {{max}} characters",
+    "min": "Value must be greater than {{min}}",
+    "email": "Email address is not valid",
+    "urlInvalid": "URL is not valid",
+    "invalidNumber": "Value must be a valid number",
+    "invalidDate": "Date is not valid",
+
+    "title": {
+      "required": "Title is required",
+      "invalid": "Title is not valid"
+    },
+    "url": {
+      "required": "URL is required",
+      "invalid": "URL is not valid"
+    },
+    "company": {
+      "invalid": "Company name is not valid"
+    },
+    "jobboard": {
+      "required": "Jobboard is required",
+      "invalid": "Selected jobboard is not valid"
+    },
+    "publishedAt": {
+      "invalid": "Publication date is not valid"
+    },
+    "contractType": {
+      "required": "Contract type is required",
+      "invalid": "Selected contract type is not valid"
+    },
+    "currentStatus": {
+      "required": "Status is required",
+      "invalid": "Selected status is not valid"
+    },
+    "experience": {
+      "invalid": "Selected experience level is not valid"
+    },
+    "remotePolicy": {
+      "invalid": "Selected remote policy is not valid"
+    },
+    "compatibility": {
+      "invalid": "Selected compatibility level is not valid"
+    },
+    "salaryMin": {
+      "invalid": "Minimum salary must be greater than 10,000"
+    },
+    "salaryMax": {
+      "invalid": "Maximum salary is not valid"
+    },
+    "salaryBoth": "Both salaries must be provided together",
+    "salaryMinGreaterThanMax": "Minimum salary cannot be greater than maximum salary",
+
+    "contact": {
+      "firstname": {
+        "required": "First name is required",
+        "invalid": "First name is not valid"
+      },
+      "lastname": {
+        "required": "Last name is required",
+        "invalid": "Last name is not valid"
+      },
+      "email": {
+        "required": "Email is required",
+        "invalid": "Email address is not valid"
+      },
+      "phone": {
+        "invalid": "Phone number is not valid"
+      },
+      "profession": {
+        "required": "Profession is required",
+        "invalid": "Profession is not valid"
+      }
+    },
+    "skill": {
+      "label": {
+        "required": "Skill cannot be empty",
+        "invalid": "Skill is not valid"
+      }
+    },
+    "address": {
+      "city": {
+        "required": "City is required",
+        "invalid": "City is not valid"
+      },
+      "postalCode": {
+        "required": "Postal code is required",
+        "invalid": "Postal code is not valid"
+      },
+      "street": {
+        "invalid": "Street is not valid"
+      },
+      "streetNumber": {
+        "invalid": "Street number is not valid"
+      },
+      "complement": {
+        "invalid": "Additional info is not valid"
+      }
+    }
+  }
+}

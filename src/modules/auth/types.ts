@@ -1,5 +1,5 @@
 import type { IApiResponse } from "@/shared/types/api";
-import type { IUserResponse } from "@/shared/types/entity";
+import type { IUser } from "@/shared/types/entity";
 
 /************************************************** SIGNUP ********************************/
 
@@ -8,21 +8,19 @@ export interface ISignUpParams {
   password: string;
 }
 
-export interface ISignUpResponse extends IApiResponse<IUserResponse> {}
+export type ISignUpResponse = IApiResponse<IUser>;
 
 /************************************************** SIGN IN ********************************/
 
-export interface ISignInParams extends ISignUpParams {
+export type ISignInParams = ISignUpParams;
 
-}
-
-export interface ISignInResponse extends IApiResponse<{
-  user: IUserResponse;
-}> {}
+export type ISignInResponse = IApiResponse<{
+  user: IUser;
+}>;
 
 /************************************************** LOGOUT ********************************/
 
-export interface ILogoutResponse extends IApiResponse<null> {}
+export type ILogoutResponse = IApiResponse<null>;
 
 /**************************************************  CONFIRM ACCOUNT ********************************/
 
@@ -30,13 +28,13 @@ export interface ISendConfirmAccountParams {
   email: string;
 }
 
-export interface ISendConfirmAccountResponse extends IApiResponse<IUserResponse> {}
+export type ISendConfirmAccountResponse = IApiResponse<IUser>;
 
 export interface IConfirmAccountParams {
   token: string;
 }
 
-export interface IConfirmAccountResponse extends IApiResponse<null> {}
+export type IConfirmAccountResponse = IApiResponse<null>;
 
 /************************************************** RESET PASSWORD ********************************/
 
@@ -44,15 +42,15 @@ export interface ISendForgotPasswordParams {
   email: string;
 }
 
-export interface ISendForgotPasswordResponse extends IApiResponse<IUserResponse> {}
+export type ISendForgotPasswordResponse = IApiResponse<IUser>;
 
 export interface IResetPasswordParams {
   password: string;
   token: string;
 }
 
-export interface IResetPasswordResponse extends IApiResponse<null> {}
+export type IResetPasswordResponse = IApiResponse<null>;
 
 /************************************************** ME ********************************/
 
-export interface IMeResponse extends IApiResponse<IUserResponse> {}
+export type IMeResponse = IApiResponse<IUser>;

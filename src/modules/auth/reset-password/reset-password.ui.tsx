@@ -1,8 +1,8 @@
 import { Card } from "@/shared/components/ui/card";
-import { AuthCardHeader } from "../components/auth-card-header";
-import { AuthCardContent } from "../components/auth-card-content";
-import { AuthField } from "../components/auth-field";
-import { AuthLayout } from "../components/auth-layout";
+import { FormCardHeader } from "@/shared/components/form/form-card-header";
+import { FormCardContent } from "@/shared/components/form/form-card-content";
+import { InputField } from "@/shared/components/form/input-field";
+import { FormLayout } from "@/shared/components/form/form-layout";
 import type { SubmitHandler, UseFormReturn } from "react-hook-form";
 import type { TFunction } from "i18next";
 import type { IResetPasswordData } from "./types";
@@ -16,14 +16,14 @@ interface IResetPasswordUiProps {
 
 export const ResetPasswordUi = ({ form, onSubmit, isPending, t }: IResetPasswordUiProps) => {
     return (
-        <AuthLayout>
+        <FormLayout>
             <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
-                <AuthCardHeader title={t("pages.resetPassword.title")} />
-                <AuthCardContent
+                <FormCardHeader title={t("pages.resetPassword.title")} />
+                <FormCardContent
                     {...{ onSubmit, form, labelButton: t("pages.resetPassword.form.button"), isLoading: isPending }}
                 >
                     <div className="grid gap-6">
-                        <AuthField
+                        <InputField
                             label={t("pages.resetPassword.form.password")}
                             name="password"
                             type="password"
@@ -32,8 +32,8 @@ export const ResetPasswordUi = ({ form, onSubmit, isPending, t }: IResetPassword
                             {...{ form }}
                         />
                     </div>
-                </AuthCardContent>
+                </FormCardContent>
             </Card>
-        </AuthLayout>
+        </FormLayout>
     );
 };

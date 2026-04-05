@@ -68,7 +68,7 @@ function DialogContent({
           "fixed top-[50%]",
           "left-[50%]",
           "z-50",
-          "flex",
+          "flex flex-col",
           "w-full",
           "max-w-[calc(100%-2rem)]",
           " translate-x-[-50%]",

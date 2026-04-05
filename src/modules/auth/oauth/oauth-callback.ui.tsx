@@ -1,6 +1,6 @@
 import { Card } from "@/shared/components/ui/card";
-import { AuthCardHeader } from "../components/auth-card-header";
-import { AuthLayout } from "../components/auth-layout";
+import { FormCardHeader } from "@/shared/components/form/form-card-header";
+import { FormLayout } from "@/shared/components/form/form-layout";
 import type { TFunction } from "i18next";
 
 interface IOauthCallbackUiProps {
@@ -11,16 +11,16 @@ interface IOauthCallbackUiProps {
 
 export const OauthCallbackUi = ({ isPending, loginMethod, t }: IOauthCallbackUiProps) => {
     return (
-        <AuthLayout>
+        <FormLayout>
             <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
-                <AuthCardHeader title={`${t("pages.oauthCallback.title")} ${loginMethod}`}>
+                <FormCardHeader title={`${t("pages.oauthCallback.title")} ${loginMethod}`}>
                     {isPending && (
                         <p className=" mt-4">
                             <b>{t("pages.oauthCallback.redirecting")}</b>
                         </p>
                     )}
-                </AuthCardHeader>
+                </FormCardHeader>
             </Card>
-        </AuthLayout>
+        </FormLayout>
     );
 };

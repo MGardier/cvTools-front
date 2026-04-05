@@ -1,8 +1,8 @@
 import { Card } from "@/shared/components/ui/card";
-import { AuthCardHeader } from "../components/auth-card-header";
-import { AuthCardContent } from "../components/auth-card-content";
-import { AuthField } from "../components/auth-field";
-import { AuthLayout } from "../components/auth-layout";
+import { FormCardHeader } from "@/shared/components/form/form-card-header";
+import { FormCardContent } from "@/shared/components/form/form-card-content";
+import { InputField } from "@/shared/components/form/input-field";
+import { FormLayout } from "@/shared/components/form/form-layout";
 import type { SubmitHandler, UseFormReturn } from "react-hook-form";
 import type { TFunction } from "i18next";
 import type { ISendForgotPasswordData } from "./types";
@@ -19,9 +19,9 @@ export const SendForgotPasswordUi = ({
     form, onSubmit, isPending, defaultEmail, t
 }: ISendForgotPasswordUiProps) => {
     return (
-        <AuthLayout>
+        <FormLayout>
             <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
-                <AuthCardHeader title={t("pages.sendForgotPassword.title")}>
+                <FormCardHeader title={t("pages.sendForgotPassword.title")}>
                     {Boolean(defaultEmail) && (
                         <div className="text-green-700 mt-4 flex items-center justify-center gap-2">
                             <p>
@@ -29,12 +29,12 @@ export const SendForgotPasswordUi = ({
                             </p>
                         </div>
                     )}
-                </AuthCardHeader>
-                <AuthCardContent
+                </FormCardHeader>
+                <FormCardContent
                     {...{ onSubmit, form, labelButton: t("pages.sendForgotPassword.form.button"), isLoading: isPending }}
                 >
                     <div className="grid gap-6">
-                        <AuthField
+                        <InputField
                             label={t("pages.sendForgotPassword.form.email")}
                             name="email"
                             type="email"
@@ -43,8 +43,8 @@ export const SendForgotPasswordUi = ({
                             {...{ form }}
                         />
                     </div>
-                </AuthCardContent>
+                </FormCardContent>
             </Card>
-        </AuthLayout>
+        </FormLayout>
     );
 };

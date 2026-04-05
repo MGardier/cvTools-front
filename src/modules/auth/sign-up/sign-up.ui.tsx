@@ -1,9 +1,9 @@
 import { Card } from "@/shared/components/ui/card";
-import { AuthCardHeader } from "../components/auth-card-header";
-import { AuthCardContent } from "../components/auth-card-content";
+import { FormCardHeader } from "@/shared/components/form/form-card-header";
+import { FormCardContent } from "@/shared/components/form/form-card-content";
 import { AuthSocialMedia } from "../components/auth-social-media";
-import { AuthField } from "../components/auth-field";
-import { AuthLayout } from "../components/auth-layout";
+import { InputField } from "@/shared/components/form/input-field";
+import { FormLayout } from "@/shared/components/form/form-layout";
 import { ROUTES } from "@/app/constants/routes";
 import type { SubmitHandler, UseFormReturn } from "react-hook-form";
 import type { TFunction } from "i18next";
@@ -17,16 +17,16 @@ interface ISignUpUiProps {
 
 export const SignUpUi = ({ form, onSubmit, isPending, t }: ISignUpUiProps) => {
     return (
-        <AuthLayout>
+        <FormLayout>
             <Card className="border-0 shadow-none w-full max-w-sm md:max-w-md lg:max-w-lg">
-                <AuthCardHeader title={t("pages.signUp.title")}>
+                <FormCardHeader title={t("pages.signUp.title")}>
                     {`${t("pages.signUp.hasAccount")} `}
                     <a className="font-semibold" href={ROUTES.auth.signIn}>
                         {t("pages.signUp.signInLink")}
                     </a>
-                </AuthCardHeader>
+                </FormCardHeader>
 
-                <AuthCardContent
+                <FormCardContent
                     {...{
                         onSubmit,
                         form,
@@ -41,7 +41,7 @@ export const SignUpUi = ({ form, onSubmit, isPending, t }: ISignUpUiProps) => {
                         </span>
                     </div>
                     <div className="grid gap-6">
-                        <AuthField
+                        <InputField
                             label={t("pages.signUp.form.email")}
                             name="email"
                             type="email"
@@ -49,7 +49,7 @@ export const SignUpUi = ({ form, onSubmit, isPending, t }: ISignUpUiProps) => {
                             required
                             {...{ form }}
                         />
-                        <AuthField
+                        <InputField
                             label={t("pages.signUp.form.password")}
                             name="password"
                             type="password"
@@ -57,7 +57,7 @@ export const SignUpUi = ({ form, onSubmit, isPending, t }: ISignUpUiProps) => {
                             required
                             {...{ form }}
                         />
-                        <AuthField
+                        <InputField
                             label={t("pages.signUp.form.confirmPassword")}
                             name="confirmPassword"
                             type="password"
@@ -66,8 +66,8 @@ export const SignUpUi = ({ form, onSubmit, isPending, t }: ISignUpUiProps) => {
                             {...{ form }}
                         />
                     </div>
-                </AuthCardContent>
+                </FormCardContent>
             </Card>
-        </AuthLayout>
+        </FormLayout>
     );
 };
