@@ -1,10 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { MapPin, X } from "lucide-react";
-import { Command, CommandList, CommandItem, CommandEmpty, CommandGroup } from "@/shared/components/ui/command";
 import { cityService } from "@/lib/api/city/city.service";
 import type { ICitySearchItem } from "@/lib/api/city/city.types";
-import { cn } from "@/shared/utils/utils";
+import { CityAutocompleteUi } from "./city-autocomplete.ui";
 
 interface ICityAutocompleteProps {
   value: string;
@@ -109,71 +107,40 @@ export const CityAutocomplete = ({
     inputRef.current?.focus();
   }, [onClear]);
 
+  const handleFocus = useCallback(() => {
+    setIsFocused(true);
+    if (inputValue && !isSelected) setIsOpen(true);
+  }, [inputValue, isSelected]);
+
+  const handleBlur = useCallback(() => {
+    setIsFocused(false);
+  }, []);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "Escape") setIsOpen(false);
+    onKeyDown?.(e);
+  }, [onKeyDown]);
+
+  const showSuggestions = isOpen && items.length > 0 && !isSelected;
+  const showEmpty = isOpen && debouncedQuery.length >= 2 && items.length === 0 && !isSelected;
+
   return (
-    <div ref={containerRef} className="relative flex-1 flex items-center w-full">
-      <MapPin className={cn("w-5 h-5 ml-5 mr-1 shrink-0", hasError ? "text-red-400" : "text-muted-foreground")} />
-      <div className="relative flex-1">
-        <input
-          ref={inputRef}
-          type="text"
-          value={inputValue}
-          onChange={(e) => handleInputChange(e.target.value)}
-          onFocus={() => {
-            setIsFocused(true);
-            if (inputValue && !isSelected) setIsOpen(true);
-          }}
-          onBlur={() => setIsFocused(false)}
-          onKeyDown={(e) => {
-            if (e.key === "Escape") setIsOpen(false);
-            onKeyDown?.(e);
-          }}
-          placeholder={placeholder}
-          className={cn(inputClassName, hasError && "text-red-400")}
-        />
-        {inputValue && (
-          <button
-            type="button"
-            onClick={handleClear}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        )}
-      </div>
-
-      {/* Suggestions dropdown */}
-      {isOpen && items.length > 0 && !isSelected && (
-        <div className="absolute top-full left-0 right-0 z-50 mt-1 bg-popover border border-gray-200 rounded-lg shadow-lg overflow-hidden">
-          <Command shouldFilter={false}>
-            <CommandList>
-              <CommandGroup>
-                {items.map((item) => (
-                  <CommandItem
-                    key={item.code}
-                    value={item.code}
-                    onSelect={() => handleSelect(item)}
-                    className="cursor-pointer px-4 py-2.5"
-                  >
-                    <MapPin className="w-4 h-4 text-muted-foreground shrink-0" />
-                    <span className="font-medium">{item.name}</span>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </div>
-      )}
-
-      {/* No results */}
-      {isOpen && debouncedQuery.length >= 2 && items.length === 0 && !isSelected && (
-        <div className="absolute top-full left-0 right-0 z-50 mt-1 bg-popover border border-gray-200 rounded-lg shadow-lg overflow-hidden">
-          <Command shouldFilter={false}>
-            <CommandList>
-              <CommandEmpty />
-            </CommandList>
-          </Command>
-        </div>
-      )}
-    </div>
+    <CityAutocompleteUi
+      inputValue={inputValue}
+      placeholder={placeholder}
+      inputClassName={inputClassName}
+      items={items}
+      hasError={hasError}
+      showSuggestions={showSuggestions}
+      showEmpty={showEmpty}
+      containerRef={containerRef}
+      inputRef={inputRef}
+      onInputChange={handleInputChange}
+      onSelect={handleSelect}
+      onClear={handleClear}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
+    />
   );
 };
