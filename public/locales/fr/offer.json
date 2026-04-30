@@ -1,0 +1,68 @@
+{
+  "list": {
+    "title": "Rechercher des offres",
+    "results": "{{count}} offre trouvée",
+    "results_other": "{{count}} offres trouvées",
+    "empty": "Aucune offre trouvée",
+    "emptyKeyword": "Saisissez un mot-clé et lancez la recherche",
+    "loading": "Recherche en cours...",
+    "error": "Impossible de charger les offres",
+    "searchButton": "Rechercher",
+    "filters": {
+      "keyword": "Mot-clés",
+      "city": "Ville",
+      "citySelectRequired": "Veuillez sélectionner une ville dans la liste",
+      "contractType": "Type de contrat",
+      "contractTypePlaceholder": "Contrat",
+      "remote": "Télétravail",
+      "remotePlaceholder": "Télétravail",
+      "experience": "Expérience",
+      "experiencePlaceholder": "Expérience",
+      "publishedSince": "Publiée depuis",
+      "publishedSincePlaceholder": "Période",
+      "clearFilters": "Réinitialiser"
+    },
+    "publishedSince": {
+      "24h": "24 heures",
+      "7d": "7 jours",
+      "14d": "14 jours"
+    },
+    "card": {
+      "published": "Publié",
+      "salaryNotProvided": "Salaire non renseigné",
+      "companyNotProvided": "Entreprise non renseignée",
+      "locationNotProvided": "Localisation non renseignée",
+      "experienceNotProvided": "Expérience non renseignée",
+      "viewOffer": "Voir l'offre"
+    },
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant"
+    }
+  },
+  "contractType": {
+    "CDI": "CDI",
+    "CDD": "CDD",
+    "FREELANCE": "Freelance",
+    "ALTERNANCE": "Alternance"
+  },
+  "remotePolicy": {
+    "ONSITE": "Sur site",
+    "HYBRID": "Hybride",
+    "FULL": "Full remote"
+  },
+  "experience": {
+    "JUNIOR": "Junior",
+    "MID": "Intermédiaire",
+    "SENIOR": "Senior"
+  },
+  "apiProvider": {
+    "FRANCE_TRAVAIL": "France Travail"
+  },
+  "jobboard": {
+    "FRANCE_TRAVAIL": "France Travail",
+    "WTTJ": "Welcome to the Jungle",
+    "HELLOWORK": "HelloWork",
+    "UNKNOWN": "Autre"
+  }
+}

@@ -23,6 +23,7 @@ import { ApplicationList } from "@/modules/application/list/application-list";
 import { CreateApplication } from "@/modules/application/create/create-application";
 import { ApplicationDetail } from "@/modules/application/detail/application-detail";
 import { EditApplication } from "@/modules/application/edit/edit-application";
+import { OfferList } from "@/modules/offer/list/offer-list";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -99,6 +100,15 @@ function App() {
                 key="applicationDetail"
                 path={ROUTES.application.detailPattern}
                 element={<ApplicationDetail />}
+              />
+
+              {/************************* OFFER *************************************** */}
+
+              {/* OFFER LIST */}
+              <Route
+                key="offerList"
+                path={ROUTES.offer.list}
+                element={<OfferList />}
               />
             </Route>
 

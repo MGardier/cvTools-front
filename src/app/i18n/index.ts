@@ -29,7 +29,7 @@ i18n
     },
 
 
-    ns: ['auth', 'common', 'application'],
+    ns: ['auth', 'common', 'application', 'offer'],
     defaultNS: 'auth',
 
     detection: {

@@ -25,4 +25,8 @@ export const ROUTES = {
     edit: (id: number | string) => `/applications/${id}/edit`,
     editPattern: "/applications/:id/edit",
   },
+
+  offer: {
+    list: "/offers",
+  },
 } as const ;

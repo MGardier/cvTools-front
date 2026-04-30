@@ -6,8 +6,9 @@ export const NAVBAR_ITEMS : TNavbarItem[] = [
   {
     label: "offers",
     key: "offers",
+    link: ROUTES.offer.list,
     isDisabled: false,
-    isSoon : true,
+    isSoon : false,
   },
   {
     label: "applications",

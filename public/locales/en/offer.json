@@ -1,0 +1,68 @@
+{
+  "list": {
+    "title": "Search offers",
+    "results": "{{count}} offer found",
+    "results_other": "{{count}} offers found",
+    "empty": "No offers found",
+    "emptyKeyword": "Enter a keyword and start searching",
+    "loading": "Searching...",
+    "error": "Unable to load offers",
+    "searchButton": "Search",
+    "filters": {
+      "keyword": "Keywords",
+      "city": "City",
+      "citySelectRequired": "Please select a city from the list",
+      "contractType": "Contract type",
+      "contractTypePlaceholder": "Contract",
+      "remote": "Remote",
+      "remotePlaceholder": "Remote",
+      "experience": "Experience",
+      "experiencePlaceholder": "Experience",
+      "publishedSince": "Published since",
+      "publishedSincePlaceholder": "Period",
+      "clearFilters": "Reset"
+    },
+    "publishedSince": {
+      "24h": "24 hours",
+      "7d": "7 days",
+      "14d": "14 days"
+    },
+    "card": {
+      "published": "Published",
+      "salaryNotProvided": "Salary not provided",
+      "companyNotProvided": "Company not provided",
+      "locationNotProvided": "Location not provided",
+      "experienceNotProvided": "Experience not provided",
+      "viewOffer": "View offer"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "contractType": {
+    "CDI": "Permanent",
+    "CDD": "Fixed-term",
+    "FREELANCE": "Freelance",
+    "ALTERNANCE": "Apprenticeship"
+  },
+  "remotePolicy": {
+    "ONSITE": "On-site",
+    "HYBRID": "Hybrid",
+    "FULL": "Full remote"
+  },
+  "experience": {
+    "JUNIOR": "Junior",
+    "MID": "Mid-level",
+    "SENIOR": "Senior"
+  },
+  "apiProvider": {
+    "FRANCE_TRAVAIL": "France Travail"
+  },
+  "jobboard": {
+    "FRANCE_TRAVAIL": "France Travail",
+    "WTTJ": "Welcome to the Jungle",
+    "HELLOWORK": "HelloWork",
+    "UNKNOWN": "Other"
+  }
+}
