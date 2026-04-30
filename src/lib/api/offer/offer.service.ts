@@ -11,7 +11,7 @@ export const offerService = {
     return offerApi.search({
       page,
       limit,
-      ...(filters.keyword && { keyword: filters.keyword }),
+      keyword: filters.keyword,
       ...(filters.city && { city: filters.city }),
       ...(filters.postalCode && { postalCode: filters.postalCode }),
       ...(filters.contractType && { contractType: filters.contractType }),

@@ -6,3 +6,9 @@ export interface ICitySearchItem {
   regionCode?: string;
   population?: number;
 }
+
+export interface ICitySearchQuery {
+  city?: string;
+  postalCode?: string;
+  limit?: number;
+}
