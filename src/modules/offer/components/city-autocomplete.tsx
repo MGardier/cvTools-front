@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { cityService } from "@/lib/api/city/city.service";
-import type { ICitySearchItem } from "@/lib/api/city/city.types";
+import type { ICitySearchItem, ICitySearchQuery } from "@/lib/api/city/city.types";
 import { CityAutocompleteUi } from "./city-autocomplete.ui";
 
 interface ICityAutocompleteProps {
@@ -16,6 +16,14 @@ interface ICityAutocompleteProps {
 }
 
 const DEBOUNCE_MS = 300;
+const POSTAL_CODE_PATTERN = /^\d{2,}$/;
+
+const buildCityQuery = (query: string): ICitySearchQuery => {
+  const trimmed = query.trim();
+  return POSTAL_CODE_PATTERN.test(trimmed)
+    ? { postalCode: trimmed }
+    : { city: trimmed };
+};
 
 export const CityAutocomplete = ({
   value,
@@ -61,7 +69,7 @@ export const CityAutocomplete = ({
 
   const { data: suggestions } = useQuery({
     queryKey: ["city-autocomplete", debouncedQuery],
-    queryFn: () => cityService.search(debouncedQuery),
+    queryFn: () => cityService.search(buildCityQuery(debouncedQuery)),
     enabled: debouncedQuery.length >= 2,
   });
 
