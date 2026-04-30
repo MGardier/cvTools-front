@@ -1,5 +1,6 @@
 import { MapPin, X } from "lucide-react";
 import { Command, CommandList, CommandItem, CommandEmpty, CommandGroup } from "@/shared/components/ui/command";
+import { Input } from "@/shared/components/ui/input";
 import { cn } from "@/shared/utils/utils";
 import type { ICitySearchItem } from "@/lib/api/city/city.types";
 
@@ -41,7 +42,7 @@ export const CityAutocompleteUi = ({
   <div ref={containerRef} className="relative flex-1 flex items-center w-full">
     <MapPin className={cn("w-5 h-5 ml-5 mr-1 shrink-0", hasError ? "text-red-400" : "text-muted-foreground")} />
     <div className="relative flex-1">
-      <input
+      <Input
         ref={inputRef}
         type="text"
         value={inputValue}
@@ -50,6 +51,7 @@ export const CityAutocompleteUi = ({
         onBlur={onBlur}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
+        aria-invalid={hasError}
         className={cn(inputClassName, hasError && "text-red-400")}
       />
       {inputValue && (
