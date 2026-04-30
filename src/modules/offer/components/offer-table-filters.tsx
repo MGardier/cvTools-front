@@ -54,7 +54,33 @@ export const OfferTableFilters = ({
 }: IOfferTableFiltersProps) => {
   const { t } = useTranslation("offer");
   const [cityHasError, setCityHasError] = useState(false);
+  const [keywordTouched, setKeywordTouched] = useState(false);
   const handleCityValidation = useCallback((hasError: boolean) => setCityHasError(hasError), []);
+
+  const isKeywordEmpty = stagedFilters.keyword.trim() === "";
+  const showKeywordError = isKeywordEmpty && (keywordTouched || hasActiveFilters);
+
+  const handleKeywordChange = (value: string) => {
+    if (keywordTouched && value.trim()) setKeywordTouched(false);
+    onStagedChange({ keyword: value });
+  };
+
+  const handleKeywordBlur = () => {
+    if (isKeywordEmpty) setKeywordTouched(true);
+  };
+
+  const handleNonKeywordChange = (partial: Partial<IOfferSearchFilters>) => {
+    if (isKeywordEmpty) setKeywordTouched(true);
+    onStagedChange(partial);
+  };
+
+  const handleSearchClick = () => {
+    if (isKeywordEmpty) {
+      setKeywordTouched(true);
+      return;
+    }
+    onSearch();
+  };
 
   const contractTypeOptions = Object.values(EContractType).map((v) => ({
     value: v,
@@ -77,7 +103,8 @@ export const OfferTableFilters = ({
   }));
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") onSearch();
+    if (e.key !== "Enter") return;
+    handleSearchClick();
   };
 
   return (
@@ -85,15 +112,31 @@ export const OfferTableFilters = ({
       {/* ── Filter bar ── */}
       <div className="flex flex-col w-full gap-4 md:gap-0 md:flex-row">
         {/* 1. Keyword search */}
-        <div className={cn("flex-[1.5]", SEGMENT_BASE, SEGMENT_MOBILE, SEGMENT_FIRST)}>
-          <Search className="w-5 h-5 ml-5 shrink-0 text-muted-foreground" />
+        <div
+          className={cn(
+            "flex-[1.5]",
+            SEGMENT_BASE,
+            SEGMENT_MOBILE,
+            SEGMENT_FIRST,
+            showKeywordError && "border-red-400 md:border-red-400"
+          )}
+        >
+          <Search
+            className={cn(
+              "w-5 h-5 ml-5 shrink-0",
+              showKeywordError ? "text-red-400" : "text-muted-foreground"
+            )}
+          />
           <Input
             type="text"
-            value={stagedFilters.keyword ?? ""}
-            onChange={(e) => onStagedChange({ keyword: e.target.value })}
+            value={stagedFilters.keyword}
+            onChange={(e) => handleKeywordChange(e.target.value)}
+            onBlur={handleKeywordBlur}
             onKeyDown={handleKeyDown}
             placeholder={t("list.filters.keyword")}
-            className={SEGMENT_INNER_INPUT}
+            aria-invalid={showKeywordError}
+            aria-required="true"
+            className={cn(SEGMENT_INNER_INPUT, showKeywordError && "text-red-400")}
           />
         </div>
 
@@ -103,8 +146,8 @@ export const OfferTableFilters = ({
             key={cityResetKey}
             value={stagedFilters.city ?? ""}
             postalCode={stagedFilters.postalCode ?? ""}
-            onChange={(city, postalCode) => onStagedChange({ city, postalCode })}
-            onClear={() => onStagedChange({ city: undefined, postalCode: undefined })}
+            onChange={(city, postalCode) => handleNonKeywordChange({ city, postalCode })}
+            onClear={() => handleNonKeywordChange({ city: undefined, postalCode: undefined })}
             onValidationChange={handleCityValidation}
             onKeyDown={handleKeyDown}
             placeholder={t("list.filters.city")}
@@ -117,7 +160,7 @@ export const OfferTableFilters = ({
           <Select
             value={stagedFilters.contractType ?? ""}
             onValueChange={(value) =>
-              onStagedChange({ contractType: value ? (value as IOfferSearchFilters["contractType"]) : undefined })
+              handleNonKeywordChange({ contractType: value ? (value as IOfferSearchFilters["contractType"]) : undefined })
             }
           >
             <SelectTrigger className="h-full border-none shadow-none bg-transparent focus:ring-0 text-sm text-offgreen-dark w-full">
@@ -138,7 +181,7 @@ export const OfferTableFilters = ({
           <Select
             value={stagedFilters.remote ?? ""}
             onValueChange={(value) =>
-              onStagedChange({ remote: value ? (value as IOfferSearchFilters["remote"]) : undefined })
+              handleNonKeywordChange({ remote: value ? (value as IOfferSearchFilters["remote"]) : undefined })
             }
           >
             <SelectTrigger className="h-full border-none shadow-none bg-transparent focus:ring-0 text-sm text-offgreen-dark w-full">
@@ -159,7 +202,7 @@ export const OfferTableFilters = ({
           <Select
             value={stagedFilters.experience ?? ""}
             onValueChange={(value) =>
-              onStagedChange({ experience: value ? (value as IOfferSearchFilters["experience"]) : undefined })
+              handleNonKeywordChange({ experience: value ? (value as IOfferSearchFilters["experience"]) : undefined })
             }
           >
             <SelectTrigger className="h-full border-none shadow-none bg-transparent focus:ring-0 text-sm text-offgreen-dark w-full">
@@ -180,7 +223,7 @@ export const OfferTableFilters = ({
           <Select
             value={stagedFilters.publishedSince ?? ""}
             onValueChange={(value) =>
-              onStagedChange({ publishedSince: value ? (value as IOfferSearchFilters["publishedSince"]) : undefined })
+              handleNonKeywordChange({ publishedSince: value ? (value as IOfferSearchFilters["publishedSince"]) : undefined })
             }
           >
             <SelectTrigger className="h-full border-none shadow-none bg-transparent focus:ring-0 text-sm text-offgreen-dark w-full">
@@ -199,11 +242,14 @@ export const OfferTableFilters = ({
         {/* 7. Search button */}
         <button
           type="button"
-          onClick={onSearch}
+          onClick={handleSearchClick}
+          aria-disabled={isKeywordEmpty}
+          title={isKeywordEmpty ? t("list.filters.keywordRequired") : undefined}
           className={cn(
             "h-16 px-6 font-medium text-sm text-white bg-blue-400 hover:bg-blue-500 transition-colors shrink-0",
             SEGMENT_MOBILE,
-            SEGMENT_LAST
+            SEGMENT_LAST,
+            isKeywordEmpty && "bg-blue-300 hover:bg-blue-300 cursor-not-allowed"
           )}
         >
           {t("list.searchButton")}
@@ -211,9 +257,15 @@ export const OfferTableFilters = ({
       </div>
 
       {/* ── Active filter chips + validation messages ── */}
-      {(hasActiveFilters || cityHasError) && (
+      {(hasActiveFilters || cityHasError || showKeywordError) && (
         <div className="flex items-center justify-between gap-4 mt-4">
           <div className="flex flex-wrap gap-2">
+            {showKeywordError && (
+              <span className="inline-flex items-center gap-1.5 text-sm text-red-400">
+                <AlertCircle className="w-3.5 h-3.5" />
+                {t("list.filters.keywordRequired")}
+              </span>
+            )}
             {cityHasError && (
               <span className="inline-flex items-center gap-1.5 text-sm text-red-400">
                 <AlertCircle className="w-3.5 h-3.5" />
@@ -282,14 +334,16 @@ export const OfferTableFilters = ({
             )}
           </div>
 
-          <button
-            type="button"
-            onClick={onClearFilters}
-            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors shrink-0"
-          >
-            <X className="w-3.5 h-3.5" />
-            {t("list.filters.clearFilters")}
-          </button>
+          {hasActiveFilters && (
+            <button
+              type="button"
+              onClick={onClearFilters}
+              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors shrink-0"
+            >
+              <X className="w-3.5 h-3.5" />
+              {t("list.filters.clearFilters")}
+            </button>
+          )}
         </div>
       )}
     </div>

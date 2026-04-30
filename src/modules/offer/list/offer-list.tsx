@@ -15,10 +15,10 @@ export const OfferList = () => {
     usePagination(1, DEFAULT_PAGE_SIZE);
 
   // Staged filters: what the user is currently editing in the form
-  const [stagedFilters, setStagedFilters] = useState<IOfferSearchFilters>({});
+  const [stagedFilters, setStagedFilters] = useState<IOfferSearchFilters>({ keyword: "" });
 
   // Committed filters: what was submitted via the search button
-  const [committedFilters, setCommittedFilters] = useState<IOfferSearchFilters>({});
+  const [committedFilters, setCommittedFilters] = useState<IOfferSearchFilters>({ keyword: "" });
 
   // Track whether user has searched at least once
   const [hasSearched, setHasSearched] = useState(false);
@@ -34,20 +34,28 @@ export const OfferList = () => {
   );
 
   const handleSearch = useCallback(() => {
-    setCommittedFilters({ ...stagedFilters });
+    if (stagedFilters.keyword.trim() === "") return;
+    setCommittedFilters({ ...stagedFilters, keyword: stagedFilters.keyword.trim() });
     setHasSearched(true);
     setPage(1);
   }, [stagedFilters, setPage]);
 
   const handleRemoveFilter = useCallback(
     (key: keyof IOfferSearchFilters) => {
-      const keysToRemove: (keyof IOfferSearchFilters)[] =
+      if (key === "keyword") {
+        setCommittedFilters((prev) => ({ ...prev, keyword: "" }));
+        setStagedFilters((prev) => ({ ...prev, keyword: "" }));
+        setHasSearched(false);
+        setPage(1);
+        return;
+      }
+
+      const keysToRemove: Exclude<keyof IOfferSearchFilters, "keyword">[] =
         key === "city" ? ["city", "postalCode"] : [key];
 
       setCommittedFilters((prev) => {
         const next = { ...prev };
         keysToRemove.forEach((k) => delete next[k]);
-        if (key === "keyword") setHasSearched(false);
         return next;
       });
       setStagedFilters((prev) => {
@@ -62,8 +70,8 @@ export const OfferList = () => {
   );
 
   const handleClearFilters = useCallback(() => {
-    setCommittedFilters({});
-    setStagedFilters({});
+    setCommittedFilters({ keyword: "" });
+    setStagedFilters({ keyword: "" });
     setHasSearched(false);
     setCityResetKey((k) => k + 1);
     setPage(1);
@@ -81,7 +89,7 @@ export const OfferList = () => {
         limit: pagination.limit,
         filters: committedFilters,
       }),
-    enabled: hasSearched && !!committedFilters.keyword?.trim(),
+    enabled: hasSearched && !!committedFilters.keyword.trim(),
   });
 
   useEffect(() => {

@@ -1,3 +1,18 @@
+// Import shared types for local use
+import type {
+  TContractType as _TContractType,
+  TExperienceLevel as _TExperienceLevel,
+  TRemotePolicy as _TRemotePolicy,
+} from "@/shared/types/entity";
+
+// Re-export shared enums/types used by offers
+export {
+  EContractType,
+  EExperienceLevel,
+  ERemotePolicy,
+} from "@/shared/types/entity";
+
+
 // ================================================
 //              OFFER ENUMS (aligned with backend)
 // ================================================
@@ -30,19 +45,7 @@ export const EPublishedSince = {
 } as const;
 export type TPublishedSince = (typeof EPublishedSince)[keyof typeof EPublishedSince];
 
-// Import shared types for local use
-import type {
-  TContractType as _TContractType,
-  TExperienceLevel as _TExperienceLevel,
-  TRemotePolicy as _TRemotePolicy,
-} from "@/shared/types/entity";
 
-// Re-export shared enums/types used by offers
-export {
-  EContractType,
-  EExperienceLevel,
-  ERemotePolicy,
-} from "@/shared/types/entity";
 
 export type TContractType = _TContractType;
 export type TExperienceLevel = _TExperienceLevel;
@@ -92,7 +95,7 @@ export interface IOfferListItem {
 // ================================================
 
 export interface IOfferSearchFilters {
-  keyword?: string;
+  keyword: string;
   city?: string;
   postalCode?: string;
   contractType?: TContractType;

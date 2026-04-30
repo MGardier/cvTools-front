@@ -10,6 +10,7 @@
     "searchButton": "Rechercher",
     "filters": {
       "keyword": "Mot-clés",
+      "keywordRequired": "Veuillez saisir un mot-clé pour lancer la recherche",
       "city": "Ville",
       "citySelectRequired": "Veuillez sélectionner une ville dans la liste",
       "contractType": "Type de contrat",

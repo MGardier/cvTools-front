@@ -10,6 +10,7 @@
     "searchButton": "Search",
     "filters": {
       "keyword": "Keywords",
+      "keywordRequired": "Please enter a keyword to start searching",
       "city": "City",
       "citySelectRequired": "Please select a city from the list",
       "contractType": "Contract type",
