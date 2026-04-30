@@ -33,7 +33,6 @@ export interface IUsePaginationReturn {
   setPage: (page: number) => void
   setLimit: (limit: number) => void
   clearPagination: () => void
-  setTotalItems: (totalItems: number)=> void ;
 
   nextPage: () => void;
   prevPage: () => void;

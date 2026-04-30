@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { usePagination } from "@/shared/hooks/usePagination";
@@ -11,8 +11,7 @@ const OFFERS_QUERY_KEY = "offers" as const;
 const DEFAULT_PAGE_SIZE = 20;
 
 export const OfferList = () => {
-  const { pagination, setPage, setTotalItems, canGoNext, canGoPrev, getTotalPages } =
-    usePagination(1, DEFAULT_PAGE_SIZE);
+  const [page, setPageState] = useState(1);
 
   // Staged filters: what the user is currently editing in the form
   const [stagedFilters, setStagedFilters] = useState<IOfferSearchFilters>({ keyword: "" });
@@ -37,8 +36,8 @@ export const OfferList = () => {
     if (stagedFilters.keyword.trim() === "") return;
     setCommittedFilters({ ...stagedFilters, keyword: stagedFilters.keyword.trim() });
     setHasSearched(true);
-    setPage(1);
-  }, [stagedFilters, setPage]);
+    setPageState(1);
+  }, [stagedFilters]);
 
   const handleRemoveFilter = useCallback(
     (key: keyof IOfferSearchFilters) => {
@@ -46,7 +45,7 @@ export const OfferList = () => {
         setCommittedFilters((prev) => ({ ...prev, keyword: "" }));
         setStagedFilters((prev) => ({ ...prev, keyword: "" }));
         setHasSearched(false);
-        setPage(1);
+        setPageState(1);
         return;
       }
 
@@ -64,9 +63,9 @@ export const OfferList = () => {
         return next;
       });
       if (key === "city") setCityResetKey((k) => k + 1);
-      setPage(1);
+      setPageState(1);
     },
-    [setPage]
+    []
   );
 
   const handleClearFilters = useCallback(() => {
@@ -74,34 +73,37 @@ export const OfferList = () => {
     setStagedFilters({ keyword: "" });
     setHasSearched(false);
     setCityResetKey((k) => k + 1);
-    setPage(1);
-  }, [setPage]);
+    setPageState(1);
+  }, []);
 
   const hasActiveFilters = Object.values(committedFilters).some(
     (v) => v !== undefined && v !== ""
   );
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: [OFFERS_QUERY_KEY, committedFilters, pagination.page, pagination.limit],
+    queryKey: [OFFERS_QUERY_KEY, committedFilters, page, DEFAULT_PAGE_SIZE],
     queryFn: () =>
       offerService.search({
-        page: pagination.page,
-        limit: pagination.limit,
+        page,
+        limit: DEFAULT_PAGE_SIZE,
         filters: committedFilters,
       }),
     enabled: hasSearched && !!committedFilters.keyword.trim(),
   });
 
-  useEffect(() => {
-    if (data?.data?.meta?.total !== undefined) {
-      setTotalItems(data.data.meta.total);
-    }
-  }, [data?.data?.meta?.total, setTotalItems]);
+  const total = data?.data?.meta?.total;
+
+  const { pagination, setPage, canGoNext, canGoPrev, getTotalPages } = usePagination({
+    page,
+    limit: DEFAULT_PAGE_SIZE,
+    totalItems: total,
+    onPageChange: setPageState,
+  });
 
   return (
     <OfferListUi
       items={data?.data?.offers ?? []}
-      total={data?.data?.meta?.total ?? 0}
+      total={total ?? 0}
       isLoading={isLoading && hasSearched}
       isError={isError}
       hasSearched={hasSearched}
