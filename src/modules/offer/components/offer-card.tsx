@@ -46,11 +46,25 @@ const getSalaryLabel = (item: IOfferListItem): string | null => {
   return null;
 };
 
+/* ── Helper: resolve location display ── */
+const getLocationLabel = (
+  item: IOfferListItem,
+  t: (key: string) => string
+): string => {
+  const { city, postalCode, raw } = item.location ?? {};
+  if (city || postalCode) 
+    return [city, postalCode].filter(Boolean).join(" ").trim();
+  
+  if (raw) return raw;
+  return t("list.card.locationNotProvided");
+};
+
 export const OfferCard = ({ item, t }: IOfferCardProps) => {
   const displaySkills = item.skills.slice(0, 5);
   const mappedJobboard = (JOBBOARD_ORIGIN_MAP[item.jobboard] ?? "UNKNOW") as TJobboard;
   const experienceLabel = getExperienceLabel(item, t);
   const salaryLabel = getSalaryLabel(item);
+  const locationLabel = getLocationLabel(item, t);
 
   return (
     <article className="transition border border-offgreen-medium rounded-xl hover:border-sky-600 hover:shadow-lg hover:shadow-sky-600/20 px-3 pt-2 pb-4 md:px-8 md:py-4">
@@ -76,7 +90,7 @@ export const OfferCard = ({ item, t }: IOfferCardProps) => {
           </div>
 
           {/* Row 2: Company · City · Published */}
-          <OfferCardMeta item={item} t={t} />
+          <OfferCardMeta item={item} t={t} locationLabel={locationLabel} />
 
           {/* Row 2b (mobile only): Published */}
           {item.publishedAt && (
@@ -111,20 +125,18 @@ export const OfferCard = ({ item, t }: IOfferCardProps) => {
 const OfferCardMeta = ({
   item,
   t,
+  locationLabel,
 }: {
   item: IOfferListItem;
   t: (key: string) => string;
+  locationLabel: string;
 }) => (
   <div className="flex items-center text-xs md:text-sm text-gray-500 flex-wrap">
     <span className="truncate">
       {item.company ?? t("list.card.companyNotProvided")}
     </span>
     <span className="px-1.5">·</span>
-    <span>
-      {item.location?.city
-        ? `${item.location.city} ${item.location.postalCode ?? ""}`.trim()
-        : t("list.card.locationNotProvided")}
-    </span>
+    <span>{locationLabel}</span>
     {item.publishedAt && (
       <span className="hidden md:inline px-1.5">·</span>
     )}

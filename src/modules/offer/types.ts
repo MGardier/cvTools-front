@@ -60,6 +60,7 @@ export interface IOfferLocation {
   postalCode?: string;
   department?: string;
   region?: string;
+  raw?: string;
 }
 
 export interface IOfferSalary {
