@@ -8,7 +8,9 @@ import type {
 
 export interface ISearchOfferQuery {
   keyword: string;
-  city?: string;
+  cityCode?: string;
+  departmentCode?: string;
+  regionCode?: string;
   postalCode?: string;
   contractType?: TContractType;
   remote?: TRemotePolicy;

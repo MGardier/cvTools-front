@@ -144,10 +144,26 @@ export const OfferTableFilters = ({
         <div className={cn("flex-[1.2]", SEGMENT_BASE, SEGMENT_MOBILE, SEGMENT_MIDDLE)}>
           <CityAutocomplete
             key={cityResetKey}
-            value={stagedFilters.city ?? ""}
-            postalCode={stagedFilters.postalCode ?? ""}
-            onChange={(city, postalCode) => handleNonKeywordChange({ city, postalCode })}
-            onClear={() => handleNonKeywordChange({ city: undefined, postalCode: undefined })}
+            value={stagedFilters.cityName ?? ""}
+            hasSelection={!!stagedFilters.cityCode}
+            onChange={(item) =>
+              handleNonKeywordChange({
+                cityName: item.name,
+                cityCode: item.code,
+                departmentCode: item.departmentCode,
+                regionCode: item.regionCode,
+                postalCode: item.postalCodes[0],
+              })
+            }
+            onClear={() =>
+              handleNonKeywordChange({
+                cityName: undefined,
+                cityCode: undefined,
+                departmentCode: undefined,
+                regionCode: undefined,
+                postalCode: undefined,
+              })
+            }
             onValidationChange={handleCityValidation}
             onKeyDown={handleKeyDown}
             placeholder={t("list.filters.city")}
@@ -282,14 +298,14 @@ export const OfferTableFilters = ({
                 {committedFilters.keyword}
               </button>
             )}
-            {committedFilters.city && (
+            {committedFilters.cityName && (
               <button
                 type="button"
-                onClick={() => onRemoveFilter("city")}
+                onClick={() => onRemoveFilter("cityName")}
                 className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <X className="w-3.5 h-3.5" />
-                {committedFilters.city}
+                {committedFilters.cityName}
               </button>
             )}
             {committedFilters.contractType && (

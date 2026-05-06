@@ -50,7 +50,9 @@ export const OfferList = () => {
       }
 
       const keysToRemove: Exclude<keyof IOfferSearchFilters, "keyword">[] =
-        key === "city" ? ["city", "postalCode"] : [key];
+        key === "cityName"
+          ? ["cityName", "cityCode", "departmentCode", "regionCode", "postalCode"]
+          : [key];
 
       setCommittedFilters((prev) => {
         const next = { ...prev };
@@ -62,7 +64,7 @@ export const OfferList = () => {
         keysToRemove.forEach((k) => delete next[k]);
         return next;
       });
-      if (key === "city") setCityResetKey((k) => k + 1);
+      if (key === "cityName") setCityResetKey((k) => k + 1);
       setPageState(1);
     },
     []

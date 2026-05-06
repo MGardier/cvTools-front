@@ -97,7 +97,10 @@ export interface IOfferListItem {
 
 export interface IOfferSearchFilters {
   keyword: string;
-  city?: string;
+  cityName?: string; // display label (chip + input value)
+  cityCode?: string; // INSEE commune code (e.g. "75056")
+  departmentCode?: string; // INSEE department code (e.g. "75", "2A", "971")
+  regionCode?: string; // INSEE region code (e.g. "11" for Île-de-France)
   postalCode?: string;
   contractType?: TContractType;
   remote?: TRemotePolicy;

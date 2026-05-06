@@ -6,8 +6,8 @@ import { CityAutocompleteUi } from "./city-autocomplete.ui";
 
 interface ICityAutocompleteProps {
   value: string;
-  postalCode: string;
-  onChange: (city: string, postalCode: string) => void;
+  hasSelection: boolean;
+  onChange: (item: ICitySearchItem) => void;
   onClear: () => void;
   onValidationChange?: (hasError: boolean) => void;
   onKeyDown?: (e: React.KeyboardEvent) => void;
@@ -27,7 +27,7 @@ const buildCityQuery = (query: string): ICitySearchQuery => {
 
 export const CityAutocomplete = ({
   value,
-  postalCode,
+  hasSelection,
   onChange,
   onClear,
   onValidationChange,
@@ -37,7 +37,7 @@ export const CityAutocomplete = ({
 }: ICityAutocompleteProps) => {
   const [inputValue, setInputValue] = useState(value);
   const [isOpen, setIsOpen] = useState(false);
-  const [isSelected, setIsSelected] = useState(!!value && !!postalCode);
+  const [isSelected, setIsSelected] = useState(hasSelection);
   const [isDirty, setIsDirty] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [debouncedQuery, setDebouncedQuery] = useState("");
@@ -47,9 +47,9 @@ export const CityAutocomplete = ({
   // Sync external value changes
   useEffect(() => {
     setInputValue(value);
-    setIsSelected(!!value && !!postalCode);
+    setIsSelected(hasSelection);
     setIsDirty(false);
-  }, [value, postalCode]);
+  }, [value, hasSelection]);
 
   // Debounce input
   useEffect(() => {
@@ -98,12 +98,11 @@ export const CityAutocomplete = ({
   }, [onClear]);
 
   const handleSelect = useCallback((item: ICitySearchItem) => {
-    const firstPostalCode = item.postalCodes[0] ?? "";
     setInputValue(item.name);
     setIsSelected(true);
     setIsDirty(false);
     setIsOpen(false);
-    onChange(item.name, firstPostalCode);
+    onChange(item);
   }, [onChange]);
 
   const handleClear = useCallback(() => {
