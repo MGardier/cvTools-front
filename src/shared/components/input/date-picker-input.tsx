@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { CalendarIcon } from "lucide-react";
-import { Calendar } from "../ui/calendar";
 
 import { cn, formatDate } from "@/shared/utils/utils";
+
+const Calendar = lazy(() =>
+  import("../ui/calendar").then((m) => ({ default: m.Calendar })),
+);
 
 interface DatePickerInputProps {
   value: Date | string
@@ -75,18 +78,24 @@ export const DatePickerInput = ({
           alignOffset={-8}
           sideOffset={10}
         >
-          <Calendar
-            mode="single"
-            selected={date}
-            captionLayout="dropdown"
-            month={month}
-            onMonthChange={setMonth}
-            onSelect={(date) => {
-              setDate(date!);
-              handleOnChange(date!);
-              setOpen(false);
-            }}
-          />
+          <Suspense
+            fallback={
+              <div className="h-[300px] w-[260px] animate-pulse bg-muted/40" />
+            }
+          >
+            <Calendar
+              mode="single"
+              selected={date}
+              captionLayout="dropdown"
+              month={month}
+              onMonthChange={setMonth}
+              onSelect={(date) => {
+                setDate(date!);
+                handleOnChange(date!);
+                setOpen(false);
+              }}
+            />
+          </Suspense>
         </PopoverContent>
       </Popover>
     </div>

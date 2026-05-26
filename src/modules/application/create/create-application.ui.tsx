@@ -1,5 +1,6 @@
 import type { TFunction } from "i18next";
 import { Sparkles, Globe } from "lucide-react";
+import { lazy, Suspense } from "react";
 
 import type { IStep } from "@/shared/types/hook";
 import type { TMultiStepFormReturn } from "@/shared/hooks/use-multi-step-form";
@@ -7,7 +8,12 @@ import type { TCreateApplicationFormReturn, TCreateApplicationFormOutput } from 
 import type { IExtractedApplication } from "@/lib/api/scraper/types";
 
 import { ApplicationFormLayout } from "@/modules/application/components/application-form-layout";
-import { UrlExtractModal } from "./components/url-extract-modal/url-extract-modal";
+
+const UrlExtractModal = lazy(() =>
+  import("./components/url-extract-modal/url-extract-modal").then((m) => ({
+    default: m.UrlExtractModal,
+  })),
+);
 
 interface ICreateApplicationUiProps {
   form: TCreateApplicationFormReturn;
@@ -70,11 +76,13 @@ export const CreateApplicationUi = ({
         }
       />
 
-      <UrlExtractModal
-        open={extractModalOpen}
-        onOpenChange={onExtractModalOpen}
-        fillForm={fillForm}
-      />
+      <Suspense fallback={null}>
+        <UrlExtractModal
+          open={extractModalOpen}
+          onOpenChange={onExtractModalOpen}
+          fillForm={fillForm}
+        />
+      </Suspense>
     </>
   );
 };

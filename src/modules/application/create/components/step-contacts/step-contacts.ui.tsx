@@ -1,12 +1,16 @@
 import { Mail, Phone } from "lucide-react";
 import type { TFunction } from "i18next";
+import { lazy, Suspense } from "react";
 
 import { EntitySearchField } from "@/shared/components/form/entity-search-field";
 import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog";
 
 import type { TFormContact } from "../../types";
 import type { IContact } from "@/shared/types/entity";
-import { ContactModal } from "../contact-modal";
+
+const ContactModal = lazy(() =>
+  import("../contact-modal").then((m) => ({ default: m.ContactModal })),
+);
 
 interface IStepContactsUiProps {
   contacts: TFormContact[];
@@ -103,14 +107,16 @@ export const StepContactsUi = ({
         gridClassName="grid-cols-1 sm:grid-cols-2"
       />
 
-      <ContactModal
-        open={modalOpen}
-        onOpenChange={onModalOpenChange}
-        onAdd={onAdd}
-        onEdit={onSaveEdit}
-        editContact={editContact}
-        t={t}
-      />
+      <Suspense fallback={null}>
+        <ContactModal
+          open={modalOpen}
+          onOpenChange={onModalOpenChange}
+          onAdd={onAdd}
+          onEdit={onSaveEdit}
+          editContact={editContact}
+          t={t}
+        />
+      </Suspense>
 
       <ConfirmDialog
         open={!!deleteTarget}

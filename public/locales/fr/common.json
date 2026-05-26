@@ -64,5 +64,18 @@
   "form": {
     "required": "Requis",
     "optional": "Optionnel"
+  },
+  "loading": "Chargement…",
+  "errors": {
+    "chunkLoad": {
+      "title": "Une mise à jour est disponible",
+      "description": "L'application a été mise à jour. Veuillez recharger la page pour continuer.",
+      "reload": "Recharger la page"
+    },
+    "generic": {
+      "title": "Une erreur est survenue",
+      "description": "Quelque chose s'est mal passé. Veuillez réessayer.",
+      "retry": "Réessayer"
+    }
   }
 }

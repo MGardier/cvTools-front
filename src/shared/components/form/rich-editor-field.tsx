@@ -1,8 +1,12 @@
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import type { Content } from "@tiptap/react";
+import { lazy, Suspense } from "react";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { MinimalTiptapEditor } from "@/components/ui/minimal-tiptap";
 import { TooltipProvider } from "@/shared/components/ui/tooltip";
+
+const MinimalTiptapEditor = lazy(
+  () => import("@/components/ui/minimal-tiptap/minimal-tiptap"),
+);
 
 interface RichEditorFieldProps<TFormData extends FieldValues> {
   label?: string;
@@ -35,14 +39,20 @@ export const RichEditorField = <TFormData extends FieldValues>({
             <FormMessage />
             <FormControl>
               <TooltipProvider>
-                <MinimalTiptapEditor
-                  value={field.value as Content}
-                  onChange={(value) => field.onChange(value)}
-                  placeholder={placeholder}
-                  output="html"
-                  immediatelyRender={false}
-                  editorContentClassName="p-4 min-h-[150px]"
-                />
+                <Suspense
+                  fallback={
+                    <div className="min-h-[150px] w-full animate-pulse rounded-md border bg-muted/40" />
+                  }
+                >
+                  <MinimalTiptapEditor
+                    value={field.value as Content}
+                    onChange={(value) => field.onChange(value)}
+                    placeholder={placeholder}
+                    output="html"
+                    immediatelyRender={false}
+                    editorContentClassName="p-4 min-h-[150px]"
+                  />
+                </Suspense>
               </TooltipProvider>
             </FormControl>
           </FormItem>
