@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { CalendarIcon } from "lucide-react";
-import { Calendar } from "../ui/calendar";
 import { FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import { formatDate } from "@/shared/utils/utils";
+
+const Calendar = lazy(() =>
+  import("../ui/calendar").then((m) => ({ default: m.Calendar })),
+);
 
 interface DatePickerFieldProps<TFormData extends FieldValues> {
   label: string;
@@ -99,18 +102,24 @@ export const DatePickerField = <TFormData extends FieldValues>({
                   alignOffset={-8}
                   sideOffset={10}
                 >
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    captionLayout="dropdown"
-                    month={month}
-                    onMonthChange={setMonth}
-                    onSelect={(date) => {
-                      setDate(date);
-                      field.onChange(formatDate(date!));
-                      setOpen(false);
-                    }}
-                  />
+                  <Suspense
+                    fallback={
+                      <div className="h-[300px] w-[260px] animate-pulse bg-muted/40" />
+                    }
+                  >
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      captionLayout="dropdown"
+                      month={month}
+                      onMonthChange={setMonth}
+                      onSelect={(date) => {
+                        setDate(date);
+                        field.onChange(formatDate(date!));
+                        setOpen(false);
+                      }}
+                    />
+                  </Suspense>
                 </PopoverContent>
               </Popover>
             </div>

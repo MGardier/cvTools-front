@@ -1,11 +1,11 @@
 # cvTools Frontend
-Interface React pour un outil de gestion de candidatures (applications, contacts, skills).
+React interface for a job application management tool (applications, contacts, skills).
 
 ## Tech Stack
 - React 19 + TypeScript, Vite + SWC, Tailwind CSS
 - TanStack React Query (server state), Zustand (global state)
-- React Hook Form + Zod (formulaires), Axios (HTTP)
-- Radix UI (primitives), i18next (i18n fr/en par défaut)
+- React Hook Form + Zod (forms), Axios (HTTP)
+- Radix UI (primitives), i18next (i18n fr/en, default fr)
 - pnpm (package manager)
 
 ## Commands
@@ -13,55 +13,63 @@ Interface React pour un outil de gestion de candidatures (applications, contacts
 - `pnpm run build` - `tsc -b && vite build`
 - `pnpm run lint` - ESLint
 - `pnpm run preview` - Preview prod build
+- `pnpm run analyze` - Build with bundle visualizer (opens `dist/stats.html`)
 
 ## Important Files
-- `src/lib/axios/axios.ts` - Instance Axios avec intercepteur 401 (refresh token + redirect)
-- `src/lib/tanstack-query/query-client.ts` - Config React Query (retry 4xx=non, 5xx=3x)
-- `src/shared/hooks/useMe.ts` - Hook auth courant (query key `['me']`)
-- `src/app/constants/routes.ts` - Définitions de routes centralisées (objet `ROUTES`)
-- `src/app/constants/endpoints.ts` - Endpoints API centralisés (objet `ENDPOINTS`)
-- `src/app/router/private-routes.tsx` - Wrapper routes protégées
-- `src/app/i18n/index.ts` - Config i18next (namespaces: auth, common, application)
-- `src/shared/types/` - Types partagés (IApiResponse, IUser, IApplication, etc.)
+- `src/lib/axios/axios.ts` - Axios instance with 401 interceptor (refresh token + redirect)
+- `src/lib/tanstack-query/query-client.ts` - React Query config (retry 4xx=no, 5xx=3x)
+- `src/shared/hooks/useMe.ts` - Current auth hook (query key `['me']`)
+- `src/app/constants/routes.ts` - Centralized route definitions (`ROUTES` object)
+- `src/app/constants/endpoints.ts` - Centralized API endpoints (`ENDPOINTS` object)
+- `src/app/router/private-routes.tsx` - Protected routes wrapper
+- `src/app/i18n/index.ts` - i18next config (namespaces: auth, common, application)
+- `src/shared/types/` - Shared types (IApiResponse, IUser, IApplication, etc.)
 
 ## Architecture
 
-**Séparation obligatoire des composants :**
-- `*.tsx` — composant logique (hooks, mutations, data fetching)
-- `*.ui.tsx` — composant UI pur (JSX seulement, zéro hook)
+**Mandatory component separation:**
+- `*.tsx` — logic component (hooks, mutations, data fetching)
+- `*.ui.tsx` — pure UI component (JSX only, zero hooks)
 
-**Couches API :**
+**API layers:**
 ```
-composant → service (*.service.ts) → api (*.api.ts) → axios
+component → service (*.service.ts) → api (*.api.ts) → axios
 ```
 
 ## Rules
 
-**CRITICAL — Séparation UI/Logic :**
-- **NEVER** mettre des hooks (`useQuery`, `useMutation`, `useState`, etc.) dans un `*.ui.tsx`
-- **ALWAYS** passer les données/callbacks en props depuis le `*.tsx` vers le `*.ui.tsx`
+**CRITICAL — UI/Logic separation:**
+- **NEVER** put hooks (`useQuery`, `useMutation`, `useState`, etc.) inside a `*.ui.tsx`
+- **ALWAYS** pass data/callbacks as props from the `*.tsx` to the `*.ui.tsx`
 
-**Formulaires :**
-- **NEVER** utiliser `useState` ou `<form>` natif pour les formulaires — **ALWAYS** React Hook Form + Zod
-- Les schémas Zod s'écrivent comme fonction : `createXxxSchema(t: TFunction)` (pour l'i18n)
-- Appliquer via `zodResolver(createXxxSchema(t))`
-- Utiliser les composants `InputField`, `SelectField`, etc. de `src/shared/components/form/`
+**Forms:**
+- **NEVER** use `useState` or a native `<form>` for forms — **ALWAYS** React Hook Form + Zod
+- Zod schemas are written as functions: `createXxxSchema(t: TFunction)` (for i18n)
+- Apply via `zodResolver(createXxxSchema(t))`
+- Use the `InputField`, `SelectField`, etc. components from `src/shared/components/form/`
 
-**Routing :**
-- **NEVER** hardcoder des chemins de route (`"/auth/sign-in"`) — **ALWAYS** utiliser `ROUTES.xxx`
-- **ALWAYS** utiliser `ENDPOINTS.xxx` pour les appels API (jamais de string en dur)
+**Routing:**
+- **NEVER** hardcode route paths (`"/auth/sign-in"`) — **ALWAYS** use `ROUTES.xxx`
+- **ALWAYS** use `ENDPOINTS.xxx` for API calls (never a raw string)
 
-**HTTP & Data :**
-- L'intercepteur Axios retourne `response.data` automatiquement — ne pas accéder à `.data` manuellement
-- React Query pour tout le server state — pas de `useEffect` + `fetch`
-- Le query key `['me']` est l'identité auth — effacé au logout et sur 401 non-récupérable
+**HTTP & Data:**
+- The Axios interceptor returns `response.data` automatically — do not access `.data` manually
+- React Query for all server state — no `useEffect` + `fetch`
+- The `['me']` query key is the auth identity — cleared on logout and on unrecoverable 401
 
-**i18n :**
-- Langue par défaut : `'fr'` — les messages de validation doivent utiliser `t()`
-- Namespaces : `auth`, `common`, `application`
+**i18n:**
+- Default language: `'fr'` — validation messages must use `t()`
+- Namespaces: `auth`, `common`, `application`
 
-**State :**
+**State:**
 - Server state → React Query (`useQuery`, `useMutation`)
 - Global UI state → Zustand
 - Form state → React Hook Form
 - Local UI state → `useState`
+
+**Lazy loading:**
+- **ALWAYS** lazy-load route components via `lazyNamed()` (`src/shared/utils/lazy.ts`) — except `HomePage`, which stays static to avoid the initial-load flash
+- `RouteLoader` (`src/shared/components/route-loader.tsx`) is the global Suspense fallback, placed in `App.tsx`
+- `ErrorBoundary` + `ChunkErrorFallback` wrap the root Suspense — they catch `ChunkLoadError` after a deployment and prompt for a reload
+- Also lazy-load heavy components that are not visible upfront: `MinimalTiptapEditor`, `Calendar` (date pickers), modals (Url/Contact/Skill). Rendering stays unconditional (`<Suspense><Modal open={open} /></Suspense>`) — Radix handles the open/close lifecycle
+- Run `pnpm analyze` after adding any heavy dependency to check the bundle

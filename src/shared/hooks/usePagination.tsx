@@ -1,104 +1,86 @@
 import type { IPaginationItem, IUsePaginationReturn } from "@/shared/types/hook";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback } from "react";
 
-export const usePagination = (
-  initialPage = 1,
-  initialSize: number = 10,
-  initialTotalItems?: number
-): IUsePaginationReturn => {
+interface IUsePaginationArgs {
+  page: number;
+  limit: number;
+  totalItems?: number;
+  onPageChange: (page: number) => void;
+  onLimitChange?: (limit: number) => void;
+}
 
-  const [pagination, setPagination] = useState<IPaginationItem>({
-    page: initialPage,
-    limit: initialSize,
-    totalItems: initialTotalItems,
-  });
+export const usePagination = ({
+  page,
+  limit,
+  totalItems,
+  onPageChange,
+  onLimitChange,
+}: IUsePaginationArgs): IUsePaginationReturn => {
+
+  const totalPages = totalItems ? Math.ceil(totalItems / limit) : undefined;
 
   const getTotalPages = useCallback(
-    (): number | undefined => pagination.totalItems ? Math.ceil(pagination.totalItems / pagination.limit) : undefined,
-    [pagination.limit, pagination.totalItems]
+    (): number | undefined => totalPages,
+    [totalPages]
   );
 
 
-  /********* UPDATE FUNCTION *********/
+  // =============================================================================
+  //                               UPDATE FUNCTIONS
+  // =============================================================================
 
-  const setLimit = useCallback((limit: number): void => {
-    setPagination((prev) =>
-      limit > 1 && limit <= 100 ? { ...prev, page: 1, limit } : prev
-    );
-  }, []);
+  const setPage = useCallback((newPage: number): void => {
+    if (!totalPages || newPage < 1 || newPage > totalPages) return;
+    onPageChange(newPage);
+  }, [totalPages, onPageChange]);
 
-  const setTotalItems = useCallback((totalItems: number): void => {
-    setPagination((prev) => ({ ...prev, totalItems }));
-  }, []);
-
-  const setPage = useCallback((page: number): void => {
-    setPagination((prev) => {
-      const totalPages = prev.totalItems ? Math.ceil(prev.totalItems / prev.limit) : undefined;
-      if(!totalPages)
-        return prev;
-      return page > 0 && page <= totalPages ? { ...prev, page } : prev;
-    });
-  }, []);
+  const setLimit = useCallback((newLimit: number): void => {
+    if (newLimit < 1 || newLimit > 100) return;
+    onLimitChange?.(newLimit);
+    onPageChange(1);
+  }, [onLimitChange, onPageChange]);
 
   const clearPagination = useCallback((): void => {
-    setPagination({
-      page: 1,
-      limit: initialSize,
-      totalItems: initialTotalItems,
-    });
-  }, [initialSize, initialTotalItems]);
+    onPageChange(1);
+  }, [onPageChange]);
 
 
-  /********* NAVIGATION  FUNCTION *********/
+   // =============================================================================
+  //                            NAVIGATE FUNCTIONS
+  // =============================================================================
 
   const nextPage = useCallback((): void => {
-    setPagination((prev) => {
-      const totalPages = prev.totalItems ? Math.ceil(prev.totalItems / prev.limit) : undefined;
-      if(!totalPages)
-        return prev;
-      return prev.page < totalPages ? { ...prev, page: prev.page + 1 } : prev;
-    });
-  }, []);
-  
+    if (!totalPages || page >= totalPages) return;
+    onPageChange(page + 1);
+  }, [totalPages, page, onPageChange]);
 
   const prevPage = useCallback((): void => {
-    setPagination((prev) =>
-      prev.page > 1 ? { ...prev, page: prev.page - 1 } : prev
-    );
-  }, []);
+    if (page <= 1) return;
+    onPageChange(page - 1);
+  }, [page, onPageChange]);
 
   const canGoNext = useCallback(
-  (): boolean | undefined => {
-    const totalPages =  pagination.totalItems ? Math.ceil(pagination.totalItems / pagination.limit) : undefined
-    if(!totalPages)
-      return undefined;
-    return totalPages > pagination.page;
-  },
-  [pagination.page, pagination.totalItems, pagination.limit]
-);
-
-
-const canGoPrev = useCallback(
-  (): boolean => pagination.page > 1,
-  [pagination.page]
-);
-
-
-  return useMemo(
-    () => ({
-      pagination,
-      setPage,
-      setLimit,
-      setTotalItems,
-
-      clearPagination,
-      getTotalPages,
-
-      nextPage,
-      prevPage,
-      canGoNext,
-      canGoPrev,
-    }),
-    [pagination]
+    (): boolean | undefined => (totalPages !== undefined ? page < totalPages : undefined),
+    [totalPages, page]
   );
+
+  const canGoPrev = useCallback(
+    (): boolean => page > 1,
+    [page]
+  );
+
+
+  const pagination: IPaginationItem = { page, limit, totalItems };
+
+  return {
+    pagination,
+    setPage,
+    setLimit,
+    clearPagination,
+    nextPage,
+    prevPage,
+    canGoNext,
+    canGoPrev,
+    getTotalPages,
+  };
 };

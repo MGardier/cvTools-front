@@ -1,5 +1,5 @@
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
@@ -22,8 +22,7 @@ export const ApplicationList = () => {
   const queryClient = useQueryClient();
   const { user } = useMe();
 
-  const { pagination, setPage, setTotalItems, canGoNext, canGoPrev, getTotalPages } =
-    usePagination(1, DEFAULT_PAGE_SIZE);
+  const [page, setPageState] = useState(1);
 
   const { sorting, updateSorting, clearSorting } = useSorting<IApplication>();
 
@@ -46,30 +45,30 @@ export const ApplicationList = () => {
       const order = value.slice(lastUnderscore + 1) as "asc" | "desc";
       updateSorting(field);
       if (order === "desc") updateSorting(field);
-      setPage(1);
+      setPageState(1);
     },
-    [clearSorting, updateSorting, setPage]
+    [clearSorting, updateSorting]
   );
 
   const handleFiltersChange = useCallback(
     (partial: Partial<IApplicationFilters>) => {
       updateFilters(partial);
-      setPage(1);
+      setPageState(1);
     },
-    [updateFilters, setPage]
+    [updateFilters]
   );
 
   const handleClearFilters = useCallback(() => {
     clearFilters();
-    setPage(1);
-  }, [clearFilters, setPage]);
+    setPageState(1);
+  }, [clearFilters]);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: [APPLICATIONS_QUERY_KEY, user?.id, pagination.page, pagination.limit, sortField, sortDirection, filters],
+    queryKey: [APPLICATIONS_QUERY_KEY, user?.id, page, DEFAULT_PAGE_SIZE, sortField, sortDirection, filters],
     queryFn: () =>
       applicationService.findAllByUserId({
-        page: pagination.page,
-        limit: pagination.limit,
+        page,
+        limit: DEFAULT_PAGE_SIZE,
         sortField,
         sortDirection,
         filters,
@@ -77,11 +76,14 @@ export const ApplicationList = () => {
     enabled: !!user,
   });
 
-  useEffect(() => {
-    if (data?.data?.total !== undefined) {
-      setTotalItems(data.data.total);
-    }
-  }, [data?.data?.total, setTotalItems]);
+  const total = data?.data?.total;
+
+  const { pagination, setPage, canGoNext, canGoPrev, getTotalPages } = usePagination({
+    page,
+    limit: DEFAULT_PAGE_SIZE,
+    totalItems: total,
+    onPageChange: setPageState,
+  });
 
   const toggleFavoriteMutation = useMutation({
     mutationFn: ({ id, isFavorite }: { id: number; isFavorite: boolean }) =>

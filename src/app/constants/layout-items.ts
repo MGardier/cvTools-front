@@ -6,8 +6,9 @@ export const NAVBAR_ITEMS : TNavbarItem[] = [
   {
     label: "offers",
     key: "offers",
+    link: ROUTES.offer.list,
     isDisabled: false,
-    isSoon : true,
+    isSoon : false,
   },
   {
     label: "applications",
@@ -26,6 +27,13 @@ export const NAVBAR_ITEMS : TNavbarItem[] = [
     label: "statistics",
     key: "statistics",
     isDisabled: true,
+    isSoon : false,
+  },
+  {
+    label: "test",
+    key: "test",
+    link: ROUTES.test.root,
+    isDisabled: false,
     isSoon : false,
   },
 

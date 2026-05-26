@@ -25,4 +25,14 @@ export const ROUTES = {
     edit: (id: number | string) => `/applications/${id}/edit`,
     editPattern: "/applications/:id/edit",
   },
+
+  offer: {
+    list: "/offers",
+  },
+
+  test: {
+    root: "/test",
+    section: (id: string) => `/test/${id}`,
+    sectionPattern: "/test/:sectionId",
+  },
 } as const ;

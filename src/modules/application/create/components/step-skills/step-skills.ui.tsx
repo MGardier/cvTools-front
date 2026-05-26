@@ -1,11 +1,15 @@
 import type { TFunction } from "i18next";
+import { lazy, Suspense } from "react";
 
 import { EntitySearchField } from "@/shared/components/form/entity-search-field";
 import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog";
 
 import type { ISkill } from "@/shared/types/entity";
 import type { TFormSkill } from "../../types";
-import { SkillFormModal } from "../skill-form-modal";
+
+const SkillFormModal = lazy(() =>
+  import("../skill-form-modal").then((m) => ({ default: m.SkillFormModal })),
+);
 
 interface IStepSkillsUiProps {
   skills: TFormSkill[];
@@ -80,14 +84,16 @@ export const StepSkillsUi = ({
         isCreatingInline={isCreatingInline}
       />
 
-      <SkillFormModal
-        open={modalOpen}
-        onOpenChange={onModalOpenChange}
-        onAdd={onAdd}
-        onEdit={onSaveEdit}
-        editSkill={editSkill}
-        t={t}
-      />
+      <Suspense fallback={null}>
+        <SkillFormModal
+          open={modalOpen}
+          onOpenChange={onModalOpenChange}
+          onAdd={onAdd}
+          onEdit={onSaveEdit}
+          editSkill={editSkill}
+          t={t}
+        />
+      </Suspense>
 
       <ConfirmDialog
         open={!!deleteTarget}
