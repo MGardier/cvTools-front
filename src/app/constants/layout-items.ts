@@ -29,6 +29,13 @@ export const NAVBAR_ITEMS : TNavbarItem[] = [
     isDisabled: true,
     isSoon : false,
   },
+  {
+    label: "test",
+    key: "test",
+    link: ROUTES.test.root,
+    isDisabled: false,
+    isSoon : false,
+  },
 
 
 ] as const;

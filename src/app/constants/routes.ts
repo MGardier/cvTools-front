@@ -29,4 +29,10 @@ export const ROUTES = {
   offer: {
     list: "/offers",
   },
+
+  test: {
+    root: "/test",
+    section: (id: string) => `/test/${id}`,
+    sectionPattern: "/test/:sectionId",
+  },
 } as const ;

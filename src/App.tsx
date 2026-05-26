@@ -24,6 +24,7 @@ import { CreateApplication } from "@/modules/application/create/create-applicati
 import { ApplicationDetail } from "@/modules/application/detail/application-detail";
 import { EditApplication } from "@/modules/application/edit/edit-application";
 import { OfferList } from "@/modules/offer/list/offer-list";
+import { TestPage } from "@/modules/test/test-page";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,6 +35,14 @@ function App() {
           <Routes>
             {/* HOME */}
             <Route key="home" path={ROUTES.home} element={<HomePage />} />
+
+            {/* TEST (CV mockup) */}
+            <Route key="test" path={ROUTES.test.root} element={<TestPage />} />
+            <Route
+              key="testSection"
+              path={ROUTES.test.sectionPattern}
+              element={<TestPage />}
+            />
 
             {/************************* AUTH ******************************************* */}
             {/* SIGNUP */}
