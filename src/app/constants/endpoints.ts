@@ -1,5 +1,6 @@
 export const ENDPOINTS = {
   user: "/user",
+  userHome: "/user/me/home",
   application: '/application',
   skill : '/skill',
   contact: '/contact',
