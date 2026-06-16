@@ -1,0 +1,76 @@
+{
+  "intro": {
+    "title": "Votre recherche d'emploi, simplifiée",
+    "tagline": "Recherchez des offres sur plusieurs jobboards et suivez chaque candidature avec notes, tâches et historique."
+  },
+  "search": {
+    "title": "Rechercher des offres",
+    "badge": "Accès libre",
+    "description": "Parcourez les offres de France Travail et d'autres jobboards en une seule recherche.",
+    "chips": {
+      "contractType": "Contrat",
+      "remote": "Télétravail",
+      "experience": "Expérience",
+      "publishedSince": "Période"
+    }
+  },
+  "applications": {
+    "title": "Mes candidatures",
+    "badge": "Compte gratuit",
+    "description": "Centralisez et suivez toutes vos candidatures en un seul endroit.",
+    "features": {
+      "aiExtraction": {
+        "title": "Extraction IA",
+        "description": "Collez une URL ou un texte d'offre, l'IA extrait les infos clés"
+      },
+      "notes": {
+        "title": "Notes et historique",
+        "description": "Gardez une trace de chaque échange et réflexion"
+      },
+      "tasks": {
+        "title": "Tâches",
+        "description": "Créez des to-do liées à chaque candidature"
+      },
+      "status": {
+        "title": "Suivi par statut",
+        "description": "Visualisez où en est chaque candidature"
+      }
+    },
+    "auth": {
+      "label": "Créer un compte gratuitement",
+      "google": "Google",
+      "github": "GitHub",
+      "email": "Email"
+    }
+  },
+  "connected": {
+    "greeting": "Bon retour",
+    "summary": {
+      "applications_one": "{{count}} candidature en cours",
+      "applications_other": "{{count}} candidatures en cours",
+      "interviews_one": "{{count}} entretien",
+      "interviews_other": "{{count}} entretiens",
+      "tasks_one": "{{count}} tâche à faire",
+      "tasks_other": "{{count}} tâches à faire"
+    },
+    "error": "Impossible de charger votre tableau de bord.",
+    "search": {
+      "title": "Rechercher des offres"
+    },
+    "applications": {
+      "title": "Mes candidatures",
+      "seeAll": "Tout voir",
+      "empty": "Aucune candidature pour le moment.",
+      "stats": {
+        "inProgress": "En cours",
+        "interview": "Entretien",
+        "toApply": "À postuler",
+        "finished": "Terminée"
+      }
+    },
+    "tasks": {
+      "title": "Mes tâches",
+      "empty": "Aucune tâche à faire."
+    }
+  }
+}

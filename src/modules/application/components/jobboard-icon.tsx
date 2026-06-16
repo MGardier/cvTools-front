@@ -25,15 +25,23 @@ interface IJobboardIconProps {
 }
 
 export const JobboardIcon = ({ jobboard, size = 100, className }: IJobboardIconProps) => {
-  const Icon = jobboard ? JOBBOARD_ICON_MAP[jobboard] : undefined;
+  const Icon = (jobboard ? JOBBOARD_ICON_MAP[jobboard] : undefined) ?? CvToolsIcon;
   const iconSize = className ? "100%" : size;
+  // When sized via a className box: fill the width and let the height follow the
+  // viewBox aspect ratio. `height: 100%` does NOT resolve inside a CSS grid item
+  // (indefinite track height → SVG collapses to 0), whereas a width percentage
+  // resolves reliably against the definite column width. Jobboard logos are all
+  // wider than tall, so width-fill keeps them within the (square) box.
+  const iconStyle = className
+    ? { width: "100%", height: "auto" }
+    : undefined;
 
   return (
     <div
       className={cn("shrink-0 flex items-center justify-center", className && "overflow-hidden", className)}
       style={className ? undefined : { width: size, height: size }}
     >
-      {Icon ? <Icon size={iconSize} /> : <CvToolsIcon size={iconSize} />}
+      <Icon size={iconSize} style={iconStyle} />
     </div>
   );
 };

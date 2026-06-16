@@ -55,7 +55,8 @@
       "edit": "Modifier",
       "delete": "Supprimer",
       "published": "Publié",
-      "applied": "Postulé"
+      "applied": "Postulé",
+      "tasks": "tâches"
     },
     "confirmDelete": {
       "title": "Supprimer cette candidature ?",

@@ -55,7 +55,8 @@
       "edit": "Edit",
       "delete": "Delete",
       "published": "Published",
-      "applied": "Applied"
+      "applied": "Applied",
+      "tasks": "tasks"
     },
     "confirmDelete": {
       "title": "Delete this application?",

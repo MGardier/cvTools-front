@@ -1,0 +1,76 @@
+{
+  "intro": {
+    "title": "Your job search, simplified",
+    "tagline": "Search jobs from multiple jobboards and track each application with notes, tasks and history."
+  },
+  "search": {
+    "title": "Search jobs",
+    "badge": "Free access",
+    "description": "Browse offers from France Travail and other jobboards in a single search.",
+    "chips": {
+      "contractType": "Contract",
+      "remote": "Remote",
+      "experience": "Experience",
+      "publishedSince": "Period"
+    }
+  },
+  "applications": {
+    "title": "My applications",
+    "badge": "Free account",
+    "description": "Centralize and track all your applications in one place.",
+    "features": {
+      "aiExtraction": {
+        "title": "AI extraction",
+        "description": "Paste a URL or offer text, the AI extracts the key info"
+      },
+      "notes": {
+        "title": "Notes and history",
+        "description": "Keep track of every exchange and thought"
+      },
+      "tasks": {
+        "title": "Tasks",
+        "description": "Create to-dos linked to each application"
+      },
+      "status": {
+        "title": "Status tracking",
+        "description": "See where each application stands"
+      }
+    },
+    "auth": {
+      "label": "Create a free account",
+      "google": "Google",
+      "github": "GitHub",
+      "email": "Email"
+    }
+  },
+  "connected": {
+    "greeting": "Welcome back",
+    "summary": {
+      "applications_one": "{{count}} application in progress",
+      "applications_other": "{{count}} applications in progress",
+      "interviews_one": "{{count}} interview",
+      "interviews_other": "{{count}} interviews",
+      "tasks_one": "{{count}} task to do",
+      "tasks_other": "{{count}} tasks to do"
+    },
+    "error": "Unable to load your dashboard.",
+    "search": {
+      "title": "Search jobs"
+    },
+    "applications": {
+      "title": "My applications",
+      "seeAll": "See all",
+      "empty": "No applications yet.",
+      "stats": {
+        "inProgress": "In progress",
+        "interview": "Interview",
+        "toApply": "To apply",
+        "finished": "Finished"
+      }
+    },
+    "tasks": {
+      "title": "My tasks",
+      "empty": "No tasks to do."
+    }
+  }
+}
