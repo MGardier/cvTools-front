@@ -33,6 +33,10 @@ const OauthCallback = lazyNamed(
   () => import("./modules/auth/oauth/oauth-callback"),
   "OauthCallback",
 );
+const AdminRegister = lazyNamed(
+  () => import("./modules/auth/admin/admin-register/admin-register"),
+  "AdminRegister",
+);
 const ApplicationList = lazyNamed(
   () => import("@/modules/application/list/application-list"),
   "ApplicationList",
@@ -102,6 +106,13 @@ function App() {
                   key="signIn"
                   path={ROUTES.auth.signIn}
                   element={<SignIn />}
+                />
+
+                {/* ADMIN REGISTER */}
+                <Route
+                  key="adminRegister"
+                  path={ROUTES.auth.adminRegister}
+                  element={<AdminRegister />}
                 />
 
                 {/* LOGOUT + PROTECTED ROUTES */}

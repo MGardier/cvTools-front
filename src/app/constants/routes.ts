@@ -10,6 +10,9 @@ export const ROUTES = {
     /* OAUTH */
     oauthCallback: "/oauth-callback",
 
+    /* ADMIN REGISTER */
+    adminRegister: "/admin-register",
+
     /* CONFIRM ACCOUNT */
     confirmAccount: "/confirm-account",
 
