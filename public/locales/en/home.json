@@ -45,32 +45,9 @@
   },
   "connected": {
     "greeting": "Welcome back",
-    "summary": {
-      "applications_one": "{{count}} application in progress",
-      "applications_other": "{{count}} applications in progress",
-      "interviews_one": "{{count}} interview",
-      "interviews_other": "{{count}} interviews",
-      "tasks_one": "{{count}} task to do",
-      "tasks_other": "{{count}} tasks to do"
-    },
-    "error": "Unable to load your dashboard.",
     "search": {
       "title": "Search jobs"
     },
-    "applications": {
-      "title": "My applications",
-      "seeAll": "See all",
-      "empty": "No applications yet.",
-      "stats": {
-        "inProgress": "In progress",
-        "interview": "Interview",
-        "toApply": "To apply",
-        "finished": "Finished"
-      }
-    },
-    "tasks": {
-      "title": "My tasks",
-      "empty": "No tasks to do."
-    }
+    "subtitle": "Search job offers across several jobboards in a single query."
   }
 }

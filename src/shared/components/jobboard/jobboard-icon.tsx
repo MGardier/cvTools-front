@@ -4,7 +4,7 @@ import { Linkedin, HelloWork, Indeed, WTTJ, FranceTravail, CvToolsIcon } from "@
 
 import { cn } from "@/shared/utils/utils";
 import type { IconProps } from "@/shared/assets/icon/types";
-import { EJobboard, type TJobboard } from "@/modules/application/types";
+import { EJobboard, type TJobboard } from "@/shared/types/entity";
 
 const JOBBOARD_ICON_MAP: Record<string, ComponentType<IconProps>> = {
   [EJobboard.LINKEDIN]: Linkedin,
