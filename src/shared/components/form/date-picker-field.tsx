@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
@@ -33,7 +33,11 @@ export const DatePickerField = <TFormData extends FieldValues>({
   const [month, setMonth] = useState<Date | undefined>(undefined);
 
   const fieldValue = form.watch(name);
-  useEffect(() => {
+
+  // Sync the calendar with the form value (adjust state during render)
+  const [prevFieldValue, setPrevFieldValue] = useState<unknown>(undefined);
+  if (!Object.is(fieldValue, prevFieldValue)) {
+    setPrevFieldValue(fieldValue);
     if (fieldValue) {
       const parsed = new Date(fieldValue);
       if (!isNaN(parsed.getTime())) {
@@ -44,7 +48,7 @@ export const DatePickerField = <TFormData extends FieldValues>({
       setDate(undefined);
       setMonth(undefined);
     }
-  }, [fieldValue]);
+  }
 
   return (
     <div className="grid gap-3">

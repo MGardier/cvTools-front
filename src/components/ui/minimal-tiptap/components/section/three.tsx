@@ -151,6 +151,13 @@ export const SectionThree: React.FC<SectionThreeProps> = ({
   const color =
     editor.getAttributes("textStyle")?.color || "hsl(var(--foreground))"
   const [selectedColor, setSelectedColor] = React.useState(color)
+  const [prevColor, setPrevColor] = React.useState(color)
+
+  // Sync with the editor's color when it changes (adjust state during render)
+  if (color !== prevColor) {
+    setPrevColor(color)
+    setSelectedColor(color)
+  }
 
   const handleColorChange = React.useCallback(
     (value: string) => {
@@ -170,10 +177,6 @@ export const SectionThree: React.FC<SectionThreeProps> = ({
     },
     [editor]
   )
-
-  React.useEffect(() => {
-    setSelectedColor(color)
-  }, [color])
 
   return (
     <Popover>
