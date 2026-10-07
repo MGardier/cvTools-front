@@ -2,7 +2,7 @@
 React interface for a job application management tool (applications, contacts, skills).
 
 ## Tech Stack
-- React 19 + TypeScript, Vite + SWC, Tailwind CSS
+- React 19 + TypeScript, Vite (Rolldown + Oxc via `@vitejs/plugin-react`), Tailwind CSS
 - TanStack React Query (server state), Zustand (global state)
 - React Hook Form + Zod (forms), Axios (HTTP)
 - Radix UI (primitives), i18next (i18n fr/en, default fr)

@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
 
-import { JobboardIcon } from "@/modules/application/components/jobboard-icon";
+import { JobboardIcon } from "@/shared/components/jobboard/jobboard-icon";
 import { formatRelativePublishedDate, formatSalary } from "@/shared/utils/format";
 import { cn } from "@/shared/utils/utils";
 

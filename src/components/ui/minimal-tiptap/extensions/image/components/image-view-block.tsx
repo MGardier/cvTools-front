@@ -61,7 +61,10 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
     naturalSize: { width: initialWidth, height: initialHeight },
   })
 
-  const containerRef = React.useRef<HTMLDivElement>(null)
+  // Callback ref stored in state: reading ref.current during render is unsafe
+  const [container, setContainer] = React.useState<HTMLDivElement | null>(
+    null
+  )
   const [activeResizeHandle, setActiveResizeHandle] = React.useState<
     "left" | "right" | null
   >(null)
@@ -76,9 +79,9 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
   const aspectRatio =
     imageState.naturalSize.width / imageState.naturalSize.height
   const maxWidth = MAX_HEIGHT * aspectRatio
-  const containerMaxWidth = containerRef.current
+  const containerMaxWidth = container
     ? parseFloat(
-        getComputedStyle(containerRef.current).getPropertyValue(
+        getComputedStyle(container).getPropertyValue(
           "--editor-width"
         )
       )
@@ -152,16 +155,6 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
     [initiateResize]
   )
 
-  const handleResizeEnd = React.useCallback(() => {
-    setActiveResizeHandle(null)
-  }, [])
-
-  React.useEffect(() => {
-    if (!isResizing) {
-      handleResizeEnd()
-    }
-  }, [isResizing, handleResizeEnd])
-
   React.useEffect(() => {
     const handleImage = async () => {
       if (!initSrc.startsWith("blob:") || uploadAttemptedRef.current) {
@@ -215,7 +208,7 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
 
   return (
     <NodeViewWrapper
-      ref={containerRef}
+      ref={setContainer}
       data-drag-handle
       className="relative text-center leading-none"
     >

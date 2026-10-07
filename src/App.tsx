@@ -33,21 +33,9 @@ const OauthCallback = lazyNamed(
   () => import("./modules/auth/oauth/oauth-callback"),
   "OauthCallback",
 );
-const ApplicationList = lazyNamed(
-  () => import("@/modules/application/list/application-list"),
-  "ApplicationList",
-);
-const CreateApplication = lazyNamed(
-  () => import("@/modules/application/create/create-application"),
-  "CreateApplication",
-);
-const ApplicationDetail = lazyNamed(
-  () => import("@/modules/application/detail/application-detail"),
-  "ApplicationDetail",
-);
-const EditApplication = lazyNamed(
-  () => import("@/modules/application/edit/edit-application"),
-  "EditApplication",
+const AdminRegister = lazyNamed(
+  () => import("./modules/auth/admin/admin-register/admin-register"),
+  "AdminRegister",
 );
 const OfferList = lazyNamed(
   () => import("@/modules/offer/list/offer-list"),
@@ -104,42 +92,19 @@ function App() {
                   element={<SignIn />}
                 />
 
+                {/* ADMIN REGISTER */}
+                <Route
+                  key="adminRegister"
+                  path={ROUTES.auth.adminRegister}
+                  element={<AdminRegister />}
+                />
+
                 {/* LOGOUT + PROTECTED ROUTES */}
                 <Route element={<PrivateRoutes />}>
                   <Route
                     key="logout"
                     path={ROUTES.auth.logout}
                     element={<Logout />}
-                  />
-
-                  {/************************* APPLICATION *************************************** */}
-
-                  {/* APPLICATION LIST */}
-                  <Route
-                    key="applicationList"
-                    path={ROUTES.application.list}
-                    element={<ApplicationList />}
-                  />
-
-                  {/* APPLICATION CREATE */}
-                  <Route
-                    key="applicationCreate"
-                    path={ROUTES.application.create}
-                    element={<CreateApplication />}
-                  />
-
-                  {/* APPLICATION EDIT */}
-                  <Route
-                    key="applicationEdit"
-                    path={ROUTES.application.editPattern}
-                    element={<EditApplication />}
-                  />
-
-                  {/* APPLICATION DETAIL */}
-                  <Route
-                    key="applicationDetail"
-                    path={ROUTES.application.detailPattern}
-                    element={<ApplicationDetail />}
                   />
 
                   {/************************* OFFER *************************************** */}

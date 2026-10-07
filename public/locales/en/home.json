@@ -1,0 +1,53 @@
+{
+  "intro": {
+    "title": "Your job search, simplified",
+    "tagline": "Search jobs from multiple jobboards and track each application with notes, tasks and history."
+  },
+  "search": {
+    "title": "Search jobs",
+    "badge": "Free access",
+    "description": "Browse offers from France Travail and other jobboards in a single search.",
+    "chips": {
+      "contractType": "Contract",
+      "remote": "Remote",
+      "experience": "Experience",
+      "publishedSince": "Period"
+    }
+  },
+  "applications": {
+    "title": "My applications",
+    "badge": "Free account",
+    "description": "Centralize and track all your applications in one place.",
+    "features": {
+      "aiExtraction": {
+        "title": "AI extraction",
+        "description": "Paste a URL or offer text, the AI extracts the key info"
+      },
+      "notes": {
+        "title": "Notes and history",
+        "description": "Keep track of every exchange and thought"
+      },
+      "tasks": {
+        "title": "Tasks",
+        "description": "Create to-dos linked to each application"
+      },
+      "status": {
+        "title": "Status tracking",
+        "description": "See where each application stands"
+      }
+    },
+    "auth": {
+      "label": "Create a free account",
+      "google": "Google",
+      "github": "GitHub",
+      "email": "Email"
+    }
+  },
+  "connected": {
+    "greeting": "Welcome back",
+    "search": {
+      "title": "Search jobs"
+    },
+    "subtitle": "Search job offers across several jobboards in a single query."
+  }
+}

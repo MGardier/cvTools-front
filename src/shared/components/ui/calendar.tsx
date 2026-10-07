@@ -5,6 +5,8 @@ import {
   ChevronRightIcon,
 } from "lucide-react"
 import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker"
+import { enUS, fr } from "react-day-picker/locale"
+import { useTranslation } from "react-i18next"
 
 import { cn } from "@/shared/utils/utils"
 import { Button, buttonVariants } from "@/shared/components/ui/button"
@@ -17,14 +19,19 @@ function Calendar({
   buttonVariant = "ghost",
   formatters,
   components,
+  locale,
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>["variant"]
 }) {
   const defaultClassNames = getDefaultClassNames()
+  const { i18n } = useTranslation()
+  const resolvedLocale =
+    locale ?? (i18n.resolvedLanguage === "en" ? enUS : fr)
 
   return (
     <DayPicker
+      locale={resolvedLocale}
       showOutsideDays={showOutsideDays}
       className={cn(
         "bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
@@ -35,7 +42,7 @@ function Calendar({
       captionLayout={captionLayout}
       formatters={{
         formatMonthDropdown: (date) =>
-          date.toLocaleString("default", { month: "short" }),
+          date.toLocaleString(resolvedLocale.code, { month: "short" }),
         ...formatters,
       }}
       classNames={{
@@ -82,7 +89,7 @@ function Calendar({
             : "rounded-md pl-2 pr-1 flex items-center gap-1 text-sm h-8 [&>svg]:text-muted-foreground [&>svg]:size-3.5",
           defaultClassNames.caption_label
         ),
-        table: "w-full border-collapse",
+        month_grid: "w-full border-collapse",
         weekdays: cn("flex", defaultClassNames.weekdays),
         weekday: cn(
           "text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none",

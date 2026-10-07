@@ -11,30 +11,11 @@ export const NAVBAR_ITEMS : TNavbarItem[] = [
     isSoon : false,
   },
   {
-    label: "applications",
-    key: "applications",
-    link: ROUTES.application.list,
-    isDisabled: false,
-    isSoon : false,
-  },
-  {
-    label: "help",
-    key: "help",
-    isDisabled: false,
-    isSoon : true,
-  },
-  {
-    label: "statistics",
-    key: "statistics",
-    isDisabled: true,
-    isSoon : false,
-  },
-  {
-    label: "test",
+    label: "CV",
     key: "test",
     link: ROUTES.test.root,
     isDisabled: false,
-    isSoon : false,
+    isSoon : true,
   },
 
 

@@ -14,8 +14,9 @@ export const MeasuredContainer = <T extends React.ElementType>({
   style = {},
   ...props
 }: MeasuredContainerProps<T> & React.ComponentProps<T>) => {
-  const innerRef = React.useRef<HTMLElement>(null)
-  const rect = useContainerSize(innerRef.current)
+  // Callback ref stored in state: reading ref.current during render is unsafe
+  const [element, setElement] = React.useState<HTMLElement | null>(null)
+  const rect = useContainerSize(element)
 
   const customStyle = {
     [`--${name}-width`]: `${rect.width}px`,
@@ -23,7 +24,7 @@ export const MeasuredContainer = <T extends React.ElementType>({
   }
 
   return (
-    <Component {...props} ref={innerRef} style={{ ...customStyle, ...style }}>
+    <Component {...props} ref={setElement} style={{ ...customStyle, ...style }}>
       {children}
     </Component>
   )

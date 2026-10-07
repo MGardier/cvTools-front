@@ -30,11 +30,12 @@ interface IOfferTableFiltersProps {
   onClearFilters: () => void;
   hasActiveFilters: boolean;
   cityResetKey: number;
+  hideAdvancedFilters?: boolean;
 }
 
 /* ── Shared wrapper classes for joined-pill segments ── */
 const SEGMENT_BASE =
-  "h-16 border border-offgreen-medium bg-background flex items-center transition-colors";
+  "h-12 md:h-16 border border-offgreen-medium bg-background flex items-center transition-colors";
 const SEGMENT_MOBILE = "rounded-xl";
 const SEGMENT_FIRST = "md:rounded-l-xl md:rounded-r-none";
 const SEGMENT_MIDDLE = "md:rounded-none md:border-l-transparent";
@@ -51,6 +52,7 @@ export const OfferTableFilters = ({
   onClearFilters,
   hasActiveFilters,
   cityResetKey,
+  hideAdvancedFilters = false,
 }: IOfferTableFiltersProps) => {
   const { t } = useTranslation("offer");
   const [cityHasError, setCityHasError] = useState(false);
@@ -171,89 +173,93 @@ export const OfferTableFilters = ({
           />
         </div>
 
-        {/* 3. Contract type */}
-        <div className={cn("flex-[0.5] px-3", SEGMENT_BASE, SEGMENT_MOBILE, SEGMENT_MIDDLE)}>
-          <Select
-            value={stagedFilters.contractType ?? ""}
-            onValueChange={(value) =>
-              handleNonKeywordChange({ contractType: value ? (value as IOfferSearchFilters["contractType"]) : undefined })
-            }
-          >
-            <SelectTrigger className="h-full border-none shadow-none bg-transparent focus:ring-0 text-sm text-offgreen-dark w-full">
-              <SelectValue placeholder={t("list.filters.contractTypePlaceholder")} />
-            </SelectTrigger>
-            <SelectContent>
-              {contractTypeOptions.map((opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        {!hideAdvancedFilters && (
+          <>
+            {/* 3. Contract type */}
+            <div className={cn("flex-[0.5] px-3", SEGMENT_BASE, SEGMENT_MOBILE, SEGMENT_MIDDLE)}>
+              <Select
+                value={stagedFilters.contractType ?? ""}
+                onValueChange={(value) =>
+                  handleNonKeywordChange({ contractType: value ? (value as IOfferSearchFilters["contractType"]) : undefined })
+                }
+              >
+                <SelectTrigger className="h-full border-none shadow-none bg-transparent focus:ring-0 text-sm text-offgreen-dark w-full">
+                  <SelectValue placeholder={t("list.filters.contractTypePlaceholder")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {contractTypeOptions.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-        {/* 4. Remote */}
-        <div className={cn("flex-[0.5] px-3", SEGMENT_BASE, SEGMENT_MOBILE, SEGMENT_MIDDLE)}>
-          <Select
-            value={stagedFilters.remote ?? ""}
-            onValueChange={(value) =>
-              handleNonKeywordChange({ remote: value ? (value as IOfferSearchFilters["remote"]) : undefined })
-            }
-          >
-            <SelectTrigger className="h-full border-none shadow-none bg-transparent focus:ring-0 text-sm text-offgreen-dark w-full">
-              <SelectValue placeholder={t("list.filters.remotePlaceholder")} />
-            </SelectTrigger>
-            <SelectContent>
-              {remoteOptions.map((opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+            {/* 4. Remote */}
+            <div className={cn("flex-[0.5] px-3", SEGMENT_BASE, SEGMENT_MOBILE, SEGMENT_MIDDLE)}>
+              <Select
+                value={stagedFilters.remote ?? ""}
+                onValueChange={(value) =>
+                  handleNonKeywordChange({ remote: value ? (value as IOfferSearchFilters["remote"]) : undefined })
+                }
+              >
+                <SelectTrigger className="h-full border-none shadow-none bg-transparent focus:ring-0 text-sm text-offgreen-dark w-full">
+                  <SelectValue placeholder={t("list.filters.remotePlaceholder")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {remoteOptions.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-        {/* 5. Experience */}
-        <div className={cn("flex-[0.5] px-3", SEGMENT_BASE, SEGMENT_MOBILE, SEGMENT_MIDDLE)}>
-          <Select
-            value={stagedFilters.experience ?? ""}
-            onValueChange={(value) =>
-              handleNonKeywordChange({ experience: value ? (value as IOfferSearchFilters["experience"]) : undefined })
-            }
-          >
-            <SelectTrigger className="h-full border-none shadow-none bg-transparent focus:ring-0 text-sm text-offgreen-dark w-full">
-              <SelectValue placeholder={t("list.filters.experiencePlaceholder")} />
-            </SelectTrigger>
-            <SelectContent>
-              {experienceOptions.map((opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+            {/* 5. Experience */}
+            <div className={cn("flex-[0.5] px-3", SEGMENT_BASE, SEGMENT_MOBILE, SEGMENT_MIDDLE)}>
+              <Select
+                value={stagedFilters.experience ?? ""}
+                onValueChange={(value) =>
+                  handleNonKeywordChange({ experience: value ? (value as IOfferSearchFilters["experience"]) : undefined })
+                }
+              >
+                <SelectTrigger className="h-full border-none shadow-none bg-transparent focus:ring-0 text-sm text-offgreen-dark w-full">
+                  <SelectValue placeholder={t("list.filters.experiencePlaceholder")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {experienceOptions.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-        {/* 6. Published since */}
-        <div className={cn("flex-[0.5] px-3", SEGMENT_BASE, SEGMENT_MOBILE, SEGMENT_MIDDLE)}>
-          <Select
-            value={stagedFilters.publishedSince ?? ""}
-            onValueChange={(value) =>
-              handleNonKeywordChange({ publishedSince: value ? (value as IOfferSearchFilters["publishedSince"]) : undefined })
-            }
-          >
-            <SelectTrigger className="h-full border-none shadow-none bg-transparent focus:ring-0 text-sm text-offgreen-dark w-full">
-              <SelectValue placeholder={t("list.filters.publishedSincePlaceholder")} />
-            </SelectTrigger>
-            <SelectContent>
-              {publishedSinceOptions.map((opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+            {/* 6. Published since */}
+            <div className={cn("flex-[0.5] px-3", SEGMENT_BASE, SEGMENT_MOBILE, SEGMENT_MIDDLE)}>
+              <Select
+                value={stagedFilters.publishedSince ?? ""}
+                onValueChange={(value) =>
+                  handleNonKeywordChange({ publishedSince: value ? (value as IOfferSearchFilters["publishedSince"]) : undefined })
+                }
+              >
+                <SelectTrigger className="h-full border-none shadow-none bg-transparent focus:ring-0 text-sm text-offgreen-dark w-full">
+                  <SelectValue placeholder={t("list.filters.publishedSincePlaceholder")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {publishedSinceOptions.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </>
+        )}
 
         {/* 7. Search button */}
         <button
@@ -262,7 +268,7 @@ export const OfferTableFilters = ({
           aria-disabled={isKeywordEmpty}
           title={isKeywordEmpty ? t("list.filters.keywordRequired") : undefined}
           className={cn(
-            "h-16 px-6 font-medium text-sm text-white bg-blue-400 hover:bg-blue-500 transition-colors shrink-0",
+            "h-12 md:h-16 px-6 font-medium text-sm text-white bg-blue-400 hover:bg-blue-500 transition-colors shrink-0",
             SEGMENT_MOBILE,
             SEGMENT_LAST,
             isKeywordEmpty && "bg-blue-300 hover:bg-blue-300 cursor-not-allowed"
@@ -272,16 +278,20 @@ export const OfferTableFilters = ({
         </button>
       </div>
 
-      {/* ── Active filter chips + validation messages ── */}
-      {(hasActiveFilters || cityHasError || showKeywordError) && (
+      {/* ── Keyword validation message (visible in both default and simplified modes) ── */}
+      {showKeywordError && (
+        <div className="mt-4">
+          <span className="inline-flex items-center gap-1.5 text-sm text-red-400">
+            <AlertCircle className="w-3.5 h-3.5" />
+            {t("list.filters.keywordRequired")}
+          </span>
+        </div>
+      )}
+
+      {/* ── Active filter chips + city validation (default mode only) ── */}
+      {!hideAdvancedFilters && (hasActiveFilters || cityHasError) && (
         <div className="flex items-center justify-between gap-4 mt-4">
           <div className="flex flex-wrap gap-2">
-            {showKeywordError && (
-              <span className="inline-flex items-center gap-1.5 text-sm text-red-400">
-                <AlertCircle className="w-3.5 h-3.5" />
-                {t("list.filters.keywordRequired")}
-              </span>
-            )}
             {cityHasError && (
               <span className="inline-flex items-center gap-1.5 text-sm text-red-400">
                 <AlertCircle className="w-3.5 h-3.5" />

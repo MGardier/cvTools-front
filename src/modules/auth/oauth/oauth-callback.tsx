@@ -11,9 +11,16 @@ export const OauthCallback = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const loginMethod = searchParams.get("loginMethod");
+    const errorCode = searchParams.get("errorCode");
     const { user, isError, isPending } = useMe();
 
     useEffect(() => {
+        // Admin OAuth failure: the backend redirects here with an errorCode.
+        if (errorCode) {
+            toast.error(t(`messages.errors.api.${errorCode}.short`, t(`messages.errors.api.${errorCode}`, t('messages.errors.fallback'))));
+            navigate(`${ROUTES.auth.signIn}`);
+            return;
+        }
         if (!loginMethod) {
             toast.error(t('messages.errors.fallback'));
             navigate(`${ROUTES.auth.signIn}`);

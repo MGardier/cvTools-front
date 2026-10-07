@@ -44,22 +44,29 @@ export const CityAutocomplete = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Sync external value changes
-  useEffect(() => {
+  // Sync external value changes (adjust state during render)
+  const [prevValue, setPrevValue] = useState(value);
+  const [prevHasSelection, setPrevHasSelection] = useState(hasSelection);
+  if (value !== prevValue || hasSelection !== prevHasSelection) {
+    setPrevValue(value);
+    setPrevHasSelection(hasSelection);
     setInputValue(value);
     setIsSelected(hasSelection);
     setIsDirty(false);
-  }, [value, hasSelection]);
+  }
+
+  // Reset the debounced query as soon as there is nothing to search
+  const shouldSearch = Boolean(inputValue) && !isSelected;
+  if (!shouldSearch && debouncedQuery !== "") {
+    setDebouncedQuery("");
+  }
 
   // Debounce input
   useEffect(() => {
-    if (!inputValue || isSelected) {
-      setDebouncedQuery("");
-      return;
-    }
+    if (!shouldSearch) return;
     const timer = setTimeout(() => setDebouncedQuery(inputValue), DEBOUNCE_MS);
     return () => clearTimeout(timer);
-  }, [inputValue, isSelected]);
+  }, [inputValue, shouldSearch]);
 
   // Notify parent of validation state
   const hasError = isDirty && !isSelected && inputValue.length > 0 && !isFocused;

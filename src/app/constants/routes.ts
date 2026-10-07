@@ -10,20 +10,14 @@ export const ROUTES = {
     /* OAUTH */
     oauthCallback: "/oauth-callback",
 
+    /* ADMIN REGISTER */
+    adminRegister: "/admin-register",
+
     /* CONFIRM ACCOUNT */
     confirmAccount: "/confirm-account",
 
     /* RESET  PASSWORD */
     resetPassword: "/reset-password",
-  },
-
-  application: {
-    list: "/applications",
-    create: "/applications/create",
-    detail: (id: number | string) => `/applications/${id}`,
-    detailPattern: "/applications/:id",
-    edit: (id: number | string) => `/applications/${id}/edit`,
-    editPattern: "/applications/:id/edit",
   },
 
   offer: {
