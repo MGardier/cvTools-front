@@ -1,21 +1,28 @@
 {
   "layout": {
     "header": {
+      "ariaLabel": "Main navigation",
       "auth": {
-        "signIn": "Sign In",
-        "signUp": "Sign Up",
-        "logout": "Sign Out"
+        "signIn": "Sign in",
+        "logout": "Sign out"
       },
       "navigation": {
-        "offers": "Offers",
-        "jobs": "Applications",
-        "help": "Help",
-        "statistics": "Statistics",
-        "test": "test"
+        "applications": "Applications"
+      },
+      "cta": {
+        "createApplication": "New application"
+      },
+      "search": {
+        "label": "Search job offers",
+        "placeholder": "Search offers"
+      },
+      "menu": {
+        "open": "Open menu",
+        "close": "Close menu"
       },
       "badges": {
-        "soon": "Coming Soon",
-        "unavailable": "Not Available"
+        "soon": "Coming soon",
+        "unavailable": "Not available"
       }
     },
     "footer": {

@@ -4,21 +4,12 @@ import type { TFooterItem, TNavbarItem } from "./types";
 
 export const NAVBAR_ITEMS : TNavbarItem[] = [
   {
-    label: "offers",
-    key: "offers",
-    link: ROUTES.offer.list,
+    label: "applications",
+    key: "applications",
+    link: ROUTES.application.list,
     isDisabled: false,
     isSoon : false,
   },
-  {
-    label: "CV",
-    key: "test",
-    link: ROUTES.test.root,
-    isDisabled: false,
-    isSoon : true,
-  },
-
-
 ] as const;
 
 

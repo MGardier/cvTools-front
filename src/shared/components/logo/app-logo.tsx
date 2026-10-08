@@ -19,7 +19,7 @@ export const AppLogo = ({ className }: AppLogoProps) => {
         CV
       </span>
 
-      <span className="text-[17px] font-semibold tracking-[-0.02em] text-blue-400">
+      <span className="text-[17px] font-semibold tracking-[-0.02em] text-blue-500">
         Tools
       </span>
     </a>

@@ -1,52 +1,131 @@
-import { useEffect, useState } from "react";
-import { AppLogo } from "@/shared/components/logo/app-logo";
-import { DesktopNavigation } from "./desktop-navigation";
-import { MobileMenu } from "./mobile-menu";
-import { NAVBAR_ITEMS } from "@/app/constants/layout-items";
-import { Menu, X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import type { TFunction } from "i18next";
+
+import { ROUTES } from "@/app/constants/routes";
+import { NAVBAR_ITEMS } from "@/app/constants/layout-items";
+import { useMe } from "@/shared/hooks/useMe";
+import { serializeOfferUrlState } from "@/modules/offer/utils/offer-search-params";
+import { HeaderUi } from "./header.ui";
+
+const SCROLL_THRESHOLD = 8;
+const DESKTOP_MEDIA_QUERY = "(min-width: 1024px)";
+const SHORTCUT_MODIFIER =
+  typeof navigator !== "undefined" && /Mac|iPhone|iPad|iPod/.test(navigator.userAgent)
+    ? "⌘"
+    : "CTRL";
+
+const isPathActive = (pathname: string, link?: string) =>
+  !!link && (pathname === link || pathname.startsWith(`${link}/`));
 
 type THeaderProps = {
   t: TFunction<"common", undefined>;
 };
 
 export const Header = ({ t }: THeaderProps) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const { user, isPending } = useMe();
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(() => window.scrollY > SCROLL_THRESHOLD);
+  const [searchValue, setSearchValue] = useState("");
+  const [prevPathname, setPrevPathname] = useState(pathname);
+
+  const desktopSearchRef = useRef<HTMLInputElement>(null);
+  const mobileSearchRef = useRef<HTMLInputElement>(null);
+
+  // Close the mobile menu on navigation (adjusted during render, no effect needed)
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setIsMobileMenuOpen(false);
+  }
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Ctrl/Cmd + K focuses the search, Escape closes the mobile menu
+  useEffect(() => {
+    const handleKeyDown = (event: globalThis.KeyboardEvent) => {
+      // Already handled (e.g. Tiptap link shortcut) or IME composition in progress
+      if (event.defaultPrevented || event.isComposing) return;
+
+      if ((event.metaKey || event.ctrlKey) && (event.key === "k" || event.key === "K")) {
+        event.preventDefault();
+        if (window.matchMedia(DESKTOP_MEDIA_QUERY).matches) {
+          desktopSearchRef.current?.focus();
+          desktopSearchRef.current?.select();
+          return;
+        }
+        setIsMobileMenuOpen(true);
+        requestAnimationFrame(() => mobileSearchRef.current?.focus());
+        return;
+      }
+
+      if (event.key === "Escape") setIsMobileMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const submitSearch = useCallback(() => {
+    const keyword = searchValue.trim();
+    if (keyword === "") return false;
+
+    const params = serializeOfferUrlState({ keyword }, 1);
+    navigate(`${ROUTES.offer.list}?${params.toString()}`);
+    setSearchValue("");
+    setIsMobileMenuOpen(false);
+    return true;
+  }, [navigate, searchValue]);
+
+  const handleSearchKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Escape") {
+        event.currentTarget.blur();
+        return;
+      }
+      if (event.key !== "Enter" || event.nativeEvent.isComposing) return;
+
+      event.preventDefault();
+      if (submitSearch()) event.currentTarget.blur();
+    },
+    [submitSearch],
+  );
+
+  const handleToggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen((isOpen) => !isOpen);
+  }, []);
+
+  const handleCloseMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+  }, []);
+
+  const navItems = NAVBAR_ITEMS.map((item) => ({
+    ...item,
+    isActive: isPathActive(pathname, item.link),
+  }));
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/80 backdrop-blur-xl border-b border-zinc-200 shadow-sm" : ""}`}
-    >
-      <div className="mx-auto px-4 sm:px-6 lg:px-8">
-        <nav className="flex items-center justify-between h-16 max-w-[1200px] mx-auto">
-          {/* Logo */}
-          <AppLogo />
-
-          {/* Desktop Navigation */}
-          <DesktopNavigation {...{ navItems: NAVBAR_ITEMS, t }} />
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-zinc-500 hover:text-gray-900 transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </nav>
-      </div>
-
-      {/* Mobile Menu */}
-      <MobileMenu {...{ isOpen: mobileMenuOpen, navItems: NAVBAR_ITEMS, t }} />
-    </header>
+    <HeaderUi
+      t={t}
+      navItems={navItems}
+      isAuthenticated={!!user}
+      isAuthPending={isPending}
+      isScrolled={isScrolled}
+      isMobileMenuOpen={isMobileMenuOpen}
+      onToggleMobileMenu={handleToggleMobileMenu}
+      onCloseMobileMenu={handleCloseMobileMenu}
+      searchValue={searchValue}
+      onSearchChange={setSearchValue}
+      onSearchKeyDown={handleSearchKeyDown}
+      desktopSearchRef={desktopSearchRef}
+      mobileSearchRef={mobileSearchRef}
+      shortcutModifier={SHORTCUT_MODIFIER}
+    />
   );
 };

@@ -1,16 +1,24 @@
 {
   "layout": {
     "header": {
+      "ariaLabel": "Navigation principale",
       "auth": {
-        "signIn": "Se connecter",
-        "signUp": "S'inscrire",
-        "logout": "Se déconnecter"
+        "signIn": "Connexion",
+        "logout": "Déconnexion"
       },
       "navigation": {
-        "offers": "Offres",
-        "help": "Aide",
-        "statistics": "Statistiques",
-        "test": "test"
+        "applications": "Candidatures"
+      },
+      "cta": {
+        "createApplication": "Créer une candidature"
+      },
+      "search": {
+        "label": "Rechercher une offre",
+        "placeholder": "Rechercher une offre"
+      },
+      "menu": {
+        "open": "Ouvrir le menu",
+        "close": "Fermer le menu"
       },
       "badges": {
         "soon": "Bientôt",

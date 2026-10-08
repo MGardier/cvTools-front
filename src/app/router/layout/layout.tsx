@@ -11,7 +11,7 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="min-h-screen bg-white text-gray-900 font-sans antialiased flex flex-col">
       <Header {...{t}}  />
-      <main className="pt-16 flex-1">{children}</main>
+      <main className="pt-20 flex-1">{children}</main>
       <Footer {...{t}} />
     </div>
   );

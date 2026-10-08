@@ -24,6 +24,11 @@ export const ROUTES = {
     list: "/offers",
   },
 
+  application: {
+    list: "/applications",
+    create: "/applications/create",
+  },
+
   test: {
     root: "/test",
     section: (id: string) => `/test/${id}`,
