@@ -4,7 +4,7 @@ React interface for a job application management tool (applications, contacts, s
 ## Tech Stack
 - React 19 + TypeScript, Vite (Rolldown + Oxc via `@vitejs/plugin-react`), Tailwind CSS
 - TanStack React Query (server state), Zustand (global state)
-- React Hook Form + Zod (forms), oRPC client (contract routes) + Axios (other routes)
+- React Hook Form + Zod (forms), oRPC client (HTTP, typed by `@cvtools/contracts`)
 - Radix UI (primitives), i18next (i18n fr/en, default fr)
 - pnpm (package manager)
 
@@ -17,15 +17,13 @@ React interface for a job application management tool (applications, contacts, s
 
 ## Important Files
 - `src/lib/orpc/client.ts` - Typed oRPC client of `@cvtools/contracts` (auth, admin, city) with 401 interceptor
-- `src/lib/axios/axios.ts` - Axios instance for routes outside the contract (offer), 401 interceptor
-- `src/lib/auth/refresh-session.ts` - Single-flight session refresh shared by both clients
+- `src/lib/auth/refresh-session.ts` - Single-flight session refresh used by the oRPC client
 - `src/lib/tanstack-query/query-client.ts` - React Query config (retry 4xx=no, 5xx=3x)
 - `src/shared/hooks/useMe.ts` - Current auth hook (query key `['me']`)
 - `src/app/constants/routes.ts` - Centralized route definitions (`ROUTES` object)
-- `src/app/constants/endpoints.ts` - API endpoints of the routes outside the contract (`ENDPOINTS` object)
 - `src/app/router/private-routes.tsx` - Protected routes wrapper
 - `src/app/i18n/index.ts` - i18next config (namespaces: auth, common, application)
-- `src/shared/types/` - Shared types (IApiResponse, IUser, IApplication, etc.)
+- `src/shared/types/` - Shared types (`api.ts`: IApiErrors, `form.ts`, `hook.ts`)
 
 ## Architecture
 
@@ -35,7 +33,7 @@ React interface for a job application management tool (applications, contacts, s
 
 **API layers:**
 ```
-component → service (*.service.ts) → api (*.api.ts) → orpcClient (contract routes) | axios (others)
+component → service (*.service.ts) → api (*.api.ts) → orpcClient
 ```
 
 **API contracts:** routes declared in `@cvtools/contracts` (`env-cvTools/contracts`) are called through
@@ -59,10 +57,9 @@ server keeps serving a stale pre-bundled contract.
 
 **Routing:**
 - **NEVER** hardcode route paths (`"/auth/sign-in"`) — **ALWAYS** use `ROUTES.xxx`
-- **ALWAYS** use `orpcClient.xxx` for contract routes, `ENDPOINTS.xxx` for the other API calls (never a raw string)
+- **ALWAYS** call the API through `orpcClient.xxx` (never a raw URL / fetch). A new endpoint is added to `@cvtools/contracts` first
 
 **HTTP & Data:**
-- The Axios interceptor returns `response.data` automatically — do not access `.data` manually
 - API errors expose `code` / `status` / `message` (`IApiErrors`); `message` equals the error `code`
 - React Query for all server state — no `useEffect` + `fetch`
 - The `['me']` query key is the auth identity — cleared on logout and on unrecoverable 401

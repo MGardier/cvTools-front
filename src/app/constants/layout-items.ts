@@ -4,13 +4,6 @@ import type { TFooterItem, TNavbarItem } from "./types";
 
 export const NAVBAR_ITEMS : TNavbarItem[] = [
   {
-    label: "offers",
-    key: "offers",
-    link: ROUTES.offer.list,
-    isDisabled: false,
-    isSoon : false,
-  },
-  {
     label: "CV",
     key: "test",
     link: ROUTES.test.root,
@@ -24,16 +17,6 @@ export const NAVBAR_ITEMS : TNavbarItem[] = [
 
 export const FOOTER_ITEMS : TFooterItem[] = [
 
-  {
-    label: "offers",
-    key: "offers",
-    links : [
-      { label: "about", link: "#" },
-      { label: "blog", link: "#" },
-      { label: "careers", link: "#" },
-      { label: "customers", link: "#" },
-    ]
-  },
   {
     label: "applications",
     key: "applications",

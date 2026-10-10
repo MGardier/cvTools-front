@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import {
-  Search,
   Folders,
   Sparkles,
   FileText,
@@ -12,28 +11,12 @@ import {
 import { Button } from "@/shared/components/ui/button";
 import { GitHubLogo } from "@/shared/components/logo/github-logo";
 import { GoogleLogo } from "@/shared/components/logo/google-logo";
-import { OfferTableFilters } from "@/modules/offer/components/offer-table-filters";
-
-import type { IOfferSearchFilters } from "@/modules/offer/types";
 
 interface IHomePageUiProps {
-  stagedFilters: IOfferSearchFilters;
-  onStagedChange: (partial: Partial<IOfferSearchFilters>) => void;
-  onSearch: () => void;
-  onRemoveFilter: (key: keyof IOfferSearchFilters) => void;
-  onClearFilters: () => void;
-  cityResetKey: number;
   onGoogleOauth: () => void;
   onGithubOauth: () => void;
   onEmailSignUp: () => void;
 }
-
-const DECORATIVE_CHIP_KEYS = [
-  "contractType",
-  "remote",
-  "experience",
-  "publishedSince",
-] as const;
 
 const FEATURE_KEYS = ["aiExtraction", "notes", "tasks", "status"] as const;
 
@@ -45,12 +28,6 @@ const FEATURE_ICONS: Record<(typeof FEATURE_KEYS)[number], typeof Sparkles> = {
 };
 
 export const HomePageUi = ({
-  stagedFilters,
-  onStagedChange,
-  onSearch,
-  onRemoveFilter,
-  onClearFilters,
-  cityResetKey,
   onGoogleOauth,
   onGithubOauth,
   onEmailSignUp,
@@ -71,46 +48,6 @@ export const HomePageUi = ({
         </div>
 
         <div className="flex flex-col gap-4 md:gap-5">
-          {/* ── Search card ── */}
-          <div className="rounded-2xl border border-zinc-200 p-4 md:p-6 bg-white">
-            <div className="flex items-center gap-2 mb-1.5 md:mb-2">
-              <Search className="w-4 h-4 md:w-5 md:h-5 text-blue-400" />
-              <h2 className="text-[14px] md:text-[16px] font-medium text-zinc-900">
-                {t("search.title")}
-              </h2>
-              <span className="text-[10px] md:text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 font-medium">
-                {t("search.badge")}
-              </span>
-            </div>
-            <p className="text-[12px] md:text-[13px] text-zinc-500 leading-relaxed mb-3 md:mb-4">
-              {t("search.description")}
-            </p>
-
-            <OfferTableFilters
-              stagedFilters={stagedFilters}
-              committedFilters={stagedFilters}
-              onStagedChange={onStagedChange}
-              onSearch={onSearch}
-              onRemoveFilter={onRemoveFilter}
-              onClearFilters={onClearFilters}
-              hasActiveFilters={false}
-              cityResetKey={cityResetKey}
-              hideAdvancedFilters
-            />
-
-            {/* Decorative chips */}
-            <div className="flex flex-wrap gap-1.5 mt-3 md:mt-4">
-              {DECORATIVE_CHIP_KEYS.map((key) => (
-                <span
-                  key={key}
-                  className="text-[11px] px-2.5 py-1 rounded-full border border-zinc-200 text-zinc-500"
-                >
-                  {t(`search.chips.${key}`)}
-                </span>
-              ))}
-            </div>
-          </div>
-
           {/* ── Candidatures card ── */}
           <div className="rounded-2xl border border-zinc-200 p-4 md:p-6 bg-white">
             <div className="flex items-center gap-2 mb-1.5 md:mb-2">

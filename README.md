@@ -64,7 +64,8 @@ src/
 │   └── constants/
 │
 ├── lib/                            
-│   ├── axios/              
+│   ├── orpc/                   # Typed client of @cvtools/contracts
+│   ├── auth/                   # Single-flight session refresh
 │   ├── tanstack-query/
 │   ├── api/                        
 │   │   └── Auth/
@@ -98,7 +99,7 @@ src/
 | Directory | Purpose | Examples |
 |-----------|---------|----------|
 | `app/` | Application config & infrastructure  | Layout, private routes, i18n config |
-| `lib/` | External integrations & api layer & service layer  | (axios, TanStack Query, API calls)|
+| `lib/` | External integrations & api layer & service layer  | (oRPC client, TanStack Query, API calls)|
 | `modules/` | Business modules organized by domain | auth (sign-in, sign-up, etc.) |
 | `shared/` | Reusable components, hooks, types, utilities | UI components, custom hooks, shared types |
 
@@ -113,7 +114,7 @@ src/
 | **Component (UI)** | `*.ui.tsx` | Pure JSX, styling, props destructuring 
 | **Logic** | `*.tsx` | Hooks, forms, mutations, state management 
 | **Service** | `*.service.ts` | API abstraction, data transformation 
-| **API** | `*.api.ts` | HTTP calls: oRPC client for contract routes, axios for the others (offer) 
+| **API** | `*.api.ts` | HTTP calls through the oRPC client (`orpcClient`) 
 | **Store** | `*.store.ts` | Global state management (Zustand) 
 
 ---
@@ -145,7 +146,7 @@ User Action → Component (.ui.tsx) → Logic (.tsx) → Service → API → Bac
 - **Logic** contains hooks, forms, mutations (TanStack Query)
 - **Schema** validates data (Zod)
 - **Service** transforms and abstracts API calls
-- **API** performs HTTP calls (`orpcClient` for contract routes, axios otherwise)
+- **API** performs HTTP calls through `orpcClient` (typed by `@cvtools/contracts`)
 - **Store** manages global state (Zustand)
 - **Backend** processes the request (NestJS)
 
@@ -332,8 +333,7 @@ chore: update dependencies
 
 ### HTTP & API
 - **oRPC client** (`src/lib/orpc/client.ts`) - typed client of `@cvtools/contracts` (fetch, cookies, 10s timeout)
-- **Axios** - HTTP client for the routes outside the contract (offer)
-- Shared single-flight token refresh (`src/lib/auth/refresh-session.ts`) used by both clients
+- Single-flight token refresh (`src/lib/auth/refresh-session.ts`)
 - Automatic 401 error handling
 - Error format (every route): `{ code, status, message, data: { errors?, path, timestamp } }` — `message` equals `code`
 

@@ -37,10 +37,6 @@ const AdminRegister = lazyNamed(
   () => import("./modules/auth/admin/admin-register/admin-register"),
   "AdminRegister",
 );
-const OfferList = lazyNamed(
-  () => import("@/modules/offer/list/offer-list"),
-  "OfferList",
-);
 const TestPage = lazyNamed(() => import("@/modules/test/test-page"), "TestPage");
 
 function App() {
@@ -105,15 +101,6 @@ function App() {
                     key="logout"
                     path={ROUTES.auth.logout}
                     element={<Logout />}
-                  />
-
-                  {/************************* OFFER *************************************** */}
-
-                  {/* OFFER LIST */}
-                  <Route
-                    key="offerList"
-                    path={ROUTES.offer.list}
-                    element={<OfferList />}
                   />
                 </Route>
 

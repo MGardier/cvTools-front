@@ -20,9 +20,6 @@ export const ROUTES = {
     resetPassword: "/reset-password",
   },
 
-  offer: {
-    list: "/offers",
-  },
 
   test: {
     root: "/test",

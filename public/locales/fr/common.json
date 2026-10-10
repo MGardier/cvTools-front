@@ -7,7 +7,6 @@
         "logout": "Se déconnecter"
       },
       "navigation": {
-        "offers": "Offres",
         "help": "Aide",
         "statistics": "Statistiques",
         "test": "test"
@@ -21,15 +20,6 @@
       "createdBy": "Créé par",
       "author": "Maxime Gardier",
       "sections": {
-        "offers": {
-          "title": "Offres",
-          "links": {
-            "about": "À propos",
-            "blog": "Blog",
-            "careers": "Carrières",
-            "customers": "Clients"
-          }
-        },
         "applications": {
           "title": "Candidatures",
           "links": {

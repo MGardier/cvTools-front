@@ -6,7 +6,6 @@ import { useMe } from "@/shared/hooks/useMe";
 import { RouteLoader } from "@/shared/components/route-loader";
 import { lazyNamed } from "@/shared/utils/lazy";
 import { EOauthProvider, startOauthFlow } from "@/modules/auth/utils/oauth";
-import { useOfferSearchStaging } from "@/modules/offer/hooks/use-offer-search-staging";
 
 import { HomePageUi } from "./home-page.ui";
 
@@ -19,15 +18,6 @@ const ConnectedHome = lazyNamed(
 export const HomePage = () => {
   const navigate = useNavigate();
   const { user, isPending } = useMe();
-
-  const {
-    stagedFilters,
-    cityResetKey,
-    onStagedChange,
-    onSearch,
-    onRemoveFilter,
-    onClearFilters,
-  } = useOfferSearchStaging();
 
   const handleGoogleOauth = useCallback(() => {
     startOauthFlow(EOauthProvider.GOOGLE);
@@ -51,12 +41,6 @@ export const HomePage = () => {
 
   return (
     <HomePageUi
-      stagedFilters={stagedFilters}
-      onStagedChange={onStagedChange}
-      onSearch={onSearch}
-      onRemoveFilter={onRemoveFilter}
-      onClearFilters={onClearFilters}
-      cityResetKey={cityResetKey}
       onGoogleOauth={handleGoogleOauth}
       onGithubOauth={handleGithubOauth}
       onEmailSignUp={handleEmailSignUp}

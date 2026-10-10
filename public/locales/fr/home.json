@@ -3,17 +3,6 @@
     "title": "Votre recherche d'emploi, simplifiée",
     "tagline": "Recherchez des offres sur plusieurs jobboards et suivez chaque candidature avec notes, tâches et historique."
   },
-  "search": {
-    "title": "Rechercher des offres",
-    "badge": "Accès libre",
-    "description": "Parcourez les offres de France Travail et d'autres jobboards en une seule recherche.",
-    "chips": {
-      "contractType": "Contrat",
-      "remote": "Télétravail",
-      "experience": "Expérience",
-      "publishedSince": "Période"
-    }
-  },
   "applications": {
     "title": "Mes candidatures",
     "badge": "Compte gratuit",
@@ -45,9 +34,6 @@
   },
   "connected": {
     "greeting": "Bon retour",
-    "search": {
-      "title": "Rechercher des offres"
-    },
     "subtitle": "Recherchez des offres sur plusieurs jobboards en une seule recherche."
   }
 }
