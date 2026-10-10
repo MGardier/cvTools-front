@@ -9,6 +9,7 @@ import type { SubmitHandler, UseFormReturn } from "react-hook-form";
 import type { TFunction } from "i18next";
 import type { ISignInData } from "./types";
 import type { IApiErrors } from "@/shared/types/api";
+import { ErrorCode } from "@cvtools/contracts";
 
 interface ISignInUiProps {
   onSubmit: SubmitHandler<ISignInData>;
@@ -29,7 +30,7 @@ export const SignInUi = ({ form, onSubmit, isPending, error, t }: ISignInUiProps
                     <a className="font-semibold" href={ROUTES.auth.signUp}>
                         {t("pages.signIn.signInLink")}
                     </a>
-                    {error?.message === 'ACCOUNT_PENDING' && (
+                    {error?.code === ErrorCode.ACCOUNT_PENDING && (
                         <div className="text-red-600 mt-4 flex flex-col items-center justify-center gap-2">
                             <p><b>{t('messages.errors.api.ACCOUNT_PENDING.long')}</b></p>
                             <a className="underline text-red-500 hover:text-red-600" href={ROUTES.auth.confirmAccount}>

@@ -38,7 +38,7 @@ export const ResetPassword = () => {
             navigate(`${ROUTES.auth.signIn}`);
         },
         onError: (error) => {
-            if (error.statusCode === 401) {
+            if (error.status === 401) {
                 toast.error(t("messages.errors.resetPassword.tokenExpired"));
                 navigate(`${ROUTES.auth.signIn}`);
             } else {

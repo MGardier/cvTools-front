@@ -13,17 +13,22 @@ import type { ISignInResponse } from "../types";
 import type { IApiErrors } from "@/shared/types/api";
 import { authService } from "@/lib/api/auth/auth.service";
 import { SignInUi } from "./sign-in.ui";
+import { oauthErrorQuerySchema } from "@cvtools/contracts";
 
 export const SignIn = () => {
     const { t } = useTranslation("auth");
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const errorCode = searchParams.get('errorCode');
+    // OAuth error return URL (?errorCode=...), defined by @cvtools/contracts.
+    const hasOauthError = Boolean(searchParams.get('errorCode'));
+    const oauthError = oauthErrorQuerySchema.safeParse({ errorCode: searchParams.get('errorCode') });
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        if (errorCode) {
-            toast.error(t(`messages.errors.api.${errorCode}.short`, t(`messages.errors.api.${errorCode}`, t('messages.errors.fallback'))));
+        if (hasOauthError) {
+            toast.error(oauthError.success
+                ? t(`messages.errors.api.${oauthError.data.errorCode}.short`, t(`messages.errors.api.${oauthError.data.errorCode}`, t('messages.errors.fallback')))
+                : t('messages.errors.fallback'));
         }
     }, []);
 
@@ -42,8 +47,8 @@ export const SignIn = () => {
         mutationFn: authService.signIn,
         onSuccess: (response) => {
             toast.success(t("messages.success.signIn"));
-            const meResponse = { ...response, data: response.data.user };
-            queryClient.setQueryData(ME_QUERY_KEY, meResponse);
+            // signIn returns the user in `data`, same shape as /auth/me.
+            queryClient.setQueryData(ME_QUERY_KEY, response);
             navigate(`${ROUTES.home}`);
         },
         onError: (error) => {

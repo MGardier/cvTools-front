@@ -1,21 +1,17 @@
-import type { IApiResponse } from "@/shared/types/api";
-import type { IUser } from "@/shared/types/entity";
+import type { TContractInputs, TContractOutputs } from "@cvtools/contracts";
+
+// Params / responses are inferred from @cvtools/contracts (single source of truth).
+type TAdminInputs = TContractInputs["admin"];
+type TAdminOutputs = TContractOutputs["admin"];
 
 /************************************************** VALIDATE INVITATION ********************************/
 
-export interface IValidateAdminInvitationParams {
-  token: string;
-}
+export type IValidateAdminInvitationParams = TAdminInputs["validateInvitation"];
 
-export type IValidateAdminInvitationResponse = IApiResponse<{
-  email: string;
-}>;
+export type IValidateAdminInvitationResponse = TAdminOutputs["validateInvitation"];
 
 /************************************************** REGISTER (PASSWORD) ********************************/
 
-export interface IRegisterAdminParams {
-  token: string;
-  password: string;
-}
+export type IRegisterAdminParams = TAdminInputs["register"];
 
-export type IRegisterAdminResponse = IApiResponse<IUser>;
+export type IRegisterAdminResponse = TAdminOutputs["register"];

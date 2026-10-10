@@ -1,56 +1,46 @@
-import type { IApiResponse } from "@/shared/types/api";
-import type { IUser } from "@/shared/types/entity";
+import type { TContractInputs, TContractOutputs } from "@cvtools/contracts";
+
+// Params / responses are inferred from @cvtools/contracts (single source of truth).
+type TAuthInputs = TContractInputs["auth"];
+type TAuthOutputs = TContractOutputs["auth"];
 
 /************************************************** SIGNUP ********************************/
 
-export interface ISignUpParams {
-  email: string;
-  password: string;
-}
+export type ISignUpParams = TAuthInputs["signUp"];
 
-export type ISignUpResponse = IApiResponse<IUser>;
+export type ISignUpResponse = TAuthOutputs["signUp"];
 
 /************************************************** SIGN IN ********************************/
 
-export type ISignInParams = ISignUpParams;
+export type ISignInParams = TAuthInputs["signIn"];
 
-export type ISignInResponse = IApiResponse<{
-  user: IUser;
-}>;
+export type ISignInResponse = TAuthOutputs["signIn"];
 
 /************************************************** LOGOUT ********************************/
 
-export type ILogoutResponse = IApiResponse<null>;
+// 204 No Content
+export type ILogoutResponse = TAuthOutputs["logout"];
 
 /**************************************************  CONFIRM ACCOUNT ********************************/
 
-export interface ISendConfirmAccountParams {
-  email: string;
-}
+export type ISendConfirmAccountParams = TAuthInputs["resendConfirmAccount"];
 
-export type ISendConfirmAccountResponse = IApiResponse<IUser>;
+export type ISendConfirmAccountResponse = TAuthOutputs["resendConfirmAccount"];
 
-export interface IConfirmAccountParams {
-  token: string;
-}
+export type IConfirmAccountParams = TAuthInputs["confirmAccount"];
 
-export type IConfirmAccountResponse = IApiResponse<null>;
+export type IConfirmAccountResponse = TAuthOutputs["confirmAccount"];
 
 /************************************************** RESET PASSWORD ********************************/
 
-export interface ISendForgotPasswordParams {
-  email: string;
-}
+export type ISendForgotPasswordParams = TAuthInputs["forgotPassword"];
 
-export type ISendForgotPasswordResponse = IApiResponse<IUser>;
+export type ISendForgotPasswordResponse = TAuthOutputs["forgotPassword"];
 
-export interface IResetPasswordParams {
-  password: string;
-  token: string;
-}
+export type IResetPasswordParams = TAuthInputs["resetPassword"];
 
-export type IResetPasswordResponse = IApiResponse<null>;
+export type IResetPasswordResponse = TAuthOutputs["resetPassword"];
 
 /************************************************** ME ********************************/
 
-export type IMeResponse = IApiResponse<IUser>;
+export type IMeResponse = TAuthOutputs["me"];
