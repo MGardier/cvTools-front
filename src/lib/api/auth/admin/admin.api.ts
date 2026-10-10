@@ -1,4 +1,4 @@
-import { apiClient } from "@/lib/axios/axios";
+import { orpcClient } from "@/lib/orpc/client";
 import type {
   IRegisterAdminParams,
   IRegisterAdminResponse,
@@ -6,17 +6,14 @@ import type {
   IValidateAdminInvitationResponse,
 } from "@/modules/auth/admin/types";
 
-const ENDPOINT = "/auth/admin";
-
+// Routes, methods and payloads are defined by @cvtools/contracts (contract.admin).
 export const adminApi = {
   /**************** VALIDATE INVITATION ************************************************************/
 
   async validateInvitation(
     params: IValidateAdminInvitationParams,
   ): Promise<IValidateAdminInvitationResponse> {
-    return await apiClient.get(`${ENDPOINT}/invitation/validate`, {
-      params: { token: params.token },
-    });
+    return await orpcClient.admin.validateInvitation({ token: params.token });
   },
 
   /**************** REGISTER (PASSWORD) ************************************************************/
@@ -24,6 +21,6 @@ export const adminApi = {
   async register(
     params: IRegisterAdminParams,
   ): Promise<IRegisterAdminResponse> {
-    return await apiClient.post(`${ENDPOINT}/register`, params);
+    return await orpcClient.admin.register(params);
   },
 };

@@ -21,6 +21,26 @@ This project uses **pnpm** as the package manager. All commands should use `pnpm
 $ pnpm install
 ```
 
+### API contracts (`@cvtools/contracts`)
+
+The typed API routes (auth, admin, city) are defined in the shared contract package
+`env-cvTools/contracts` (oRPC + Zod), consumed through `"@cvtools/contracts": "file:../../contracts"`.
+This repository must therefore be cloned inside `env-cvTools` (`env-cvTools/cvTools/front`).
+
+> ⚠️ pnpm **copies** a `file:` dependency into `node_modules` (no symlink).
+> After **every change to the contract**, rebuild it and reinstall here:
+>
+> ```bash
+> cd ../../contracts && pnpm build
+> cd - && pnpm install
+> ```
+>
+> The back (`cvTools/back`) needs the same `pnpm install`.
+>
+> `@cvtools/contracts` is excluded from Vite's pre-bundling (`optimizeDeps.exclude` in `vite.config.ts`):
+> a `file:` dependency does not change the lockfile, so a pre-bundled copy would stay stale.
+> Do not remove this exclusion. `make contracts` also clears `node_modules/.vite` as a safety net.
+
 ### Compile and Run the Project
 
 ```bash
@@ -93,7 +113,7 @@ src/
 | **Component (UI)** | `*.ui.tsx` | Pure JSX, styling, props destructuring 
 | **Logic** | `*.tsx` | Hooks, forms, mutations, state management 
 | **Service** | `*.service.ts` | API abstraction, data transformation 
-| **API** | `*.api.ts` | Direct HTTP calls via axios 
+| **API** | `*.api.ts` | HTTP calls: oRPC client for contract routes, axios for the others (offer) 
 | **Store** | `*.store.ts` | Global state management (Zustand) 
 
 ---
@@ -125,7 +145,7 @@ User Action → Component (.ui.tsx) → Logic (.tsx) → Service → API → Bac
 - **Logic** contains hooks, forms, mutations (TanStack Query)
 - **Schema** validates data (Zod)
 - **Service** transforms and abstracts API calls
-- **API** performs HTTP calls (axios)
+- **API** performs HTTP calls (`orpcClient` for contract routes, axios otherwise)
 - **Store** manages global state (Zustand)
 - **Backend** processes the request (NestJS)
 
@@ -311,9 +331,11 @@ chore: update dependencies
 - **Zod** - Schema validation with i18n support
 
 ### HTTP & API
-- **Axios** - HTTP client with interceptors
-- Token refresh mechanism
+- **oRPC client** (`src/lib/orpc/client.ts`) - typed client of `@cvtools/contracts` (fetch, cookies, 10s timeout)
+- **Axios** - HTTP client for the routes outside the contract (offer)
+- Shared single-flight token refresh (`src/lib/auth/refresh-session.ts`) used by both clients
 - Automatic 401 error handling
+- Error format (every route): `{ code, status, message, data: { errors?, path, timestamp } }` — `message` equals `code`
 
 ### UI & Styling
 - **Tailwind CSS** - Utility-first CSS framework

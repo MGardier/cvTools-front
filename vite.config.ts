@@ -27,4 +27,9 @@ export default defineConfig({
       "@": path.resolve(import.meta.dirname, "./src"),
     },
   },
+  // @cvtools/contracts is a local `file:` dependency: the lockfile never changes when the
+  // contract does, so a pre-bundled copy would stay stale. Serve it as-is instead.
+  optimizeDeps: {
+    exclude: ["@cvtools/contracts"],
+  },
 });
